@@ -1,4 +1,6 @@
 from unittest.mock import patch, MagicMock
+import hashlib
+from pathlib import Path
 import pytest
 
 from concorde_policy_mapper.tracking import (
@@ -10,6 +12,7 @@ from concorde_policy_mapper.tracking import (
     log_metrics,
     log_artifact,
     log_child_run,
+    sync_prompts,
 )
 
 
@@ -126,3 +129,53 @@ def test_log_child_run_skipped_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     log_child_run(ctx, name="policy", params={}, metrics={}, tags={}, artifacts=[])
     mock_mlflow.start_run.assert_not_called()
+
+
+@patch("concorde_policy_mapper.tracking.mlflow")
+def test_sync_prompts_registers_new_prompt(mock_mlflow, tmp_path):
+    prompts_dir = tmp_path / "templates" / "prompts"
+    prompts_dir.mkdir(parents=True)
+    (prompts_dir / "judge_risk_system.j2").write_text("You are a judge.")
+    (prompts_dir / "judge_risk_user.j2").write_text("Judge this: {{ text }}")
+
+    mock_mlflow.genai.load_prompt.side_effect = Exception("not found")
+    mock_prompt = MagicMock()
+    mock_prompt.version = 1
+    mock_mlflow.genai.register_prompt.return_value = mock_prompt
+
+    ctx = TrackingContext(enabled=True, run_id="abc")
+    versions = sync_prompts(ctx, prompts_dir.parent)
+
+    assert "judge_risk" in versions
+    assert versions["judge_risk"] == 1
+    mock_mlflow.genai.register_prompt.assert_called_once()
+
+
+@patch("concorde_policy_mapper.tracking.mlflow")
+def test_sync_prompts_skips_unchanged(mock_mlflow, tmp_path):
+    prompts_dir = tmp_path / "templates" / "prompts"
+    prompts_dir.mkdir(parents=True)
+    system = "You are a judge."
+    user = "Judge this: {{ text }}"
+    (prompts_dir / "judge_risk_system.j2").write_text(system)
+    (prompts_dir / "judge_risk_user.j2").write_text(user)
+
+    content_hash = hashlib.sha256((system + user).encode()).hexdigest()
+    mock_existing = MagicMock()
+    mock_existing.version = 3
+    mock_existing.tags = {"content_hash": content_hash}
+    mock_mlflow.genai.load_prompt.return_value = mock_existing
+
+    ctx = TrackingContext(enabled=True, run_id="abc")
+    versions = sync_prompts(ctx, prompts_dir.parent)
+
+    assert versions["judge_risk"] == 3
+    mock_mlflow.genai.register_prompt.assert_not_called()
+
+
+@patch("concorde_policy_mapper.tracking.mlflow")
+def test_sync_prompts_returns_empty_when_disabled(mock_mlflow):
+    ctx = TrackingContext(enabled=False)
+    versions = sync_prompts(ctx, Path("/nonexistent"))
+    assert versions == {}
+    mock_mlflow.genai.register_prompt.assert_not_called()

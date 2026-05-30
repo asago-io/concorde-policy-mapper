@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import logging
+import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -108,3 +110,63 @@ def log_child_run(
                     mlflow.log_artifact(str(artifact_path))
     except Exception:
         logger.warning("MLflow child run failed for %s", name, exc_info=True)
+
+
+_PROMPT_NAMES = ["judge_risk", "ground_evidence", "classify_risks"]
+
+
+def _get_git_sha() -> str:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--short", "HEAD"],
+            capture_output=True, text=True, timeout=5,
+        )
+        return result.stdout.strip() if result.returncode == 0 else "unknown"
+    except Exception:
+        return "unknown"
+
+
+def sync_prompts(ctx: TrackingContext, templates_dir: Path) -> dict[str, int]:
+    if not ctx.enabled:
+        return {}
+
+    prompts_dir = templates_dir / "prompts"
+    versions: dict[str, int] = {}
+    git_sha = _get_git_sha()
+
+    for name in _PROMPT_NAMES:
+        system_file = prompts_dir / f"{name}_system.j2"
+        user_file = prompts_dir / f"{name}_user.j2"
+
+        if not user_file.exists():
+            continue
+
+        system_text = system_file.read_text() if system_file.exists() else ""
+        user_text = user_file.read_text()
+        content_hash = hashlib.sha256((system_text + user_text).encode()).hexdigest()
+
+        try:
+            existing = mlflow.genai.load_prompt(name)
+            if existing.tags.get("content_hash") == content_hash:
+                versions[name] = existing.version
+                continue
+        except Exception:
+            pass
+
+        try:
+            template = [
+                {"role": "system", "content": system_text},
+                {"role": "user", "content": user_text},
+            ]
+            prompt = mlflow.genai.register_prompt(
+                name=name,
+                template=template,
+                commit_message=f"git:{git_sha}",
+                tags={"content_hash": content_hash},
+            )
+            versions[name] = prompt.version
+            logger.info("Registered prompt %s version %d", name, prompt.version)
+        except Exception:
+            logger.warning("Failed to register prompt %s", name, exc_info=True)
+
+    return versions
