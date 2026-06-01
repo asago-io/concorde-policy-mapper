@@ -813,3 +813,21 @@ credo-risk-035	credo-ucf	skos:relatedMatch	asi08-cascading-failures	owasp-asi	# 
 credo-risk-040	credo-ucf	skos:relatedMatch	asi06-memory-and-context-poisoning	owasp-asi	# Security weaknesses → memory/context exploitation vector
 credo-risk-041	credo-ucf	skos:broadMatch	asi01-agent-goal-hijack	owasp-asi	# Adversarial attacks including agent goal hijacking
 mit-ai-risk-subdomain-2.2	mit-ai-risk-repository	skos:broadMatch	nist-information-security	nist-ai-rmf	# AI system security vulnerabilities and attacks; directly covers infosec
+atlas-exposing-personal-information	ibm-risk-atlas	skos:broadMatch	ail-privacy	ailuminate-v1.0	# PII exposure is a specific instance of privacy harm
+atlas-personal-information-in-data	ibm-risk-atlas	skos:broadMatch	ail-privacy	ailuminate-v1.0	# PII in training data is a specific privacy risk
+atlas-personal-information-in-prompt	ibm-risk-atlas	skos:broadMatch	ail-privacy	ailuminate-v1.0	# PII in prompts is a specific privacy risk
+credo-risk-036	credo-ucf	skos:broadMatch	ail-privacy	ailuminate-v1.0	# Compromised PII is a specific privacy harm
+credo-risk-037	credo-ucf	skos:broadMatch	ail-privacy	ailuminate-v1.0	# Compromised sensitive info is a specific privacy harm
+atlas-copyright-infringement	ibm-risk-atlas	skos:broadMatch	ail-intellectual-property	ailuminate-v1.0	# Copyright infringement is a specific IP risk
+atlas-ip-information-in-prompt	ibm-risk-atlas	skos:broadMatch	ail-intellectual-property	ailuminate-v1.0	# IP leakage in prompts is a specific IP risk
+atlas-generated-content-ownership	ibm-risk-atlas	skos:broadMatch	ail-intellectual-property	ailuminate-v1.0	# Content ownership disputes are a specific IP risk
+credo-risk-039	credo-ucf	skos:broadMatch	ail-intellectual-property	ailuminate-v1.0	# IP infringement is a specific IP risk
+atlas-incomplete-advice	ibm-risk-atlas	skos:broadMatch	ail-specialized-advice	ailuminate-v1.0	# Incomplete advice is a specific instance of unreliable specialized advice
+atlas-hallucination	ibm-risk-atlas	skos:broadMatch	ail-specialized-advice	ailuminate-v1.0	# Hallucinated professional advice is a specialized advice risk
+credo-risk-026	credo-ucf	skos:broadMatch	ail-nonviolent-crimes	ailuminate-v1.0	# Fraud/scams/targeted manipulation is a specific nonviolent crime
+atlas-hallucination	ibm-risk-atlas	skos:broadMatch	llm092025-misinformation	owasp-llm-2.0	# Hallucination produces false/misleading content — a specific form of misinformation
+credo-risk-021	credo-ucf	skos:broadMatch	llm092025-misinformation	owasp-llm-2.0	# False or misleading information — directly maps to OWASP misinformation
+credo-risk-040	credo-ucf	skos:broadMatch	nist-information-security	nist-ai-rmf	# AI-generated security weaknesses are a specific information security risk
+credo-risk-041	credo-ucf	skos:broadMatch	nist-information-security	nist-ai-rmf	# Adversarial attack vulnerability is a specific information security risk
+credo-risk-013	credo-ucf	skos:broadMatch	nist-obscene-degrading-and-or-abusive-content	nist-ai-rmf	# Harmful/toxic content generation includes obscene and abusive content
+credo-risk-013	credo-ucf	skos:broadMatch	nist-dangerous-violent-or-hateful-content	nist-ai-rmf	# Harmful/toxic content includes dangerous and hateful content

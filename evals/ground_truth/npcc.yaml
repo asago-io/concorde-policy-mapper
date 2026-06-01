@@ -1,0 +1,295 @@
+# reviewed: 2026-05-31
+# NPCC (National Police Chiefs' Council) Covenant for Using AI in Policing
+# Version 1.1
+
+risks:
+  - id: atlas-decision-bias
+    name: Decision Bias
+    evidence:
+      - text: "there have been concerning examples of the use of AI in policing, where models have been built on data that led them to act disproportionately against a community or race."
+        section: "1 Introduction"
+      - text: "Those responsible for AI-enabled systems must proactively mitigate the risk of unintended biases or harms, during initial rollout and as they learn, change, or are redeployed."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: atlas-data-bias
+    name: Data Bias
+    evidence:
+      - text: "all data used in Police AI will be subject to a Framework outlined by a force governance board to guard against issues such as bias, unintended proxies, non-representativeness, unfairness, and untimeliness."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+      - text: "Forces should ensure the public are aware of AI uses. This will typically include publishing an overview of the algorithms used and the known limitations of the training data used."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: atlas-output-bias
+    name: Output Bias
+    evidence:
+      - text: "there have been concerning examples of the use of AI in policing, where models have been built on data that led them to act disproportionately against a community or race."
+        section: "1 Introduction"
+      - text: "promoting non-discriminatory practices in the use of AI"
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: atlas-over-or-under-reliance
+    name: Over or Under Reliance on AI
+    evidence:
+      - text: "All AI that affects the public will have responsible usage policies (i.e., intensions are defined before deployment so that outcomes and impact can be tracked) and procedures to ensure that users do not accept AI outputs uncritically."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: atlas-lack-of-system-transparency
+    name: Lack of System Transparency
+    evidence:
+      - text: "All use of AI will be subject to 'Maximum Transparency by Default' (MTbD)."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+      - text: "Forces should ensure the public are aware of AI uses. This will typically include publishing an overview of the algorithms used and the known limitations of the training data used."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: atlas-lack-of-model-transparency
+    name: Lack of Model Transparency
+    evidence:
+      - text: "Subject to B2, all AI projects must be able to allow a third-party to: (1) investigate the algorithmic workings, use scenarios, and underlying data from an 'adversarial perspective'"
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: atlas-unexplainable-output
+    name: Unexplainable Output
+    evidence:
+      - text: "The ability for any AI to provide an 'explanation' of its output will be a determining factor in its implementation."
+        section: "2 Principles of AI in Policing - Principle C. Explainable"
+      - text: "The level of explanation expected will be determined by (1) the function it performs (e.g., is it informing a high-impact decision about an individual); (2) the outputs required of it (i.e., who needs to understand what regarding the output and how was this reached)."
+        section: "2 Principles of AI in Policing - Principle C. Explainable"
+
+  - id: atlas-legal-accountability
+    name: Legal Accountability
+    evidence:
+      - text: "All AI will have a clearly identified individual accountable for its operation and outputs."
+        section: "2 Principles of AI in Policing - Principle E. Accountable"
+      - text: "The use of AI in policing will be subject to proper governance and oversight at the relevant organisational level."
+        section: "2 Principles of AI in Policing - Principle E. Accountable"
+
+  - id: atlas-impact-on-human-agency
+    name: Impact on Human Agency
+    evidence:
+      - text: "All AI that effects the public must have a human as the ultimate decision-maker."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+      - text: "The ability of AI to make decisions without a human being part of that decision will be determined by the function that the AI performs."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: atlas-impact-on-affected-communities
+    name: Impact on Affected Communities
+    evidence:
+      - text: "there have been concerning examples of the use of AI in policing, where models have been built on data that led them to act disproportionately against a community or race."
+        section: "1 Introduction"
+      - text: "Critically, the fear of unintended consequences and impingement of civil liberties, deservedly or not, is associated with policing's use of AI."
+        section: "1 Introduction"
+
+  - id: atlas-unrepresentative-data
+    name: Unrepresentative Data
+    evidence:
+      - text: "all data used in Police AI will be subject to a Framework outlined by a force governance board to guard against issues such as bias, unintended proxies, non-representativeness, unfairness, and untimeliness."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+
+  - id: atlas-poor-model-accuracy
+    name: Poor Model Accuracy
+    evidence:
+      - text: "undertaking regular reviews of the accuracy, reliability, security, safety, performance, evidence-based decision capability and feedback ability of all AI."
+        section: "3 Governance of AI and the AI Principles"
+      - text: "All data used to train, or that is analysed by, an AI will be robust and reliable enough for its intended purpose. This requires assessing, tracking and reporting on the quality of data, by way of recognising that the quality of data dictates the quality of the analysis."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+
+  - id: atlas-data-usage
+    name: Data Usage
+    evidence:
+      - text: "All use of AI will comply with applicable laws, standards, and regulations. This includes all users of AI, ML, ADA and related data processing (e.g., where you are using national data sets as defined by the NPCC) ensuring the use is recorded centrally in the National ROPA."
+        section: "2 Principles of AI in Policing - Principle A. Lawful"
+      - text: "AI enabled data sets and technology systems will be governed and assured under the same frameworks as wider data processing responsibilities, linking what is used and how it is used to the appropriate IAR and ROPA."
+        section: "2 Principles of AI in Policing - Principle E. Accountable"
+
+  - id: atlas-data-privacy-rights
+    name: Data Privacy Rights
+    evidence:
+      - text: "Together with Police and Crime Commissioners (PCC), who are responsible for holding Chief Constables to account, they ensure use is fair and lawful, balancing ethics, right to privacy, unbiased treatment and consent, with the absolute right to a fair trial."
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: atlas-personal-information-in-data
+    name: Personal Information in Data
+    evidence:
+      - text: "balancing ethics, right to privacy, unbiased treatment and consent, with the absolute right to a fair trial."
+        section: "3 Governance of AI and the AI Principles"
+      - text: "All third parties will have appropriate data protection and information security policies in place."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: credo-risk-010
+    name: Stereotype perpetuation
+    evidence:
+      - text: "there have been concerning examples of the use of AI in policing, where models have been built on data that led them to act disproportionately against a community or race."
+        section: "1 Introduction"
+      - text: "promoting non-discriminatory practices in the use of AI"
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: credo-risk-011
+    name: Disparate model performance
+    evidence:
+      - text: "all data used in Police AI will be subject to a Framework outlined by a force governance board to guard against issues such as bias, unintended proxies, non-representativeness, unfairness, and untimeliness."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+
+  - id: credo-risk-016
+    name: Over/under-reliance
+    evidence:
+      - text: "procedures to ensure that users do not accept AI outputs uncritically."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: credo-risk-019
+    name: Loss of human agency
+    evidence:
+      - text: "All AI that effects the public must have a human as the ultimate decision-maker."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: credo-risk-023
+    name: Regulatory compliance
+    evidence:
+      - text: "All use of AI will comply with applicable laws, standards, and regulations. This includes all users of AI, ML, ADA and related data processing (e.g., where you are using national data sets as defined by the NPCC) ensuring the use is recorded centrally in the National ROPA."
+        section: "2 Principles of AI in Policing - Principle A. Lawful"
+
+  - id: credo-risk-034
+    name: Oversight/evaluation challenges
+    evidence:
+      - text: "The ability for any AI to provide an 'explanation' of its output will be a determining factor in its implementation."
+        section: "2 Principles of AI in Policing - Principle C. Explainable"
+      - text: "Subject to B2, all AI projects must be able to allow a third-party to: (1) investigate the algorithmic workings, use scenarios, and underlying data from an 'adversarial perspective'"
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: credo-risk-035
+    name: Lack of robustness
+    evidence:
+      - text: "All data used to train, or that is analysed by, an AI will be robust and reliable enough for its intended purpose. This requires assessing, tracking and reporting on the quality of data, by way of recognising that the quality of data dictates the quality of the analysis."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+
+  - id: credo-risk-046
+    name: Governance failures
+    evidence:
+      - text: "The use of AI in policing will be subject to proper governance and oversight at the relevant organisational level."
+        section: "2 Principles of AI in Policing - Principle E. Accountable"
+      - text: "All AI will have a clearly identified individual accountable for its operation and outputs."
+        section: "2 Principles of AI in Policing - Principle E. Accountable"
+
+  - id: mit-ai-risk-subdomain-1.1
+    name: Unfair discrimination
+    evidence:
+      - text: "there have been concerning examples of the use of AI in policing, where models have been built on data that led them to act disproportionately against a community or race."
+        section: "1 Introduction"
+      - text: "promoting non-discriminatory practices in the use of AI"
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: mit-ai-risk-subdomain-1.3
+    name: Unequal performance
+    evidence:
+      - text: "all data used in Police AI will be subject to a Framework outlined by a force governance board to guard against issues such as bias, unintended proxies, non-representativeness, unfairness, and untimeliness."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+
+  - id: mit-ai-risk-subdomain-2.1
+    name: Privacy
+    evidence:
+      - text: "Together with Police and Crime Commissioners (PCC), who are responsible for holding Chief Constables to account, they ensure use is fair and lawful, balancing ethics, right to privacy, unbiased treatment and consent, with the absolute right to a fair trial."
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: mit-ai-risk-subdomain-2.2
+    name: Security
+    evidence:
+      - text: "undertaking regular reviews of the accuracy, reliability, security, safety, performance, evidence-based decision capability and feedback ability of all AI."
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: mit-ai-risk-subdomain-5.1
+    name: Overreliance
+    evidence:
+      - text: "procedures to ensure that users do not accept AI outputs uncritically."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: mit-ai-risk-subdomain-5.2
+    name: Loss of agency
+    evidence:
+      - text: "All AI that effects the public must have a human as the ultimate decision-maker."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: mit-ai-risk-subdomain-6.5
+    name: Governance failure
+    evidence:
+      - text: "The use of AI in policing will be subject to proper governance and oversight at the relevant organisational level."
+        section: "2 Principles of AI in Policing - Principle E. Accountable"
+
+  - id: mit-ai-risk-subdomain-7.4
+    name: Lack of transparency
+    evidence:
+      - text: "All use of AI will be subject to 'Maximum Transparency by Default' (MTbD)."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: ai-risk-taxonomy-criminal-justice/predictive-policing
+    name: Criminal Justice / Predictive Policing
+    evidence:
+      - text: "Avon and Somerset Constabulary use supervised machine learning to assess factors such as likelihood of reoffending, likelihood of victimisation/vulnerability, and likelihood of committing a range of specific offences."
+        section: "1.2 Policing's Use of Artificial Intelligence"
+      - text: "Most of our AI applications focus on organisational effectiveness and workforce planning rather than predictive analytics"
+        section: "1.2 Policing's Use of Artificial Intelligence"
+
+  - id: ai-risk-taxonomy-profiling
+    name: Profiling
+    evidence:
+      - text: "neighbourhood officers can instantly access the risk profiles for each offender registered in the force area, which are recalculated daily."
+        section: "1.2 Policing's Use of Artificial Intelligence"
+
+  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
+    name: Non-consensual tracking/monitoring - Biometric data (facial recognition)
+    evidence:
+      - text: "Many of our capabilities also utilise AI in their delivery, such as the identification algorithm in Face Recognition"
+        section: "1.2 Policing's Use of Artificial Intelligence"
+      - text: "All forces have access to a national independent panel for assessment of complex cases. This is currently being provided by the Home Office Biometrics and Forensics Ethics Group (BFEG)"
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: atlas-non-disclosure
+    name: Non-Disclosure
+    evidence:
+      - text: "All use of AI will be subject to 'Maximum Transparency by Default' (MTbD)."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+      - text: "Forces should ensure the public are aware of AI uses. This will typically include publishing an overview of the algorithms used and the known limitations of the training data used."
+        section: "2 Principles of AI in Policing - Principle B. Transparent"
+
+  - id: atlas-dangerous-use
+    name: Dangerous Use
+    evidence:
+      - text: "All AI will have a human or automatic means of being stopped if it displays unintended or undesired outputs."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+      - text: "Those responsible for AI-enabled systems must proactively mitigate the risk of unintended biases or harms, during initial rollout and as they learn, change, or are redeployed."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: atlas-improper-usage
+    name: Improper Usage
+    evidence:
+      - text: "All AI in policing will be used only for the purpose it was designed, trained and authorised for."
+        section: "2 Principles of AI in Policing - Principle F. Robust"
+
+  - id: atlas-exclusion
+    name: Exclusion
+    evidence:
+      - text: "there have been concerning examples of the use of AI in policing, where models have been built on data that led them to act disproportionately against a community or race."
+        section: "1 Introduction"
+      - text: "promoting non-discriminatory practices in the use of AI"
+        section: "3 Governance of AI and the AI Principles"
+
+  - id: ai-risk-taxonomy-automated-decision-making
+    name: Automated Decision-Making
+    evidence:
+      - text: "The ability of AI to make decisions without a human being part of that decision will be determined by the function that the AI performs."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+      - text: "All AI that effects the public must have a human as the ultimate decision-maker."
+        section: "2 Principles of AI in Policing - Principle D. Responsible"
+
+  - id: ai-risk-taxonomy-government-services
+    name: Government Services
+    evidence:
+      - text: "This includes demand management functions such as live triage of incoming 999/111 calls and the automation of data quality assurance tasks. Many of our capabilities also utilise AI in their delivery, such as the identification algorithm in Face Recognition and the safety features within Unmanned Arial Vehicles."
+        section: "1.2 Policing's Use of Artificial Intelligence"
+
+  - id: ai-risk-taxonomy-adversely-affects-legal-rights
+    name: Adversely Affects Legal Rights
+    evidence:
+      - text: "the fear of unintended consequences and impingement of civil liberties, deservedly or not, is associated with policing's use of AI."
+        section: "1 Introduction"
+      - text: "they ensure use is fair and lawful, balancing ethics, right to privacy, unbiased treatment and consent, with the absolute right to a fair trial."
+        section: "3 Governance of AI and the AI Principles"
+

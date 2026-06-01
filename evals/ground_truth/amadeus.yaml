@@ -1,0 +1,350 @@
+# reviewed: 2026-05-31
+risks:
+  - id: atlas-hallucination
+    name: Hallucination
+    evidence:
+      - text: "Outputs created by GenAI tools may provide fictitious answers sometimes referred to as 'hallucinations', false information or answers."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy"
+      - text: "Potential shortcomings of AI tools, such as inaccurate/undesirable/unsuitable outputs, persistence of bad patterns, inexplicability/intransparency, security issues, ethical concerns."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+
+  - id: atlas-over-or-under-reliance
+    name: Over-reliance on AI
+    evidence:
+      - text: "Generally, everyone who operates the tool should be able to understand how it should work in order to be able to notice when outputs are unreliable and avoid over-reliance on the outputs."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+      - text: "Do acknowledge that GenAI tools do not reflect human understandings or emotions or creativity and should not be use as a substitute for human judgment."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy"
+
+  - id: atlas-impact-on-human-agency
+    name: Impact on Human Agency
+    evidence:
+      - text: "Accountability norms aim to ensure that AI tools are not the final authority on any decision that impacts people's lives and that humans maintain meaningful control over AI tools and ensure that care and scrutiny are present to avoid and monitor issues such as bias."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.5. Accountability: People should be accountable for AI tools"
+      - text: "In addition, human oversight is integral to Amadeus' AI tools. We incorporate mechanisms that allow human operators to monitor and, if necessary, intervene in the AI tool's operations. This includes the ability to override, halt, or modify the tool's actions if the outcomes are deemed inappropriate or harmful."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+
+  - id: atlas-decision-bias
+    name: Decision Bias
+    evidence:
+      - text: "fairness means that AI tools should treat everyone fairly and decide based on representative data. For example, an AI tool should make the same travel recommendations and provide the same pricing offers to anyone with the same destinations, cabin class, and dates."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+      - text: "When designing and building AI tools, developers should understand how bias can be introduced (without the intent to do so) and how it can affect AI-based recommendations. To help mitigate bias, algorithms should be trained with datasets that reflect the diversity of society."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+
+  - id: atlas-output-bias
+    name: Output Bias
+    evidence:
+      - text: "This includes a special focus on minimizing biases that could lead to discrimination, especially against vulnerable groups."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+      - text: "Do not rely on or use information that you suspect to be inaccurate, inappropriate or biased (e.g. information that discriminates against individuals on the basis of race, color, religion, sex, national original age, disability, marital status etc.)."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.3. Be critical of outputs and carefully use them"
+
+  - id: atlas-data-bias
+    name: Data Bias
+    evidence:
+      - text: "We should ensure that input data are relevant and sufficiently representative in view of the intended purpose of the AI tool, in order to prevent for example, bias from emerging."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+      - text: "Throughout the lifecycle, test and validate AI tools for fairness. Measure possible biases on both the input data and outcomes of the tools. Take corrective actions if these biases could lead to discriminative behavior."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+
+  - id: atlas-copyright-infringement
+    name: Copyright Infringement
+    evidence:
+      - text: "Outputs may also contain copyrighted information, or others' intellectual property. While ownership in many of these cases is unclear, users should err on the side of caution"
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.3. Be critical of outputs and carefully use them"
+      - text: "Do not use any output that contains material that you suspect to be under copyright protection in any materials, internal or externally facing."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.3. Be critical of outputs and carefully use them"
+
+  - id: atlas-revealing-confidential-information
+    name: Revealing Confidential Information
+    evidence:
+      - text: "Leaks of company secrets or other sensitive or confidential information, including our customers' and partners' data."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+      - text: "The use of GenAI Tools increases the risk of inadvertently exposing the company's sensitive information to third parties as the tool may train its model on the data received through prompts and display it in other users' output."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.1. Protect sensitive information"
+
+  - id: atlas-confidential-data-in-prompt
+    name: Confidential Data in Prompt
+    evidence:
+      - text: "Do not input sensitive information or personal data into non-approved GenAI Tools."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.1. Protect sensitive information"
+      - text: "To avoid potential data leaks, security incidents and avoid violation of Amadeus contractual obligations with customers or vendors or, in some cases, violation of applicable law"
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.1. Protect sensitive information"
+
+  - id: atlas-confidential-information-in-data
+    name: Confidential Information in Data
+    evidence:
+      - text: "Leak of Amadeus' confidential information or personal data;"
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+      - text: "protect the confidentiality of our company's sensitive information (including employees' and customers' personal information, proprietary know-how and data)"
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.1. Protect sensitive information"
+
+  - id: atlas-personal-information-in-prompt
+    name: Personal Information in Prompt
+    evidence:
+      - text: "Do not input sensitive information or personal data into non-approved GenAI Tools."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.1. Protect sensitive information"
+
+  - id: atlas-personal-information-in-data
+    name: Personal Information in Data
+    evidence:
+      - text: "With AI, privacy and data security issues require especially close attention since access to data is essential for AI tools to make accurate and informed predictions and decisions about people."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+
+  - id: atlas-exposing-personal-information
+    name: Exposing Personal Information
+    evidence:
+      - text: "AI tools must therefore prioritize and safeguard individuals' privacy and data rights and provide explicit assurances about how personal data will be used and protected."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+      - text: "Leak of Amadeus' confidential information or personal data;"
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+
+  - id: atlas-data-privacy-rights
+    name: Data Privacy Rights
+    evidence:
+      - text: "Existing privacy laws already set the standards AI tools must adhere to in order to be compliant. For instance, they require transparency about what data is collected, how it will be used and stored, and who has access to it, demand appropriate means to safeguard the processed data and mandate a concrete legal basis for the processing for a specific purpose."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+
+  - id: atlas-data-usage
+    name: Data Usage
+    evidence:
+      - text: "Compliance with privacy laws will be facilitated by minding the principle of data minimization from the outset of creating an AI tool and throughout its lifecycle, ensuring that only the minimum data necessary to fulfil the purpose of the AI tool is stored and collected."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+
+  - id: atlas-lack-of-system-transparency
+    name: Lack of System Transparency
+    evidence:
+      - text: "Deployers of our AI tools should be able to understand and contextualize how and why the tool arrived at a particular output, especially where the tool is making determinations or recommendations with potential implications."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.4. Transparency: AI tools should be explainable and otherwise transparent"
+      - text: "Not only the decision-making criteria of AI tools need to be understandable, but also their purpose and objectives. Those who operate AI tools should be clear about when, why, and how they choose to deploy them."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.4. Transparency: AI tools should be explainable and otherwise transparent"
+
+  - id: atlas-lack-of-model-transparency
+    name: Lack of Model Transparency
+    evidence:
+      - text: "An AI tool is truly explainable if its functionality and operations can be explained non-technically to a layperson. This applies to the tool's decision-making processes, including the logic behind the algorithms used to make decisions."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.4. Transparency: AI tools should be explainable and otherwise transparent"
+      - text: "Ensure that clear, comprehensive technical documentation is prepared that contains the necessary information about the workings of the AI tool."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.4. Transparency: AI tools should be explainable and otherwise transparent"
+
+  - id: atlas-non-disclosure
+    name: Non-Disclosure of AI Use
+    evidence:
+      - text: "Do clearly attribute any output used for business purposes to the GenAI application that created it through a footnote or other means visible to the reader."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.2. Provide transparency"
+      - text: "We aim to provide our employees, third parties, and customers with transparency regarding how we use and deploy GenAI to support our work."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.2. Provide transparency"
+
+  - id: atlas-legal-accountability
+    name: Legal Accountability
+    evidence:
+      - text: "Fines of up to 7% of the Amadeus total worldwide annual turnover."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+      - text: "Obligation to compensate for damages (including indirect damages) for breach of contracts or infringement of rights of other parties."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+
+  - id: atlas-impact-on-the-environment
+    name: Impact on the Environment
+    evidence:
+      - text: "Ultimately, we do not lose sight of the sustainability of the process of creating AI tools. Said process comprises usage of sustainable power supplies, and infrastructures as well as e.g. the re-usage of data. This will help to reduce the carbon footprint throughout the entire life cycle of an AI tool, meaning during design, training, development, validation, re-tuning, implementation and its usage."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.6. Sustainability"
+      - text: "Collect and use only the data essential for each project, minimizing storage needs. Optimize model efficiency, for example, by running computations during off-peak hours."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.6. Sustainability"
+
+  - id: credo-risk-004
+    name: Environmental Harm
+    evidence:
+      - text: "Ultimately, we do not lose sight of the sustainability of the process of creating AI tools. Said process comprises usage of sustainable power supplies, and infrastructures as well as e.g. the re-usage of data. This will help to reduce the carbon footprint throughout the entire life cycle of an AI tool, meaning during design, training, development, validation, re-tuning, implementation and its usage."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.6. Sustainability"
+
+  - id: credo-risk-016
+    name: Over/Under-reliance
+    evidence:
+      - text: "Generally, everyone who operates the tool should be able to understand how it should work in order to be able to notice when outputs are unreliable and avoid over-reliance on the outputs."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+
+  - id: credo-risk-019
+    name: Loss of Human Agency
+    evidence:
+      - text: "Accountability norms aim to ensure that AI tools are not the final authority on any decision that impacts people's lives and that humans maintain meaningful control over AI tools"
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.5. Accountability: People should be accountable for AI tools"
+
+  - id: credo-risk-021
+    name: False or Misleading Information
+    evidence:
+      - text: "Outputs created by GenAI tools may provide fictitious answers sometimes referred to as 'hallucinations', false information or answers."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.3. Be critical of outputs and carefully use them"
+
+  - id: credo-risk-023
+    name: Regulatory Compliance
+    evidence:
+      - text: "At Amadeus, the use, deployment and development of AI must be conducted in line with ethical standards and relevant legal requirements, such as the Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 laying down harmonized rules on artificial intelligence"
+        section: "I. Introduction and foundations - 1. Purpose"
+
+  - id: credo-risk-025
+    name: Corporate Liability
+    evidence:
+      - text: "Fines of up to 7% of the Amadeus total worldwide annual turnover."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+      - text: "Obligation to compensate for damages (including indirect damages) for breach of contracts or infringement of rights of other parties."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+      - text: "Reputational damage, resulting in loss of competitive advantage / hurting our business, or damage to employee motivation/commitment with Amadeus."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+
+  - id: credo-risk-036
+    name: Compromised PII
+    evidence:
+      - text: "Leaks of company secrets or other sensitive or confidential information, including our customers' and partners' data."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+
+  - id: credo-risk-037
+    name: Compromised Sensitive Information
+    evidence:
+      - text: "To maintain the security of our data and IT systems and protect the confidentiality of our company's sensitive information (including employees' and customers' personal information, proprietary know-how and data)"
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.1. Protect sensitive information"
+
+  - id: credo-risk-046
+    name: Governance Failures
+    evidence:
+      - text: "Amadeus has established a dedicated internal review body, the AI Office, to provide oversight and guidance to the highest levels of the company on which practices should be adopted to help address the concerns discussed above and on particularly important questions regarding the development and deployment of AI tools."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.5. Accountability: People should be accountable for AI tools"
+
+  - id: mit-ai-risk-subdomain-1.1
+    name: Unfair Discrimination
+    evidence:
+      - text: "fairness entails non-discrimination and means that AI tools are developed and used in a way that includes diverse actors and promotes equal access, gender equality and cultural diversity, while avoiding discriminatory impacts and unfair biases."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+
+  - id: mit-ai-risk-subdomain-2.1
+    name: Privacy
+    evidence:
+      - text: "AI tools must therefore prioritize and safeguard individuals' privacy and data rights and provide explicit assurances about how personal data will be used and protected."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+
+  - id: mit-ai-risk-subdomain-3.1
+    name: False Information
+    evidence:
+      - text: "Outputs created by GenAI tools may provide fictitious answers sometimes referred to as 'hallucinations', false information or answers."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.3. Be critical of outputs and carefully use them"
+
+  - id: mit-ai-risk-subdomain-5.1
+    name: Overreliance
+    evidence:
+      - text: "Generally, everyone who operates the tool should be able to understand how it should work in order to be able to notice when outputs are unreliable and avoid over-reliance on the outputs."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+
+  - id: mit-ai-risk-subdomain-5.2
+    name: Loss of Agency
+    evidence:
+      - text: "Accountability norms aim to ensure that AI tools are not the final authority on any decision that impacts people's lives and that humans maintain meaningful control over AI tools and ensure that care and scrutiny are present to avoid and monitor issues such as bias."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.5. Accountability: People should be accountable for AI tools"
+
+  - id: mit-ai-risk-subdomain-6.6
+    name: Environmental Harm
+    evidence:
+      - text: "This will help to reduce the carbon footprint throughout the entire life cycle of an AI tool, meaning during design, training, development, validation, re-tuning, implementation and its usage."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.6. Sustainability"
+
+  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+    name: Not Labeling Content as AI-Generated
+    evidence:
+      - text: "all GenAI generated content must be disclosed, cited and reviewed if used for business purposes (e.g. any purpose related to your work at Amadeus) to enable end-users to determine how to consume the content in an informed manner."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.2. Provide transparency"
+
+  - id: ai-risk-taxonomy-plagiarism
+    name: Plagiarism
+    evidence:
+      - text: "Outputs may also contain copyrighted information, or others' intellectual property."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 2.3. Be critical of outputs and carefully use them"
+
+  - id: ai-risk-taxonomy-ip-rights/-trade-secrets
+    name: IP Rights / Trade Secrets
+    evidence:
+      - text: "Whilst encouraging the use of GenAI, it comes with certain risks to confidential and sensitive information, intellectual property and corporate values."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy - 1. Scope"
+      - text: "Infringement of rights of others."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+
+  - id: atlas-data-poisoning
+    name: Data Poisoning
+    evidence:
+      - text: "we should maintain an appropriate level of robustness and cybersecurity and implement technical measures to protect our systems from faults, internal and external threats, including data poisoning and adversarial attacks aimed at manipulating AI outputs., ensuring system integrity and security throughout the AI tool's lifecycle."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+
+  - id: credo-risk-041
+    name: Vulnerability to Adversarial Attacks
+    evidence:
+      - text: "we should maintain an appropriate level of robustness and cybersecurity and implement technical measures to protect our systems from faults, internal and external threats, including data poisoning and adversarial attacks aimed at manipulating AI outputs., ensuring system integrity and security throughout the AI tool's lifecycle."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.3. Privacy and security: AI tools should be secure and respect privacy"
+
+  - id: atlas-improper-usage
+    name: Improper Usage
+    evidence:
+      - text: "Do not use GenAI Tools to create text, audio, or visual content for purposes of committing fraud or to misrepresent an individual's identity."
+        section: "IV. Additional specific rules for usage of generative ai tools: the Generative AI Acceptable Use Policy"
+
+  - id: atlas-poor-model-accuracy
+    name: Poor Model Accuracy
+    evidence:
+      - text: "Potential shortcomings of AI tools, such as inaccurate/undesirable/unsuitable outputs, persistence of bad patterns, inexplicability/intransparency, security issues, ethical concerns."
+        section: "I. Introduction and foundations - 3. Rationale for this Policy"
+      - text: "AI tools can become inaccurate or otherwise unreliable over time and when applied in different contexts. We should monitor the operation of the tool."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+
+  - id: atlas-unexplainable-output
+    name: Unexplainable Output
+    evidence:
+      - text: "An AI tool is truly explainable if its functionality and operations can be explained non-technically to a layperson. This applies to the tool's decision-making processes, including the logic behind the algorithms used to make decisions."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.4. Transparency: AI tools should be explainable and otherwise transparent"
+
+  - id: credo-risk-048
+    name: Third-Party Dependencies
+    evidence:
+      - text: "When deploying AI tools, we must use them in accordance with the instructions for use provided by the supplier of the AI tool. This is important because the AI tool might not be accurate in regards purposes that the supplier has not approved it for, and not sticking to the instructions could also breach our contractual or other legal obligations."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+      - text: "Register and keep track all of fine-tuning and/or modifying of third-party models (including LLMs and other foundation models)."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+
+  - id: atlas-impact-on-affected-communities
+    name: Impact on Affected Communities
+    evidence:
+      - text: "This includes a special focus on minimizing biases that could lead to discrimination, especially against vulnerable groups."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight: AI tools should treat all people fairly"
+      - text: "We should also ensure that our tools are resilient against misuse, and avoid negative impacts on vulnerable groups, including minors."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.2. Safety and robustness"
+
+  - id: credo-risk-009
+    name: Black Box Decision Making
+    evidence:
+      - text: "An AI tool is truly explainable if its functionality and operations can be explained non-technically to a layperson. This applies to the tool's decision-making processes, including the logic behind the algorithms used to make decisions."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.4. Transparency: AI tools should be explainable and otherwise transparent"
+
+  - id: atlas-incomplete-usage-definition
+    name: Incomplete Usage Definition
+    evidence:
+      - text: "When deploying AI tools, we must use them in accordance with the instructions for use provided by the supplier of the AI tool. This is important because the AI tool might not be accurate in regards purposes that the supplier has not approved it for, and not sticking to the instructions could also breach our contractual or other legal obligations."
+        section: "III. General Rules for deployment/USE of all AI Tools"
+
+  - id: credo-risk-017
+    name: Inadequate AI Literacy and Communication
+    evidence:
+      - text: "Amadeus' AI Literacy program aims to provide employees with the skills, knowledge, and understanding that they need to use and manage AI tools responsibly and safely. This includes: 1. Understanding AI: Knowing what AI is, how it works, and its potential applications. 2. Awareness of Risks and Opportunities: Being aware of both the benefits and the possible harms AI can bring and understanding how certain risks can be mitigated. 3. Informed Use: Being able to make educated decisions about deploying and interacting with AI systems, considering the specific context and the people affected by these systems."
+        section: "I. Introduction and foundations - 5. Ensuring appropriate understanding of AI"
+      - text: "All Amadeus employees are required to participate in Amadeus's AI training and literacy program."
+        section: "I. Introduction and foundations - 5. Ensuring appropriate understanding of AI"
+
+  - id: atlas-human-exploitation
+    name: Human Exploitation
+    evidence:
+      - text: "Subliminal, manipulative and/or deceptive techniques with the risk of significant harm. For example, using an AI tool to manipulate people's opinion (by creating fake news) in order to influence the outcome of elections."
+        section: "Annex 1 - AI Prohibited and High-Risk Development and Deployment/Use List"
+
+  - id: ai-risk-taxonomy-employment
+    name: Employment
+    evidence:
+      - text: "For our internal processes, a recruitment system can be used to decide about who gets hired or fired."
+        section: "II. Amadeus AI Principles For development and deployment/use - 2.1. Fairness and human oversight"
+      - text: "Recruitment and HR: decision-making in the area of recruitment and HR (e.g., selection, evaluation, assessment, promotion, termination, task allocation and monitoring of employees)"
+        section: "Annex 1 - High-Risk Practices"
+

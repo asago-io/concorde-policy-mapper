@@ -1,0 +1,182 @@
+# reviewed: 2026-05-31
+risks:
+  - id: atlas-hallucination
+    name: Hallucination
+    evidence:
+      - text: "AI-generated content can distort and misrepresent information, lack context, and create convincing but false statements."
+        section: "Introduction"
+
+  - id: credo-risk-021
+    name: False or misleading information
+    evidence:
+      - text: "AI-generated content can distort and misrepresent information, lack context, and create convincing but false statements."
+        section: "Introduction"
+
+  - id: mit-ai-risk-subdomain-3.1
+    name: False information
+    evidence:
+      - text: "AI-generated content can distort and misrepresent information, lack context, and create convincing but false statements."
+        section: "Introduction"
+
+  - id: atlas-copyright-infringement
+    name: Copyright Infringement
+    evidence:
+      - text: "Because AI content relies on piecing together information from various sites, it can also produce content that infringes on intellectual property rights"
+        section: "Introduction"
+
+  - id: ai-risk-taxonomy-ip-rights/-trade-secrets
+    name: IP Rights / Trade Secrets
+    evidence:
+      - text: "Because AI content relies on piecing together information from various sites, it can also produce content that infringes on intellectual property rights"
+        section: "Introduction"
+
+  - id: credo-risk-040
+    name: AI security weaknesses
+    evidence:
+      - text: "can create security risks"
+        section: "Introduction"
+      - text: "Employees who are appropriately trained to use an approved AI tool must protect their login credentials. When available, multi-factor authentication should be used for AI tools."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-revealing-confidential-information
+    name: Revealing Confidential Information
+    evidence:
+      - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-confidential-data-in-prompt
+    name: Confidential Data in Prompt
+    evidence:
+      - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-037
+    name: Compromised sensitive information
+    evidence:
+      - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: mit-ai-risk-subdomain-2.1
+    name: Privacy
+    evidence:
+      - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-output-bias
+    name: Output Bias
+    evidence:
+      - text: "AI tools will be evaluated regularly for fairness and bias."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-decision-bias
+    name: Decision Bias
+    evidence:
+      - text: "AI tools will be evaluated regularly for fairness and bias."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-over-or-under-reliance
+    name: Over or Under Reliance
+    evidence:
+      - text: "Unless explicitly authorized by the AI Policy Team, only AI tools that give employees the ability to override AI will be approved for use."
+        section: "Vendor Vetting and Employee Responsibilities"
+      - text: "AI is not a replacement for independent, factual, accurate, and ethical reporting – but it can be a powerful tool."
+        section: "Introduction"
+
+  - id: credo-risk-016
+    name: Over/under-reliance
+    evidence:
+      - text: "Unless explicitly authorized by the AI Policy Team, only AI tools that give employees the ability to override AI will be approved for use."
+        section: "Vendor Vetting and Employee Responsibilities"
+      - text: "AI is not a replacement for independent, factual, accurate, and ethical reporting – but it can be a powerful tool."
+        section: "Introduction"
+
+  - id: mit-ai-risk-subdomain-5.1
+    name: Overreliance
+    evidence:
+      - text: "Unless explicitly authorized by the AI Policy Team, only AI tools that give employees the ability to override AI will be approved for use."
+        section: "Vendor Vetting and Employee Responsibilities"
+      - text: "AI is not a replacement for independent, factual, accurate, and ethical reporting – but it can be a powerful tool."
+        section: "Introduction"
+
+  - id: atlas-impact-on-human-agency
+    name: Impact on Human Agency
+    evidence:
+      - text: "All Gray-originated news content is to be created by humans."
+        section: "Core Tenets"
+      - text: "Human oversight must always be present with the use of any AI technology."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-019
+    name: Loss of human agency
+    evidence:
+      - text: "All Gray-originated news content is to be created by humans."
+        section: "Core Tenets"
+      - text: "Human oversight must always be present with the use of any AI technology."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+    name: Not Labeling Content as AI-Generated
+    evidence:
+      - text: "Where generative AI can enhance our abilities to serve the public, Gray will prioritize transparency to our audiences."
+        section: "Core Tenets"
+
+  - id: atlas-legal-accountability
+    name: Legal Accountability
+    evidence:
+      - text: "Employees who use an AI tool will be responsible for its appropriate and ethical use. Employees will be wholly responsible for work product, even if AI-assisted."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-046
+    name: Governance Failures
+    evidence:
+      - text: "An AI Policy Team, made up of representatives of Gray's senior leadership... will determine how Gray uses AI now and will use AI in the future."
+        section: "Vendor Vetting and Employee Responsibilities"
+      - text: "ALL AI vendors must be vetted and approved by a member of the Gray Legal Team and the Gray Technology Team. The use of any AI tool that has not been vetted and approved is strictly prohibited."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-personal-information-in-prompt
+    name: Personal Information in Prompt
+    evidence:
+      - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-036
+    name: Compromised PII
+    evidence:
+      - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: atlas-poor-model-accuracy
+    name: Poor Model Accuracy
+    evidence:
+      - text: "AI-generated content can distort and misrepresent information, lack context, and create convincing but false statements."
+        section: "Introduction"
+
+  - id: atlas-data-bias
+    name: Data Bias
+    evidence:
+      - text: "AI tools will be evaluated regularly for fairness and bias."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-017
+    name: Inadequate AI Literacy and Communication
+    evidence:
+      - text: "Gray will make training available regarding existing risks with AI-tools."
+        section: "Vendor Vetting and Employee Responsibilities"
+      - text: "Any employee approved to use AI must have completed the training."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-048
+    name: Third-Party Dependencies
+    evidence:
+      - text: "ALL AI vendors must be vetted and approved by a member of the Gray Legal Team and the Gray Technology Team."
+        section: "Vendor Vetting and Employee Responsibilities"
+      - text: "The use of any AI tool that has not been vetted and approved is strictly prohibited."
+        section: "Vendor Vetting and Employee Responsibilities"
+
+  - id: credo-risk-025
+    name: Corporate Liability
+    evidence:
+      - text: "Employees who use an AI tool will be responsible for its appropriate and ethical use. Employees will be wholly responsible for work product, even if AI-assisted."
+        section: "Vendor Vetting and Employee Responsibilities"
+
