@@ -38,13 +38,13 @@ TRAIN_POLICIES = [
     "sap", "cisco-supplier",
     "firstsource", "guy-nhs", "rdash-nhs", "dhs-gov",
     "eu-com", "ovic", "camden-borough-work", "llvm",
-    "amadeus", "fs-isac", "gray", "icrc",
+    "amadeus", "fs-isac", "gray",
 ]
 EVAL_POLICIES = [
     "ars", "leicestershire_police",
     "lse-legreg", "aus-gov", "lenovo",
     "prosus", "new-york-state", "lse-marking", "ebay", "vps",
-    "npcc", "penn", "st-johns",
+    "npcc", "penn", "st-johns", "icrc",
 ]
 
 HARD_NEG_PER_POSITIVE = 3
