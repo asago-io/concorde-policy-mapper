@@ -31,18 +31,20 @@ import yaml
 logging.basicConfig(level=logging.WARNING)
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
-GT_DIR = _ROOT / "risk-landscaper" / "evals" / "ground_truth"
+GT_DIR = _ROOT / "evals" / "ground_truth"
 POLICY_DIR = _ROOT / "policy_examples"
 
 TRAIN_POLICIES = [
     "sap", "cisco-supplier",
     "firstsource", "guy-nhs", "rdash-nhs", "dhs-gov",
     "eu-com", "ovic", "camden-borough-work", "llvm",
+    "amadeus", "fs-isac", "gray", "icrc",
 ]
 EVAL_POLICIES = [
     "ars", "leicestershire_police",
     "lse-legreg", "aus-gov", "lenovo",
     "prosus", "new-york-state", "lse-marking", "ebay", "vps",
+    "npcc", "penn", "st-johns",
 ]
 
 HARD_NEG_PER_POSITIVE = 3

@@ -146,12 +146,6 @@ risks:
       - text: "Unless explicitly approved by the AI Policy Team, users of AI tools are prohibited from sharing confidential or sensitive information with generative AI tools, including but not limited to employee identifying information, passwords, or other proprietary information."
         section: "Vendor Vetting and Employee Responsibilities"
 
-  - id: atlas-poor-model-accuracy
-    name: Poor Model Accuracy
-    evidence:
-      - text: "AI-generated content can distort and misrepresent information, lack context, and create convincing but false statements."
-        section: "Introduction"
-
   - id: atlas-data-bias
     name: Data Bias
     evidence:

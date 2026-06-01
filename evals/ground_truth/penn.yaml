@@ -278,12 +278,6 @@ risks:
       - text: "Copyright infringement."
         section: "5.2.2 Risk Assessment"
 
-  - id: atlas-harmful-code-generation
-    name: Harmful Code Generation
-    evidence:
-      - text: "Use of Generative AI in coding may result in more bugs or flaws in programs since it may gather the code from flawed sources."
-        section: "5.2.3 Accountability, Review, and Verification"
-
   - id: atlas-lack-of-model-transparency
     name: Lack of Model Transparency
     evidence:

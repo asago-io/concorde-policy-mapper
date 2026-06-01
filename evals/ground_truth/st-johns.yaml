@@ -176,12 +176,6 @@ risks:
       - text: "Departments interested in using these tools must secure approval from the Administrative Technology Governance committee, as well as a security review by the Office of Information Technology."
         section: "Policy"
 
-  - id: atlas-dangerous-use
-    name: Dangerous Use
-    evidence:
-      - text: "These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University."
-        section: "Policy"
-
   - id: atlas-data-bias
     name: Data Bias
     evidence:
