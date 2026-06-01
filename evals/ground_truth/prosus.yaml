@@ -144,12 +144,6 @@ risks:
       - text: "Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws."
         section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
         page: 2
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "design for privacy, security"
-        section: "4.2. Design"
-        page: 3
   - id: mit-ai-risk-subdomain-6.5
     name: Governance failure
     evidence:

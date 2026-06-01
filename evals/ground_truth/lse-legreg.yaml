@@ -445,12 +445,6 @@ risks:
       - text: "ensure it only has access to files that do not contain either personal data or other data that should be restricted only to LSE (e.g. corporate financial data)."
         section: "Cybersecurity AI rules"
         page: 11
-  - id: credo-risk-039
-    name: AI model and intellectual property theft
-    evidence:
-      - text: "Copyright and intellectual property"
-        section: "Table of Contents"
-        page: 1
   - id: credo-risk-040
     name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
     evidence:
@@ -502,12 +496,6 @@ risks:
       - text: "do not share confidential or protected materials while feeding data to the AI tool."
         section: "Copyright AI Issues"
         page: 9
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "cybersecurity"
-        section: "What this guidance is for"
-        page: 3
   - id: mit-ai-risk-subdomain-3.1
     name: False or misleading information
     evidence:
@@ -548,18 +536,6 @@ risks:
       - text: "Generative AI - creates synthetic content that mimics human creativity."
         section: "What is AI - definitions"
         page: 3
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "Legislation affecting AI use"
-        section: "Table of Contents"
-        page: 2
-      - text: "EUAI Act"
-        section: "Table of Contents"
-        page: 2
-      - text: "UKAI Regulation Bill"
-        section: "Table of Contents"
-        page: 2
   - id: mit-ai-risk-subdomain-7.4
     name: Lack of transparency or interpretability
     evidence:

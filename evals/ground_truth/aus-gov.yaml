@@ -12,12 +12,6 @@ risks:
       - text: "the 'national intelligence community' (NIC) as defined by Section 4 of the Office of National Intelligence Act 2018 ."
         section: "National security carveouts"
         page: 6
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---health-data
-    name: Non-consensual tracking/monitoring/stalking/spyware - Health data
-    evidence:
-      - text: "health"
-        section: "Criteria and areas of consideration"
-        page: 21
   - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
     name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
     evidence:
