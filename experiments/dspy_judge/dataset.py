@@ -21,17 +21,24 @@ import yaml
 logger = logging.getLogger(__name__)
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
-_GT_DIR = _ROOT / "risk-landscaper" / "evals" / "ground_truth"
+_GT_DIR = _ROOT / "evals" / "ground_truth"
 _POLICY_DIR = _ROOT / "policy_examples"
 
 TRAIN_POLICIES = [
     "sap", "cisco-supplier", "firstsource", "guy-nhs", "rdash-nhs",
     "dhs-gov", "eu-com", "ovic", "camden-borough-work", "llvm",
+    "amadeus", "fs-isac", "gray", "icrc",
 ]
 EVAL_POLICIES = [
     "ars", "leicestershire_police", "lse-legreg", "aus-gov", "lenovo",
     "prosus", "new-york-state", "lse-marking", "ebay", "vps",
+    "npcc", "penn", "st-johns",
 ]
+
+_EXCLUDED_TAXONOMIES = {
+    "nist-ai-rmf", "owasp-llm-2.0", "ailuminate-v1.0", "owasp-asi",
+    "shieldgemma-taxonomy", "mit-ai-risk-repository-causal", "ibm-granite-guardian",
+}
 
 MAX_NEGATIVES_PER_CHUNK = 5
 MAX_CANDIDATES_PER_EXAMPLE = 12
@@ -200,6 +207,9 @@ def load_dataset(
     risk_lookup = {}
     all_risks = []
     for r in nexus.get_all_risks():
+        taxonomy = getattr(r, "isDefinedByTaxonomy", "") or ""
+        if taxonomy in _EXCLUDED_TAXONOMIES:
+            continue
         rid = r.id
         name = r.name or ""
         desc = r.description or ""
@@ -210,7 +220,8 @@ def load_dataset(
             "risk_description": desc,
         })
 
-    logger.info("Loaded %d risks from Nexus", len(all_risks))
+    logger.info("Loaded %d risk-level risks from Nexus (excluded %d category taxonomies)",
+                len(all_risks), len(_EXCLUDED_TAXONOMIES))
     logger.info("Loading cross-encoder for hard negative mining...")
     cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-12-v2")
 
