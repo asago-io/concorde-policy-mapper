@@ -1,189 +1,192 @@
-# Mitigation action category assignments
-# Categories: technical, operational, governance
+# Mitigation action category and strategy assignments
 #
-# - technical:   Engineering deploys it (guardrails, filtering, access controls,
-#                encryption, model alignment, infrastructure security)
-# - operational: Ops/QA teams execute it (testing, monitoring, audits, incident
-#                response, staged deployment, data governance procedures)
-# - governance:  Leadership/compliance owns it (policies, oversight structures,
-#                disclosure, accountability frameworks, training, user rights)
+# category — who owns it:
+#   technical:   Engineering deploys it (guardrails, filtering, access controls)
+#   operational: Ops/QA teams execute it (testing, monitoring, audits, incident response)
+#   governance:  Leadership/compliance owns it (policies, oversight, disclosure, training)
+#
+# strategy — DPV risk control type (https://w3id.org/dpv/risk), when in the
+#            risk lifecycle the control acts:
+#   AvoidanceControl:     Prevent risk entirely (policy/design decisions)
+#   MitigationControl:    Reduce likelihood/severity (guardrails, filters)
+#   ModificationControl:  Change context to change risk characteristics
+#   MonitorControl:       Observe/detect/log (monitoring, testing, auditing)
+#   InterruptionControl:  Halt ongoing event
+#   InterventionControl:  Intervene to prevent escalation
+#   ReductionControl:     Reduce effects after occurrence
+#   ResolutionControl:    Fix/recover (includes recovery, remediation, reversal)
+#   InvestigationControl: Investigate and learn post-incident
+#   OverrideControl:      Override usual processes in response
+#   TransferControl:      Transfer/share risk to another entity
 
 # ── Structural rules ──────────────────────────────────────────────────────
 # Applied automatically by the build script based on action ID structure.
 
 mit_groups:
-  # MIT AI Risk Repository organizes 831 actions into 4 top-level groups.
-  # The build script parses group comment headers in the MIT YAML to assign
-  # each action to its top-level group number.
-  "1": governance    # Organizational Governance (board oversight, safety frameworks, whistleblower, societal impact)
-  "2": technical     # Technical & Security (model security, alignment, safety engineering, content safety)
-  "3": operational   # Operational Process (testing, data governance, access management, monitoring, incident response)
-  "4": governance    # Transparency & Accountability (documentation, disclosure, reporting, user rights)
+  "1": {category: governance,  strategy: AvoidanceControl}     # Organizational Governance
+  "2": {category: technical,   strategy: MitigationControl}    # Technical & Security
+  "3": {category: operational, strategy: MonitorControl}       # Operational Process
+  "4": {category: governance,  strategy: MonitorControl}       # Transparency & Accountability
 
 nist_prefixes:
-  # NIST AI RMF 600-1 actions are prefixed by their RMF function.
-  GV: governance     # Govern — governance and oversight decisions
-  MP: operational    # Map — risk identification and planning
-  MS: operational    # Measure — monitoring and measurement
-  MG: technical      # Manage — risk treatment and response (deploy countermeasures)
+  GV: {category: governance,  strategy: AvoidanceControl}      # Govern — governance decisions
+  MP: {category: operational, strategy: MonitorControl}        # Map — risk identification
+  MS: {category: operational, strategy: MonitorControl}        # Measure — monitoring/measurement
+  MG: {category: technical,   strategy: MitigationControl}     # Manage — deploy countermeasures
 
 aiuc1_prefixes:
-  # AIUC-1 requirements are organized under 6 Principles (A-F).
-  # Prefix is the letter after "aiuc1-req-".
-  a: technical       # Data & Privacy — input/output data controls, PII handling
-  b: technical       # Security — access controls, adversarial testing, jailbreak defense
-  c: operational     # Safety — content filtering, harm prevention, guardrails
-  d: operational     # Reliability — performance monitoring, error handling, fallbacks
-  e: governance      # Accountability — audit trails, decision documentation, governance
-  f: governance      # Society — bias assessment, environmental impact, societal effects
+  a: {category: technical,   strategy: MitigationControl}      # Data & Privacy
+  b: {category: technical,   strategy: MitigationControl}      # Security
+  c: {category: operational, strategy: MitigationControl}      # Safety
+  d: {category: operational, strategy: MonitorControl}         # Reliability
+  e: {category: governance,  strategy: MonitorControl}         # Accountability
+  f: {category: governance,  strategy: AvoidanceControl}       # Society
 
 # ── Explicit action assignments ───────────────────────────────────────────
-# For sources without structural category signals (OWASP, Credo).
 
 actions:
   # ── OWASP LLM Top 10 v2.0 ────────────────────────────────────────────
 
   # LLM01: Prompt Injection
-  owasp-llm-act-01-01: technical     # Constrain model behavior via system prompt
-  owasp-llm-act-01-02: technical     # Define and validate expected output formats
-  owasp-llm-act-01-03: technical     # Implement input and output filtering
-  owasp-llm-act-01-04: technical     # Enforce privilege control and least privilege
-  owasp-llm-act-01-05: operational   # Require human approval for high-risk actions
-  owasp-llm-act-01-06: technical     # Segregate and identify external content
-  owasp-llm-act-01-07: operational   # Conduct adversarial testing for prompt injection
+  owasp-llm-act-01-01: {category: technical,   strategy: MitigationControl}     # Constrain model behavior via system prompt
+  owasp-llm-act-01-02: {category: technical,   strategy: MitigationControl}     # Define and validate expected output formats
+  owasp-llm-act-01-03: {category: technical,   strategy: MitigationControl}     # Implement input and output filtering
+  owasp-llm-act-01-04: {category: technical,   strategy: MitigationControl}     # Enforce privilege control and least privilege
+  owasp-llm-act-01-05: {category: operational, strategy: InterventionControl}   # Require human approval for high-risk actions
+  owasp-llm-act-01-06: {category: technical,   strategy: MitigationControl}     # Segregate and identify external content
+  owasp-llm-act-01-07: {category: operational, strategy: MonitorControl}        # Conduct adversarial testing for prompt injection
 
   # LLM02: Sensitive Information Disclosure
-  owasp-llm-act-02-01: technical     # Integrate data sanitization techniques
-  owasp-llm-act-02-02: technical     # Apply strict input validation for sensitive data
-  owasp-llm-act-02-03: technical     # Enforce access controls for sensitive data
-  owasp-llm-act-02-04: technical     # Utilize federated learning
-  owasp-llm-act-02-05: technical     # Incorporate differential privacy
-  owasp-llm-act-02-06: governance    # Educate users on safe LLM usage
-  owasp-llm-act-02-07: governance    # Ensure transparency in data usage policies
-  owasp-llm-act-02-08: technical     # Conceal system preamble from users
-  owasp-llm-act-02-09: technical     # Implement tokenization and redaction
+  owasp-llm-act-02-01: {category: technical,   strategy: MitigationControl}     # Integrate data sanitization techniques
+  owasp-llm-act-02-02: {category: technical,   strategy: MitigationControl}     # Apply strict input validation for sensitive data
+  owasp-llm-act-02-03: {category: technical,   strategy: MitigationControl}     # Enforce access controls for sensitive data
+  owasp-llm-act-02-04: {category: technical,   strategy: ModificationControl}   # Utilize federated learning
+  owasp-llm-act-02-05: {category: technical,   strategy: MitigationControl}     # Incorporate differential privacy
+  owasp-llm-act-02-06: {category: governance,  strategy: AvoidanceControl}      # Educate users on safe LLM usage
+  owasp-llm-act-02-07: {category: governance,  strategy: MonitorControl}        # Ensure transparency in data usage policies
+  owasp-llm-act-02-08: {category: technical,   strategy: MitigationControl}     # Conceal system preamble from users
+  owasp-llm-act-02-09: {category: technical,   strategy: MitigationControl}     # Implement tokenization and redaction
 
   # LLM03: Supply Chain Vulnerabilities
-  owasp-llm-act-03-01: operational   # Vet data sources and suppliers
-  owasp-llm-act-03-02: operational   # Apply vulnerability scanning and patching
-  owasp-llm-act-03-03: operational   # Red team third-party models before adoption
-  owasp-llm-act-03-04: operational   # Maintain AI and software bill of materials
-  owasp-llm-act-03-05: governance    # Audit licenses via bill of materials
-  owasp-llm-act-03-06: operational   # Use verifiable model sources with integrity checks
-  owasp-llm-act-03-07: operational   # Monitor collaborative model development environments
-  owasp-llm-act-03-08: operational   # Test supplied models for tampering and poisoning
-  owasp-llm-act-03-09: operational   # Implement patching policy for AI components
-  owasp-llm-act-03-10: technical     # Encrypt and verify models at AI edge
+  owasp-llm-act-03-01: {category: operational, strategy: MonitorControl}        # Vet data sources and suppliers
+  owasp-llm-act-03-02: {category: operational, strategy: MonitorControl}        # Apply vulnerability scanning and patching
+  owasp-llm-act-03-03: {category: operational, strategy: MonitorControl}        # Red team third-party models before adoption
+  owasp-llm-act-03-04: {category: operational, strategy: MonitorControl}        # Maintain AI and software bill of materials
+  owasp-llm-act-03-05: {category: governance,  strategy: MonitorControl}        # Audit licenses via bill of materials
+  owasp-llm-act-03-06: {category: operational, strategy: MonitorControl}        # Use verifiable model sources with integrity checks
+  owasp-llm-act-03-07: {category: operational, strategy: MonitorControl}        # Monitor collaborative model development environments
+  owasp-llm-act-03-08: {category: operational, strategy: MonitorControl}        # Test supplied models for tampering and poisoning
+  owasp-llm-act-03-09: {category: operational, strategy: ResolutionControl}     # Implement patching policy for AI components
+  owasp-llm-act-03-10: {category: technical,   strategy: MitigationControl}     # Encrypt and verify models at AI edge
 
   # LLM04: Data and Model Poisoning
-  owasp-llm-act-04-01: operational   # Track data origins and transformations
-  owasp-llm-act-04-02: operational   # Vet data vendors and validate outputs
-  owasp-llm-act-04-03: technical     # Sandbox model exposure to unverified data
-  owasp-llm-act-04-04: operational   # Use data version control
-  owasp-llm-act-04-05: technical     # Use vector database for user-provided information
-  owasp-llm-act-04-06: operational   # Red team for data poisoning robustness
-  owasp-llm-act-04-07: operational   # Monitor training loss for poisoning indicators
-  owasp-llm-act-04-08: technical     # Use RAG and grounding to reduce hallucination
+  owasp-llm-act-04-01: {category: operational, strategy: MonitorControl}        # Track data origins and transformations
+  owasp-llm-act-04-02: {category: operational, strategy: MonitorControl}        # Vet data vendors and validate outputs
+  owasp-llm-act-04-03: {category: technical,   strategy: MitigationControl}     # Sandbox model exposure to unverified data
+  owasp-llm-act-04-04: {category: operational, strategy: MonitorControl}        # Use data version control
+  owasp-llm-act-04-05: {category: technical,   strategy: ModificationControl}   # Use vector database for user-provided information
+  owasp-llm-act-04-06: {category: operational, strategy: MonitorControl}        # Red team for data poisoning robustness
+  owasp-llm-act-04-07: {category: operational, strategy: MonitorControl}        # Monitor training loss for poisoning indicators
+  owasp-llm-act-04-08: {category: technical,   strategy: MitigationControl}     # Use RAG and grounding to reduce hallucination
 
   # LLM05: Improper Output Handling
-  owasp-llm-act-05-01: technical     # Treat model as untrusted user (zero-trust)
-  owasp-llm-act-05-02: technical     # Apply OWASP ASVS for output validation
-  owasp-llm-act-05-03: technical     # Encode model output to prevent code execution
-  owasp-llm-act-05-04: technical     # Use parameterized queries for LLM output
-  owasp-llm-act-05-05: technical     # Employ Content Security Policies
-  owasp-llm-act-05-06: operational   # Log and monitor LLM output patterns
+  owasp-llm-act-05-01: {category: technical,   strategy: MitigationControl}     # Treat model as untrusted user (zero-trust)
+  owasp-llm-act-05-02: {category: technical,   strategy: MitigationControl}     # Apply OWASP ASVS for output validation
+  owasp-llm-act-05-03: {category: technical,   strategy: MitigationControl}     # Encode model output to prevent code execution
+  owasp-llm-act-05-04: {category: technical,   strategy: MitigationControl}     # Use parameterized queries for LLM output
+  owasp-llm-act-05-05: {category: technical,   strategy: MitigationControl}     # Employ Content Security Policies
+  owasp-llm-act-05-06: {category: operational, strategy: MonitorControl}        # Log and monitor LLM output patterns
 
   # LLM06: Excessive Agency
-  owasp-llm-act-06-01: technical     # Minimize LLM agent extensions
-  owasp-llm-act-06-02: technical     # Minimize extension functionality
-  owasp-llm-act-06-03: technical     # Avoid open-ended extensions
-  owasp-llm-act-06-04: technical     # Minimize extension permissions
-  owasp-llm-act-06-05: technical     # Execute extensions in user context
-  owasp-llm-act-06-06: operational   # Require user approval for high-impact actions
-  owasp-llm-act-06-07: technical     # Implement complete mediation in downstream systems
-  owasp-llm-act-06-08: technical     # Rate limit agent actions
-  owasp-llm-act-06-09: operational   # Log and monitor agent extension activity
+  owasp-llm-act-06-01: {category: technical,   strategy: AvoidanceControl}      # Minimize LLM agent extensions
+  owasp-llm-act-06-02: {category: technical,   strategy: AvoidanceControl}      # Minimize extension functionality
+  owasp-llm-act-06-03: {category: technical,   strategy: AvoidanceControl}      # Avoid open-ended extensions
+  owasp-llm-act-06-04: {category: technical,   strategy: MitigationControl}     # Minimize extension permissions
+  owasp-llm-act-06-05: {category: technical,   strategy: MitigationControl}     # Execute extensions in user context
+  owasp-llm-act-06-06: {category: operational, strategy: InterventionControl}   # Require user approval for high-impact actions
+  owasp-llm-act-06-07: {category: technical,   strategy: MitigationControl}     # Implement complete mediation in downstream systems
+  owasp-llm-act-06-08: {category: technical,   strategy: ReductionControl}      # Rate limit agent actions
+  owasp-llm-act-06-09: {category: operational, strategy: MonitorControl}        # Log and monitor agent extension activity
 
   # LLM07: System Prompt Leakage
-  owasp-llm-act-07-01: technical     # Separate sensitive data from system prompts
-  owasp-llm-act-07-02: governance    # Do not rely on system prompts for behavior control
-  owasp-llm-act-07-03: technical     # Implement guardrails outside the LLM
-  owasp-llm-act-07-04: technical     # Enforce security controls independently from LLM
+  owasp-llm-act-07-01: {category: technical,   strategy: AvoidanceControl}      # Separate sensitive data from system prompts
+  owasp-llm-act-07-02: {category: governance,  strategy: AvoidanceControl}      # Do not rely on system prompts for behavior control
+  owasp-llm-act-07-03: {category: technical,   strategy: MitigationControl}     # Implement guardrails outside the LLM
+  owasp-llm-act-07-04: {category: technical,   strategy: MitigationControl}     # Enforce security controls independently from LLM
 
   # LLM08: Vector and Embedding Weaknesses
-  owasp-llm-act-08-01: technical     # Implement permission-aware vector stores
-  owasp-llm-act-08-02: operational   # Validate knowledge base data integrity
-  owasp-llm-act-08-03: operational   # Review and classify merged knowledge base data
-  owasp-llm-act-08-04: operational   # Maintain immutable retrieval activity logs
+  owasp-llm-act-08-01: {category: technical,   strategy: MitigationControl}     # Implement permission-aware vector stores
+  owasp-llm-act-08-02: {category: operational, strategy: MonitorControl}        # Validate knowledge base data integrity
+  owasp-llm-act-08-03: {category: operational, strategy: MonitorControl}        # Review and classify merged knowledge base data
+  owasp-llm-act-08-04: {category: operational, strategy: MonitorControl}        # Maintain immutable retrieval activity logs
 
   # LLM09: Misinformation
-  owasp-llm-act-09-01: technical     # Use RAG for verified information retrieval
-  owasp-llm-act-09-02: technical     # Fine-tune models to improve output quality
-  owasp-llm-act-09-03: operational   # Implement cross-checking and human oversight
-  owasp-llm-act-09-04: operational   # Automatically validate key outputs
-  owasp-llm-act-09-05: governance    # Communicate misinformation risks to users
-  owasp-llm-act-09-06: operational   # Establish secure coding practices for AI code
-  owasp-llm-act-09-07: governance    # Design APIs and UIs for responsible LLM use
-  owasp-llm-act-09-08: governance    # Train users on LLM limitations and verification
+  owasp-llm-act-09-01: {category: technical,   strategy: MitigationControl}     # Use RAG for verified information retrieval
+  owasp-llm-act-09-02: {category: technical,   strategy: ModificationControl}   # Fine-tune models to improve output quality
+  owasp-llm-act-09-03: {category: operational, strategy: InterventionControl}   # Implement cross-checking and human oversight
+  owasp-llm-act-09-04: {category: operational, strategy: MonitorControl}        # Automatically validate key outputs
+  owasp-llm-act-09-05: {category: governance,  strategy: MonitorControl}        # Communicate misinformation risks to users
+  owasp-llm-act-09-06: {category: operational, strategy: MonitorControl}        # Establish secure coding practices for AI code
+  owasp-llm-act-09-07: {category: governance,  strategy: AvoidanceControl}      # Design APIs and UIs for responsible LLM use
+  owasp-llm-act-09-08: {category: governance,  strategy: AvoidanceControl}      # Train users on LLM limitations and verification
 
   # LLM10: Unbounded Consumption
-  owasp-llm-act-10-01: technical     # Validate input size limits
-  owasp-llm-act-10-02: technical     # Limit exposure of logits and logprobs
-  owasp-llm-act-10-03: technical     # Apply rate limiting and user quotas
-  owasp-llm-act-10-04: operational   # Monitor and manage resource allocation dynamically
-  owasp-llm-act-10-05: technical     # Set timeouts and throttle resource-intensive ops
-  owasp-llm-act-10-06: technical     # Sandbox LLM access to network and services
-  owasp-llm-act-10-07: operational   # Monitor for anomalous resource consumption
-  owasp-llm-act-10-08: technical     # Implement output watermarking
-  owasp-llm-act-10-09: technical     # Design for graceful degradation under load
-  owasp-llm-act-10-10: technical     # Limit queued actions and implement dynamic scaling
-  owasp-llm-act-10-11: technical     # Train models for adversarial robustness
-  owasp-llm-act-10-12: technical     # Filter glitch tokens
-  owasp-llm-act-10-13: technical     # Implement access controls for model repositories
-  owasp-llm-act-10-14: operational   # Use centralized ML model registry
-  owasp-llm-act-10-15: operational   # Implement automated MLOps deployment governance
+  owasp-llm-act-10-01: {category: technical,   strategy: MitigationControl}     # Validate input size limits
+  owasp-llm-act-10-02: {category: technical,   strategy: MitigationControl}     # Limit exposure of logits and logprobs
+  owasp-llm-act-10-03: {category: technical,   strategy: ReductionControl}      # Apply rate limiting and user quotas
+  owasp-llm-act-10-04: {category: operational, strategy: MonitorControl}        # Monitor and manage resource allocation dynamically
+  owasp-llm-act-10-05: {category: technical,   strategy: InterruptionControl}   # Set timeouts and throttle resource-intensive ops
+  owasp-llm-act-10-06: {category: technical,   strategy: MitigationControl}     # Sandbox LLM access to network and services
+  owasp-llm-act-10-07: {category: operational, strategy: MonitorControl}        # Monitor for anomalous resource consumption
+  owasp-llm-act-10-08: {category: technical,   strategy: MonitorControl}        # Implement output watermarking
+  owasp-llm-act-10-09: {category: technical,   strategy: ResolutionControl}     # Design for graceful degradation under load
+  owasp-llm-act-10-10: {category: technical,   strategy: ReductionControl}      # Limit queued actions and implement dynamic scaling
+  owasp-llm-act-10-11: {category: technical,   strategy: MitigationControl}     # Train models for adversarial robustness
+  owasp-llm-act-10-12: {category: technical,   strategy: MitigationControl}     # Filter glitch tokens
+  owasp-llm-act-10-13: {category: technical,   strategy: MitigationControl}     # Implement access controls for model repositories
+  owasp-llm-act-10-14: {category: operational, strategy: MonitorControl}        # Use centralized ML model registry
+  owasp-llm-act-10-15: {category: operational, strategy: MonitorControl}        # Implement automated MLOps deployment governance
 
   # ── Credo UCF ─────────────────────────────────────────────────────────
 
-  credo-act-control-001: technical     # Establish AI system access controls
-  credo-act-control-002: technical     # Implement AI asset protection framework
-  credo-act-control-003: operational   # Establish security validation framework
-  credo-act-control-004: operational   # Implement continuous security testing system
-  credo-act-control-005: technical     # Implement AI security defense system
-  credo-act-control-006: operational   # Establish AI system integration framework
-  credo-act-control-007: operational   # Implement AI system lifecycle management
-  credo-act-control-008: technical     # Implement scalable AI infrastructure
-  credo-act-control-009: governance    # Establish AI system documentation framework
-  credo-act-control-010: operational   # Implement AI system monitoring and logging
-  credo-act-control-011: governance    # Establish AI decision explanation framework
-  credo-act-control-012: operational   # Establish performance testing and validation
-  credo-act-control-013: operational   # Implement performance monitoring and robustness
-  credo-act-control-014: operational   # Establish fairness testing and validation
-  credo-act-control-015: operational   # Implement fairness monitoring and remediation
-  credo-act-control-016: governance    # Establish universal access and performance design
-  credo-act-control-017: governance    # Establish content safety policy and boundaries
-  credo-act-control-018: technical     # Implement content moderation system
-  credo-act-control-019: operational   # Implement content safety incident response
-  credo-act-control-020: operational   # Establish information quality assurance
-  credo-act-control-021: governance    # Establish frontier AI safety framework
-  credo-act-control-022: operational   # Implement adversarial testing and red team
-  credo-act-control-023: operational   # Implement system usage monitoring and prevention
-  credo-act-control-024: operational   # Implement AI system usage verification
-  credo-act-control-025: governance    # Implement AI system disclosure requirements
-  credo-act-control-026: governance    # Implement a privacy protection framework
-  credo-act-control-027: operational   # Implement privacy incident detection and response
-  credo-act-control-028: governance    # Establish user rights and recourse framework
-  credo-act-control-029: governance    # Implement AI literacy and competency program
-  credo-act-control-030: governance    # Establish human-AI interaction safety framework
-  credo-act-control-031: operational   # Implement psychological impact management
-  credo-act-control-032: governance    # Implement environmental impact management
-  credo-act-control-033: governance    # Establish third-party assessment and management
-  credo-act-control-034: governance    # Establish AI legal compliance process
-  credo-act-control-035: governance    # Establish societal impact assessment framework
-  credo-act-control-036: governance    # Establish responsible development and deployment
-  credo-act-control-037: technical     # Implement AI alignment validation system
-  credo-act-control-038: governance    # Establish AI risk management system
-  credo-act-control-039: governance    # Establish data governance and management
-  credo-act-control-040: governance    # Establish documentation sharing mechanism
-  credo-act-control-041: governance    # Implement a risk reporting mechanism
-  credo-act-control-042: operational   # Establish general purpose incident response
+  credo-act-control-001: {category: technical,   strategy: MitigationControl}     # Establish AI system access controls
+  credo-act-control-002: {category: technical,   strategy: MitigationControl}     # Implement AI asset protection framework
+  credo-act-control-003: {category: operational, strategy: MonitorControl}        # Establish security validation framework
+  credo-act-control-004: {category: operational, strategy: MonitorControl}        # Implement continuous security testing system
+  credo-act-control-005: {category: technical,   strategy: MitigationControl}     # Implement AI security defense system
+  credo-act-control-006: {category: operational, strategy: ModificationControl}   # Establish AI system integration framework
+  credo-act-control-007: {category: operational, strategy: MonitorControl}        # Implement AI system lifecycle management
+  credo-act-control-009: {category: governance,  strategy: MonitorControl}        # Establish AI system documentation framework
+  credo-act-control-010: {category: operational, strategy: MonitorControl}        # Implement AI system monitoring and logging
+  credo-act-control-011: {category: governance,  strategy: MonitorControl}        # Establish AI decision explanation framework
+  credo-act-control-012: {category: operational, strategy: MonitorControl}        # Establish performance testing and validation
+  credo-act-control-013: {category: operational, strategy: MonitorControl}        # Implement performance monitoring and robustness
+  credo-act-control-014: {category: operational, strategy: MonitorControl}        # Establish fairness testing and validation
+  credo-act-control-015: {category: operational, strategy: ResolutionControl}     # Implement fairness monitoring and remediation
+  credo-act-control-016: {category: governance,  strategy: AvoidanceControl}      # Establish universal access and performance design
+  credo-act-control-017: {category: governance,  strategy: AvoidanceControl}      # Establish content safety policy and boundaries
+  credo-act-control-018: {category: technical,   strategy: MitigationControl}     # Implement content moderation system
+  credo-act-control-019: {category: operational, strategy: ResolutionControl}     # Implement content safety incident response
+  credo-act-control-020: {category: operational, strategy: MonitorControl}        # Establish information quality assurance
+  credo-act-control-021: {category: governance,  strategy: AvoidanceControl}      # Establish frontier AI safety framework
+  credo-act-control-022: {category: operational, strategy: MonitorControl}        # Implement adversarial testing and red team
+  credo-act-control-023: {category: operational, strategy: MonitorControl}        # Implement system usage monitoring and prevention
+  credo-act-control-024: {category: operational, strategy: MonitorControl}        # Implement AI system usage verification
+  credo-act-control-025: {category: governance,  strategy: MonitorControl}        # Implement AI system disclosure requirements
+  credo-act-control-026: {category: governance,  strategy: MitigationControl}     # Implement a privacy protection framework
+  credo-act-control-027: {category: operational, strategy: ResolutionControl}     # Implement privacy incident detection and response
+  credo-act-control-028: {category: governance,  strategy: ResolutionControl}     # Establish user rights and recourse framework
+  credo-act-control-029: {category: governance,  strategy: AvoidanceControl}      # Implement AI literacy and competency program
+  credo-act-control-030: {category: governance,  strategy: InterventionControl}   # Establish human-AI interaction safety framework
+  credo-act-control-031: {category: operational, strategy: MonitorControl}        # Implement psychological impact management
+  credo-act-control-032: {category: governance,  strategy: MonitorControl}        # Implement environmental impact management
+  credo-act-control-033: {category: governance,  strategy: MonitorControl}        # Establish third-party assessment and management
+  credo-act-control-034: {category: governance,  strategy: AvoidanceControl}      # Establish AI legal compliance process
+  credo-act-control-035: {category: governance,  strategy: MonitorControl}        # Establish societal impact assessment framework
+  credo-act-control-036: {category: governance,  strategy: AvoidanceControl}      # Establish responsible development and deployment
+  credo-act-control-037: {category: technical,   strategy: MonitorControl}        # Implement AI alignment validation system
+  credo-act-control-038: {category: governance,  strategy: MonitorControl}        # Establish AI risk management system
+  credo-act-control-039: {category: governance,  strategy: AvoidanceControl}      # Establish data governance and management
+  credo-act-control-040: {category: governance,  strategy: MonitorControl}        # Establish documentation sharing mechanism
+  credo-act-control-041: {category: governance,  strategy: MonitorControl}        # Implement a risk reporting mechanism
+  credo-act-control-042: {category: operational, strategy: ResolutionControl}     # Establish general purpose incident response

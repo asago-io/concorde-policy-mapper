@@ -60,30 +60,43 @@ def _build_mit_action_groups(data_dir: Path) -> dict[str, str]:
     return action_groups
 
 
-def _assign_category(
+def _resolve_rule(value) -> dict:
+    """Normalize a rule value to {category: ..., strategy: ...} dict."""
+    if isinstance(value, dict):
+        return value
+    return {"category": value}
+
+
+def _assign_labels(
     action_id: str,
     source: str,
     categories: dict,
     mit_groups: dict[str, str],
-) -> str | None:
-    """Return 'technical', 'operational', or 'governance' for an action."""
+) -> dict | None:
+    """Return {category: ..., strategy: ...} for an action, or None."""
     explicit = categories.get("actions", {})
     if action_id in explicit:
-        return explicit[action_id]
+        return _resolve_rule(explicit[action_id])
 
     if source == "mit-ai-risk-repository":
         group = mit_groups.get(action_id)
         if group:
-            return categories.get("mit_groups", {}).get(group)
+            val = categories.get("mit_groups", {}).get(group)
+            if val:
+                return _resolve_rule(val)
 
     if source == "nist-ai-rmf":
         prefix = action_id.split("-")[0]
-        return categories.get("nist_prefixes", {}).get(prefix)
+        val = categories.get("nist_prefixes", {}).get(prefix)
+        if val:
+            return _resolve_rule(val)
 
     if source == "aiuc1":
         m = re.match(r"aiuc1-req-([a-f])", action_id)
         if m:
-            return categories.get("aiuc1_prefixes", {}).get(m.group(1))
+            val = categories.get("aiuc1_prefixes", {}).get(m.group(1))
+            if val:
+                return _resolve_rule(val)
 
     return None
 
@@ -168,22 +181,25 @@ def main():
     categories = _load_categories(data_dir)
     mit_groups = _build_mit_action_groups(data_dir) if categories else {}
 
-    categorized = 0
-    uncategorized = 0
+    labeled = 0
+    unlabeled = 0
     for actions in index.values():
         for action in actions:
-            cat = _assign_category(
+            labels = _assign_labels(
                 action["id"], action["source"], categories, mit_groups,
             )
-            if cat:
-                action["category"] = cat
-                categorized += 1
+            if labels:
+                if "category" in labels:
+                    action["category"] = labels["category"]
+                if "strategy" in labels:
+                    action["strategy"] = labels["strategy"]
+                labeled += 1
             else:
-                uncategorized += 1
+                unlabeled += 1
 
     total_actions = sum(len(v) for v in index.values())
     print(f"\nIndex: {len(index)} Atlas risks → {total_actions} total action entries")
-    print(f"Categories: {categorized} assigned, {uncategorized} unassigned")
+    print(f"Labels: {labeled} assigned, {unlabeled} unassigned")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -195,7 +211,7 @@ def main():
         "# Maps Atlas risk IDs to recommended mitigation actions across 5 frameworks.\n"
         f"# Sources: {stats_line}\n"
         f"# Total: {len(index)} risks, {total_actions} action entries\n"
-        f"# Categories: {categorized} assigned, {uncategorized} unassigned\n"
+        f"# Labels: {labeled} assigned, {unlabeled} unassigned\n"
     )
 
     with open(output_path, "w") as f:

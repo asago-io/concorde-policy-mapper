@@ -16,12 +16,28 @@ class ScoredCandidate(BaseModel):
     rrf_score: float = 0.0
 
 
+DPV_STRATEGIES = Literal[
+    "AvoidanceControl",
+    "MitigationControl",
+    "ModificationControl",
+    "MonitorControl",
+    "InterruptionControl",
+    "InterventionControl",
+    "ReductionControl",
+    "ResolutionControl",
+    "InvestigationControl",
+    "OverrideControl",
+    "TransferControl",
+]
+
+
 class MitigationRef(BaseModel):
     action_id: str
     action_name: str | None = None
     description: str | None = None
     source: str
     category: Literal["technical", "operational", "governance"] | None = None
+    strategy: DPV_STRATEGIES | None = None
 
 
 class EvidenceSpan(BaseModel):
