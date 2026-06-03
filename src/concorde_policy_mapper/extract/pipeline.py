@@ -131,6 +131,84 @@ def build_risk_match(
     )
 
 
+def _collect_ungrounded(chunk_results, index, retrieval):
+    matches = []
+    for cr in chunk_results:
+        for candidate in cr.accepted:
+            accepted_by = determine_accepted_by(
+                candidate, borderline_judged=cr.borderline_judged,
+                use_cross_encoder=retrieval.use_cross_encoder, no_judge=retrieval.no_judge,
+            )
+            matches.append(
+                build_risk_match(
+                    candidate,
+                    taxonomy=index.get_taxonomy(candidate.risk_id),
+                    accepted_by=accepted_by,
+                    grounding_confidence="ungrounded",
+                    evidence=[],
+                    use_cross_encoder=retrieval.use_cross_encoder,
+                )
+            )
+    return matches
+
+
+def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call_collector):
+    all_matches = []
+    all_filtered = []
+    total_candidates = 0
+    total_grounded = 0
+    max_workers = config.max_concurrent
+
+    ground_tasks = [cr for cr in chunk_results if cr.accepted]
+    for cr in ground_tasks:
+        total_candidates += len(cr.accepted)
+
+    if ground_tasks:
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = {
+                pool.submit(_ground_one, cr, chunks, client, config.model, call_collector): cr
+                for cr in ground_tasks
+            }
+            for future in as_completed(futures):
+                cr, grounded = future.result()
+                total_grounded += len(grounded)
+                grounded_ids = set(grounded.keys())
+                for candidate in cr.accepted:
+                    accepted_by = determine_accepted_by(
+                        candidate, borderline_judged=cr.borderline_judged,
+                        use_cross_encoder=retrieval.use_cross_encoder, no_judge=retrieval.no_judge,
+                    )
+                    rid = candidate.risk_id
+                    if rid in grounded_ids:
+                        evidence, confidence = grounded[rid]
+                        all_matches.append(
+                            build_risk_match(
+                                candidate,
+                                taxonomy=index.get_taxonomy(rid),
+                                accepted_by=accepted_by,
+                                grounding_confidence=confidence,
+                                evidence=evidence,
+                                use_cross_encoder=retrieval.use_cross_encoder,
+                            )
+                        )
+                    else:
+                        all_filtered.append(
+                            FilteredCandidate(
+                                risk_id=rid,
+                                risk_name=candidate.risk_name,
+                                taxonomy=index.get_taxonomy(rid),
+                                cross_encoder_score=candidate.cross_encoder_score,
+                                rrf_score=candidate.rrf_score,
+                                bm25_rank=candidate.bm25_rank,
+                                accepted_by=accepted_by,
+                                chunk_index=cr.chunk_index,
+                            )
+                        )
+
+    grounding_filtered = total_candidates - total_grounded
+    return all_matches, all_filtered, grounding_filtered
+
+
 def _run_expansion(
     risks, merged, chunk_results, chunks, documents,
     index, client, config, max_workers, call_collector,
@@ -316,79 +394,16 @@ def run_extraction(
                         chunk_results[idx].borderline_judged = judged
                         chunk_results[idx].accepted.extend(judged)
 
-    all_matches: list[RiskMatch] = []
-    all_filtered: list[FilteredCandidate] = []
-
     if retrieval.no_grounding:
-        for cr in chunk_results:
-            for candidate in cr.accepted:
-                accepted_by = determine_accepted_by(
-                    candidate, borderline_judged=cr.borderline_judged,
-                    use_cross_encoder=retrieval.use_cross_encoder, no_judge=retrieval.no_judge,
-                )
-                all_matches.append(
-                    build_risk_match(
-                        candidate,
-                        taxonomy=index.get_taxonomy(candidate.risk_id),
-                        accepted_by=accepted_by,
-                        grounding_confidence="ungrounded",
-                        evidence=[],
-                        use_cross_encoder=retrieval.use_cross_encoder,
-                    )
-                )
+        all_matches = _collect_ungrounded(chunk_results, index, retrieval)
+        all_filtered: list[FilteredCandidate] = []
         timing["grounding_ms"] = 0.0
         grounding_filtered = 0
     else:
         with timed(timing, "grounding_ms"):
-            total_candidates_for_grounding = 0
-            total_grounded = 0
-
-            ground_tasks = [cr for cr in chunk_results if cr.accepted]
-            for cr in ground_tasks:
-                total_candidates_for_grounding += len(cr.accepted)
-
-            if ground_tasks:
-                with ThreadPoolExecutor(max_workers=max_workers) as pool:
-                    futures = {
-                        pool.submit(_ground_one, cr, chunks, client, config.model, call_collector): cr
-                        for cr in ground_tasks
-                    }
-                    for future in as_completed(futures):
-                        cr, grounded = future.result()
-                        total_grounded += len(grounded)
-                        grounded_ids = set(grounded.keys())
-                        for candidate in cr.accepted:
-                            accepted_by = determine_accepted_by(
-                                candidate, borderline_judged=cr.borderline_judged,
-                                use_cross_encoder=retrieval.use_cross_encoder, no_judge=retrieval.no_judge,
-                            )
-                            rid = candidate.risk_id
-                            if rid in grounded_ids:
-                                evidence, confidence = grounded[rid]
-                                all_matches.append(
-                                    build_risk_match(
-                                        candidate,
-                                        taxonomy=index.get_taxonomy(rid),
-                                        accepted_by=accepted_by,
-                                        grounding_confidence=confidence,
-                                        evidence=evidence,
-                                        use_cross_encoder=retrieval.use_cross_encoder,
-                                    )
-                                )
-                            else:
-                                all_filtered.append(
-                                    FilteredCandidate(
-                                        risk_id=rid,
-                                        risk_name=candidate.risk_name,
-                                        taxonomy=index.get_taxonomy(rid),
-                                        cross_encoder_score=candidate.cross_encoder_score,
-                                        rrf_score=candidate.rrf_score,
-                                        bm25_rank=candidate.bm25_rank,
-                                        accepted_by=accepted_by,
-                                        chunk_index=cr.chunk_index,
-                                    )
-                                )
-        grounding_filtered = total_candidates_for_grounding - total_grounded
+            all_matches, all_filtered, grounding_filtered = _run_grounding(
+                chunk_results, chunks, client, config, retrieval, index, call_collector,
+            )
 
     chunk_risk_ids: dict[int, list[str]] = {}
     if retrieval.no_grounding:

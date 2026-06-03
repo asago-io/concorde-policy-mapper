@@ -22,6 +22,50 @@ def _sent_tokenize(text: str) -> list[str]:
         return [text] if text.strip() else []
 
 
+def _pad_with_budget(chunks, chunk_index, max_tokens):
+    chunk = chunks[chunk_index]
+    source = chunk.source
+    core_tokens = len(chunk.text.split())
+    budget = max_tokens - core_tokens
+    before = []
+    after = []
+
+    if budget > 0 and chunk_index > 0:
+        prev = chunks[chunk_index - 1]
+        if prev.source == source:
+            prev_tokens = len(prev.text.split())
+            if prev_tokens <= budget // 2:
+                before.append(prev.text)
+                budget -= prev_tokens
+            else:
+                prev_sents = _sent_tokenize(prev.text)
+                for s in reversed(prev_sents):
+                    s_tokens = len(s.split())
+                    if s_tokens <= budget // 2:
+                        before.insert(0, s)
+                        budget -= s_tokens
+                    else:
+                        break
+
+    if budget > 0 and chunk_index < len(chunks) - 1:
+        nxt = chunks[chunk_index + 1]
+        if nxt.source == source:
+            nxt_tokens = len(nxt.text.split())
+            if nxt_tokens <= budget:
+                after.append(nxt.text)
+            else:
+                next_sents = _sent_tokenize(nxt.text)
+                for s in next_sents:
+                    s_tokens = len(s.split())
+                    if s_tokens <= budget:
+                        after.append(s)
+                        budget -= s_tokens
+                    else:
+                        break
+
+    return " ".join(before + [chunk.text] + after)
+
+
 def build_padded_text(
     chunks: list[Chunk],
     chunk_index: int,
@@ -34,47 +78,11 @@ def build_padded_text(
     the token budget (useful for small chunks that need more LLM context).
     Otherwise falls back to appending context_sentences from each neighbor.
     """
+    if max_context_tokens > 0:
+        return _pad_with_budget(chunks, chunk_index, max_context_tokens)
+
     chunk = chunks[chunk_index]
     source = chunk.source
-
-    if max_context_tokens > 0:
-        core_tokens = len(chunk.text.split())
-        budget = max_context_tokens - core_tokens
-        before = []
-        after = []
-        if budget > 0 and chunk_index > 0:
-            prev = chunks[chunk_index - 1]
-            if prev.source == source:
-                prev_tokens = len(prev.text.split())
-                if prev_tokens <= budget // 2:
-                    before.append(prev.text)
-                    budget -= prev_tokens
-                else:
-                    prev_sents = _sent_tokenize(prev.text)
-                    for s in reversed(prev_sents):
-                        s_tokens = len(s.split())
-                        if s_tokens <= budget // 2:
-                            before.insert(0, s)
-                            budget -= s_tokens
-                        else:
-                            break
-        if budget > 0 and chunk_index < len(chunks) - 1:
-            nxt = chunks[chunk_index + 1]
-            if nxt.source == source:
-                nxt_tokens = len(nxt.text.split())
-                if nxt_tokens <= budget:
-                    after.append(nxt.text)
-                else:
-                    next_sents = _sent_tokenize(nxt.text)
-                    for s in next_sents:
-                        s_tokens = len(s.split())
-                        if s_tokens <= budget:
-                            after.append(s)
-                            budget -= s_tokens
-                        else:
-                            break
-        return " ".join(before + [chunk.text] + after)
-
     parts = []
 
     if chunk_index > 0:

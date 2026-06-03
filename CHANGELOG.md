@@ -12,6 +12,10 @@
   - Split `classify_candidates()` into `classify_by_rank()` and `classify_by_threshold()` with a thin dispatcher for backward compatibility.
   - Extracted `_rrf_fuse()` shared function and `_make_score_normalizer()` factory from `RiskIndex` — eliminates RRF accumulation duplication between `hybrid_search` and `_hybrid_search_colbert`, and replaces inline score normalization branching with a factory resolved at init time.
   - Bundled 18 retrieval parameters into `RetrievalConfig` dataclass with pre-resolved properties (`effective_cross_encoder_model`, `effective_rrf_min_score`) and `to_metadata()`. `run_extraction` now accepts `retrieval: RetrievalConfig` instead of individual keyword arguments.
+  - Extracted `_collect_ungrounded()` and `_run_grounding()` from `run_extraction` — reduces CC from 48 to ~25.
+  - Split `_call_with_retry()` into `_retry_with_validation()` (handles context overflow + validation errors) and the outer truncation retry loop.
+  - Extracted `_load_colbert()`, `_load_bi_encoder()`, `_load_cross_encoder()` factory functions from `RiskIndex.__init__` — reduces CC from 24 to ~8.
+  - Extracted `_pad_with_budget()` from `build_padded_text()` — separates token-budget padding from sentence-based padding.
 - **Decomplection analysis revised**: fixed inaccurate counts (18→23 params, 7→8 timing sites, 30→27 CLI params), replaced strategy pattern proposal for RiskIndex with lighter shared-function approach, replaced debug module globals entry with eval↔extraction schema drift concern, added caveat to RetrievalConfig that a dataclass alone is cosmetic without pre-resolving downstream decisions.
 - **Schema drift smoke test**: `test_extraction_result_schema_compatible_with_eval` constructs an `ExtractionResult` via Pydantic, serializes to JSON, and runs eval — catches silent breakage if extraction output fields drift from what eval reads.
 

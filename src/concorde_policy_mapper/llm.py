@@ -222,6 +222,50 @@ def _apply_budget(kwargs: dict, config: LLMConfig) -> None:
         )
 
 
+class _IncompleteOutput(Exception):
+    """Signals that validation succeeded but output was truncated."""
+    def __init__(self, cause):
+        self.cause = cause
+
+
+def _retry_with_validation(do_call, kwargs, config, tracker, original_messages, current_messages, max_retries):
+    for val_attempt in range(max_retries + 1):
+        try:
+            return do_call(kwargs)
+        except IncompleteOutputException as e:
+            raise _IncompleteOutput(e) from e
+        except InstructorRetryException as e:
+            new_max = _extract_reduced_max_tokens(e)
+            if new_max is not None:
+                old_max = kwargs.get("max_tokens", 8192)
+                logger.info("Context overflow, reducing max_tokens %d -> %d and retrying", old_max, new_max)
+                if tracker:
+                    tracker.record_incident("context_overflow", f"Context overflow, reducing max_tokens {old_max} -> {new_max}")
+                kwargs["messages"] = copy.deepcopy(original_messages)
+                kwargs["max_tokens"] = new_max
+                _apply_budget(kwargs, config)
+                continue
+            if val_attempt < max_retries:
+                logger.info("Validation error (attempt %d/%d), retrying with fresh messages + error hint", val_attempt + 1, max_retries)
+                retry_messages = copy.deepcopy(current_messages)
+                last_attempt = e.failed_attempts[-1] if e.failed_attempts else None
+                if last_attempt and last_attempt.completion:
+                    failed_content = _extract_response_content(last_attempt.completion)
+                    if failed_content:
+                        retry_messages.append({"role": "assistant", "content": failed_content})
+                error_text = str(last_attempt.exception) if last_attempt else str(e)
+                retry_messages.append({
+                    "role": "user",
+                    "content": f"Validation error: {error_text}\nCorrect your JSON response, fix the errors.",
+                })
+                kwargs["messages"] = retry_messages
+                _apply_budget(kwargs, config)
+                continue
+            if tracker:
+                tracker.record_incident("validation_exhausted", f"Validation retries exhausted: {e}")
+            raise
+
+
 def _call_with_retry(
     do_call,
     kwargs: dict,
@@ -234,66 +278,23 @@ def _call_with_retry(
     kwargs["max_retries"] = 0
 
     for attempt in range(_MAX_TRUNCATION_RETRIES + 1):
-        last_exc: Exception | None = None
-        for val_attempt in range(max_validation_retries + 1):
-            try:
-                return do_call(kwargs)
-            except IncompleteOutputException as e:
-                last_exc = e
-                break
-            except InstructorRetryException as e:
-                new_max = _extract_reduced_max_tokens(e)
-                if new_max is not None:
-                    old_max = kwargs.get("max_tokens", 8192)
-                    logger.info(
-                        "Context overflow, reducing max_tokens %d -> %d and retrying",
-                        old_max, new_max,
-                    )
-                    if tracker:
-                        tracker.record_incident("context_overflow", f"Context overflow, reducing max_tokens {old_max} -> {new_max}")
-                    kwargs["messages"] = copy.deepcopy(original_messages)
-                    kwargs["max_tokens"] = new_max
-                    _apply_budget(kwargs, config)
-                    continue
-                if val_attempt < max_validation_retries:
-                    logger.info(
-                        "Validation error (attempt %d/%d), retrying with fresh messages + error hint",
-                        val_attempt + 1, max_validation_retries,
-                    )
-                    retry_messages = copy.deepcopy(current_messages)
-                    last_attempt = e.failed_attempts[-1] if e.failed_attempts else None
-                    if last_attempt and last_attempt.completion:
-                        failed_content = _extract_response_content(last_attempt.completion)
-                        if failed_content:
-                            retry_messages.append({"role": "assistant", "content": failed_content})
-                    error_text = str(last_attempt.exception) if last_attempt else str(e)
-                    retry_messages.append({
-                        "role": "user",
-                        "content": f"Validation error: {error_text}\nCorrect your JSON response, fix the errors.",
-                    })
-                    kwargs["messages"] = retry_messages
-                    _apply_budget(kwargs, config)
-                    continue
+        try:
+            return _retry_with_validation(
+                do_call, kwargs, config, tracker,
+                original_messages, current_messages, max_validation_retries,
+            )
+        except _IncompleteOutput as e:
+            shorter = _truncate_messages(current_messages)
+            if shorter is None:
                 if tracker:
-                    tracker.record_incident("validation_exhausted", f"Validation retries exhausted: {e}")
-                raise
-        else:
-            continue
-
-        shorter = _truncate_messages(current_messages)
-        if shorter is None:
+                    tracker.record_incident("output_truncated", "Output truncated and prompt cannot be shortened further")
+                raise e.cause
+            logger.info("Output truncated (attempt %d/%d), retrying with shorter prompt", attempt + 1, _MAX_TRUNCATION_RETRIES)
             if tracker:
-                tracker.record_incident("output_truncated", "Output truncated and prompt cannot be shortened further")
-            raise last_exc  # type: ignore[misc]
-        logger.info(
-            "Output truncated (attempt %d/%d), retrying with shorter prompt",
-            attempt + 1, _MAX_TRUNCATION_RETRIES,
-        )
-        if tracker:
-            tracker.record_incident("output_truncated", f"Output truncated (attempt {attempt + 1}/{_MAX_TRUNCATION_RETRIES}), retrying with shorter prompt")
-        current_messages = shorter
-        kwargs["messages"] = shorter
-        _apply_budget(kwargs, config)
+                tracker.record_incident("output_truncated", f"Output truncated (attempt {attempt + 1}/{_MAX_TRUNCATION_RETRIES}), retrying with shorter prompt")
+            current_messages = shorter
+            kwargs["messages"] = shorter
+            _apply_budget(kwargs, config)
 
 
 def _track_completion(tracker: TokenTracker, completion) -> None:

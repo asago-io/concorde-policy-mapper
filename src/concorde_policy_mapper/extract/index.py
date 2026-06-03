@@ -180,6 +180,56 @@ def _make_score_normalizer(*, is_nli=False, apply_sigmoid=False):
         return normalize
 
 
+def _load_colbert(model_name, descriptions):
+    if _is_remote(model_name):
+        raise ValueError(
+            "ColBERT models cannot be served remotely (vLLM returns pooled "
+            "embeddings, not token-level). Use --bi-encoder-model for remote "
+            "embedding models."
+        )
+    import torch
+    colbert = SentenceTransformer(
+        model_name,
+        model_kwargs={"torch_dtype": torch.bfloat16},
+    )
+    raw = colbert.encode(
+        descriptions, output_value="token_embeddings",
+        show_progress_bar=False, batch_size=32,
+    )
+    doc_embeddings = []
+    for emb in raw:
+        arr = emb.cpu().float().numpy() if hasattr(emb, "cpu") else np.array(emb, dtype=np.float32)
+        arr = arr / np.linalg.norm(arr, axis=1, keepdims=True)
+        doc_embeddings.append(arr)
+    logger.info("ColBERT index built: %d risks, %s", len(descriptions), model_name)
+    return colbert, doc_embeddings
+
+
+def _load_bi_encoder(model_name, descriptions, query_instruction=""):
+    if _is_remote(model_name):
+        remote = _RemoteBiEncoder(model_name, query_instruction=query_instruction)
+        try:
+            embeddings = remote.encode(descriptions, normalize=True)
+        except Exception as e:
+            raise RuntimeError(
+                f"Failed to encode corpus via remote bi-encoder at {model_name}: {e}"
+            ) from e
+        logger.info("Remote bi-encoder index built: %d risks, %s", len(descriptions), model_name)
+        return None, remote, embeddings
+    local = SentenceTransformer(model_name)
+    embeddings = local.encode(descriptions, normalize_embeddings=True, show_progress_bar=False)
+    return local, None, embeddings
+
+
+def _load_cross_encoder(model_name):
+    if _is_remote(model_name):
+        logger.info("Remote cross-encoder: %s", model_name)
+        return None, _RemoteCrossEncoder(model_name), False, False
+    local = CrossEncoder(model_name)
+    logger.info("Local cross-encoder: %s", model_name)
+    return local, None, model_name in _SIGMOID_MODELS, model_name in _NLI_MODELS
+
+
 class RiskIndex:
     def __init__(
         self,
@@ -228,62 +278,21 @@ class RiskIndex:
         descriptions = [f"{r.name or ''}: {r.description or ''}" for r in risks]
 
         if colbert_model:
-            if _is_remote(colbert_model):
-                raise ValueError(
-                    "ColBERT models cannot be served remotely (vLLM returns pooled "
-                    "embeddings, not token-level). Use --bi-encoder-model for remote "
-                    "embedding models."
-                )
-            import torch
-            self._colbert = SentenceTransformer(
-                colbert_model,
-                model_kwargs={"torch_dtype": torch.bfloat16},
-            )
-            raw = self._colbert.encode(
-                descriptions, output_value="token_embeddings",
-                show_progress_bar=False, batch_size=32,
-            )
-            self._colbert_doc_embeddings = []
-            for emb in raw:
-                arr = emb.cpu().float().numpy() if hasattr(emb, "cpu") else np.array(emb, dtype=np.float32)
-                arr = arr / np.linalg.norm(arr, axis=1, keepdims=True)
-                self._colbert_doc_embeddings.append(arr)
+            self._colbert, self._colbert_doc_embeddings = _load_colbert(colbert_model, descriptions)
             self._bi_encoder = None
             self._cross_encoder = None
             self._apply_sigmoid = False
             self._is_nli = False
-            logger.info("ColBERT index built: %d risks, %s", len(risks), colbert_model)
         else:
             self._colbert = None
+            self._bi_encoder, self._remote_bi_encoder, self._embeddings = _load_bi_encoder(
+                bi_encoder_model, descriptions, query_instruction,
+            )
 
-            if _is_remote(bi_encoder_model):
-                self._bi_encoder = None
-                try:
-                    self._remote_bi_encoder = _RemoteBiEncoder(
-                        bi_encoder_model, query_instruction=query_instruction,
-                    )
-                    self._embeddings = self._remote_bi_encoder.encode(descriptions, normalize=True)
-                except Exception as e:
-                    raise RuntimeError(
-                        f"Failed to encode corpus via remote bi-encoder at {bi_encoder_model}: {e}"
-                    ) from e
-                logger.info("Remote bi-encoder index built: %d risks, %s", len(risks), bi_encoder_model)
-            else:
-                self._bi_encoder = SentenceTransformer(bi_encoder_model)
-                self._embeddings = self._bi_encoder.encode(
-                    descriptions, normalize_embeddings=True, show_progress_bar=False
+            if cross_encoder_model:
+                self._cross_encoder, self._remote_cross_encoder, self._apply_sigmoid, self._is_nli = (
+                    _load_cross_encoder(cross_encoder_model)
                 )
-
-            if cross_encoder_model and _is_remote(cross_encoder_model):
-                self._cross_encoder = None
-                self._remote_cross_encoder = _RemoteCrossEncoder(cross_encoder_model)
-                self._apply_sigmoid = False
-                self._is_nli = False
-                logger.info("Remote cross-encoder: %s", cross_encoder_model)
-            elif cross_encoder_model:
-                self._cross_encoder = CrossEncoder(cross_encoder_model)
-                self._apply_sigmoid = cross_encoder_model in _SIGMOID_MODELS
-                self._is_nli = cross_encoder_model in _NLI_MODELS
             else:
                 self._cross_encoder = None
                 self._apply_sigmoid = False
