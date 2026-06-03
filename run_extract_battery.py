@@ -468,18 +468,24 @@ def main():
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {
             pool.submit(
-                run_one, files, name, base_url, model, runs_dir,
-                args.chunk_max_tokens,
-                args.top_n_accept, args.top_n_judge, args.min_score_floor,
-                args.threshold_high, args.threshold_low,
-                args.bi_encoder_model, args.query_instruction,
-                args.cross_encoder_model, name_width,
-                args.bm25_rescue_rank,
-                args.no_cross_encoder, args.rrf_min_score,
-                args.colbert_model,
-                args.expand_siblings,
-                args.judge_prompt, args.judge_context_tokens,
-                args.no_judge, args.no_grounding,
+                run_one,
+                policies=files, name=name, base_url=base_url, model=model,
+                runs_dir=runs_dir, name_width=name_width,
+                chunk_max_tokens=args.chunk_max_tokens,
+                top_n_accept=args.top_n_accept, top_n_judge=args.top_n_judge,
+                min_score_floor=args.min_score_floor,
+                threshold_high=args.threshold_high, threshold_low=args.threshold_low,
+                bi_encoder_model=args.bi_encoder_model,
+                query_instruction=args.query_instruction,
+                cross_encoder_model=args.cross_encoder_model,
+                bm25_rescue_rank=args.bm25_rescue_rank,
+                no_cross_encoder=args.no_cross_encoder,
+                rrf_min_score=args.rrf_min_score,
+                colbert_model=args.colbert_model,
+                expand_siblings=args.expand_siblings,
+                judge_prompt=args.judge_prompt,
+                judge_context_tokens=args.judge_context_tokens,
+                no_judge=args.no_judge, no_grounding=args.no_grounding,
             ): name
             for name, files in runs
         }

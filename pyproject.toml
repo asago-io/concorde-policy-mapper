@@ -20,8 +20,10 @@ dependencies = [
     "numpy",
     "mlflow>=2.17",
     "pylate>=1.0.0",
-    "optuna>=4.8.0",
 ]
+
+[project.optional-dependencies]
+experiments = ["optuna>=4.8.0", "dspy>=2.0"]
 
 [project.scripts]
 concorde-policy-mapper = "concorde_policy_mapper.cli:app"

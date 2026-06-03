@@ -56,7 +56,7 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
   --base-url <url> --model <model>
 
 # Use remote embedding models on GPU cluster
-uv run concorde-policy-mapper extract policy.pdf -o output/ --no-ground \
+uv run concorde-policy-mapper extract policy.pdf -o output/ --no-judge --no-grounding \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --bi-encoder-model https://bge-m3-model-serving.apps.example.com/v1/embeddings \
   --cross-encoder-model https://gte-reranker-model-serving.apps.example.com/v1/score

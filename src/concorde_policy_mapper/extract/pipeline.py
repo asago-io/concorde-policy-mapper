@@ -77,6 +77,90 @@ def _ground_one(cr, chunks, client, model, call_collector):
     return cr, grounded
 
 
+def _run_expansion(
+    risks, merged, chunk_results, chunks, documents,
+    index, client, config, max_workers, call_collector,
+) -> tuple[list[RiskMatch], dict]:
+    from concorde_policy_mapper.extract.expand import (
+        build_expansion_graph,
+        expand_with_siblings,
+        group_for_grounding,
+    )
+
+    stats = {"expanded_candidates": 0, "expanded_grounded": 0, "expansion_groups": 0}
+    expansion_graph = build_expansion_graph(risks)
+    risk_lookup = {
+        r.id: {"name": r.name or "", "description": r.description or ""}
+        for r in risks
+    }
+    risk_to_parent = {}
+    for r in risks:
+        parent = getattr(r, "isPartOf", "") or ""
+        if parent:
+            risk_to_parent[r.id] = parent
+
+    merged_ids = {m.risk_id for m in merged}
+    expanded = expand_with_siblings(merged_ids, expansion_graph, risk_lookup)
+    stats["expanded_candidates"] = len(expanded)
+
+    if not expanded:
+        return merged, stats
+
+    found_risk_chunks: dict[str, set[int]] = {}
+    for cr in chunk_results:
+        for candidate in cr.accepted:
+            cid = candidate.risk_id.split(" ")[0].strip()
+            found_risk_chunks.setdefault(cid, set()).add(cr.chunk_index)
+
+    groups = group_for_grounding(
+        expanded, found_risk_chunks, risk_to_parent, len(chunks),
+    )
+    stats["expansion_groups"] = len(groups)
+
+    def _ground_group(group):
+        return ground_risk_group(
+            chunks=chunks,
+            chunk_indices=group.chunk_indices,
+            risks=list(group.risk_lookup.values()),
+            client=client,
+            model=config.model,
+            document=str(documents[0]) if documents else "",
+            call_collector=call_collector,
+        )
+
+    expansion_matches: list[RiskMatch] = []
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {pool.submit(_ground_group, g): g for g in groups}
+        for future in as_completed(futures):
+            grounded = future.result()
+            stats["expanded_grounded"] += len(grounded)
+            for rid, (evidence, confidence) in grounded.items():
+                info = risk_lookup.get(rid, {})
+                expansion_matches.append(
+                    RiskMatch(
+                        risk_id=rid,
+                        risk_name=info.get("name", ""),
+                        risk_description=info.get("description", ""),
+                        taxonomy=index.get_taxonomy(rid),
+                        confidence=0.0,
+                        grounding_confidence=confidence,
+                        accepted_by="expansion",
+                        evidence=evidence,
+                        scores=RetrievalScores(
+                            bm25_rank=0,
+                            embedding_distance=0.0,
+                            cross_encoder_score=0.0,
+                            rrf_score=0.0,
+                        ),
+                    )
+                )
+
+    if expansion_matches:
+        merged = merge_matches(merged + expansion_matches)
+
+    return merged, stats
+
+
 def run_extraction(
     documents: list[Path],
     client,
@@ -318,82 +402,11 @@ def run_extraction(
 
     expansion_stats = {"expanded_candidates": 0, "expanded_grounded": 0, "expansion_groups": 0}
     if expand_siblings and not no_grounding and client is not None:
-        from concorde_policy_mapper.extract.expand import (
-            build_expansion_graph,
-            expand_with_siblings,
-            group_for_grounding,
-        )
-
         t0 = time.time()
-        expansion_graph = build_expansion_graph(risks)
-        risk_lookup = {
-            r.id: {"name": r.name or "", "description": r.description or ""}
-            for r in risks
-        }
-        risk_to_parent = {}
-        for r in risks:
-            parent = getattr(r, "isPartOf", "") or ""
-            if parent:
-                risk_to_parent[r.id] = parent
-
-        merged_ids = {m.risk_id for m in merged}
-        expanded = expand_with_siblings(merged_ids, expansion_graph, risk_lookup)
-        expansion_stats["expanded_candidates"] = len(expanded)
-
-        if expanded:
-            found_risk_chunks: dict[str, set[int]] = {}
-            for cr in chunk_results:
-                for candidate in cr.accepted:
-                    cid = candidate.risk_id.split(" ")[0].strip()
-                    found_risk_chunks.setdefault(cid, set()).add(cr.chunk_index)
-
-            groups = group_for_grounding(
-                expanded, found_risk_chunks, risk_to_parent, len(chunks),
-            )
-            expansion_stats["expansion_groups"] = len(groups)
-
-            def _ground_group(group):
-                return ground_risk_group(
-                    chunks=chunks,
-                    chunk_indices=group.chunk_indices,
-                    risks=list(group.risk_lookup.values()),
-                    client=client,
-                    model=config.model,
-                    document=str(documents[0]) if documents else "",
-                    call_collector=call_collector,
-                )
-
-            expansion_matches: list[RiskMatch] = []
-            with ThreadPoolExecutor(max_workers=max_workers) as pool:
-                futures = {pool.submit(_ground_group, g): g for g in groups}
-                for future in as_completed(futures):
-                    group = futures[future]
-                    grounded = future.result()
-                    expansion_stats["expanded_grounded"] += len(grounded)
-                    for rid, (evidence, confidence) in grounded.items():
-                        info = risk_lookup.get(rid, {})
-                        expansion_matches.append(
-                            RiskMatch(
-                                risk_id=rid,
-                                risk_name=info.get("name", ""),
-                                risk_description=info.get("description", ""),
-                                taxonomy=index.get_taxonomy(rid),
-                                confidence=0.0,
-                                grounding_confidence=confidence,
-                                accepted_by="expansion",
-                                evidence=evidence,
-                                scores=RetrievalScores(
-                                    bm25_rank=0,
-                                    embedding_distance=0.0,
-                                    cross_encoder_score=0.0,
-                                    rrf_score=0.0,
-                                ),
-                            )
-                        )
-
-            if expansion_matches:
-                merged = merge_matches(merged + expansion_matches)
-
+        merged, expansion_stats = _run_expansion(
+            risks, merged, chunk_results, chunks, documents,
+            index, client, config, max_workers, call_collector,
+        )
         timing["expansion_ms"] = (time.time() - t0) * 1000
 
     total_stats = RetrievalStats(

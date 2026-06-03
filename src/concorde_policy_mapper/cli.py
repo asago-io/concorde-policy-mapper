@@ -61,7 +61,7 @@ def extract(
             typer.echo(f"Error: {pf} does not exist", err=True)
             raise typer.Exit(1)
 
-    needs_llm = not (no_judge and no_grounding) or (not no_judge and use_cross_encoder)
+    needs_llm = not (no_judge and no_grounding and not expand_siblings)
     if needs_llm and (not base_url or not model):
         typer.echo("Error: --base-url and --model are required (unless both --no-judge and --no-grounding are set)", err=True)
         raise typer.Exit(1)
@@ -123,12 +123,14 @@ def extract(
     result.token_usage = tracker.to_dict()
 
     from concorde_policy_mapper.extract.mitigations import (
+        build_action_descriptions,
         enrich_with_mitigations,
         load_mitigation_index,
     )
     mitigation_index = load_mitigation_index()
     if mitigation_index:
-        enrich_with_mitigations(result.risks, mitigation_index)
+        action_descs = build_action_descriptions(nexus_base_dir)
+        enrich_with_mitigations(result.risks, mitigation_index, action_descs)
         typer.echo(f"  Mitigations attached from {len(mitigation_index)} risk entries")
 
     result_data = result.model_dump()
