@@ -4,7 +4,7 @@ from types import SimpleNamespace
 from unittest.mock import MagicMock
 
 import pytest
-from instructor.core import IncompleteOutputException
+from instructor.core import IncompleteOutputException, InstructorRetryException
 
 from concorde_policy_mapper.llm import (
     LLMConfig,
@@ -12,6 +12,7 @@ from concorde_policy_mapper.llm import (
     _IncompleteOutput,
     _call_with_retry,
     _extract_response_content,
+    _retry_with_validation,
     _strip_titles,
     _track_completion,
     _truncate_messages,
@@ -416,3 +417,189 @@ class TestCallWithRetry:
         first_len = len(captured_kwargs["first"]["messages"][0]["content"])
         second_len = len(captured_kwargs["second"]["messages"][0]["content"])
         assert second_len < first_len
+
+
+# ---------------------------------------------------------------------------
+# _retry_with_validation
+# ---------------------------------------------------------------------------
+
+
+def _make_retry_exc(msg, failed_attempts=None):
+    """Create an InstructorRetryException with the given message and failed attempts."""
+    return InstructorRetryException(
+        msg,
+        n_attempts=1,
+        total_usage=0,
+        failed_attempts=failed_attempts,
+    )
+
+
+class TestRetryWithValidation:
+    def _make_config(self):
+        return LLMConfig(base_url="http://test", model="test-model")
+
+    def _make_messages(self):
+        return [{"role": "user", "content": "hello"}]
+
+    def test_success_on_first_call(self):
+        do_call = MagicMock(return_value=("result", "completion"))
+        messages = self._make_messages()
+        kwargs = {"messages": messages, "max_tokens": 4096}
+        config = self._make_config()
+
+        result = _retry_with_validation(
+            do_call, kwargs, config,
+            tracker=None,
+            original_messages=copy.deepcopy(messages),
+            current_messages=messages,
+            max_retries=2,
+        )
+        assert result == ("result", "completion")
+        do_call.assert_called_once()
+
+    def test_incomplete_output_wraps_in_incomplete_output(self):
+        cause = IncompleteOutputException(last_completion=None)
+        do_call = MagicMock(side_effect=cause)
+        messages = self._make_messages()
+        kwargs = {"messages": messages, "max_tokens": 4096}
+        config = self._make_config()
+
+        with pytest.raises(_IncompleteOutput) as exc_info:
+            _retry_with_validation(
+                do_call, kwargs, config,
+                tracker=None,
+                original_messages=copy.deepcopy(messages),
+                current_messages=messages,
+                max_retries=2,
+            )
+        assert exc_info.value.cause is cause
+
+    def test_context_overflow_reduces_max_tokens(self):
+        """Context overflow with a valid reduction retries with lower max_tokens."""
+        overflow_msg = (
+            "maximum context length is 8192 tokens. "
+            "However, you requested 4096 output tokens "
+            "and 4000 input tokens"
+        )
+        exc = _make_retry_exc(overflow_msg)
+        do_call = MagicMock(side_effect=[exc, ("ok", "comp")])
+        messages = self._make_messages()
+        original = copy.deepcopy(messages)
+        kwargs = {"messages": copy.deepcopy(messages), "max_tokens": 4096}
+        config = self._make_config()
+
+        result = _retry_with_validation(
+            do_call, kwargs, config,
+            tracker=None,
+            original_messages=original,
+            current_messages=messages,
+            max_retries=1,
+        )
+        assert result == ("ok", "comp")
+        assert do_call.call_count == 2
+        # Expected new_max: 8192 - 4000 - 32 = 4160
+        assert kwargs["max_tokens"] == 4160
+
+    def test_context_overflow_records_incident(self):
+        overflow_msg = (
+            "maximum context length is 8192 tokens. "
+            "However, you requested 4096 output tokens "
+            "and 4000 input tokens"
+        )
+        exc = _make_retry_exc(overflow_msg)
+        do_call = MagicMock(side_effect=[exc, ("ok", "comp")])
+        messages = self._make_messages()
+        original = copy.deepcopy(messages)
+        kwargs = {"messages": copy.deepcopy(messages), "max_tokens": 4096}
+        config = self._make_config()
+        tracker = TokenTracker()
+
+        _retry_with_validation(
+            do_call, kwargs, config,
+            tracker=tracker,
+            original_messages=original,
+            current_messages=messages,
+            max_retries=1,
+        )
+        assert any(i["kind"] == "context_overflow" for i in tracker.incidents)
+
+    def test_validation_error_retries_with_hint(self):
+        exc = _make_retry_exc("some validation error")
+        do_call = MagicMock(side_effect=[exc, ("ok", "comp")])
+        messages = self._make_messages()
+        original = copy.deepcopy(messages)
+        kwargs = {"messages": copy.deepcopy(messages), "max_tokens": 4096}
+        config = self._make_config()
+
+        result = _retry_with_validation(
+            do_call, kwargs, config,
+            tracker=None,
+            original_messages=original,
+            current_messages=messages,
+            max_retries=1,
+        )
+        assert result == ("ok", "comp")
+        assert do_call.call_count == 2
+        # On retry, messages should have an appended user message with the error hint
+        retry_messages = kwargs["messages"]
+        assert any(
+            msg["role"] == "user" and "Validation error:" in msg["content"]
+            for msg in retry_messages
+        )
+
+    def test_validation_exhausted_raises(self):
+        exc = _make_retry_exc("persistent validation error")
+        do_call = MagicMock(side_effect=exc)
+        messages = self._make_messages()
+        original = copy.deepcopy(messages)
+        kwargs = {"messages": copy.deepcopy(messages), "max_tokens": 4096}
+        config = self._make_config()
+        tracker = TokenTracker()
+
+        with pytest.raises(InstructorRetryException):
+            _retry_with_validation(
+                do_call, kwargs, config,
+                tracker=tracker,
+                original_messages=original,
+                current_messages=messages,
+                max_retries=2,
+            )
+        # Should have attempted max_retries + 1 = 3 times
+        assert do_call.call_count == 3
+        assert any(i["kind"] == "validation_exhausted" for i in tracker.incidents)
+
+    def test_validation_error_appends_failed_content(self):
+        """When failed_attempt has completion with content, it is appended as
+        an assistant message before the error hint."""
+        msg_obj = SimpleNamespace(content="partial JSON output")
+        choice = SimpleNamespace(message=msg_obj)
+        completion = SimpleNamespace(choices=[choice])
+        failed_attempt = SimpleNamespace(
+            attempt_number=1,
+            exception=ValueError("bad field"),
+            completion=completion,
+        )
+        exc = _make_retry_exc("validation error", failed_attempts=[failed_attempt])
+        do_call = MagicMock(side_effect=[exc, ("ok", "comp")])
+        messages = self._make_messages()
+        original = copy.deepcopy(messages)
+        kwargs = {"messages": copy.deepcopy(messages), "max_tokens": 4096}
+        config = self._make_config()
+
+        result = _retry_with_validation(
+            do_call, kwargs, config,
+            tracker=None,
+            original_messages=original,
+            current_messages=messages,
+            max_retries=1,
+        )
+        assert result == ("ok", "comp")
+        retry_messages = kwargs["messages"]
+        # Should contain the failed assistant content followed by the error hint
+        assistant_msgs = [m for m in retry_messages if m["role"] == "assistant"]
+        assert len(assistant_msgs) >= 1
+        assert assistant_msgs[-1]["content"] == "partial JSON output"
+        # Error hint should reference the exception from the failed attempt
+        user_hints = [m for m in retry_messages if m["role"] == "user" and "Validation error:" in m["content"]]
+        assert len(user_hints) == 1
+        assert "bad field" in user_hints[0]["content"]
