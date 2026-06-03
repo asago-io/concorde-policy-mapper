@@ -5,23 +5,19 @@ actions:
   # --- Group 1 (parent): Organizational Governance ---
   - id: A0634_Barrett2024
     hasRelatedRisk:
-      - atlas-incomplete-usage-definition
-      - atlas-lack-of-system-transparency
+      - atlas-legal-accountability
     type: Action
   - id: A0645_Barrett2024
     hasRelatedRisk:
-      - atlas-incomplete-usage-definition
-      - atlas-lack-of-system-transparency
+      - atlas-legal-accountability
     type: Action
   # --- Group 1.1: Board Structure & Oversight ---
   - id: A0086_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-legal-accountability
     type: Action
   - id: A0089_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-legal-accountability
     type: Action
   - id: A0091_Future_of_Life_Institute2024
@@ -34,17 +30,14 @@ actions:
     type: Action
   - id: A0096_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-legal-accountability
     type: Action
   - id: A0099_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-legal-accountability
     type: Action
   - id: A0123_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-legal-accountability
     type: Action
   - id: A0129_Future_of_Life_Institute2024
@@ -69,7 +62,7 @@ actions:
     type: Action
   - id: A0179_Schuett2023
     hasRelatedRisk:
-      - atlas-legal-accountability
+      - atlas-data-curation
     type: Action
   - id: A0217_Schuett2023
     hasRelatedRisk:
@@ -93,7 +86,7 @@ actions:
     type: Action
   - id: A0414_NIST2024
     hasRelatedRisk:
-      - atlas-legal-accountability
+      - atlas-evasion-attack
     type: Action
   - id: A0420_NIST2024
     hasRelatedRisk:
@@ -101,7 +94,7 @@ actions:
     type: Action
   - id: A0448_NIST2024
     hasRelatedRisk:
-      - atlas-legal-accountability
+      - atlas-decision-bias
     type: Action
   - id: A0460_NIST2024
     hasRelatedRisk:
@@ -109,7 +102,7 @@ actions:
     type: Action
   - id: A0461_NIST2024
     hasRelatedRisk:
-      - atlas-legal-accountability
+      - atlas-untraceable-attribution
     type: Action
   - id: A0642_Barrett2024
     hasRelatedRisk:
@@ -121,7 +114,7 @@ actions:
     type: Action
   - id: A0665_Barrett2024
     hasRelatedRisk:
-      - atlas-legal-accountability
+      - atlas-over-or-under-reliance
     type: Action
   - id: A0748_NIST2024
     hasRelatedRisk:
@@ -133,13 +126,11 @@ actions:
     type: Action
   - id: A0827_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-legal-accountability
     type: Action
   - id: A0847_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-legal-accountability
+      - atlas-impact-on-affected-communities
     type: Action
   - id: A0850_UK_Government2023
     hasRelatedRisk:
@@ -147,12 +138,10 @@ actions:
     type: Action
   - id: A0851_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-legal-accountability
     type: Action
   - id: A0852_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-legal-accountability
     type: Action
   - id: A0906_UK_Government2023
@@ -170,12 +159,10 @@ actions:
     type: Action
   - id: A0112_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-legal-accountability
     type: Action
   - id: A0143_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-legal-accountability
     type: Action
   - id: A0153_Future_of_Life_Institute2024
@@ -192,64 +179,51 @@ actions:
     type: Action
   - id: A0278_Campos2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-legal-accountability
     type: Action
   - id: A0333_Campos2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-legal-accountability
     type: Action
   # --- Group 1.4: Whistleblower Reporting & Protection ---
   - id: A0022_Bengio2025
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0040_Casper2025
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0088_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0104_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0162_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0267_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0268_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0336_Campos2025
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0412_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A1044_Uuk2024
     hasRelatedRisk:
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   # --- Group 1.5: Safety Decision Frameworks ---
@@ -263,18 +237,16 @@ actions:
     type: Action
   - id: A0058_Eisenberg2025
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-harmful-output
     type: Action
   - id: A0062_Eisenberg2025
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0071_Eisenberg2025
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-impact-on-human-agency
+      - atlas-over-or-under-reliance
     type: Action
   - id: A0077_Eisenberg2025
     hasRelatedRisk:
@@ -282,17 +254,15 @@ actions:
     type: Action
   - id: A0113_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-harmful-output
+      - atlas-improper-retraining
     type: Action
   - id: A0145_Future_of_Life_Institute2024
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0150_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0173_Schuett2023
     hasRelatedRisk:
@@ -312,23 +282,19 @@ actions:
     type: Action
   - id: A0208_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0254_Wiener2024
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0260_EU_AI_Office2025
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0279_Campos2025
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-harmful-output
+      - atlas-evasion-attack
     type: Action
   - id: A0281_Campos2025
     hasRelatedRisk:
@@ -365,7 +331,8 @@ actions:
   - id: A0750_NIST2024
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-hallucination
+      - atlas-improper-retraining
     type: Action
   - id: A0773_UK_Government2023
     hasRelatedRisk:
@@ -378,7 +345,6 @@ actions:
   - id: A0790_UK_Government2023
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0881_UK_Government2023
     hasRelatedRisk:
@@ -457,14 +423,13 @@ actions:
   - id: A0076_Eisenberg2025
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-impact-on-cultural-diversity
-      - atlas-impact-on-jobs
     type: Action
   - id: A0111_Future_of_Life_Institute2024
     hasRelatedRisk:
+      - atlas-dangerous-use
       - atlas-decision-bias
+      - atlas-evasion-attack
       - atlas-exclusion
-      - atlas-impact-on-affected-communities
       - atlas-impact-on-human-agency
     type: Action
   - id: A0115_Future_of_Life_Institute2024
@@ -485,17 +450,15 @@ actions:
     type: Action
   - id: A0444_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-improper-retraining
     type: Action
   - id: A0445_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-impact-on-cultural-diversity
       - atlas-impact-on-the-environment
     type: Action
   - id: A0492_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-decision-bias
     type: Action
   - id: A0509_NIST2024
     hasRelatedRisk:
@@ -503,13 +466,11 @@ actions:
     type: Action
   - id: A0532_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-impact-on-affected-communities
+      - atlas-untraceable-attribution
     type: Action
   - id: A0626_Barrett2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-legal-accountability
+      - atlas-dangerous-use
       - atlas-spreading-disinformation
       - atlas-toxic-output
     type: Action
@@ -519,42 +480,36 @@ actions:
     type: Action
   - id: A0708_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-impact-on-affected-communities
+      - atlas-data-bias
       - atlas-impact-on-the-environment
     type: Action
   - id: A0711_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
       - atlas-impact-on-the-environment
+      - atlas-toxic-output
     type: Action
   - id: A0716_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-impact-on-affected-communities
-      - atlas-impact-on-cultural-diversity
+      - atlas-data-bias
+      - atlas-non-disclosure
     type: Action
   - id: A0717_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-impact-on-affected-communities
+      - atlas-untraceable-attribution
     type: Action
   - id: A0733_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-non-disclosure
     type: Action
   - id: A0753_NIST2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0884_UK_Government2023
     hasRelatedRisk:
       - atlas-data-privacy-rights
       - atlas-impact-on-affected-communities
-      - atlas-impact-on-jobs
+      - atlas-revealing-confidential-information
     type: Action
   - id: A0885_UK_Government2023
     hasRelatedRisk:
@@ -563,14 +518,12 @@ actions:
   - id: A0886_UK_Government2023
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-impact-on-jobs
       - atlas-impact-on-the-environment
     type: Action
   - id: A0910_UK_Government2023
     hasRelatedRisk:
+      - atlas-data-bias
       - atlas-data-privacy-rights
-      - atlas-decision-bias
-      - atlas-impact-on-affected-communities
     type: Action
   - id: A0003_Bengio2025
     hasRelatedRisk:
@@ -586,7 +539,8 @@ actions:
     type: Action
   - id: A0013_Bengio2025
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-evasion-attack
+      - atlas-legal-accountability
     type: Action
   - id: A0014_Bengio2025
     hasRelatedRisk:
@@ -595,7 +549,6 @@ actions:
   - id: A0016_Bengio2025
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-legal-accountability
     type: Action
   - id: A0020_Bengio2025
     hasRelatedRisk:
@@ -612,12 +565,10 @@ actions:
   - id: A0025_Bengio2025
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0031_Casper2025
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0032_Casper2025
     hasRelatedRisk:
@@ -625,13 +576,12 @@ actions:
     type: Action
   - id: A0075_Eisenberg2025
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
+      - atlas-incomplete-usage-definition
       - atlas-legal-accountability
     type: Action
   - id: A0079_Eisenberg2025
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-legal-accountability
     type: Action
   - id: A0084_Future_of_Life_Institute2024
     hasRelatedRisk:
@@ -639,11 +589,11 @@ actions:
     type: Action
   - id: A0103_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0119_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-evasion-attack
     type: Action
   - id: A0120_Future_of_Life_Institute2024
     hasRelatedRisk:
@@ -667,13 +617,11 @@ actions:
     type: Action
   - id: A0186_Schuett2023
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-impact-on-affected-communities
     type: Action
   - id: A0197_Schuett2023
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0198_Schuett2023
     hasRelatedRisk:
@@ -686,12 +634,10 @@ actions:
   - id: A0258_Wiener2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0265_EU_AI_Office2025
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0266_EU_AI_Office2025
     hasRelatedRisk:
@@ -720,21 +666,15 @@ actions:
   - id: A0391_NIST2024
     hasRelatedRisk:
       - atlas-decision-bias
-      - atlas-exclusion
-      - atlas-harmful-output
-      - atlas-impact-on-affected-communities
+      - atlas-toxic-output
     type: Action
   - id: A0395_NIST2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-impact-on-cultural-diversity
     type: Action
   - id: A0396_NIST2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-impact-on-affected-communities
-      - atlas-impact-on-cultural-diversity
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0403_NIST2024
     hasRelatedRisk:
@@ -746,32 +686,27 @@ actions:
     type: Action
   - id: A0418_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-lack-of-system-transparency
+      - atlas-unexplainable-output
     type: Action
   - id: A0431_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
       - atlas-legal-accountability
+      - atlas-unauthorized-use-agentic
+      - atlas-untraceable-attribution
     type: Action
   - id: A0435_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
       - atlas-data-privacy-rights
-      - atlas-impact-on-affected-communities
+      - atlas-improper-retraining
     type: Action
   - id: A0446_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-impact-on-affected-communities
-      - atlas-over-or-under-reliance
+      - atlas-data-bias
     type: Action
   - id: A0467_NIST2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-legal-accountability
     type: Action
   - id: A0478_NIST2024
     hasRelatedRisk:
@@ -779,7 +714,7 @@ actions:
     type: Action
   - id: A0491_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-exclusion
     type: Action
   - id: A0624_Barrett2024
     hasRelatedRisk:
@@ -791,12 +726,10 @@ actions:
     type: Action
   - id: A0627_Barrett2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-impact-on-affected-communities
     type: Action
   - id: A0633_Barrett2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
       - atlas-legal-accountability
     type: Action
   - id: A0635_Barrett2024
@@ -834,7 +767,6 @@ actions:
   - id: A0657_Barrett2024
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-impact-on-affected-communities
     type: Action
   - id: A0662_Barrett2024
     hasRelatedRisk:
@@ -847,7 +779,6 @@ actions:
   - id: A0666_Barrett2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-legal-accountability
     type: Action
   - id: A0667_Barrett2024
     hasRelatedRisk:
@@ -855,7 +786,6 @@ actions:
     type: Action
   - id: A0668_Barrett2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-impact-on-affected-communities
     type: Action
   - id: A0669_Barrett2024
@@ -869,18 +799,15 @@ actions:
   - id: A0671_Barrett2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0681_Barrett2024
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-impact-on-affected-communities
     type: Action
   - id: A0682_Barrett2024
     hasRelatedRisk:
+      - atlas-data-bias
       - atlas-decision-bias
-      - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
     type: Action
   - id: A0685_Barrett2024
@@ -917,34 +844,28 @@ actions:
     type: Action
   - id: A0726_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0742_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
-      - atlas-impact-on-affected-communities
+      - atlas-improper-retraining
     type: Action
   - id: A0751_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-impact-on-affected-communities
+      - atlas-data-bias
     type: Action
   - id: A0764_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
-      - atlas-impact-on-affected-communities
-      - atlas-impact-on-cultural-diversity
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0765_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-impact-on-affected-communities
     type: Action
   - id: A0766_UK_Government2023
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-improper-retraining
     type: Action
   - id: A0767_UK_Government2023
     hasRelatedRisk:
@@ -956,14 +877,11 @@ actions:
     type: Action
   - id: A0769_UK_Government2023
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
       - atlas-legal-accountability
     type: Action
   - id: A0770_UK_Government2023
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0771_UK_Government2023
     hasRelatedRisk:
@@ -976,7 +894,6 @@ actions:
   - id: A0774_UK_Government2023
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0775_UK_Government2023
     hasRelatedRisk:
@@ -1001,7 +918,6 @@ actions:
   - id: A0784_UK_Government2023
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-lack-of-system-transparency
     type: Action
   - id: A0822_UK_Government2023
     hasRelatedRisk:
@@ -1053,7 +969,6 @@ actions:
     type: Action
   - id: A0846_UK_Government2023
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
       - atlas-impact-on-the-environment
     type: Action
   - id: A0849_UK_Government2023
@@ -1110,13 +1025,11 @@ actions:
     type: Action
   - id: A1028_Uuk2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
-      - atlas-legal-accountability
+      - atlas-dangerous-use
     type: Action
   - id: A1030_Uuk2024
     hasRelatedRisk:
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A1031_Uuk2024
     hasRelatedRisk:
@@ -1126,7 +1039,6 @@ actions:
   - id: A0937_Gipiskis2024
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-harmful-code-generation
     type: Action
   # --- Group 2.1: Model & Infrastructure Security (32 actions) ---
   - id: A0038_Casper2025
@@ -1136,20 +1048,18 @@ actions:
   - id: A0043_Eisenberg2025
     hasRelatedRisk:
       - atlas-extraction-attack
-      - atlas-revealing-confidential-information
     type: Action
   - id: A0044_Eisenberg2025
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
     type: Action
   - id: A0045_Eisenberg2025
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
     type: Action
   - id: A0046_Eisenberg2025
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-extraction-attack
     type: Action
   - id: A0100_Future_of_Life_Institute2024
     hasRelatedRisk:
@@ -1157,11 +1067,10 @@ actions:
     type: Action
   - id: A0126_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
     type: Action
   - id: A0134_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-unauthorized-use-agentic
     type: Action
   - id: A0148_Future_of_Life_Institute2024
@@ -1178,7 +1087,7 @@ actions:
     type: Action
   - id: A0210_Schuett2023
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
     type: Action
   - id: A0215_Schuett2023
     hasRelatedRisk:
@@ -1186,12 +1095,12 @@ actions:
     type: Action
   - id: A0252_Wiener2024
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
+      - atlas-unauthorized-use-agentic
     type: Action
   - id: A0261_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-evasion-attack
-      - atlas-extraction-attack
+      - atlas-unauthorized-use-agentic
     type: Action
   - id: A0513_NIST2024
     hasRelatedRisk:
@@ -1199,11 +1108,13 @@ actions:
     type: Action
   - id: A0516_NIST2024
     hasRelatedRisk:
+      - atlas-evasion-attack
       - atlas-extraction-attack
     type: Action
   - id: A0519_NIST2024
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-data-provenance
+      - atlas-unauthorized-use-agentic
     type: Action
   - id: A0679_Barrett2024
     hasRelatedRisk:
@@ -1236,11 +1147,10 @@ actions:
   - id: A0875_UK_Government2023
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-extraction-attack
     type: Action
   - id: A0876_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
     type: Action
   - id: A0877_UK_Government2023
     hasRelatedRisk:
@@ -1260,12 +1170,13 @@ actions:
     type: Action
   - id: A1045_Uuk2024
     hasRelatedRisk:
-      - atlas-extraction-attack
+      - atlas-evasion-attack
     type: Action
   # --- Group 2.2: Model Alignment (9 actions) ---
   - id: A0078_Eisenberg2025
     hasRelatedRisk:
       - atlas-misaligned-actions-agentic
+      - atlas-unexplainable-output
     type: Action
   - id: A0171_Schuett2023
     hasRelatedRisk:
@@ -1273,24 +1184,24 @@ actions:
     type: Action
   - id: A0870_UK_Government2023
     hasRelatedRisk:
-      - atlas-misaligned-actions-agentic
       - atlas-unexplainable-output
     type: Action
   - id: A0873_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-data-bias
+      - atlas-legal-accountability
       - atlas-misaligned-actions-agentic
-      - atlas-output-bias
     type: Action
   - id: A0896_UK_Government2023
     hasRelatedRisk:
       - atlas-harmful-output
-      - atlas-misaligned-actions-agentic
+      - atlas-improper-retraining
+      - atlas-non-disclosure
     type: Action
   - id: A0929_UK_Government2023
     hasRelatedRisk:
       - atlas-harmful-output
-      - atlas-misaligned-actions-agentic
+      - atlas-improper-retraining
     type: Action
   - id: A0978_Gipiskis2024
     hasRelatedRisk:
@@ -1302,86 +1213,83 @@ actions:
     type: Action
   - id: A1026_Uuk2024
     hasRelatedRisk:
-      - atlas-harmful-output
-      - atlas-misaligned-actions-agentic
+      - atlas-improper-retraining
     type: Action
   # --- Group 2.3: Model Safety Engineering (38 actions) ---
   - id: A0017_Bengio2025
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0019_Bengio2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0118_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0270_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0417_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0480_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0495_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
-      - atlas-data-provenance
       - atlas-evasion-attack
-      - atlas-output-bias
+      - atlas-untraceable-attribution
     type: Action
   - id: A0498_NIST2024
     hasRelatedRisk:
-      - atlas-exposing-personal-information
-      - atlas-impact-on-human-agency
+      - atlas-data-privacy-rights
+      - atlas-non-disclosure
     type: Action
   - id: A0514_NIST2024
     hasRelatedRisk:
       - atlas-dangerous-use
+      - atlas-nonconsensual-use
     type: Action
   - id: A0518_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
+      - atlas-non-disclosure
+      - atlas-untraceable-attribution
     type: Action
   - id: A0529_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0731_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-evasion-attack
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
-      - atlas-output-bias
     type: Action
   - id: A0872_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0874_UK_Government2023
     hasRelatedRisk:
       - atlas-data-bias
-      - atlas-output-bias
+      - atlas-decision-bias
     type: Action
   - id: A0878_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-spreading-disinformation
     type: Action
   - id: A0879_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-non-disclosure
     type: Action
   - id: A0892_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-dangerous-use
     type: Action
   - id: A0894_UK_Government2023
     hasRelatedRisk:
@@ -1389,7 +1297,7 @@ actions:
     type: Action
   - id: A0897_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-improper-retraining
     type: Action
   - id: A0898_UK_Government2023
     hasRelatedRisk:
@@ -1397,60 +1305,59 @@ actions:
     type: Action
   - id: A0908_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0911_UK_Government2023
     hasRelatedRisk:
-      - atlas-exposing-personal-information
-      - atlas-lack-of-model-transparency
+      - atlas-data-privacy-rights
     type: Action
   - id: A0935_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0936_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0939_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0947_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0948_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0951_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0952_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0973_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0983_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0990_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0991_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1014_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1019_Uuk2024
     hasRelatedRisk:
@@ -1459,12 +1366,12 @@ actions:
     type: Action
   - id: A1021_Uuk2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-impact-on-human-agency
     type: Action
   - id: A1027_Uuk2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-harmful-output
+      - atlas-harmful-code-generation
+      - atlas-improper-usage
     type: Action
   - id: A1042_Uuk2024
     hasRelatedRisk:
@@ -1473,20 +1380,22 @@ actions:
   # --- Group 2.4: Content Safety Controls (22 actions) ---
   - id: A0033_Casper2025
     hasRelatedRisk:
+      - atlas-non-disclosure
       - atlas-untraceable-attribution
     type: Action
   - id: A0059_Eisenberg2025
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-harmful-output
+      - atlas-over-or-under-reliance
     type: Action
   - id: A0060_Eisenberg2025
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-harmful-output
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0087_Future_of_Life_Institute2024
     hasRelatedRisk:
+      - atlas-non-disclosure
       - atlas-untraceable-attribution
     type: Action
   - id: A0108_Future_of_Life_Institute2024
@@ -1500,19 +1409,19 @@ actions:
   - id: A0398_NIST2024
     hasRelatedRisk:
       - atlas-harmful-output
+      - atlas-nonconsensual-use
     type: Action
   - id: A0424_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
       - atlas-untraceable-attribution
     type: Action
   - id: A0456_NIST2024
     hasRelatedRisk:
-      - atlas-poor-model-accuracy
+      - atlas-hallucination
     type: Action
   - id: A0457_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-nonconsensual-use
     type: Action
   - id: A0473_NIST2024
     hasRelatedRisk:
@@ -1520,35 +1429,32 @@ actions:
     type: Action
   - id: A0476_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-harmful-output
       - atlas-nonconsensual-use
       - atlas-spreading-disinformation
       - atlas-untraceable-attribution
     type: Action
   - id: A0483_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0484_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
       - atlas-spreading-disinformation
       - atlas-untraceable-attribution
     type: Action
   - id: A0520_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-incorrect-risk-testing
+      - atlas-legal-accountability
+      - atlas-unauthorized-use-agentic
       - atlas-untraceable-attribution
     type: Action
   - id: A0527_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-harmful-output
     type: Action
   - id: A0867_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-provenance
+      - atlas-non-disclosure
       - atlas-untraceable-attribution
     type: Action
   - id: A0868_UK_Government2023
@@ -1559,27 +1465,27 @@ actions:
   - id: A0869_UK_Government2023
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-exposing-personal-information
+      - atlas-non-disclosure
     type: Action
   - id: A0974_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0975_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0976_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0630_Barrett2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-evasion-attack
     type: Action
   - id: A0696_Barrett2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0001_Bengio2025
     hasRelatedRisk:
@@ -1587,248 +1493,219 @@ actions:
     type: Action
   - id: A0002_Bengio2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0010_Bengio2025
     hasRelatedRisk:
-      - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0011_Bengio2025
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0053_Eisenberg2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0055_Eisenberg2025
     hasRelatedRisk:
       - atlas-decision-bias
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
     type: Action
   - id: A0063_Eisenberg2025
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-evasion-attack
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0093_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0109_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
     type: Action
   - id: A0121_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0137_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0147_Future_of_Life_Institute2024
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0157_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-exclusion
     type: Action
   - id: A0165_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
     type: Action
   - id: A0166_Future_of_Life_Institute2024
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0177_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0178_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0185_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0204_Schuett2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0213_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-legal-accountability
     type: Action
   - id: A0214_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0250_Wiener2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0262_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0277_Campos2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0339_Campos2025
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0390_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0393_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-dangerous-use
     type: Action
   - id: A0413_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0419_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0432_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0451_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0454_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-poor-model-accuracy
+      - atlas-legal-accountability
+      - atlas-over-or-under-reliance
     type: Action
   - id: A0458_NIST2024
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0459_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0462_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0464_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0471_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
     type: Action
   - id: A0475_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-incorrect-risk-testing
       - atlas-untraceable-attribution
     type: Action
   - id: A0479_NIST2024
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0485_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-incorrect-risk-testing
       - atlas-untraceable-attribution
     type: Action
   - id: A0486_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0487_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-incorrect-risk-testing
+      - atlas-dangerous-use
       - atlas-untraceable-attribution
     type: Action
   - id: A0489_NIST2024
     hasRelatedRisk:
       - atlas-data-curation
-      - atlas-data-provenance
-      - atlas-incorrect-risk-testing
-      - atlas-untraceable-attribution
+      - atlas-non-disclosure
     type: Action
   - id: A0490_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-evasion-attack
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0493_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0494_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0499_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-poor-model-accuracy
     type: Action
   - id: A0500_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0502_NIST2024
     hasRelatedRisk:
       - atlas-impact-on-the-environment
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0503_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0511_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
     type: Action
   - id: A0512_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-harmful-code-generation
+      - atlas-harmful-output
     type: Action
   - id: A0515_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0517_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
       - atlas-untraceable-attribution
     type: Action
   - id: A0522_NIST2024
@@ -1840,381 +1717,340 @@ actions:
     type: Action
   - id: A0523_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-evasion-attack
+      - atlas-improper-retraining
     type: Action
   - id: A0531_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
+      - atlas-data-curation
+      - atlas-evasion-attack
     type: Action
   - id: A0534_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
-      - atlas-data-contamination
-      - atlas-harmful-output
       - atlas-impact-on-the-environment
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
+      - atlas-toxic-output
     type: Action
   - id: A0628_Barrett2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0647_Barrett2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0672_Barrett2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
+      - atlas-harmful-output
     type: Action
   - id: A0674_Barrett2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0677_Barrett2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0678_Barrett2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-legal-accountability
     type: Action
   - id: A0684_Barrett2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0689_Barrett2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0707_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-decision-bias
-      - atlas-harmful-output
+      - atlas-evasion-attack
       - atlas-impact-on-affected-communities
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
     type: Action
   - id: A0715_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
-      - atlas-harmful-output
-      - atlas-output-bias
+      - atlas-hallucination
+      - atlas-toxic-output
     type: Action
   - id: A0718_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
     type: Action
   - id: A0721_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
-      - atlas-untraceable-attribution
     type: Action
   - id: A0722_NIST2024
     hasRelatedRisk:
-      - atlas-evasion-attack
+      - atlas-hallucination
       - atlas-impact-on-the-environment
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0723_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
-      - atlas-output-bias
+      - atlas-misaligned-actions-agentic
       - atlas-unexplainable-output
     type: Action
   - id: A0727_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A0728_NIST2024
     hasRelatedRisk:
       - atlas-dangerous-use
       - atlas-data-bias
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
-      - atlas-output-bias
+      - atlas-non-disclosure
+      - atlas-toxic-output
     type: Action
   - id: A0732_NIST2024
     hasRelatedRisk:
       - atlas-dangerous-use
       - atlas-data-bias
       - atlas-harmful-output
-      - atlas-output-bias
+      - atlas-nonconsensual-use
       - atlas-spreading-disinformation
+      - atlas-toxic-output
     type: Action
   - id: A0743_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-data-poisoning
       - atlas-data-privacy-rights
-      - atlas-evasion-attack
-      - atlas-exposing-personal-information
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
-      - atlas-output-bias
+      - atlas-harmful-code-generation
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0744_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0746_NIST2024
     hasRelatedRisk:
-      - atlas-evasion-attack
+      - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0757_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-incorrect-risk-testing
-      - atlas-untraceable-attribution
+      - atlas-harmful-output
     type: Action
   - id: A0786_UK_Government2023
     hasRelatedRisk:
       - atlas-dangerous-use
-      - atlas-harmful-code-generation
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0787_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0788_UK_Government2023
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-decision-bias
-      - atlas-exclusion
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
     type: Action
   - id: A0789_UK_Government2023
     hasRelatedRisk:
-      - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0791_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0792_UK_Government2023
     hasRelatedRisk:
       - atlas-improper-retraining
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0793_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0794_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0795_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0796_UK_Government2023
     hasRelatedRisk:
       - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-incorrect-risk-testing
       - atlas-output-bias
     type: Action
   - id: A0798_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0804_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0821_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-poisoning
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
+      - atlas-extraction-attack
     type: Action
   - id: A0837_UK_Government2023
     hasRelatedRisk:
       - atlas-evasion-attack
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0871_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0893_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
+      - atlas-harmful-output
     type: Action
   - id: A0907_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-evasion-attack
     type: Action
   - id: A0923_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-data-curation
     type: Action
   - id: A0924_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-data-curation
     type: Action
   - id: A0942_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0943_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0945_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0946_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0949_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0953_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0954_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0955_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0956_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0958_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0981_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0987_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0993_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0997_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0998_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A0999_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1000_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1001_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1002_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1003_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1008_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1009_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1010_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1012_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1013_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1015_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1020_Uuk2024
     hasRelatedRisk:
-      - atlas-dangerous-use
+      - atlas-harmful-output
     type: Action
   - id: A1024_Uuk2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-evasion-attack
     type: Action
   - id: A1040_Uuk2024
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
     type: Action
   # === Group 3.2: Data Governance (57 actions) ===
   - id: A0067_Eisenberg2025
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-data-privacy-rights
-      - atlas-personal-information-in-data
+      - atlas-exposing-personal-information
     type: Action
   - id: A0068_Eisenberg2025
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-data-privacy-rights
-      - atlas-personal-information-in-data
+      - atlas-exposing-personal-information
     type: Action
   - id: A0080_Eisenberg2025
     hasRelatedRisk:
       - atlas-copyright-infringement
       - atlas-data-bias
-      - atlas-data-curation
     type: Action
   - id: A0102_Future_of_Life_Institute2024
     hasRelatedRisk:
@@ -2226,52 +2062,44 @@ actions:
     type: Action
   - id: A0117_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-data-curation
+      - atlas-dangerous-use
+      - atlas-decision-bias
+      - atlas-exposing-personal-information
       - atlas-harmful-output
-      - atlas-personal-information-in-data
+      - atlas-toxic-output
     type: Action
   - id: A0142_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-data-privacy-rights
     type: Action
   - id: A0158_Future_of_Life_Institute2024
     hasRelatedRisk:
       - atlas-copyright-infringement
-      - atlas-data-curation
-      - atlas-harmful-output
     type: Action
   - id: A0159_Future_of_Life_Institute2024
     hasRelatedRisk:
       - atlas-data-curation
-      - atlas-data-usage
     type: Action
   - id: A0271_EU_AI_Office2025
     hasRelatedRisk:
       - atlas-copyright-infringement
-      - atlas-data-curation
     type: Action
   - id: A0389_NIST2024
     hasRelatedRisk:
       - atlas-data-curation
-      - atlas-lack-of-data-transparency
     type: Action
   - id: A0407_NIST2024
     hasRelatedRisk:
       - atlas-data-curation
-      - atlas-data-privacy-rights
     type: Action
   - id: A0427_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
-      - atlas-data-curation
       - atlas-data-privacy-rights
     type: Action
   - id: A0430_NIST2024
     hasRelatedRisk:
-      - atlas-data-curation
-      - atlas-data-provenance
-      - atlas-data-usage-rights
+      - atlas-untraceable-attribution
     type: Action
   - id: A0441_NIST2024
     hasRelatedRisk:
@@ -2279,7 +2107,9 @@ actions:
     type: Action
   - id: A0443_NIST2024
     hasRelatedRisk:
-      - atlas-data-curation
+      - atlas-improper-retraining
+      - atlas-legal-accountability
+      - atlas-unauthorized-use-agentic
     type: Action
   - id: A0449_NIST2024
     hasRelatedRisk:
@@ -2287,11 +2117,12 @@ actions:
     type: Action
   - id: A0450_NIST2024
     hasRelatedRisk:
-      - atlas-data-curation
+      - atlas-data-provenance
     type: Action
   - id: A0455_NIST2024
     hasRelatedRisk:
       - atlas-data-curation
+      - atlas-unrepresentative-data
     type: Action
   - id: A0468_NIST2024
     hasRelatedRisk:
@@ -2299,9 +2130,10 @@ actions:
     type: Action
   - id: A0469_NIST2024
     hasRelatedRisk:
+      - atlas-dangerous-use
       - atlas-data-bias
       - atlas-data-curation
-      - atlas-data-privacy-rights
+      - atlas-exposing-personal-information
       - atlas-harmful-output
     type: Action
   - id: A0470_NIST2024
@@ -2317,24 +2149,23 @@ actions:
     type: Action
   - id: A0496_NIST2024
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-data-privacy-rights
-      - atlas-data-provenance
-      - atlas-harmful-output
-      - atlas-personal-information-in-data
+      - atlas-exposing-personal-information
+      - atlas-untraceable-attribution
     type: Action
   - id: A0507_NIST2024
     hasRelatedRisk:
       - atlas-data-curation
       - atlas-data-provenance
+      - atlas-improper-retraining
     type: Action
   - id: A0510_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
+      - atlas-dangerous-use
       - atlas-data-bias
       - atlas-data-curation
       - atlas-data-privacy-rights
-      - atlas-harmful-output
     type: Action
   - id: A0533_NIST2024
     hasRelatedRisk:
@@ -2344,41 +2175,42 @@ actions:
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-data-curation
-      - atlas-harmful-output
+      - atlas-decision-bias
+      - atlas-non-disclosure
+      - atlas-unrepresentative-data
     type: Action
   - id: A0710_NIST2024
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-data-curation
-      - atlas-harmful-output
     type: Action
   - id: A0736_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
       - atlas-data-bias
-      - atlas-data-curation
       - atlas-data-privacy-rights
-      - atlas-harmful-output
+      - atlas-hallucination
     type: Action
   - id: A0745_NIST2024
     hasRelatedRisk:
       - atlas-copyright-infringement
+      - atlas-dangerous-use
       - atlas-data-curation
+      - atlas-revealing-confidential-information
     type: Action
   - id: A0756_NIST2024
     hasRelatedRisk:
       - atlas-data-curation
-      - atlas-data-provenance
     type: Action
   - id: A0891_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-data-privacy-rights
     type: Action
   - id: A0912_UK_Government2023
     hasRelatedRisk:
       - atlas-copyright-infringement
       - atlas-data-curation
+      - atlas-exposing-personal-information
     type: Action
   - id: A0913_UK_Government2023
     hasRelatedRisk:
@@ -2387,27 +2219,27 @@ actions:
     type: Action
   - id: A0914_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
-      - atlas-harmful-output
+      - atlas-improper-retraining
     type: Action
   - id: A0915_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-data-privacy-rights
+      - atlas-over-or-under-reliance
     type: Action
   - id: A0916_UK_Government2023
     hasRelatedRisk:
       - atlas-data-bias
       - atlas-data-curation
-      - atlas-data-provenance
+      - atlas-unrepresentative-data
     type: Action
   - id: A0917_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
+      - atlas-dangerous-use
     type: Action
   - id: A0918_UK_Government2023
     hasRelatedRisk:
       - atlas-data-curation
+      - atlas-extraction-attack
     type: Action
   - id: A0919_UK_Government2023
     hasRelatedRisk:
@@ -2416,32 +2248,33 @@ actions:
     type: Action
   - id: A0920_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
       - atlas-harmful-output
     type: Action
   - id: A0921_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
-      - atlas-harmful-output
+      - atlas-spreading-disinformation
     type: Action
   - id: A0922_UK_Government2023
     hasRelatedRisk:
-      - atlas-data-curation
+      - atlas-dangerous-use
     type: Action
   - id: A0925_UK_Government2023
     hasRelatedRisk:
       - atlas-data-curation
       - atlas-data-privacy-rights
-      - atlas-harmful-output
+      - atlas-improper-retraining
     type: Action
   - id: A0928_UK_Government2023
     hasRelatedRisk:
       - atlas-data-curation
-      - atlas-harmful-output
+      - atlas-improper-retraining
     type: Action
   - id: A0930_UK_Government2023
     hasRelatedRisk:
       - atlas-data-curation
+      - atlas-decision-bias
+      - atlas-impact-on-affected-communities
+      - atlas-unrepresentative-data
     type: Action
   - id: A0931_UK_Government2023
     hasRelatedRisk:
@@ -2482,28 +2315,27 @@ actions:
   - id: A1022_Uuk2024
     hasRelatedRisk:
       - atlas-data-curation
+      - atlas-improper-retraining
     type: Action
   # === Group 3.3: Access Management (23 actions) ===
   - id: A0042_Eisenberg2025
     hasRelatedRisk:
-      - atlas-improper-usage
+      - atlas-unauthorized-use-agentic
     type: Action
   - id: A0065_Eisenberg2025
     hasRelatedRisk:
-      - atlas-improper-usage
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0114_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-improper-usage
+      - atlas-improper-retraining
     type: Action
   - id: A0124_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-improper-usage
     type: Action
   - id: A0127_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-improper-usage
     type: Action
   - id: A0172_Schuett2023
@@ -2544,17 +2376,15 @@ actions:
     type: Action
   - id: A0899_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-improper-usage
     type: Action
   - id: A0901_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-improper-usage
+      - atlas-data-privacy-rights
     type: Action
   - id: A0902_UK_Government2023
     hasRelatedRisk:
-      - atlas-improper-usage
+      - atlas-improper-retraining
     type: Action
   - id: A0970_Gipiskis2024
     hasRelatedRisk:
@@ -2570,7 +2400,7 @@ actions:
     type: Action
   - id: A1025_Uuk2024
     hasRelatedRisk:
-      - atlas-improper-usage
+      - atlas-improper-retraining
     type: Action
   - id: A1029_Uuk2024
     hasRelatedRisk:
@@ -2583,44 +2413,34 @@ actions:
   # === Group 3.4: Staged Deployment (8 actions) ===
   - id: A0024_Bengio2025
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
     type: Action
   - id: A0211_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
     type: Action
   - id: A0216_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
-      - atlas-improper-usage
-      - atlas-incorrect-risk-testing
+      - atlas-improper-retraining
     type: Action
   - id: A0219_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
-      - atlas-incorrect-risk-testing
     type: Action
   - id: A0779_UK_Government2023
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
     type: Action
   - id: A0968_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
     type: Action
   - id: A0969_Gipiskis2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
     type: Action
   - id: A1023_Uuk2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-improper-usage
     type: Action
   # --- Group 3.5: Post-deployment Monitoring (50 actions) ---
@@ -2630,37 +2450,31 @@ actions:
     type: Action
   - id: A0051_Eisenberg2025
     hasRelatedRisk:
-      - atlas-improper-usage
-      - atlas-lack-of-system-transparency
+      - atlas-data-provenance
     type: Action
   - id: A0054_Eisenberg2025
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-impact-on-the-environment
     type: Action
   - id: A0056_Eisenberg2025
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
-      - atlas-temporal-gap
+      - atlas-decision-bias
+      - atlas-output-bias
     type: Action
   - id: A0061_Eisenberg2025
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
-      - atlas-poor-model-accuracy
+      - atlas-hallucination
     type: Action
   - id: A0064_Eisenberg2025
     hasRelatedRisk:
-      - atlas-improper-usage
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0128_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-lack-of-system-transparency
-      - atlas-legal-accountability
     type: Action
   - id: A0160_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0190_Schuett2023
@@ -2681,13 +2495,11 @@ actions:
     type: Action
   - id: A0400_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0429_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0440_NIST2024
     hasRelatedRisk:
@@ -2695,8 +2507,7 @@ actions:
     type: Action
   - id: A0453_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0463_NIST2024
     hasRelatedRisk:
@@ -2705,11 +2516,11 @@ actions:
   - id: A0465_NIST2024
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-lack-of-system-transparency
+      - atlas-exposing-personal-information
+      - atlas-non-disclosure
     type: Action
   - id: A0472_NIST2024
     hasRelatedRisk:
-      - atlas-evasion-attack
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0481_NIST2024
@@ -2722,8 +2533,8 @@ actions:
     type: Action
   - id: A0488_NIST2024
     hasRelatedRisk:
+      - atlas-evasion-attack
       - atlas-impact-on-affected-communities
-      - atlas-lack-of-system-transparency
     type: Action
   - id: A0505_NIST2024
     hasRelatedRisk:
@@ -2735,21 +2546,20 @@ actions:
     type: Action
   - id: A0508_NIST2024
     hasRelatedRisk:
-      - atlas-evasion-attack
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0524_NIST2024
     hasRelatedRisk:
-      - atlas-evasion-attack
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0525_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-copyright-infringement
+      - atlas-decision-bias
     type: Action
   - id: A0629_Barrett2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-data-poisoning
     type: Action
   - id: A0676_Barrett2024
     hasRelatedRisk:
@@ -2757,7 +2567,6 @@ actions:
     type: Action
   - id: A0690_Barrett2024
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0700_Barrett2024
@@ -2774,22 +2583,19 @@ actions:
     type: Action
   - id: A0724_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0730_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0734_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-non-disclosure
     type: Action
   - id: A0747_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0749_NIST2024
     hasRelatedRisk:
@@ -2797,23 +2603,20 @@ actions:
     type: Action
   - id: A0752_NIST2024
     hasRelatedRisk:
-      - atlas-evasion-attack
-      - atlas-lack-of-system-transparency
+      - atlas-dangerous-use
+      - atlas-hallucination
     type: Action
   - id: A0754_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-hallucination
     type: Action
   - id: A0758_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-lack-of-system-transparency
-      - atlas-output-bias
+      - atlas-data-bias
     type: Action
   - id: A0831_UK_Government2023
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-poor-model-accuracy
     type: Action
   - id: A0832_UK_Government2023
     hasRelatedRisk:
@@ -2826,7 +2629,6 @@ actions:
   - id: A0909_UK_Government2023
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-lack-of-system-transparency
     type: Action
   - id: A0950_Gipiskis2024
     hasRelatedRisk:
@@ -2855,9 +2657,7 @@ actions:
     type: Action
   - id: A0110_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-harmful-output
-      - atlas-legal-accountability
     type: Action
   - id: A0180_Schuett2023
     hasRelatedRisk:
@@ -2865,12 +2665,10 @@ actions:
     type: Action
   - id: A0189_Schuett2023
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-harmful-output
     type: Action
   - id: A0209_Schuett2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-harmful-output
     type: Action
   - id: A0251_Wiener2024
@@ -2879,11 +2677,11 @@ actions:
     type: Action
   - id: A0401_NIST2024
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-non-disclosure
     type: Action
   - id: A0406_NIST2024
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-dangerous-use
     type: Action
   - id: A0409_NIST2024
     hasRelatedRisk:
@@ -2895,8 +2693,8 @@ actions:
     type: Action
   - id: A0439_NIST2024
     hasRelatedRisk:
-      - atlas-exposing-personal-information
-      - atlas-harmful-output
+      - atlas-data-privacy-rights
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0442_NIST2024
     hasRelatedRisk:
@@ -2904,11 +2702,10 @@ actions:
     type: Action
   - id: A0466_NIST2024
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-copyright-infringement
     type: Action
   - id: A0521_NIST2024
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-harmful-output
     type: Action
   - id: A0528_NIST2024
@@ -2929,7 +2726,8 @@ actions:
     type: Action
   - id: A0698_Barrett2024
     hasRelatedRisk:
-      - atlas-harmful-output
+      - atlas-dangerous-use
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0737_NIST2024
     hasRelatedRisk:
@@ -2937,27 +2735,23 @@ actions:
     type: Action
   - id: A0739_NIST2024
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-harmful-output
+      - atlas-dangerous-use
     type: Action
   - id: A0740_NIST2024
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-harmful-output
     type: Action
   - id: A0759_NIST2024
     hasRelatedRisk:
-      - atlas-dangerous-use
       - atlas-harmful-output
+      - atlas-toxic-output
     type: Action
   - id: A0830_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-harmful-output
     type: Action
   - id: A0833_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-harmful-output
     type: Action
   - id: A0883_UK_Government2023
@@ -2983,7 +2777,8 @@ actions:
   # === Group 4.1: System Documentation (37 actions) ===
   - id: A0005_Bengio2025
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
+      - atlas-data-curation
+      - atlas-incomplete-usage-definition
       - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
     type: Action
@@ -2997,15 +2792,13 @@ actions:
     type: Action
   - id: A0035_Casper2025
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0050_Eisenberg2025
     hasRelatedRisk:
+      - atlas-data-curation
       - atlas-data-provenance
-      - atlas-lack-of-data-transparency
       - atlas-lack-of-model-transparency
-      - atlas-lack-of-system-transparency
     type: Action
   - id: A0081_Eisenberg2025
     hasRelatedRisk:
@@ -3013,7 +2806,7 @@ actions:
     type: Action
   - id: A0146_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0256_Wiener2024
     hasRelatedRisk:
@@ -3021,13 +2814,14 @@ actions:
     type: Action
   - id: A0264_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0388_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-copyright-infringement
+      - atlas-data-privacy-rights
+      - atlas-legal-accountability
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0402_NIST2024
     hasRelatedRisk:
@@ -3035,10 +2829,10 @@ actions:
     type: Action
   - id: A0405_NIST2024
     hasRelatedRisk:
+      - atlas-copyright-infringement
       - atlas-data-provenance
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-model-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-over-or-under-reliance
+      - atlas-untraceable-attribution
     type: Action
   - id: A0423_NIST2024
     hasRelatedRisk:
@@ -3046,31 +2840,25 @@ actions:
     type: Action
   - id: A0434_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0437_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-over-or-under-reliance
     type: Action
   - id: A0452_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-untraceable-attribution
     type: Action
   - id: A0504_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-improper-retraining
     type: Action
   - id: A0530_NIST2024
     hasRelatedRisk:
+      - atlas-data-curation
       - atlas-data-provenance
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-model-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-improper-retraining
     type: Action
   - id: A0631_Barrett2024
     hasRelatedRisk:
@@ -3080,7 +2868,7 @@ actions:
     type: Action
   - id: A0652_Barrett2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0654_Barrett2024
     hasRelatedRisk:
@@ -3092,7 +2880,6 @@ actions:
     type: Action
   - id: A0658_Barrett2024
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0659_Barrett2024
@@ -3101,7 +2888,6 @@ actions:
     type: Action
   - id: A0660_Barrett2024
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0661_Barrett2024
@@ -3122,39 +2908,31 @@ actions:
     type: Action
   - id: A0680_Barrett2024
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
-      - atlas-unexplainable-output
     type: Action
   - id: A0719_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
+      - atlas-data-bias
+      - atlas-impact-on-affected-communities
     type: Action
   - id: A0729_NIST2024
     hasRelatedRisk:
-      - atlas-data-provenance
-      - atlas-lack-of-data-transparency
-      - atlas-lack-of-system-transparency
+      - atlas-data-curation
     type: Action
   - id: A0760_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0817_UK_Government2023
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0826_UK_Government2023
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
       - atlas-lack-of-model-transparency
-      - atlas-lack-of-system-transparency
     type: Action
   - id: A0926_UK_Government2023
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
       - atlas-lack-of-system-transparency
     type: Action
   - id: A0938_Gipiskis2024
@@ -3168,7 +2946,6 @@ actions:
     type: Action
   - id: A0082_Eisenberg2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0130_Future_of_Life_Institute2024
@@ -3177,17 +2954,14 @@ actions:
     type: Action
   - id: A0138_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0141_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0149_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0193_Schuett2023
@@ -3200,7 +2974,6 @@ actions:
     type: Action
   - id: A0201_Schuett2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0220_Schuett2023
@@ -3217,29 +2990,23 @@ actions:
     type: Action
   - id: A0259_Wiener2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0269_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-lack-of-system-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0273_EU_AI_Office2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0280_Campos2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0411_NIST2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-dangerous-use
     type: Action
   - id: A0501_NIST2024
     hasRelatedRisk:
@@ -3247,28 +3014,24 @@ actions:
     type: Action
   - id: A0526_NIST2024
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-evasion-attack
     type: Action
   - id: A0632_Barrett2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0646_Barrett2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0755_NIST2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
-      - atlas-non-disclosure
-      - atlas-output-bias
+      - atlas-data-bias
+      - atlas-legal-accountability
     type: Action
   - id: A0782_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-evasion-attack
     type: Action
   - id: A0803_UK_Government2023
     hasRelatedRisk:
@@ -3276,60 +3039,53 @@ actions:
     type: Action
   - id: A0805_UK_Government2023
     hasRelatedRisk:
-      - atlas-impact-on-affected-communities
       - atlas-non-disclosure
     type: Action
   - id: A0806_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0809_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-data-curation
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0810_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0811_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-lack-of-system-transparency
-      - atlas-non-disclosure
-      - atlas-output-bias
+      - atlas-data-bias
+      - atlas-data-curation
+      - atlas-lack-of-model-transparency
+      - atlas-legal-accountability
+      - atlas-unauthorized-use-agentic
+      - atlas-unexplainable-output
     type: Action
   - id: A0812_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0813_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-lack-of-system-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0814_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-evasion-attack
     type: Action
   - id: A0815_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-copyright-infringement
     type: Action
   - id: A0818_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-incomplete-usage-definition
+      - atlas-legal-accountability
     type: Action
   - id: A0863_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0864_UK_Government2023
@@ -3338,7 +3094,6 @@ actions:
     type: Action
   - id: A0865_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0866_UK_Government2023
@@ -3351,11 +3106,10 @@ actions:
     type: Action
   - id: A0888_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-impact-on-affected-communities
     type: Action
   - id: A0890_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0903_UK_Government2023
@@ -3364,20 +3118,16 @@ actions:
     type: Action
   - id: A0933_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-lack-of-system-transparency
-      - atlas-non-disclosure
+      - atlas-data-curation
     type: Action
   - id: A1032_Uuk2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   # === Group 4.3: Incident Reporting (30 actions) ===
   - id: A0009_Bengio2025
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-harmful-output
+      - atlas-evasion-attack
       - atlas-non-disclosure
     type: Action
   - id: A0030_Casper2025
@@ -3398,17 +3148,14 @@ actions:
     type: Action
   - id: A0151_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-non-disclosure
     type: Action
   - id: A0152_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-non-disclosure
     type: Action
   - id: A0184_Schuett2023
     hasRelatedRisk:
-      - atlas-extraction-attack
       - atlas-non-disclosure
     type: Action
   - id: A0205_Schuett2023
@@ -3437,61 +3184,56 @@ actions:
     type: Action
   - id: A0761_NIST2024
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-hallucination
     type: Action
   - id: A0762_NIST2024
     hasRelatedRisk:
-      - atlas-exposing-personal-information
-      - atlas-extraction-attack
-      - atlas-legal-accountability
-      - atlas-non-disclosure
+      - atlas-data-privacy-rights
     type: Action
   - id: A0808_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-harmful-output
       - atlas-non-disclosure
     type: Action
   - id: A0838_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-legal-accountability
       - atlas-non-disclosure
     type: Action
   - id: A0854_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-improper-retraining
+      - atlas-jailbreaking
     type: Action
   - id: A0855_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-prompt-injection
     type: Action
   - id: A0856_UK_Government2023
     hasRelatedRisk:
-      - atlas-exposing-personal-information
-      - atlas-non-disclosure
+      - atlas-data-curation
+      - atlas-data-privacy-rights
     type: Action
   - id: A0857_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-non-disclosure
     type: Action
   - id: A0858_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-data-curation
+      - atlas-data-poisoning
+      - atlas-poor-model-accuracy
     type: Action
   - id: A0859_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-data-bias
+      - atlas-decision-bias
     type: Action
   - id: A0860_UK_Government2023
     hasRelatedRisk:
-      - atlas-harmful-output
       - atlas-non-disclosure
     type: Action
   - id: A0861_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0862_UK_Government2023
     hasRelatedRisk:
@@ -3503,14 +3245,10 @@ actions:
     type: Action
   - id: A1036_Uuk2024
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-harmful-output
       - atlas-non-disclosure
     type: Action
   - id: A1037_Uuk2024
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-harmful-output
       - atlas-non-disclosure
     type: Action
   # === Group 4.4: Governance Disclosure (24 actions) ===
@@ -3532,22 +3270,19 @@ actions:
     type: Action
   - id: A0105_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0122_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0125_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0144_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
-      - atlas-non-disclosure
+      - atlas-legal-accountability
     type: Action
   - id: A0167_Future_of_Life_Institute2024
     hasRelatedRisk:
@@ -3559,7 +3294,7 @@ actions:
     type: Action
   - id: A0169_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-legal-accountability
     type: Action
   - id: A0183_Schuett2023
     hasRelatedRisk:
@@ -3567,21 +3302,19 @@ actions:
     type: Action
   - id: A0200_Schuett2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0202_Schuett2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0203_Schuett2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0212_Schuett2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-legal-accountability
     type: Action
   - id: A0255_Wiener2024
     hasRelatedRisk:
@@ -3589,13 +3322,10 @@ actions:
     type: Action
   - id: A0340_Campos2025
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0636_Barrett2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-lack-of-system-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0785_UK_Government2023
@@ -3604,7 +3334,6 @@ actions:
     type: Action
   - id: A0807_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
       - atlas-non-disclosure
     type: Action
   - id: A0972_Gipiskis2024
@@ -3617,13 +3346,11 @@ actions:
     type: Action
   - id: A1041_Uuk2024
     hasRelatedRisk:
-      - atlas-lack-of-system-transparency
-      - atlas-non-disclosure
+      - atlas-legal-accountability
     type: Action
   # === Group 4.5: Third-Party System Access (19 actions) ===
   - id: A0074_Eisenberg2025
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0116_Future_of_Life_Institute2024
@@ -3640,8 +3367,7 @@ actions:
     type: Action
   - id: A0156_Future_of_Life_Institute2024
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-improper-retraining
     type: Action
   - id: A0206_Schuett2023
     hasRelatedRisk:
@@ -3657,43 +3383,37 @@ actions:
     type: Action
   - id: A0797_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-non-disclosure
+      - atlas-untraceable-attribution
     type: Action
   - id: A0799_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-improper-retraining
     type: Action
   - id: A0800_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-non-disclosure
+      - atlas-jailbreaking
     type: Action
   - id: A0801_UK_Government2023
     hasRelatedRisk:
-      - atlas-incorrect-risk-testing
-      - atlas-lack-of-data-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0802_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-evasion-attack
     type: Action
   - id: A0816_UK_Government2023
     hasRelatedRisk:
-      - atlas-non-disclosure
+      - atlas-evasion-attack
     type: Action
   - id: A0887_UK_Government2023
     hasRelatedRisk:
-      - atlas-lack-of-model-transparency
       - atlas-non-disclosure
     type: Action
   - id: A0932_UK_Government2023
     hasRelatedRisk:
-      - atlas-extraction-attack
-      - atlas-lack-of-data-transparency
-      - atlas-non-disclosure
+      - atlas-copyright-infringement
+      - atlas-data-curation
+      - atlas-data-privacy-rights
     type: Action
   - id: A0944_Gipiskis2024
     hasRelatedRisk:
@@ -3701,8 +3421,8 @@ actions:
     type: Action
   - id: A1018_Uuk2024
     hasRelatedRisk:
-      - atlas-lack-of-data-transparency
-      - atlas-non-disclosure
+      - atlas-data-curation
+      - atlas-improper-retraining
     type: Action
   - id: A1043_Uuk2024
     hasRelatedRisk:
@@ -3719,16 +3439,15 @@ actions:
     type: Action
   - id: A0057_Eisenberg2025
     hasRelatedRisk:
-      - atlas-impact-on-human-agency
+      - atlas-incomplete-usage-definition
     type: Action
   - id: A0066_Eisenberg2025
     hasRelatedRisk:
-      - atlas-impact-on-human-agency
+      - atlas-non-disclosure
     type: Action
   - id: A0069_Eisenberg2025
     hasRelatedRisk:
       - atlas-data-privacy-rights
-      - atlas-impact-on-human-agency
     type: Action
   - id: A0416_NIST2024
     hasRelatedRisk:
@@ -3745,7 +3464,6 @@ actions:
   - id: A0497_NIST2024
     hasRelatedRisk:
       - atlas-impact-on-human-agency
-      - atlas-nonconsensual-use
     type: Action
   - id: A0687_Barrett2024
     hasRelatedRisk:
@@ -3753,9 +3471,8 @@ actions:
     type: Action
   - id: A0720_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-impact-on-human-agency
+      - atlas-data-bias
+      - atlas-untraceable-attribution
     type: Action
   - id: A0725_NIST2024
     hasRelatedRisk:
@@ -3763,13 +3480,12 @@ actions:
     type: Action
   - id: A0735_NIST2024
     hasRelatedRisk:
-      - atlas-decision-bias
-      - atlas-harmful-output
-      - atlas-impact-on-human-agency
+      - atlas-data-bias
+      - atlas-misaligned-actions-agentic
     type: Action
   - id: A0738_NIST2024
     hasRelatedRisk:
-      - atlas-impact-on-human-agency
+      - atlas-dangerous-use
     type: Action
   - id: A0834_UK_Government2023
     hasRelatedRisk:
@@ -3793,7 +3509,8 @@ actions:
     type: Action
   - id: A0048_Eisenberg2025
     hasRelatedRisk:
-      - atlas-impact-on-human-agency
+      - atlas-improper-retraining
+      - atlas-legal-accountability
     type: Action
   - id: A0049_Eisenberg2025
     hasRelatedRisk:
@@ -3825,5 +3542,5 @@ actions:
     type: Action
   - id: A0880_UK_Government2023
     hasRelatedRisk:
-      - atlas-impact-on-human-agency
+      - atlas-non-disclosure
     type: Action
