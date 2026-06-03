@@ -1,346 +1,425 @@
-# reviewed: 2026-05-26 — initial ground truth from OVIC enterprise Gen AI guidance for Victorian public sector
 risks:
-  - id: ai-risk-taxonomy-denying-or-minimizing
-    name: Denying or minimizing well-documented, major violent events or the victimhood of such events/Denying the deeds of martyrdom
-    evidence:
-      - text: "has minimised their description of the harm suffered."
-        section: "Accuracy of personal information"
-      - text: "has led to the department trivialising their experience and dismissing the complaint."
-        section: "Accuracy of personal information"
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
-    name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
-    evidence:
-      - text: "The next day, the manager sends a prompt to the enterprise Generative AI tool within the collaboration platform, asking \"what were the main points discussed at the meeting?\". The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave."
-        section: "Collection of personal information"
-      - text: "enterprise Generative AI tools use documents from an organisation's information holdings to generate content in response to a user prompt, they could provide the user with personal information with which they were previously unfamiliar"
-        section: "Use and disclosure of personal information"
-  - id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---health-data
-    name: Unauthorized collection/gathering/stealing - Health data
-    evidence:
-      - text: "the HR team joins the meeting and see a message from the manager that they can no longer attend. They decide that without the manager, there is no point discussing the matter but, since they have all set aside 30 minutes for the meeting, they use the time to instead discuss another matter, relating to a different staff member's request for family violence leave."
-        section: "Collection of personal information"
-      - text: "The generation of the summary content by the enterprise Generative AI tool is a collection of personal information, which would likely contravene at least IPP 1.1 (as the manager had no need to know that information)."
-        section: "Collection of personal information"
-      - text: "an organisation must only collect personal information if it is necessary to fulfill one or more of its functions. The collection must be lawful, fair and not unreasonably intrusive."
-        section: "Collection of personal information"
-  - id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
-    name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
-    evidence:
-      - text: "the generated content constitutes a new collection of personal information."
-        section: "Collection of personal information"
-      - text: "The generation of the summary content by the enterprise Generative AI tool is a collection of personal information, which would likely contravene at least IPP 1.1"
-        section: "Collection of personal information"
-  - id: ai-risk-taxonomy-unauthorized-disclosure---health-data
-    name: Unauthorized disclosure - Health data
-    evidence:
-      - text: "The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave."
-        section: "Collection of personal information"
-      - text: "Human error is the leading cause of data breaches reported to OVIC involving unauthorised use and disclosure of personal information. Without proper controls in place, the implementation of an enterprise Generative AI tool could exacerbate this, given the increased speed at which personal information can be generated, used, and disclosed."
-        section: "Use and disclosure of personal information"
-  - id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
-    name: Unauthorized disclosure - PII (Personal Identifiable Information)
-    evidence:
-      - text: "The disclosure of the Performance Development Plans of other colleagues to the manager due to misconfigured access controls would likely be a breach of IPP 4.1."
-        section: "Security of personal information"
-      - text: "The disclosure of Person B’s personal information to Person A is a breach of IPP 2."
-        section: "Use and disclosure of personal information"
-  - id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
-    name: Unauthorized distribution - PII (Personal Identifiable Information)
-    evidence:
-      - text: "The disclosure of the Performance Development Plans of other colleagues to the manager due to misconfigured access controls would likely be a breach of IPP 4.1."
-        section: "Security of personal information"
-      - text: "The disclosure of Person B’s personal information to Person A is a breach of IPP 2."
-        section: "Use and disclosure of personal information"
-  - id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
-    name: Unauthorized generation - PII (Personal Identifiable Information)
-    evidence:
-      - text: "unauthorised use and disclosure of personal information."
-        section: "Use and disclosure of personal information"
-      - text: "it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application."
-        section: "Use and disclosure of personal information"
-      - text: "this generated content constitutes a new collection of personal information."
-        section: "Collection of personal information"
-  - id: ai-risk-taxonomy-unauthorized-inference/synthesis---pii-(personal-identifiable-information)
-    name: Unauthorized inference/synthesis - PII (Personal Identifiable Information)
-    evidence:
-      - text: "they could provide the user with personal information with which they were previously unfamiliar"
-        section: "Use and disclosure of personal information"
-      - text: "it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application."
-        section: "Use and disclosure of personal information"
-      - text: "The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave."
-        section: "Collection of personal information"
-  - id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
-    name: Unauthorized processing - PII (Personal Identifiable Information)
-    evidence:
-      - text: "The disclosure of Person B’s personal information to Person A is a breach of IPP 2."
-        section: "Use and disclosure of personal information"
-      - text: "The 10 Information Privacy Principles (IPPs), as set out in Schedule 1 of the PDP Act, will apply to the collection and handling of personal information that may be entered into, generated, or used by an enterprise Generative AI tool."
-        section: "Information privacy requirements"
-      - text: "IPP 5 requires VPS organisations to have a privacy policy, outlining how they handle the personal information they hold."
-        section: "Privacy policies"
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential data in prompt
-    evidence:
-      - text: "ensures all users of the enterprise Generative AI tool are aware of and understand what information they are permitted to enter into the enterprise Generative AI tool and its permitted use cases"
-        section: "OVIC's minimum expectations"
-      - text: "An organisation's Assessment Officer wants to write a letter rejecting Person A's application for a service. They prompt their enterprise Generative AI tool to draft this letter and base it off a letter they wrote two months ago rejecting Person B's application."
-        section: "Use and disclosure of personal information"
-  - id: atlas-confidential-information-in-data
-    name: Confidential information in data
-    evidence:
-      - text: "enterprise Generative AI tools use documents from an organisation's information holdings to generate content in response to a user prompt, they could provide the user with personal information with which they were previously unfamiliar (even if access controls are correctly configured and the user has a right to know this information)."
-        section: "Use and disclosure of personal information"
-      - text: "identifying existing information holdings and systems that may be impacted by the introduction of an integrated Generative AI tool, including due consideration of their security value"
-        section: "Information security requirements"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Organisations must also provide notice to individuals about why the information is being collected, how it will be used and how individuals can access the information."
-        section: "Collection of personal information"
-      - text: "The 10 Information Privacy Principles (IPPs), as set out in Schedule 1 of the PDP Act, will apply to the collection and handling of personal information that may be entered into, generated, or used by an enterprise Generative AI tool."
-        section: "Information privacy requirements"
-      - text: "IPP 2 provides that personal information may only be used or disclosed for the primary purpose for which it is was collected, or where an exception applies under IPPs 2.1(a-h)."
-        section: "Use and disclosure of personal information"
-  - id: atlas-data-transfer
-    name: Data transfer restrictions
-    evidence:
-      - text: "Ensure that settings can be configured to enhance information privacy and information security, such as disabling or limiting data sharing between certain platforms and between the VPS organisation and the company that owns the enterprise Generative AI tool."
-        section: "OVIC's minimum expectations"
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "Generative AI outputs will not always give the correct information. They simply make predictions based on the prompt they receive and the training they've had."
-        section: "Accuracy of personal information"
-      - text: "ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information"
-        section: "OVIC's minimum expectations"
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "disabling or limiting data sharing between certain platforms and between the VPS organisation and the company that owns the enterprise Generative AI tool."
-        section: "OVIC’s minimum expectations"
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "One particular risk relates to unauthorised access to information, where access permissions have not been properly configured within other organisational systems that are then integrated with the enterprise Generative AI tool."
-        section: "Security of personal information"
-      - text: "it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application."
-        section: "Use and disclosure of personal information"
-      - text: "The disclosure of Person B’s personal information to Person A is a breach of IPP 2."
-        section: "Use and disclosure of personal information"
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality."
-        section: "OVIC’s minimum expectations"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them significant harm."
-        section: "OVIC's minimum expectations"
-      - text: "there is a risk that humans using a tool described as 'intelligent' may not always exercise an appropriate level of scrutiny over its output."
-        section: "Use and disclosure of personal information"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "Undertake privacy impact assessments ( **PIAs** ) to understand the ways in which the enterprise Generative AI tool will be utilised, the risks it presents to the privacy of individuals, whether and how those risks can be mitigated"
-        section: "OVIC’s minimum expectations"
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information, and understand how to ensure the accuracy and security of the information."
-        section: "OVIC's minimum expectations"
-      - text: "This creates a risk that VPS employees could be unaware of the original purpose for which the personal information was collected, and cannot properly consider whether a proposed use or disclosure would comply with IPP 2."
-        section: "Use and disclosure of personal information"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "VPS organisations are responsible for all actions and content generated by the enterprise Generative AI tool they use."
-        section: "OVIC’s minimum expectations"
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "IPP 5 requires VPS organisations to have a privacy policy, outlining how they handle the personal information they hold. Where personal information is handled by an enterprise Generative AI tool, a VPS organisation's privacy policy should be clear about this."
-        section: "Privacy policies"
-      - text: "This is especially important where the outputs of an enterprise Generative AI tool are used to inform decision making about an individual, such as whether they are eligible for a service or a payment."
-        section: "Privacy policies"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "After reading the complaint once, the Officer writes a prompt to an enterprise Generative AI tool asking it to summarise the content into a new document, and directs that it should be two pages long."
-        section: "Accuracy of personal information"
-      - text: "This is especially important where the outputs of an enterprise Generative AI tool are used to inform decision making about an individual, such as whether they are eligible for a service or a payment."
-        section: "Privacy policies"
-      - text: "there is a risk that humans using a tool described as ‘intelligent’ may not always exercise an appropriate level of scrutiny over its output."
-        section: "Use and disclosure of personal information"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "as enterprise Generative AI tools use documents from an organisation’s information holdings to generate content in response to a user prompt, they could provide the user with personal information with which they were previously unfamiliar"
-        section: "Use and disclosure of personal information"
-      - text: "Where personal information is handled by an enterprise Generative AI tool, a VPS organisation’s privacy policy should be clear about this."
-        section: "Privacy policies"
-      - text: "ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information"
-        section: "OVIC’s minimum expectations"
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "“draft me a summary of the main points in the document called ‘John Smith’s CV’”"
-        section: "Collection of personal information"
-  - id: atlas-prompt-priming
-    name: Prompt priming
-    evidence:
-      - text: "they prompt their enterprise Generative AI tool to draft this letter and base it off a letter they wrote two months ago rejecting Person B’s application."
-        section: "Use and disclosure of personal information"
-  - id: atlas-poor-model-accuracy
-    name: Poor model accuracy
-    evidence:
-      - text: "The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information."
-        section: "Accuracy of personal information"
-      - text: "This is because Generative AI outputs will not always give the correct information."
-        section: "Accuracy of personal information"
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "Due to an access control misconfiguration, of which the manager was unaware, the Generative AI tool sends the manager a range of documents that include final copies of the Performance Development Plans of their colleagues."
-        section: "Security of personal information"
-      - text: "The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave."
-        section: "Collection of personal information"
-      - text: "they could provide the user with personal information with which they were previously unfamiliar"
-        section: "Use and disclosure of personal information"
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information, and understand how to ensure the accuracy and security of the information."
-        section: "OVIC's minimum expectations"
-      - text: "enterprise Generative AI tools use documents from an organisation's information holdings to generate content in response to a user prompt, they could provide the user with personal information with which they were previously unfamiliar"
-        section: "Use and disclosure of personal information"
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "there is a risk that humans using a tool described as 'intelligent' may not always exercise an appropriate level of scrutiny over its output."
-        section: "Use and disclosure of personal information"
-      - text: "Impressed by how quickly the enterprise Generative AI tool drafts the six-page letter, the Assessment Officer quickly reads through and digitally signs it. They then send the letter to Person A by email."
-        section: "Use and disclosure of personal information"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "Develop and implement clear and tailored guidance and training for their staff, contracted service providers and other personnel on the use of the enterprise Generative AI tool"
-        section: "OVIC’s minimum expectations"
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them significant harm. It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality."
-        section: "OVIC's minimum expectations"
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information."
-        section: "Accuracy of personal information"
-      - text: "It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality."
-        section: "OVIC’s minimum expectations"
-      - text: "They believe it has created an inaccurate and incomplete description of the complaint"
-        section: "Accuracy of personal information"
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "The 10 Information Privacy Principles (IPPs), as set out in Schedule 1 of the PDP Act, will apply to the collection and handling of personal information that may be entered into, generated, or used by an enterprise Generative AI tool."
-        section: "Information privacy requirements"
-      - text: "The PDP Act extends these information security obligations to contracted service providers (CSPs), requiring public sector body heads to ensure that a CSP does not do an act or engage in a practice that contravenes a Standard."
-        section: "Information security requirements"
-      - text: "Notify OVIC of information privacy and information security incidents, in line with the Information Security Incident Notification Scheme."
-        section: "OVIC's minimum expectations"
-  - id: credo-risk-030
-    name: Integration challenges with existing systems
-    evidence:
-      - text: "conducting a security risk assessment for the integration of an enterprise Generative AI tool, including due consideration of adjusted risk profiles and development of treatment plans to address relevant Generative AI features"
-        section: "OVIC’s minimum expectations"
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "implementing a formal process for the ongoing monitoring and review of risks and controls. This is especially important given the dynamic development and release of enhancements and new features in Generative AI tools."
-        section: "OVIC’s minimum expectations"
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "implementing a formal process for the ongoing monitoring and review of risks and controls. This is especially important given the dynamic development and release of enhancements and new features in Generative AI tools."
-        section: "OVIC's minimum expectations"
-      - text: "considering how any Generative AI outputs will be assessed, valued and securely managed, including applying appropriate protective markings for newly generated information assets"
-        section: "OVIC's minimum expectations"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "The adoption of an enterprise Generative AI tool could magnify existing risks to the security of personal information for organisations."
-        section: "Security of personal information"
-      - text: "it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application."
-        section: "Use and disclosure of personal information"
-      - text: "Undertake privacy impact assessments ( **PIAs** ) to understand the ways in which the enterprise Generative AI tool will be utilised, the risks it presents to the privacy of individuals, whether and how those risks can be mitigated"
-        section: "OVIC’s minimum expectations"
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "The adoption of an enterprise Generative AI tool could magnify existing risks to the security of personal information for organisations."
-        section: "Security of personal information"
-      - text: "it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application."
-        section: "Use and disclosure of personal information"
-      - text: "The disclosure of Person B’s personal information to Person A is a breach of IPP 2."
-        section: "Use and disclosure of personal information"
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "assess the information security risks to the confidentiality, integrity and availability of public sector information and systems proposed to be used by the enterprise Generative AI tool"
-        section: "Information security requirements"
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "Develop organisational policies on the use of Generative AI tools, and communicate about the policies to staff, contracted service providers and other personnel."
-        section: "OVIC's minimum expectations"
-      - text: "Develop an incident response plan for dealing with inadvertent or unauthorised disclosures, access or misuse of information through the enterprise Generative AI tool."
-        section: "OVIC's minimum expectations"
-      - text: "VPS organisations are responsible for all actions and content generated by the enterprise Generative AI tool they use. Where an information security incident or interference with privacy occurs through the use of the tool, VPS organisations will not be able to simply say that the incident or interference was caused by AI."
-        section: "OVIC's minimum expectations"
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "The adoption of an enterprise Generative AI tool could magnify existing risks to the security of personal information for organisations."
-        section: "Security of personal information"
-      - text: "One particular risk relates to unauthorised access to information, where access permissions have not been properly configured within other organisational systems that are then integrated with the enterprise Generative AI tool."
-        section: "Security of personal information"
-      - text: "unauthorised use and disclosure of personal information."
-        section: "Use and disclosure of personal information"
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "Misconfiguration of access controls is one of the most common causes of data breaches reported to OVIC."
-        section: "Security of personal information"
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information."
-        section: "Accuracy of personal information"
-      - text: "This is because Generative AI outputs will not always give the correct information."
-        section: "Accuracy of personal information"
-      - text: "They believe it has omitted crucial elements of their allegations, and has minimised their description of the harm suffered."
-        section: "Accuracy of personal information"
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "there is a risk that humans using a tool described as ‘intelligent’ may not always exercise an appropriate level of scrutiny over its output."
-        section: "Use and disclosure of personal information"
-      - text: "covers how to safely and responsibly use the enterprise Generative AI tool, prompt engineering, risk assessment and management, human review of generated outputs, and active monitoring and reviews to identify potential misuse"
-        section: "Information security requirements"
-      - text: "Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them significant harm."
-        section: "OVIC’s minimum expectations"
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them significant harm."
-        section: "OVIC's minimum expectations"
-      - text: "there is a risk that humans using a tool described as 'intelligent' may not always exercise an appropriate level of scrutiny over its output."
-        section: "Use and disclosure of personal information"
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information, and understand how to ensure the accuracy and security of the information."
-        section: "OVIC's minimum expectations"
-      - text: "This creates a risk that VPS employees could be unaware of the original purpose for which the personal information was collected"
-        section: "Use and disclosure of personal information"
+- id: ai-risk-taxonomy-denying-or-minimizing
+  name: Denying or minimizing well-documented, major violent events or the victimhood of such events/Denying the deeds of martyrdom
+  evidence:
+  - text: has minimised their description of the harm suffered.
+    section: Accuracy of personal information
+  - text: has led to the department trivialising their experience and dismissing the complaint.
+    section: Accuracy of personal information
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
+  name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
+  evidence:
+  - text: The next day, the manager sends a prompt to the enterprise Generative AI tool within the collaboration platform, asking "what were the main points discussed at the meeting?". The enterprise Generative
+      AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+    section: Collection of personal information
+  - text: enterprise Generative AI tools use documents from an organisation's information holdings to generate content in response to a user prompt, they could provide the user with personal information
+      with which they were previously unfamiliar
+    section: Use and disclosure of personal information
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---health-data
+  name: Unauthorized collection/gathering/stealing - Health data
+  evidence:
+  - text: the HR team joins the meeting and see a message from the manager that they can no longer attend. They decide that without the manager, there is no point discussing the matter but, since they have
+      all set aside 30 minutes for the meeting, they use the time to instead discuss another matter, relating to a different staff member's request for family violence leave.
+    section: Collection of personal information
+  - text: The generation of the summary content by the enterprise Generative AI tool is a collection of personal information, which would likely contravene at least IPP 1.1 (as the manager had no need to
+      know that information).
+    section: Collection of personal information
+  - text: an organisation must only collect personal information if it is necessary to fulfill one or more of its functions. The collection must be lawful, fair and not unreasonably intrusive.
+    section: Collection of personal information
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
+  name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
+  evidence:
+  - text: the generated content constitutes a new collection of personal information.
+    section: Collection of personal information
+  - text: The generation of the summary content by the enterprise Generative AI tool is a collection of personal information, which would likely contravene at least IPP 1.1
+    section: Collection of personal information
+- id: ai-risk-taxonomy-unauthorized-disclosure---health-data
+  name: Unauthorized disclosure - Health data
+  evidence:
+  - text: The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+    section: Collection of personal information
+  - text: Human error is the leading cause of data breaches reported to OVIC involving unauthorised use and disclosure of personal information. Without proper controls in place, the implementation of an
+      enterprise Generative AI tool could exacerbate this, given the increased speed at which personal information can be generated, used, and disclosed.
+    section: Use and disclosure of personal information
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII (Personal Identifiable Information)
+  evidence:
+  - text: The disclosure of the Performance Development Plans of other colleagues to the manager due to misconfigured access controls would likely be a breach of IPP 4.1.
+    section: Security of personal information
+  - text: The disclosure of Person B’s personal information to Person A is a breach of IPP 2.
+    section: Use and disclosure of personal information
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: The disclosure of the Performance Development Plans of other colleagues to the manager due to misconfigured access controls would likely be a breach of IPP 4.1.
+    section: Security of personal information
+  - text: The disclosure of Person B’s personal information to Person A is a breach of IPP 2.
+    section: Use and disclosure of personal information
+- id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
+  name: Unauthorized generation - PII (Personal Identifiable Information)
+  evidence:
+  - text: unauthorised use and disclosure of personal information.
+    section: Use and disclosure of personal information
+  - text: it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application.
+    section: Use and disclosure of personal information
+  - text: this generated content constitutes a new collection of personal information.
+    section: Collection of personal information
+- id: ai-risk-taxonomy-unauthorized-inference/synthesis---pii-(personal-identifiable-information)
+  name: Unauthorized inference/synthesis - PII (Personal Identifiable Information)
+  evidence:
+  - text: they could provide the user with personal information with which they were previously unfamiliar
+    section: Use and disclosure of personal information
+  - text: it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application.
+    section: Use and disclosure of personal information
+  - text: The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+    section: Collection of personal information
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: The disclosure of Person B’s personal information to Person A is a breach of IPP 2.
+    section: Use and disclosure of personal information
+  - text: The 10 Information Privacy Principles (IPPs), as set out in Schedule 1 of the PDP Act, will apply to the collection and handling of personal information that may be entered into, generated, or
+      used by an enterprise Generative AI tool.
+    section: Information privacy requirements
+  - text: IPP 5 requires VPS organisations to have a privacy policy, outlining how they handle the personal information they hold.
+    section: Privacy policies
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: ensures all users of the enterprise Generative AI tool are aware of and understand what information they are permitted to enter into the enterprise Generative AI tool and its permitted use cases
+    section: OVIC's minimum expectations
+  - text: An organisation's Assessment Officer wants to write a letter rejecting Person A's application for a service. They prompt their enterprise Generative AI tool to draft this letter and base it off
+      a letter they wrote two months ago rejecting Person B's application.
+    section: Use and disclosure of personal information
+- id: atlas-confidential-information-in-data
+  name: Confidential information in data
+  evidence:
+  - text: enterprise Generative AI tools use documents from an organisation's information holdings to generate content in response to a user prompt, they could provide the user with personal information
+      with which they were previously unfamiliar (even if access controls are correctly configured and the user has a right to know this information).
+    section: Use and disclosure of personal information
+  - text: identifying existing information holdings and systems that may be impacted by the introduction of an integrated Generative AI tool, including due consideration of their security value
+    section: Information security requirements
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Organisations must also provide notice to individuals about why the information is being collected, how it will be used and how individuals can access the information.
+    section: Collection of personal information
+  - text: The 10 Information Privacy Principles (IPPs), as set out in Schedule 1 of the PDP Act, will apply to the collection and handling of personal information that may be entered into, generated, or
+      used by an enterprise Generative AI tool.
+    section: Information privacy requirements
+  - text: IPP 2 provides that personal information may only be used or disclosed for the primary purpose for which it is was collected, or where an exception applies under IPPs 2.1(a-h).
+    section: Use and disclosure of personal information
+- id: atlas-data-transfer
+  name: Data transfer restrictions
+  evidence:
+  - text: Ensure that settings can be configured to enhance information privacy and information security, such as disabling or limiting data sharing between certain platforms and between the VPS organisation
+      and the company that owns the enterprise Generative AI tool.
+    section: OVIC's minimum expectations
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: Generative AI outputs will not always give the correct information. They simply make predictions based on the prompt they receive and the training they've had.
+    section: Accuracy of personal information
+  - text: ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information
+    section: OVIC's minimum expectations
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: disabling or limiting data sharing between certain platforms and between the VPS organisation and the company that owns the enterprise Generative AI tool.
+    section: OVIC’s minimum expectations
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: One particular risk relates to unauthorised access to information, where access permissions have not been properly configured within other organisational systems that are then integrated with
+      the enterprise Generative AI tool.
+    section: Security of personal information
+  - text: it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application.
+    section: Use and disclosure of personal information
+  - text: The disclosure of Person B’s personal information to Person A is a breach of IPP 2.
+    section: Use and disclosure of personal information
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality.
+    section: OVIC’s minimum expectations
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them
+      significant harm.
+    section: OVIC's minimum expectations
+  - text: there is a risk that humans using a tool described as 'intelligent' may not always exercise an appropriate level of scrutiny over its output.
+    section: Use and disclosure of personal information
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: Undertake privacy impact assessments ( **PIAs** ) to understand the ways in which the enterprise Generative AI tool will be utilised, the risks it presents to the privacy of individuals, whether
+      and how those risks can be mitigated
+    section: OVIC’s minimum expectations
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information, and understand how to
+      ensure the accuracy and security of the information.
+    section: OVIC's minimum expectations
+  - text: This creates a risk that VPS employees could be unaware of the original purpose for which the personal information was collected, and cannot properly consider whether a proposed use or disclosure
+      would comply with IPP 2.
+    section: Use and disclosure of personal information
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: VPS organisations are responsible for all actions and content generated by the enterprise Generative AI tool they use.
+    section: OVIC’s minimum expectations
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: IPP 5 requires VPS organisations to have a privacy policy, outlining how they handle the personal information they hold. Where personal information is handled by an enterprise Generative AI tool,
+      a VPS organisation's privacy policy should be clear about this.
+    section: Privacy policies
+  - text: This is especially important where the outputs of an enterprise Generative AI tool are used to inform decision making about an individual, such as whether they are eligible for a service or a
+      payment.
+    section: Privacy policies
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: After reading the complaint once, the Officer writes a prompt to an enterprise Generative AI tool asking it to summarise the content into a new document, and directs that it should be two pages
+      long.
+    section: Accuracy of personal information
+  - text: This is especially important where the outputs of an enterprise Generative AI tool are used to inform decision making about an individual, such as whether they are eligible for a service or a
+      payment.
+    section: Privacy policies
+  - text: there is a risk that humans using a tool described as ‘intelligent’ may not always exercise an appropriate level of scrutiny over its output.
+    section: Use and disclosure of personal information
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: as enterprise Generative AI tools use documents from an organisation’s information holdings to generate content in response to a user prompt, they could provide the user with personal information
+      with which they were previously unfamiliar
+    section: Use and disclosure of personal information
+  - text: Where personal information is handled by an enterprise Generative AI tool, a VPS organisation’s privacy policy should be clear about this.
+    section: Privacy policies
+  - text: ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information
+    section: OVIC’s minimum expectations
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: “draft me a summary of the main points in the document called ‘John Smith’s CV’”
+    section: Collection of personal information
+- id: atlas-prompt-priming
+  name: Prompt priming
+  evidence:
+  - text: they prompt their enterprise Generative AI tool to draft this letter and base it off a letter they wrote two months ago rejecting Person B’s application.
+    section: Use and disclosure of personal information
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information.
+    section: Accuracy of personal information
+  - text: This is because Generative AI outputs will not always give the correct information.
+    section: Accuracy of personal information
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: Due to an access control misconfiguration, of which the manager was unaware, the Generative AI tool sends the manager a range of documents that include final copies of the Performance Development
+      Plans of their colleagues.
+    section: Security of personal information
+  - text: The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+    section: Collection of personal information
+  - text: they could provide the user with personal information with which they were previously unfamiliar
+    section: Use and disclosure of personal information
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information, and understand how to
+      ensure the accuracy and security of the information.
+    section: OVIC's minimum expectations
+  - text: enterprise Generative AI tools use documents from an organisation's information holdings to generate content in response to a user prompt, they could provide the user with personal information
+      with which they were previously unfamiliar
+    section: Use and disclosure of personal information
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: there is a risk that humans using a tool described as 'intelligent' may not always exercise an appropriate level of scrutiny over its output.
+    section: Use and disclosure of personal information
+  - text: Impressed by how quickly the enterprise Generative AI tool drafts the six-page letter, the Assessment Officer quickly reads through and digitally signs it. They then send the letter to Person
+      A by email.
+    section: Use and disclosure of personal information
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: Develop and implement clear and tailored guidance and training for their staff, contracted service providers and other personnel on the use of the enterprise Generative AI tool
+    section: OVIC’s minimum expectations
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them
+      significant harm. It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality.
+    section: OVIC's minimum expectations
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information.
+    section: Accuracy of personal information
+  - text: It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality.
+    section: OVIC’s minimum expectations
+  - text: They believe it has created an inaccurate and incomplete description of the complaint
+    section: Accuracy of personal information
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: The 10 Information Privacy Principles (IPPs), as set out in Schedule 1 of the PDP Act, will apply to the collection and handling of personal information that may be entered into, generated, or
+      used by an enterprise Generative AI tool.
+    section: Information privacy requirements
+  - text: The PDP Act extends these information security obligations to contracted service providers (CSPs), requiring public sector body heads to ensure that a CSP does not do an act or engage in a practice
+      that contravenes a Standard.
+    section: Information security requirements
+  - text: Notify OVIC of information privacy and information security incidents, in line with the Information Security Incident Notification Scheme.
+    section: OVIC's minimum expectations
+- id: credo-risk-030
+  name: Integration challenges with existing systems
+  evidence:
+  - text: conducting a security risk assessment for the integration of an enterprise Generative AI tool, including due consideration of adjusted risk profiles and development of treatment plans to address
+      relevant Generative AI features
+    section: OVIC’s minimum expectations
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: implementing a formal process for the ongoing monitoring and review of risks and controls. This is especially important given the dynamic development and release of enhancements and new features
+      in Generative AI tools.
+    section: OVIC’s minimum expectations
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: implementing a formal process for the ongoing monitoring and review of risks and controls. This is especially important given the dynamic development and release of enhancements and new features
+      in Generative AI tools.
+    section: OVIC's minimum expectations
+  - text: considering how any Generative AI outputs will be assessed, valued and securely managed, including applying appropriate protective markings for newly generated information assets
+    section: OVIC's minimum expectations
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: The adoption of an enterprise Generative AI tool could magnify existing risks to the security of personal information for organisations.
+    section: Security of personal information
+  - text: it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application.
+    section: Use and disclosure of personal information
+  - text: Undertake privacy impact assessments ( **PIAs** ) to understand the ways in which the enterprise Generative AI tool will be utilised, the risks it presents to the privacy of individuals, whether
+      and how those risks can be mitigated
+    section: OVIC’s minimum expectations
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: The adoption of an enterprise Generative AI tool could magnify existing risks to the security of personal information for organisations.
+    section: Security of personal information
+  - text: it also contained the name of Person B in the body of the letter as well as other personal information relating to Person B’s application.
+    section: Use and disclosure of personal information
+  - text: The disclosure of Person B’s personal information to Person A is a breach of IPP 2.
+    section: Use and disclosure of personal information
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: assess the information security risks to the confidentiality, integrity and availability of public sector information and systems proposed to be used by the enterprise Generative AI tool
+    section: Information security requirements
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: Develop organisational policies on the use of Generative AI tools, and communicate about the policies to staff, contracted service providers and other personnel.
+    section: OVIC's minimum expectations
+  - text: Develop an incident response plan for dealing with inadvertent or unauthorised disclosures, access or misuse of information through the enterprise Generative AI tool.
+    section: OVIC's minimum expectations
+  - text: VPS organisations are responsible for all actions and content generated by the enterprise Generative AI tool they use. Where an information security incident or interference with privacy occurs
+      through the use of the tool, VPS organisations will not be able to simply say that the incident or interference was caused by AI.
+    section: OVIC's minimum expectations
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: The adoption of an enterprise Generative AI tool could magnify existing risks to the security of personal information for organisations.
+    section: Security of personal information
+  - text: One particular risk relates to unauthorised access to information, where access permissions have not been properly configured within other organisational systems that are then integrated with
+      the enterprise Generative AI tool.
+    section: Security of personal information
+  - text: unauthorised use and disclosure of personal information.
+    section: Use and disclosure of personal information
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: Misconfiguration of access controls is one of the most common causes of data breaches reported to OVIC.
+    section: Security of personal information
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information.
+    section: Accuracy of personal information
+  - text: This is because Generative AI outputs will not always give the correct information.
+    section: Accuracy of personal information
+  - text: They believe it has omitted crucial elements of their allegations, and has minimised their description of the harm suffered.
+    section: Accuracy of personal information
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: there is a risk that humans using a tool described as ‘intelligent’ may not always exercise an appropriate level of scrutiny over its output.
+    section: Use and disclosure of personal information
+  - text: covers how to safely and responsibly use the enterprise Generative AI tool, prompt engineering, risk assessment and management, human review of generated outputs, and active monitoring and reviews
+      to identify potential misuse
+    section: Information security requirements
+  - text: Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them
+      significant harm.
+    section: OVIC’s minimum expectations
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: Ensure that enterprise Generative AI tools are not used to make decisions, undertake assessments, or for other administrative functions that may have consequences for individuals or cause them
+      significant harm.
+    section: OVIC's minimum expectations
+  - text: there is a risk that humans using a tool described as 'intelligent' may not always exercise an appropriate level of scrutiny over its output.
+    section: Use and disclosure of personal information
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: ensures all users of the enterprise Generative AI tool are aware of how the tool may generate, collect, use or disclose personal information and public sector information, and understand how to
+      ensure the accuracy and security of the information.
+    section: OVIC's minimum expectations
+  - text: This creates a risk that VPS employees could be unaware of the original purpose for which the personal information was collected
+    section: Use and disclosure of personal information
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: ensures all users of the enterprise Generative AI tool are aware of and understand what information they are permitted to enter into the enterprise Generative AI tool and its permitted use cases
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: Where an information security incident or interference with privacy occurs through the use of the tool, VPS organisations will not be able to simply say that the incident or interference was caused
+      by AI.
+  - text: As well as highlighting an interference with Person B’s privacy, Person A also suspects that the Assessment Officer may have based their decision on the wrong personal information, and asks that
+      their application is considered afresh.
+- id: mit-ai-risk-subdomain-7.3
+  name: Lack of capability or robustness
+  evidence:
+  - text: It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality.
+  - text: The use of an enterprise Generative AI tool presents an increased risk of organisations generating, using or disclosing inaccurate personal information. This is because Generative AI outputs will
+      not always give the correct information.
+- id: ai-risk-taxonomy-unauthorized-disclosure---communication-records
+  name: Unauthorized disclosure - Communication Records
+  evidence:
+  - text: The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+  - text: The next day, the manager sends a prompt to the enterprise Generative AI tool within the collaboration platform, asking “what were the main points discussed at the meeting?”.
+- id: ai-risk-taxonomy-unauthorized-distribution---communication-records
+  name: Unauthorized distribution - Communication Records
+  evidence:
+  - text: The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+- id: ai-risk-taxonomy-unauthorized-generation---communication-records
+  name: Unauthorized generation - Communication Records
+  evidence:
+  - text: The enterprise Generative AI tool responds with a summary of the details about the other staff member and their request for family violence leave.
+- id: ai-risk-taxonomy-unauthorized-processing---communication-records
+  name: Unauthorized processing - Communication Records
+  evidence:
+  - text: The next day, the manager sends a prompt to the enterprise Generative AI tool within the collaboration platform, asking “what were the main points discussed at the meeting?”.
+- id: credo-risk-033
+  name: Lack of adequate capabilities (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: It risks unfair decisions being made about them based on information created by Generative AI, that may be inaccurate or of a diminished quality.
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: The Standards set out the mandatory requirements to protect public sector information across all security domains including governance, information, personnel, information communications technology
+      and physical security.

@@ -1,212 +1,253 @@
-# reviewed: 2026-05-26 — revised with gap analysis (added 10 missing cross-framework risks)
 risks:
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "They generate a response, usually text or an image, that you can then be used."
-        section: "What are generative AI Bots?"
-      - text: "summarising long pieces of content such as news articles; drafting a letter or email template; writing basic code or providing solutions to code errors"
-        section: "What opportunities do they bring?"
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential data in prompt
-    evidence:
-      - text: "Be very careful about the information you give to AI bots."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-        page: 2
-      - text: "If you are experimenting with AI bots at work, you must be very careful about the prompts you use."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-        page: 2
-  - id: atlas-copyright-infringement
-    name: Copyright infringement
-    evidence:
-      - text: "Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations"
-        section: "3. Data Protection Implications"
-        page: 2
-  - id: atlas-data-bias
-    name: Data bias
-    evidence:
-      - text: "the data bias mentioned above can still perpetuate biases that exist in society and end up gamifying learning."
-        section: "3. Data Protection Implications"
-        page: 2
-      - text: "Because AI bots are trained by humans with data that was created by humans, they can be biased in the same way that humans are."
-        section: "What are the risks associated with them?"
-        page: 1
-      - text: "This is referred to as data bias, an error that occurs when certain elements of a dataset are overweighted or overrepresented, resulting in skewed outcomes, systematic prejudice, and low accuracy."
-        section: "What are the risks associated with them?"
-        page: 1
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems."
-        section: "What are the risks associated with them?"
-      - text: "Remember that the company that owns the chatbot will have access to any information you put into it. They may use this data to inform the responses their chatbot gives to other people."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-      - text: "Unless you have seen written assurances to the contrary, you should assume any data you input and any output received will be visible to any other users of the system."
-        section: "Data Protection Implications"
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone."
-        section: "Never use prompts containing:"
-        page: 3
-      - text: "OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems."
-        section: "What are the risks associated with them?"
-        page: 1
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "Hallucinations refer to the generation of outputs or responses that are imaginative or unrealistic."
-        section: "Terms relating to AI"
-        page: 4
-      - text: "AI models, including language models like GPT-3, can sometimes generate text that goes beyond the given prompt or the available knowledge, resulting in creative or nonsensical responses."
-        section: "Terms relating to AI"
-        page: 4
-      - text: "AI bots will attempt to give an answer to a prompt even if it doesn't have the right data , which means it will sometimes give incorrect information or answers that make no sense which are referred to 'hallucinations'."
-        section: "What are the risks associated with them?"
-        page: 1
-  - id: atlas-impact-on-affected-communities
-    name: Impact on affected communities
-    evidence:
-      - text: "The best way to understand how to use it safely and ethically is by working together and having an ongoing open and transparent dialogue."
-        section: "Join the ongoing discussion"
-        page: 3
-      - text: "We plan to hold discussions, information and workshop sessions soon, and we would like to invite anyone interested to take part."
-        section: "Join the ongoing discussion"
-        page: 3
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "If you want to start making it common practice to use an AI tool within your team or a business process, you should next complete a DPIA to access the impact."
-        section: "What are the most reliable/best AI tools to use?"
-        page: 4
-  - id: atlas-ip-information-in-prompt
-    name: IP information in prompt
-    evidence:
-      - text: "Confidential information, such as details about commercial contracts."
-        section: "Never use prompts containing:"
-        page: 3
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "You must always check any answers or outputs you get. Don't assume it is correct, and don't use it without reading it first."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-      - text: "AI bots will attempt to give an answer to a prompt even if it doesn't have the right data, which means it will sometimes give incorrect information or answers that make no sense which are referred to 'hallucinations'. These hallucinations can be very convincing if you are not familiar with a subject area."
-        section: "What are the risks associated with them?"
-      - text: "If you are unsure, ask an expert or do more research through other methods."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone."
-        section: "Never use prompts containing:"
-        page: 3
-      - text: "Never give personal or sensitive information to AI bots."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-        page: 2
-      - text: "personal and sensitive data should never be passed through them in their current form."
-        section: "What are the risks associated with them?"
-        page: 1
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems."
-        section: "What are the risks associated with them?"
-        page: 1
-      - text: "Remember that the company that owns the chatbot will have access to any information you put into it. They may use this data to inform the responses their chatbot gives to other people."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-        page: 2
-      - text: "The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data)."
-        section: "3. Data Protection Implications"
-        page: 2
-  - id: atlas-temporal-gap
-    name: Temporal gap
-    evidence:
-      - text: "In the case of ChatGPT this data only goes up to 2021, so will not be able to provide information about current issues or recent developments."
-        section: "What are the risks associated with them?"
-        page: 1
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "You must always check any answers or outputs you get. Don't assume it is correct, and don't use it without reading it first."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-      - text: "These hallucinations can be very convincing if you are not familiar with a subject area."
-        section: "What are the risks associated with them?"
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "Hallucinations refer to the generation of outputs or responses that are imaginative or unrealistic."
-        section: "Terms relating to AI"
-        page: 4
-      - text: "it will sometimes give incorrect information or answers that make no sense which are referred to 'hallucinations'."
-        section: "What are the risks associated with them?"
-        page: 1
-      - text: "Don't assume it is correct, and don't use it without reading it first."
-        section: "Never use prompts containing:"
-        page: 3
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data)."
-        section: "Data Protection Implications"
-      - text: "Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations that must be justified about the information you pass into AI tools."
-        section: "Data Protection Implications"
-      - text: "If AI tools or bots are being proposed to replace a previous, be added to an existing or create a new business process, then a Data Privacy Impact Assessment must be completed."
-        section: "Data Protection Implications"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data)."
-        section: "3. Data Protection Implications"
-        page: 2
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data)."
-        section: "3. Data Protection Implications"
-        page: 2
-      - text: "personal and sensitive data should never be passed through them in their current form."
-        section: "What are the risks associated with them?"
-        page: 1
-      - text: "Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone."
-        section: "Never use prompts containing:"
-        page: 3
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "Because AI bots are trained by humans with data that was created by humans, they can be biased in the same way that humans are. This is referred to as data bias, an error that occurs when certain elements of a dataset are overweighted or overrepresented, resulting in skewed outcomes, systematic prejudice, and low accuracy."
-        section: "What are the risks associated with them?"
-      - text: "the data bias mentioned above can still perpetuate biases that exist in society and end up gamifying learning."
-        section: "The ethics of using Artificial Intelligence tools and bots"
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data)."
-        section: "3. Data Protection Implications"
-        page: 2
-      - text: "Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations"
-        section: "3. Data Protection Implications"
-        page: 2
-      - text: "complete a data breach form"
-        section: "I've accidentally uploaded some personal or sensitive data into a bot, what should I do?"
-        page: 5
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "it will sometimes give incorrect information or answers that make no sense"
-        section: "What are the risks associated with them?"
-        page: 1
-      - text: "Hallucinations refer to the generation of outputs or responses that are imaginative or unrealistic."
-        section: "Terms relating to AI"
-        page: 4
-      - text: "Don't assume it is correct, and don't use it without reading it first."
-        section: "Never use prompts containing:"
-        page: 3
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "You must always check any answers or outputs you get. Don't assume it is correct, and don't use it without reading it first."
-        section: "What should you consider if you're already using or planning to use AI bots?"
-      - text: "AI bots will attempt to give an answer to a prompt even if it doesn't have the right data, which means it will sometimes give incorrect information or answers that make no sense which are referred to 'hallucinations'."
-        section: "What are the risks associated with them?"
-      - text: "If you are unsure, ask an expert or do more research through other methods."
-        section: "What should you consider if you're already using or planning to use AI bots?"
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: They generate a response, usually text or an image, that you can then be used.
+    section: What are generative AI Bots?
+  - text: summarising long pieces of content such as news articles; drafting a letter or email template; writing basic code or providing solutions to code errors
+    section: What opportunities do they bring?
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: Be very careful about the information you give to AI bots.
+    section: What should you consider if you're already using or planning to use AI bots?
+    page: 2
+  - text: If you are experimenting with AI bots at work, you must be very careful about the prompts you use.
+    section: What should you consider if you're already using or planning to use AI bots?
+    page: 2
+- id: atlas-copyright-infringement
+  name: Copyright infringement
+  evidence:
+  - text: Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations
+    section: 3. Data Protection Implications
+    page: 2
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: the data bias mentioned above can still perpetuate biases that exist in society and end up gamifying learning.
+    section: 3. Data Protection Implications
+    page: 2
+  - text: Because AI bots are trained by humans with data that was created by humans, they can be biased in the same way that humans are.
+    section: What are the risks associated with them?
+    page: 1
+  - text: This is referred to as data bias, an error that occurs when certain elements of a dataset are overweighted or overrepresented, resulting in skewed outcomes, systematic prejudice, and low accuracy.
+    section: What are the risks associated with them?
+    page: 1
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems.
+    section: What are the risks associated with them?
+  - text: Remember that the company that owns the chatbot will have access to any information you put into it. They may use this data to inform the responses their chatbot gives to other people.
+    section: What should you consider if you're already using or planning to use AI bots?
+  - text: Unless you have seen written assurances to the contrary, you should assume any data you input and any output received will be visible to any other users of the system.
+    section: Data Protection Implications
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone.
+    section: 'Never use prompts containing:'
+    page: 3
+  - text: OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems.
+    section: What are the risks associated with them?
+    page: 1
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: Hallucinations refer to the generation of outputs or responses that are imaginative or unrealistic.
+    section: Terms relating to AI
+    page: 4
+  - text: AI models, including language models like GPT-3, can sometimes generate text that goes beyond the given prompt or the available knowledge, resulting in creative or nonsensical responses.
+    section: Terms relating to AI
+    page: 4
+  - text: AI bots will attempt to give an answer to a prompt even if it doesn't have the right data , which means it will sometimes give incorrect information or answers that make no sense which are referred
+      to 'hallucinations'.
+    section: What are the risks associated with them?
+    page: 1
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: The best way to understand how to use it safely and ethically is by working together and having an ongoing open and transparent dialogue.
+    section: Join the ongoing discussion
+    page: 3
+  - text: We plan to hold discussions, information and workshop sessions soon, and we would like to invite anyone interested to take part.
+    section: Join the ongoing discussion
+    page: 3
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: If you want to start making it common practice to use an AI tool within your team or a business process, you should next complete a DPIA to access the impact.
+    section: What are the most reliable/best AI tools to use?
+    page: 4
+- id: atlas-ip-information-in-prompt
+  name: IP information in prompt
+  evidence:
+  - text: Confidential information, such as details about commercial contracts.
+    section: 'Never use prompts containing:'
+    page: 3
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: You must always check any answers or outputs you get. Don't assume it is correct, and don't use it without reading it first.
+    section: What should you consider if you're already using or planning to use AI bots?
+  - text: AI bots will attempt to give an answer to a prompt even if it doesn't have the right data, which means it will sometimes give incorrect information or answers that make no sense which are referred
+      to 'hallucinations'. These hallucinations can be very convincing if you are not familiar with a subject area.
+    section: What are the risks associated with them?
+  - text: If you are unsure, ask an expert or do more research through other methods.
+    section: What should you consider if you're already using or planning to use AI bots?
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone.
+    section: 'Never use prompts containing:'
+    page: 3
+  - text: Never give personal or sensitive information to AI bots.
+    section: What should you consider if you're already using or planning to use AI bots?
+    page: 2
+  - text: personal and sensitive data should never be passed through them in their current form.
+    section: What are the risks associated with them?
+    page: 1
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems.
+    section: What are the risks associated with them?
+    page: 1
+  - text: Remember that the company that owns the chatbot will have access to any information you put into it. They may use this data to inform the responses their chatbot gives to other people.
+    section: What should you consider if you're already using or planning to use AI bots?
+    page: 2
+  - text: The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data).
+    section: 3. Data Protection Implications
+    page: 2
+- id: atlas-temporal-gap
+  name: Temporal gap
+  evidence:
+  - text: In the case of ChatGPT this data only goes up to 2021, so will not be able to provide information about current issues or recent developments.
+    section: What are the risks associated with them?
+    page: 1
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: You must always check any answers or outputs you get. Don't assume it is correct, and don't use it without reading it first.
+    section: What should you consider if you're already using or planning to use AI bots?
+  - text: These hallucinations can be very convincing if you are not familiar with a subject area.
+    section: What are the risks associated with them?
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: Hallucinations refer to the generation of outputs or responses that are imaginative or unrealistic.
+    section: Terms relating to AI
+    page: 4
+  - text: it will sometimes give incorrect information or answers that make no sense which are referred to 'hallucinations'.
+    section: What are the risks associated with them?
+    page: 1
+  - text: Don't assume it is correct, and don't use it without reading it first.
+    section: 'Never use prompts containing:'
+    page: 3
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data).
+    section: Data Protection Implications
+  - text: Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations that must be justified about the information you pass into AI
+      tools.
+    section: Data Protection Implications
+  - text: If AI tools or bots are being proposed to replace a previous, be added to an existing or create a new business process, then a Data Privacy Impact Assessment must be completed.
+    section: Data Protection Implications
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data).
+    section: 3. Data Protection Implications
+    page: 2
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data).
+    section: 3. Data Protection Implications
+    page: 2
+  - text: personal and sensitive data should never be passed through them in their current form.
+    section: What are the risks associated with them?
+    page: 1
+  - text: Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone.
+    section: 'Never use prompts containing:'
+    page: 3
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: Because AI bots are trained by humans with data that was created by humans, they can be biased in the same way that humans are. This is referred to as data bias, an error that occurs when certain
+      elements of a dataset are overweighted or overrepresented, resulting in skewed outcomes, systematic prejudice, and low accuracy.
+    section: What are the risks associated with them?
+  - text: the data bias mentioned above can still perpetuate biases that exist in society and end up gamifying learning.
+    section: The ethics of using Artificial Intelligence tools and bots
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data).
+    section: 3. Data Protection Implications
+    page: 2
+  - text: Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations
+    section: 3. Data Protection Implications
+    page: 2
+  - text: complete a data breach form
+    section: I've accidentally uploaded some personal or sensitive data into a bot, what should I do?
+    page: 5
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: it will sometimes give incorrect information or answers that make no sense
+    section: What are the risks associated with them?
+    page: 1
+  - text: Hallucinations refer to the generation of outputs or responses that are imaginative or unrealistic.
+    section: Terms relating to AI
+    page: 4
+  - text: Don't assume it is correct, and don't use it without reading it first.
+    section: 'Never use prompts containing:'
+    page: 3
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: You must always check any answers or outputs you get. Don't assume it is correct, and don't use it without reading it first.
+    section: What should you consider if you're already using or planning to use AI bots?
+  - text: AI bots will attempt to give an answer to a prompt even if it doesn't have the right data, which means it will sometimes give incorrect information or answers that make no sense which are referred
+      to 'hallucinations'.
+    section: What are the risks associated with them?
+  - text: If you are unsure, ask an expert or do more research through other methods.
+    section: What should you consider if you're already using or planning to use AI bots?
+- id: atlas-unrepresentative-data
+  name: Unrepresentative data
+  evidence:
+  - text: Bias can occur if the underlying training data used to train the AI model contains prejudiced information or reflects societal biases.
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: The legal implications of using an AI tool or bot must be carefully considered before it is used to handle personal data (or business confidential data).
+  - text: Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations that must be justified about the information you pass into AI
+      tools.
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems. This means they are not secure. Therefore, personal and
+      sensitive data should never be passed through them in their current form.
+  - text: Remember that the company that owns the chatbot will have access to any information you put into it.
+  - text: Confidential information, such as details about commercial contracts.
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations that must be justified about the information you pass into AI
+      tools.
+  - text: If AI tools or bots are being proposed to replace a previous, be added to an existing or create a new business process, then a Data Privacy Impact Assessment must be completed.
+- id: atlas-spreading-disinformation
+  name: Spreading disinformation
+  evidence:
+  - text: AI bots will attempt to give an answer to a prompt even if it doesn't have the right data , which means it will sometimes give incorrect information or answers that make no sense which are referred
+      to 'hallucinations'.
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: Automated decision-making, copyright infringement, secondary mining of metadata, and privacy are all data protection considerations that must be justified about the information you pass into AI
+      tools.
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: We will continue to be creating policies and guidance about the use of Al tools across the council, and researching the growing tools available to us.

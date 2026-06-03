@@ -1,473 +1,549 @@
-# reviewed: 2026-05-26 — revised with gap analysis (added 17 missing cross-framework risks)
 risks:
-  - id: ai-risk-taxonomy-classification-of-individuals---social-behaviors
-    name: Classification of individuals - Social behaviors
-    evidence:
-      - text: "discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
-    name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
-    evidence:
-      - text: "use or were trained on biometric data indiscriminately scraped from social media or publicly-available information"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "users should be: (a) informed that they are interacting with AI, (b) provided with information about how their data will be handled by the AI"
-        section: "3.1d Transparency"
-      - text: "In order to be protected as intellectual property, the results and decisions of AI systems may not be treated as the direct final product to be used by Lenovo or presented outside Lenovo."
-        section: "C. Results and Output"
-  - id: ai-risk-taxonomy-profiling
-    name: Profiling
-    evidence:
-      - text: "involve the collection of sensitive personal data to enable profiling of individuals"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-  - id: atlas-confidential-information-in-data
-    name: Confidential information in data
-    evidence:
-      - text: "conduct appropriate diligence to ensure that the developer data was rightfully obtained and used."
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "Lenovo confidential or restricted information, if the AI system is not approved for such use"
-        section: "B. Operation and Use"
-        page: 4
-  - id: atlas-data-acquisition
-    name: Data acquisition restrictions
-    evidence:
-      - text: "use or were trained on biometric data indiscriminately scraped from social media or publicly-available information"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-      - text: "conduct appropriate diligence to ensure that the developer data was rightfully obtained and used."
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "Intellectual property concerns arise at all phases of AI development and use, including data selection and acquisition"
-        section: "3.5. We will ensure that our AI respects and protects our own and others' confidential information and intellectual property."
-        page: 4
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "AI systems will be designed to help users comply with privacy requirements, including providing to subjects the reasonable ability to review, correct, amend, or delete their personal data processed by an AI system."
-        section: "3.3   We will protect people's privacy at all stages of the AI Lifecyle."
-        page: 3
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "They should also have measures in place to continuously assess the quality and sourcing of the data input into the AI system."
-        section: "3.1d Transparency"
-        page: 2
-      - text: "The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency."
-        section: "3.1d Transparency"
-        page: 2
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "We will own or have permission to use all data we use to train or operate AI systems."
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "third-party information in Lenovo's control not authorized for such use"
-        section: "B. Operation and Use"
-        page: 4
-      - text: "The development, implementation, and use of AI systems must follow all applicable laws and regulations"
-        section: "Scope 2."
-        page: 1
-  - id: atlas-data-usage-rights
-    name: Data usage rights restrictions
-    evidence:
-      - text: "In the case of AI developed by third parties, we must both: (1) have a valid license from the supplier of the AI technology, including approved security, privacy, and intellectual property terms"
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "Intellectual property concerns arise at all phases of AI development and use"
-        section: "3.5. We will ensure that our AI respects and protects our own and others' confidential information and intellectual property."
-        page: 4
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes."
-        section: "3.1a Diversity and Inclusion"
-      - text: "AI systems will be designed, implemented, and used in ways that prevent and mitigate bias and discrimination, directly or by proxy, based on characteristics protected by law such as race, color, religion, gender, gender identity or expression, national origin, ethnicity, sexual orientation, sex, age, disability, veteran status, or marital status."
-        section: "3.1a Diversity and Inclusion"
-      - text: "In determining whether to develop, use, or implement an AI system, Lenovo will evaluate it (e.g., data sets, algorithms, user interfaces) to ensure the AI system mitigates bias and ensures fair and equal treatment for all users."
-        section: "3.1a Diversity and Inclusion"
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "ensure proper oversight, validity of AI outcomes, detection of potential biases, and human intervention when necessary to detect and rectify biases, errors, or unintended consequences."
-        section: "3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system."
-        page: 3
-  - id: atlas-impact-on-affected-communities
-    name: Impact on affected communities
-    evidence:
-      - text: "AI systems will be designed in a manner that avoids unfair biases, protects against the marginalization of vulnerable groups, and guards against prejudice and discrimination."
-        section: "3.1a Diversity and Inclusion"
-      - text: "Before implementation and throughout the lifecycle of an AI system, we will assess impact based on its intended use case, the end-users and/or subjects affected by the AI system, and geographic areas where the system may be deployed or used."
-        section: "3.1a Diversity and Inclusion"
-      - text: "AI systems that pose a significant risk to a person's health, safety, or civil rights will be evaluated with additional scrutiny and risk-mitigation analysis."
-        section: "3.0"
-  - id: atlas-impact-on-the-environment
-    name: Impact on the environment
-    evidence:
-      - text: "We will consider the impact of AI systems on the environment. We will evaluate an AI system for considerations including sustainability, conservation, and ecological stability."
-        section: "3.1e Environmental and Social Impact"
-      - text: "By adopting a responsible approach to AI, we aim to mitigate environmental and societal risks, and to be at the forefront of sustainable innovation."
-        section: "3.1e Environmental and Social Impact"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "The principles outlined in this Policy apply when Lenovo: (a) develops or acquires an AI system, (b) incorporates an AI system into a Lenovo product or service offering, or (c) deploys or otherwise uses an AI system (Lenovo- and/or third party-developed) to facilitate Lenovo operations."
-        section: "Scope 2"
-      - text: "Before implementation and throughout the lifecycle of an AI system, we will assess impact based on its intended use case, the end-users and/or subjects affected by the AI system, and geographic areas where the system may be deployed or used."
-        section: "3.1a Diversity and Inclusion"
-  - id: atlas-ip-information-in-prompt
-    name: IP information in prompt
-    evidence:
-      - text: "Lenovo confidential or restricted information, if the AI system is not approved for such use"
-        section: "B. Operation and Use"
-        page: 4
-  - id: atlas-lack-of-data-transparency
-    name: Lack of data transparency
-    evidence:
-      - text: "They should also have measures in place to continuously assess the quality and sourcing of the data input into the AI system."
-        section: "3.1d Transparency"
-        page: 2
-  - id: atlas-lack-of-model-transparency
-    name: Lack of model transparency
-    evidence:
-      - text: "AI systems at Lenovo will be transparent."
-        section: "3.1d Transparency"
-        page: 2
-      - text: "We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them."
-        section: "3.1d Transparency"
-        page: 2
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them."
-        section: "3.1d Transparency"
-      - text: "The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency."
-        section: "3.1d Transparency"
-      - text: "To the extent possible, AI systems should be transparent, and should be openly communicated to those directly and indirectly affected."
-        section: "3.1d Transparency"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "we will establish mechanisms for human intervention to ensure proper oversight, validity of AI outcomes, detection of potential biases, and human intervention when necessary to detect and rectify biases, errors, or unintended consequences."
-        section: "3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system."
-        page: 3
-      - text: "A. AI Ethics and Bias Mitigation: Addressing ethical concerns, and coordinating compliance, governance, and transparency processes related to AI applications"
-        section: "3.7 We will establish and maintain governance and review organizations to administer this Policy quickly and robustly."
-        page: 4
-      - text: "ensure our work with AI meets the highest standards of ethics, legality, safety, security, privacy, and accountability."
-        section: "Purpose 1."
-        page: 1
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "users should be: (a) informed that they are interacting with AI"
-        section: "3.1d Transparency"
-        page: 2
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "We will appropriately test, validate, and implement mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems."
-        section: "3.1b Accountability and Reliability"
-      - text: "prompts or directions that would tend to create problematic, biased, or infringing results."
-        section: "B. Operation and Use"
-      - text: "AI systems will be designed, implemented, and used in ways that prevent and mitigate bias and discrimination, directly or by proxy"
-        section: "3.1a Diversity and Inclusion"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "Significant decisions should not be based solely on the output of any AI system without human intervention."
-        section: "3.2"
-      - text: "We will use AI systems as tools and enabling systems for our employees."
-        section: "C. Results and Output"
-      - text: "We recognize that AI systems, while powerful and transformative, remain tools to be used in support of human endeavor and must be guided by human judgment and ethical considerations."
-        section: "3.2"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "use or were trained on biometric data indiscriminately scraped from social media or publicly-available information"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-      - text: "Corporate Policy #4 on Data Privacy"
-        section: "Related Policies and Procedures 4."
-        page: 5
-      - text: "considering from the start how a proposed project or product, including an AI system, will impact the privacy of subjects whose personal data will be processed by Lenovo or a Lenovo product."
-        section: "3.3   We will protect people's privacy at all stages of the AI Lifecyle."
-        page: 3
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "personal information of Lenovo employees, customers, or others who have not explicitly consented to such use"
-        section: "B. Operation and Use"
-        page: 4
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "We will own or have permission to use all data we use to train or operate AI systems."
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "Lenovo confidential or restricted information, if the AI system is not approved for such use"
-        section: "B. Operation and Use"
-        page: 4
-  - id: credo-risk-004
-    name: Environmental harm (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "We will consider the impact of AI systems on the environment."
-        section: "3.1e Environmental and Social Impact"
-        page: 3
-      - text: "We will evaluate an AI system for considerations including sustainability, conservation, and ecological stability."
-        section: "3.1e Environmental and Social Impact"
-        page: 3
-      - text: "assess the impact on subjects, users, and the environment throughout the lifecycle of an AI system"
-        section: "3.1b Accountability and Reliability"
-        page: 2
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency."
-        section: "3.1d Transparency"
-        page: 2
-      - text: "Explainable AI uses processes and methods that allow users to understand, in a meaningful way, the facts and inferences behind an AI system's action."
-        section: "3.1c Explainability"
-        page: 2
-  - id: credo-risk-010
-    name: Stereotype perpetuation (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "AI systems will be designed in a manner that avoids unfair biases, protects against the marginalization of vulnerable groups, and guards against prejudice and discrimination."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-  - id: credo-risk-011
-    name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "ensure the AI system mitigates bias and ensures fair and equal treatment for all users."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-      - text: "We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Significant decisions should not be based solely on the output of any AI system without human intervention."
-        section: "3.2"
-      - text: "We will establish mechanisms for human intervention to ensure proper oversight, validity of AI outcomes, detection of potential biases, and human intervention when necessary to detect and rectify biases, errors, or unintended consequences."
-        section: "3.2"
-      - text: "These materials are created by and the responsibility of humans, even where AI systems help in their creation."
-        section: "C. Results and Output"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them."
-        section: "3.1d Transparency"
-        page: 2
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "Significant decisions should not be based solely on the output of any AI system without human intervention."
-        section: "3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system."
-        page: 3
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "human intervention when necessary to detect and rectify biases, errors, or unintended consequences."
-        section: "3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system."
-        page: 3
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "Lenovo is dedicated to the highest standards of legal compliance in all of our worldwide operations."
-        section: "3.6. Our AI will be developed and used in strict compliance with applicable laws."
-        page: 4
-      - text: "The laws and regulations governing AI are in a state of flux around the world and vary substantially between jurisdictions."
-        section: "3.6. Our AI will be developed and used in strict compliance with applicable laws."
-        page: 4
-      - text: "We must comply with applicable laws and regulations in the jurisdictions where we conduct business."
-        section: "3.6. Our AI will be developed and used in strict compliance with applicable laws."
-        page: 4
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "In the case of AI developed by third parties, we must both: (1) have a valid license from the supplier of the AI technology, including approved security, privacy, and intellectual property terms"
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "ensure our work with AI meets the highest standards of ethics, legality, safety, security, privacy, and accountability."
-        section: "Purpose 1."
-        page: 1
-      - text: "Intellectual property concerns arise at all phases of AI development and use, including data selection and acquisition, model training and development, and operations and output."
-        section: "3.5. We will ensure that our AI respects and protects our own and others' confidential information and intellectual property."
-        page: 4
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "This Policy will be reviewed periodically to monitor and account for changes in the regulatory landscape, commercial and technical environment, and changes in our business. Pursuant to the Lenovo Policy on Corporate and Departmental Policies, this policy must be reviewed at least annually."
-        section: "Oversight and Governance"
-      - text: "AI systems must be evaluated in terms of their impact on subjects, users, society, and the environment."
-        section: "3.1a Diversity and Inclusion"
-      - text: "AI systems that process personal data will be monitored (post-release) for compliance with these principles and for data privacy incidents."
-        section: "3.3"
-  - id: credo-risk-035
-    name: Lack of robustness (Slattery et al., 2024)
-    evidence:
-      - text: "Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity."
-        section: "3.4"
-      - text: "We will establish standards to be used in the review, development, and operation of AI systems to ensure they are safe and reliable."
-        section: "3.4"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "personal information of Lenovo employees, customers, or others who have not explicitly consented to such use"
-        section: "B. Operation and Use"
-        page: 4
-      - text: "conduct appropriate diligence to ensure that the developer data was rightfully obtained and used."
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "AI systems will be designed to help users comply with privacy requirements, including providing to subjects the reasonable ability to review, correct, amend, or delete their personal data processed by an AI system."
-        section: "3.3   We will protect people's privacy at all stages of the AI Lifecyle."
-        page: 3
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "considering from the start how a proposed project or product, including an AI system, will impact the privacy of subjects whose personal data will be processed by Lenovo or a Lenovo product."
-        section: "3.3   We will protect people's privacy at all stages of the AI Lifecyle."
-        page: 3
-      - text: "involve the collection of sensitive personal data to enable profiling of individuals"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-      - text: "personal information of Lenovo employees, customers, or others who have not explicitly consented to such use"
-        section: "B. Operation and Use"
-        page: 4
-  - id: credo-risk-038
-    name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
-    evidence:
-      - text: "We will ensure that our AI systems are not given inappropriate information or prompts, including: (1) third-party information in Lenovo's control not authorized for such use, (2) Lenovo confidential or restricted information, if the AI system is not approved for such use"
-        section: "B. Operation and Use"
-      - text: "our employees may not use publicly-available versions of any generative AI tool - like ChatGPT, Midjourney, and many others - for work purposes. Only AI tools specifically licensed and approved by Lenovo may be used."
-        section: "A. Data and Inputs"
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "We will establish and maintain governance and review organizations to administer this Policy quickly and robustly."
-        section: "3.7 Oversight and Governance"
-      - text: "AI Ethics and Bias Mitigation: Addressing ethical concerns, and coordinating compliance, governance, and transparency processes related to AI applications, ensuring that AI algorithms and models are fair, transparent, and unbiased."
-        section: "3.7 Oversight and Governance"
-      - text: "Data Management and Governance: Tasked with ensuring that the Company's data infrastructure is capable of handling AI applications. Establishing data governance policies to maintain data quality, security, and compliance."
-        section: "3.7 Oversight and Governance"
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "In the case of AI developed by third parties, we must both: (1) have a valid license from the supplier of the AI technology, including approved security, privacy, and intellectual property terms, and (2) conduct appropriate diligence to ensure that the developer data was rightfully obtained and used."
-        section: "A. Data and Inputs"
-        page: 4
-      - text: "deploys or otherwise uses an AI system (Lenovo- and/or third party-developed) to facilitate Lenovo operations."
-        section: "Scope 2."
-        page: 1
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "AI systems will be designed, implemented, and used in ways that prevent and mitigate bias and discrimination, directly or by proxy, based on characteristics protected by law such as race, color, religion, gender, gender identity or expression, national origin, ethnicity, sexual orientation, sex, age, disability, veteran status, or marital status."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems"
-        section: "3.1b Accountability and Reliability"
-        page: 2
-      - text: "ensure the AI system mitigates bias and ensures fair and equal treatment for all users."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-      - text: "We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "AI systems will collect and retain data from individuals only where there is a legitimate purpose, and then only to the minimum extent needed to fulfill that purpose."
-        section: "3.3   We will protect people's privacy at all stages of the AI Lifecyle."
-        page: 3
-      - text: "involve the collection of sensitive personal data to enable profiling of individuals"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-      - text: "conduct appropriate diligence to ensure that the developer data was rightfully obtained and used."
-        section: "A. Data and Inputs"
-        page: 4
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity."
-        section: "3.4 Our AI will be developed and used with robust security protections."
-        page: 3
-      - text: "ensure our work with AI meets the highest standards of ethics, legality, safety, security, privacy, and accountability."
-        section: "Purpose 1."
-        page: 1
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "We will appropriately test, validate, and implement mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems."
-        section: "3.1b Accountability and Reliability"
-      - text: "prompts or directions that would tend to create problematic, biased, or infringing results."
-        section: "B. Operation and Use"
-  - id: mit-ai-risk-subdomain-4.3
-    name: Fraud, scams, and targeted manipulation
-    evidence:
-      - text: "deploy subliminal or manipulative techniques"
-        section: "3.0 We will not use AI in ways that harm people or put them or their rights at risk."
-        page: 1
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Significant decisions should not be based solely on the output of any AI system without human intervention."
-        section: "3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system."
-        page: 3
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "Significant decisions should not be based solely on the output of any AI system without human intervention."
-        section: "3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system."
-        page: 3
-      - text: "These materials are created by and the responsibility of humans, even where AI systems help in their creation."
-        section: "C. Results and Output"
-        page: 4
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "This Policy will be enforced by a designated senior executive of the Company who will lead and drive its governance and implementation"
-        section: "3.7 Oversight and Governance"
-      - text: "AI Legal and Regulatory Compliance: Implementing policies and controls across the Company to ensure compliance with the letter and spirit of all applicable laws and regulations."
-        section: "3.7 Oversight and Governance"
-      - text: "By upholding accountability, we aim to build trust, drive innovation, and contribute to the responsible advancement of AI at Lenovo."
-        section: "3.1b Accountability and Reliability"
-  - id: mit-ai-risk-subdomain-6.6
-    name: Environmental harm
-    evidence:
-      - text: "We will consider the impact of AI systems on the environment."
-        section: "3.1e Environmental and Social Impact"
-        page: 3
-      - text: "We will evaluate an AI system for considerations including sustainability, conservation, and ecological stability."
-        section: "3.1e Environmental and Social Impact"
-        page: 3
-      - text: "AI systems must be evaluated in terms of their impact on subjects, users, society, and the environment."
-        section: "3.1a Diversity and Inclusion"
-        page: 2
-  - id: mit-ai-risk-subdomain-7.3
-    name: Lack of capability or robustness
-    evidence:
-      - text: "Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance"
-        section: "3.4 Our AI will be developed and used with robust security protections."
-        page: 3
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them."
-        section: "3.1d Transparency"
-        page: 2
-      - text: "The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency."
-        section: "3.1d Transparency"
-        page: 2
-      - text: "We will strive to create and use AI systems that are explainable."
-        section: "3.1c Explainability"
-        page: 2
+- id: ai-risk-taxonomy-classification-of-individuals---social-behaviors
+  name: Classification of individuals - Social behaviors
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
+  name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
+  evidence:
+  - text: use or were trained on biometric data indiscriminately scraped from social media or publicly-available information
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: 'users should be: (a) informed that they are interacting with AI, (b) provided with information about how their data will be handled by the AI'
+    section: 3.1d Transparency
+  - text: In order to be protected as intellectual property, the results and decisions of AI systems may not be treated as the direct final product to be used by Lenovo or presented outside Lenovo.
+    section: C. Results and Output
+- id: ai-risk-taxonomy-profiling
+  name: Profiling
+  evidence:
+  - text: involve the collection of sensitive personal data to enable profiling of individuals
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+- id: atlas-confidential-information-in-data
+  name: Confidential information in data
+  evidence:
+  - text: conduct appropriate diligence to ensure that the developer data was rightfully obtained and used.
+    section: A. Data and Inputs
+    page: 4
+  - text: Lenovo confidential or restricted information, if the AI system is not approved for such use
+    section: B. Operation and Use
+    page: 4
+- id: atlas-data-acquisition
+  name: Data acquisition restrictions
+  evidence:
+  - text: use or were trained on biometric data indiscriminately scraped from social media or publicly-available information
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+  - text: conduct appropriate diligence to ensure that the developer data was rightfully obtained and used.
+    section: A. Data and Inputs
+    page: 4
+  - text: Intellectual property concerns arise at all phases of AI development and use, including data selection and acquisition
+    section: 3.5. We will ensure that our AI respects and protects our own and others' confidential information and intellectual property.
+    page: 4
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: AI systems will be designed to help users comply with privacy requirements, including providing to subjects the reasonable ability to review, correct, amend, or delete their personal data processed
+      by an AI system.
+    section: 3.3   We will protect people's privacy at all stages of the AI Lifecyle.
+    page: 3
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: They should also have measures in place to continuously assess the quality and sourcing of the data input into the AI system.
+    section: 3.1d Transparency
+    page: 2
+  - text: The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency.
+    section: 3.1d Transparency
+    page: 2
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: We will own or have permission to use all data we use to train or operate AI systems.
+    section: A. Data and Inputs
+    page: 4
+  - text: third-party information in Lenovo's control not authorized for such use
+    section: B. Operation and Use
+    page: 4
+  - text: The development, implementation, and use of AI systems must follow all applicable laws and regulations
+    section: Scope 2.
+    page: 1
+- id: atlas-data-usage-rights
+  name: Data usage rights restrictions
+  evidence:
+  - text: 'In the case of AI developed by third parties, we must both: (1) have a valid license from the supplier of the AI technology, including approved security, privacy, and intellectual property terms'
+    section: A. Data and Inputs
+    page: 4
+  - text: Intellectual property concerns arise at all phases of AI development and use
+    section: 3.5. We will ensure that our AI respects and protects our own and others' confidential information and intellectual property.
+    page: 4
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes.
+    section: 3.1a Diversity and Inclusion
+  - text: AI systems will be designed, implemented, and used in ways that prevent and mitigate bias and discrimination, directly or by proxy, based on characteristics protected by law such as race, color,
+      religion, gender, gender identity or expression, national origin, ethnicity, sexual orientation, sex, age, disability, veteran status, or marital status.
+    section: 3.1a Diversity and Inclusion
+  - text: In determining whether to develop, use, or implement an AI system, Lenovo will evaluate it (e.g., data sets, algorithms, user interfaces) to ensure the AI system mitigates bias and ensures fair
+      and equal treatment for all users.
+    section: 3.1a Diversity and Inclusion
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: ensure proper oversight, validity of AI outcomes, detection of potential biases, and human intervention when necessary to detect and rectify biases, errors, or unintended consequences.
+    section: 3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system.
+    page: 3
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: AI systems will be designed in a manner that avoids unfair biases, protects against the marginalization of vulnerable groups, and guards against prejudice and discrimination.
+    section: 3.1a Diversity and Inclusion
+  - text: Before implementation and throughout the lifecycle of an AI system, we will assess impact based on its intended use case, the end-users and/or subjects affected by the AI system, and geographic
+      areas where the system may be deployed or used.
+    section: 3.1a Diversity and Inclusion
+  - text: AI systems that pose a significant risk to a person's health, safety, or civil rights will be evaluated with additional scrutiny and risk-mitigation analysis.
+    section: '3.0'
+- id: atlas-impact-on-the-environment
+  name: Impact on the environment
+  evidence:
+  - text: We will consider the impact of AI systems on the environment. We will evaluate an AI system for considerations including sustainability, conservation, and ecological stability.
+    section: 3.1e Environmental and Social Impact
+  - text: By adopting a responsible approach to AI, we aim to mitigate environmental and societal risks, and to be at the forefront of sustainable innovation.
+    section: 3.1e Environmental and Social Impact
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: 'The principles outlined in this Policy apply when Lenovo: (a) develops or acquires an AI system, (b) incorporates an AI system into a Lenovo product or service offering, or (c) deploys or otherwise
+      uses an AI system (Lenovo- and/or third party-developed) to facilitate Lenovo operations.'
+    section: Scope 2
+  - text: Before implementation and throughout the lifecycle of an AI system, we will assess impact based on its intended use case, the end-users and/or subjects affected by the AI system, and geographic
+      areas where the system may be deployed or used.
+    section: 3.1a Diversity and Inclusion
+- id: atlas-ip-information-in-prompt
+  name: IP information in prompt
+  evidence:
+  - text: Lenovo confidential or restricted information, if the AI system is not approved for such use
+    section: B. Operation and Use
+    page: 4
+- id: atlas-lack-of-data-transparency
+  name: Lack of data transparency
+  evidence:
+  - text: They should also have measures in place to continuously assess the quality and sourcing of the data input into the AI system.
+    section: 3.1d Transparency
+    page: 2
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: AI systems at Lenovo will be transparent.
+    section: 3.1d Transparency
+    page: 2
+  - text: We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them.
+    section: 3.1d Transparency
+    page: 2
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them.
+    section: 3.1d Transparency
+  - text: The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency.
+    section: 3.1d Transparency
+  - text: To the extent possible, AI systems should be transparent, and should be openly communicated to those directly and indirectly affected.
+    section: 3.1d Transparency
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: we will establish mechanisms for human intervention to ensure proper oversight, validity of AI outcomes, detection of potential biases, and human intervention when necessary to detect and rectify
+      biases, errors, or unintended consequences.
+    section: 3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system.
+    page: 3
+  - text: 'A. AI Ethics and Bias Mitigation: Addressing ethical concerns, and coordinating compliance, governance, and transparency processes related to AI applications'
+    section: 3.7 We will establish and maintain governance and review organizations to administer this Policy quickly and robustly.
+    page: 4
+  - text: ensure our work with AI meets the highest standards of ethics, legality, safety, security, privacy, and accountability.
+    section: Purpose 1.
+    page: 1
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: 'users should be: (a) informed that they are interacting with AI'
+    section: 3.1d Transparency
+    page: 2
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: We will appropriately test, validate, and implement mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems.
+    section: 3.1b Accountability and Reliability
+  - text: prompts or directions that would tend to create problematic, biased, or infringing results.
+    section: B. Operation and Use
+  - text: AI systems will be designed, implemented, and used in ways that prevent and mitigate bias and discrimination, directly or by proxy
+    section: 3.1a Diversity and Inclusion
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: Significant decisions should not be based solely on the output of any AI system without human intervention.
+    section: '3.2'
+  - text: We will use AI systems as tools and enabling systems for our employees.
+    section: C. Results and Output
+  - text: We recognize that AI systems, while powerful and transformative, remain tools to be used in support of human endeavor and must be guided by human judgment and ethical considerations.
+    section: '3.2'
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: use or were trained on biometric data indiscriminately scraped from social media or publicly-available information
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+  - text: 'Corporate Policy #4 on Data Privacy'
+    section: Related Policies and Procedures 4.
+    page: 5
+  - text: considering from the start how a proposed project or product, including an AI system, will impact the privacy of subjects whose personal data will be processed by Lenovo or a Lenovo product.
+    section: 3.3   We will protect people's privacy at all stages of the AI Lifecyle.
+    page: 3
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: personal information of Lenovo employees, customers, or others who have not explicitly consented to such use
+    section: B. Operation and Use
+    page: 4
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: We will own or have permission to use all data we use to train or operate AI systems.
+    section: A. Data and Inputs
+    page: 4
+  - text: Lenovo confidential or restricted information, if the AI system is not approved for such use
+    section: B. Operation and Use
+    page: 4
+- id: credo-risk-004
+  name: Environmental harm (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: We will consider the impact of AI systems on the environment.
+    section: 3.1e Environmental and Social Impact
+    page: 3
+  - text: We will evaluate an AI system for considerations including sustainability, conservation, and ecological stability.
+    section: 3.1e Environmental and Social Impact
+    page: 3
+  - text: assess the impact on subjects, users, and the environment throughout the lifecycle of an AI system
+    section: 3.1b Accountability and Reliability
+    page: 2
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency.
+    section: 3.1d Transparency
+    page: 2
+  - text: Explainable AI uses processes and methods that allow users to understand, in a meaningful way, the facts and inferences behind an AI system's action.
+    section: 3.1c Explainability
+    page: 2
+- id: credo-risk-010
+  name: Stereotype perpetuation (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: AI systems will be designed in a manner that avoids unfair biases, protects against the marginalization of vulnerable groups, and guards against prejudice and discrimination.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: ensure the AI system mitigates bias and ensures fair and equal treatment for all users.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+  - text: We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Significant decisions should not be based solely on the output of any AI system without human intervention.
+    section: '3.2'
+  - text: We will establish mechanisms for human intervention to ensure proper oversight, validity of AI outcomes, detection of potential biases, and human intervention when necessary to detect and rectify
+      biases, errors, or unintended consequences.
+    section: '3.2'
+  - text: These materials are created by and the responsibility of humans, even where AI systems help in their creation.
+    section: C. Results and Output
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them.
+    section: 3.1d Transparency
+    page: 2
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Significant decisions should not be based solely on the output of any AI system without human intervention.
+    section: 3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system.
+    page: 3
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: human intervention when necessary to detect and rectify biases, errors, or unintended consequences.
+    section: 3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system.
+    page: 3
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: Lenovo is dedicated to the highest standards of legal compliance in all of our worldwide operations.
+    section: 3.6. Our AI will be developed and used in strict compliance with applicable laws.
+    page: 4
+  - text: The laws and regulations governing AI are in a state of flux around the world and vary substantially between jurisdictions.
+    section: 3.6. Our AI will be developed and used in strict compliance with applicable laws.
+    page: 4
+  - text: We must comply with applicable laws and regulations in the jurisdictions where we conduct business.
+    section: 3.6. Our AI will be developed and used in strict compliance with applicable laws.
+    page: 4
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: 'In the case of AI developed by third parties, we must both: (1) have a valid license from the supplier of the AI technology, including approved security, privacy, and intellectual property terms'
+    section: A. Data and Inputs
+    page: 4
+  - text: ensure our work with AI meets the highest standards of ethics, legality, safety, security, privacy, and accountability.
+    section: Purpose 1.
+    page: 1
+  - text: Intellectual property concerns arise at all phases of AI development and use, including data selection and acquisition, model training and development, and operations and output.
+    section: 3.5. We will ensure that our AI respects and protects our own and others' confidential information and intellectual property.
+    page: 4
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: This Policy will be reviewed periodically to monitor and account for changes in the regulatory landscape, commercial and technical environment, and changes in our business. Pursuant to the Lenovo
+      Policy on Corporate and Departmental Policies, this policy must be reviewed at least annually.
+    section: Oversight and Governance
+  - text: AI systems must be evaluated in terms of their impact on subjects, users, society, and the environment.
+    section: 3.1a Diversity and Inclusion
+  - text: AI systems that process personal data will be monitored (post-release) for compliance with these principles and for data privacy incidents.
+    section: '3.3'
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity.
+    section: '3.4'
+  - text: We will establish standards to be used in the review, development, and operation of AI systems to ensure they are safe and reliable.
+    section: '3.4'
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: personal information of Lenovo employees, customers, or others who have not explicitly consented to such use
+    section: B. Operation and Use
+    page: 4
+  - text: conduct appropriate diligence to ensure that the developer data was rightfully obtained and used.
+    section: A. Data and Inputs
+    page: 4
+  - text: AI systems will be designed to help users comply with privacy requirements, including providing to subjects the reasonable ability to review, correct, amend, or delete their personal data processed
+      by an AI system.
+    section: 3.3   We will protect people's privacy at all stages of the AI Lifecyle.
+    page: 3
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: considering from the start how a proposed project or product, including an AI system, will impact the privacy of subjects whose personal data will be processed by Lenovo or a Lenovo product.
+    section: 3.3   We will protect people's privacy at all stages of the AI Lifecyle.
+    page: 3
+  - text: involve the collection of sensitive personal data to enable profiling of individuals
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+  - text: personal information of Lenovo employees, customers, or others who have not explicitly consented to such use
+    section: B. Operation and Use
+    page: 4
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: 'We will ensure that our AI systems are not given inappropriate information or prompts, including: (1) third-party information in Lenovo''s control not authorized for such use, (2) Lenovo confidential
+      or restricted information, if the AI system is not approved for such use'
+    section: B. Operation and Use
+  - text: our employees may not use publicly-available versions of any generative AI tool - like ChatGPT, Midjourney, and many others - for work purposes. Only AI tools specifically licensed and approved
+      by Lenovo may be used.
+    section: A. Data and Inputs
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: We will establish and maintain governance and review organizations to administer this Policy quickly and robustly.
+    section: 3.7 Oversight and Governance
+  - text: 'AI Ethics and Bias Mitigation: Addressing ethical concerns, and coordinating compliance, governance, and transparency processes related to AI applications, ensuring that AI algorithms and models
+      are fair, transparent, and unbiased.'
+    section: 3.7 Oversight and Governance
+  - text: 'Data Management and Governance: Tasked with ensuring that the Company''s data infrastructure is capable of handling AI applications. Establishing data governance policies to maintain data quality,
+      security, and compliance.'
+    section: 3.7 Oversight and Governance
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: 'In the case of AI developed by third parties, we must both: (1) have a valid license from the supplier of the AI technology, including approved security, privacy, and intellectual property terms,
+      and (2) conduct appropriate diligence to ensure that the developer data was rightfully obtained and used.'
+    section: A. Data and Inputs
+    page: 4
+  - text: deploys or otherwise uses an AI system (Lenovo- and/or third party-developed) to facilitate Lenovo operations.
+    section: Scope 2.
+    page: 1
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: AI systems will be designed, implemented, and used in ways that prevent and mitigate bias and discrimination, directly or by proxy, based on characteristics protected by law such as race, color,
+      religion, gender, gender identity or expression, national origin, ethnicity, sexual orientation, sex, age, disability, veteran status, or marital status.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems
+    section: 3.1b Accountability and Reliability
+    page: 2
+  - text: ensure the AI system mitigates bias and ensures fair and equal treatment for all users.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+  - text: We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: AI systems will collect and retain data from individuals only where there is a legitimate purpose, and then only to the minimum extent needed to fulfill that purpose.
+    section: 3.3   We will protect people's privacy at all stages of the AI Lifecyle.
+    page: 3
+  - text: involve the collection of sensitive personal data to enable profiling of individuals
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+  - text: conduct appropriate diligence to ensure that the developer data was rightfully obtained and used.
+    section: A. Data and Inputs
+    page: 4
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity.
+    section: 3.4 Our AI will be developed and used with robust security protections.
+    page: 3
+  - text: ensure our work with AI meets the highest standards of ethics, legality, safety, security, privacy, and accountability.
+    section: Purpose 1.
+    page: 1
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: We will appropriately test, validate, and implement mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems.
+    section: 3.1b Accountability and Reliability
+  - text: prompts or directions that would tend to create problematic, biased, or infringing results.
+    section: B. Operation and Use
+- id: mit-ai-risk-subdomain-4.3
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: deploy subliminal or manipulative techniques
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+    page: 1
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: Significant decisions should not be based solely on the output of any AI system without human intervention.
+    section: 3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system.
+    page: 3
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: Significant decisions should not be based solely on the output of any AI system without human intervention.
+    section: 3.2. We will ensure that there is proper human oversight throughout the lifecycle of an AI system.
+    page: 3
+  - text: These materials are created by and the responsibility of humans, even where AI systems help in their creation.
+    section: C. Results and Output
+    page: 4
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: This Policy will be enforced by a designated senior executive of the Company who will lead and drive its governance and implementation
+    section: 3.7 Oversight and Governance
+  - text: 'AI Legal and Regulatory Compliance: Implementing policies and controls across the Company to ensure compliance with the letter and spirit of all applicable laws and regulations.'
+    section: 3.7 Oversight and Governance
+  - text: By upholding accountability, we aim to build trust, drive innovation, and contribute to the responsible advancement of AI at Lenovo.
+    section: 3.1b Accountability and Reliability
+- id: mit-ai-risk-subdomain-6.6
+  name: Environmental harm
+  evidence:
+  - text: We will consider the impact of AI systems on the environment.
+    section: 3.1e Environmental and Social Impact
+    page: 3
+  - text: We will evaluate an AI system for considerations including sustainability, conservation, and ecological stability.
+    section: 3.1e Environmental and Social Impact
+    page: 3
+  - text: AI systems must be evaluated in terms of their impact on subjects, users, society, and the environment.
+    section: 3.1a Diversity and Inclusion
+    page: 2
+- id: mit-ai-risk-subdomain-7.3
+  name: Lack of capability or robustness
+  evidence:
+  - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance
+    section: 3.4 Our AI will be developed and used with robust security protections.
+    page: 3
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: We will establish mechanisms to ensure transparency of the capabilities and limitations on AI systems to ensure users can make informed choices about them.
+    section: 3.1d Transparency
+    page: 2
+  - text: The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency.
+    section: 3.1d Transparency
+    page: 2
+  - text: We will strive to create and use AI systems that are explainable.
+    section: 3.1c Explainability
+    page: 2
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: 'We will ensure that our AI systems are not given inappropriate information or prompts, including: (1) third-party information in Lenovo''s control not authorized for such use, (2) Lenovo confidential
+      or restricted information, if the AI system is not approved for such use'
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes.
+  - text: In determining whether to develop, use, or implement an AI system, Lenovo will evaluate it (e.g., data sets, algorithms, user interfaces) to ensure the AI system mitigates bias and ensures fair
+      and equal treatment for all users.
+- id: atlas-unexplainable-output
+  name: Unexplainable output
+  evidence:
+  - text: We will strive to create and use AI systems that are explainable.
+  - text: Explainable AI uses processes and methods that allow users to understand, in a meaningful way, the facts and inferences behind an AI system's action.
+- id: credo-risk-005
+  name: Lack of training data transparency (IBM, 2024)
+  evidence:
+  - text: The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency.
+  - text: They should also have measures in place to continuously assess the quality and sourcing of the data input into the AI system.
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: 'Lenovo prohibits AI systems that: (d) use or were trained on biometric data indiscriminately scraped from social media or publicly-available information, or (e) involve the collection of sensitive
+      personal data to enable profiling of individuals.'
+- id: atlas-data-curation
+  name: Improper data curation
+  evidence:
+  - text: They should also have measures in place to continuously assess the quality and sourcing of the data input into the AI system.
+  - text: The data sets and processes that yield the AI system's decisions, including data gathering, data labeling, and any algorithms used, should be documented to allow for traceability and transparency.
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: 'We will ensure that our AI systems are not given inappropriate information or prompts, including: (1) third-party information in Lenovo''s control not authorized for such use, (2) Lenovo confidential
+      or restricted information, if the AI system is not approved for such use'
+- id: atlas-nonconsensual-use
+  name: Nonconsensual use
+  evidence:
+  - text: personal information of Lenovo employees, customers, or others who have not explicitly consented to such use
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity.
+- id: atlas-unrepresentative-data
+  name: Unrepresentative data
+  evidence:
+  - text: We will regularly review and address potential biases in AI algorithms, data sources, and decision-making frameworks to ensure fairness and equitable outcomes.
+- id: credo-risk-026
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: 'Lenovo prohibits AI systems that: (a) deploy subliminal or manipulative techniques, (b) exploit a person''s vulnerabilities'
+- id: credo-risk-033
+  name: Lack of adequate capabilities (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity.
+  - text: We will appropriately test, validate, and implement mechanisms to detect and rectify biases, errors, or unintended consequences in AI systems.
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity.

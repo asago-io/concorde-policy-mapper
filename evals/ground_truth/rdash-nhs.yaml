@@ -1,358 +1,408 @@
-# reviewed: 2026-05-26 — revised with gap analysis (added 15 missing cross-framework risks)
 risks:
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---health-data
-    name: Non-consensual tracking/monitoring/stalking/spyware - Health data
-    evidence:
-      - text: "If trust approved artificial intelligence is used during patient consultations or for recording patient information (for example, Microsoft Teams and Ambient Scribe technologies):"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-      - text: "patients must be fully informed and fully understand the use"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-      - text: "explicit consent must be obtained prior to any processing"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
-    name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
-    evidence:
-      - text: "Using Copilot chat to create a care plan for John Smith, NHS number 123 456 7890, to help him lose weight."
-        section: "11.1.6 Further guidance"
-  - id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---health-data
-    name: Unauthorized collection/gathering/stealing - Health data
-    evidence:
-      - text: "it must not be used for: making clinical decisions or determining diagnosis and treatment; processing identifiable patient data"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-      - text: "Where person identifiable data is expected to be used determine a legal basis for the use of data is identified before any data is processed."
-        section: "5 Procedure"
-  - id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
-    name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
-    evidence:
-      - text: "do not use person identifiable data."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "the UK's National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: ai-risk-taxonomy-unauthorized-disclosure---health-data
-    name: Unauthorized disclosure - Health data
-    evidence:
-      - text: "Ensure confidential patient information is processed legally, ethically and appropriately."
-        section: "4.3 Caldicott guardian (CG)"
-      - text: "ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
-    name: Unauthorized disclosure - PII (Personal Identifiable Information)
-    evidence:
-      - text: "it is important to use artificial intelligence appropriately to ensure that it does not compromise personal data, business sensitive information, or pose a risk to patient safety or our network integrity."
-        section: "5.4 Freely available artificial intelligence apps and technologies"
-      - text: "do not use person identifiable data."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: ai-risk-taxonomy-unauthorized-processing---health-data
-    name: Unauthorized processing - Health data
-    evidence:
-      - text: "the above requirements also apply to data used to test artificial intelligence systems even if there is no outcome or decision for an individual, this is because you are processing data by using it to train artificial intelligence models or algorithms."
-        section: "5 Procedure"
-      - text: "a data protection impact assessment must be completed prior to implementation; this is a legal requirement for artificial intelligence."
-        section: "4.7 Finance and procurement teams"
-  - id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
-    name: Unauthorized processing - PII (Personal Identifiable Information)
-    evidence:
-      - text: "Ensure confidential patient information is processed legally, ethically and appropriately."
-        section: "4.3 Caldicott guardian (CG)"
-      - text: "it must not be used for: ... - processing identifiable patient data"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-      - text: "explicit consent must be obtained prior to any processing"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-  - id: atlas-confidential-information-in-data
-    name: Confidential information in data
-    evidence:
-      - text: "ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "In such cases you would need to treat this as personal data and therefore identify a legal basis for the processing along with meeting the requirements of the common law duty of confidentiality."
-        section: "5 Procedure"
-      - text: "Ensure confidential patient information is processed legally, ethically and appropriately."
-        section: "4.3 Caldicott guardian (CG)"
-  - id: atlas-dangerous-use
-    name: Dangerous use
-    evidence:
-      - text: "Artificial intelligence (AI) may be considered for use as a supportive tool within clinical practice; however, it must not be used for: making clinical decisions or determining diagnosis and treatment; processing identifiable patient data; replacing professional judgment"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-      - text: "Over-reliance on artificial intelligence without oversight may compromise patient safety and breach professional obligations."
-        section: "11.1.3 General Medical Council accountability requirements"
-  - id: atlas-data-acquisition
-    name: Data acquisition restrictions
-    evidence:
-      - text: "Where person identifiable data is expected to be used determine a legal basis for the use of data is identified before any data is processed."
-        section: "5 Procedure"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Serve as the point of contact for employees, data subjects and supervisory authorities regarding data protection concerns."
-        section: "4.2 Data protection officer (DPO)"
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind it must be explainable"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "adhere to the trust’s data protection, information governance and security policies, protocols and guidelines"
-        section: "4.9 Employees and users"
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "do not use person identifiable data."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "complete a data protection impact assessment (DPIA), where person identifiable data is to be used"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "be aware that you will need to verify any output of these products to ensure accuracy"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "All outputs should be reviewed and validated before use to ensure accuracy and compliance."
-        section: "11.1.1 NHS England guidance on Copilot (relevant for all generative artificial intelligence models)"
-  - id: atlas-impact-on-affected-communities
-    name: Impact on affected communities
-    evidence:
-      - text: "ensuring that innovation remains safe, inclusive, and impactful for our communities."
-        section: "2.1 Innovation and emerging technologies"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "Central to any aspect of care delivered to adults and young people aged 16 years or over will be the consideration of the individuals’ capacity to participate in the decision-making process."
-        section: "8.2 Mental Capacity Act (2005)"
-      - text: "ensure that the rights of individual are protected and they are supported to make their own decisions where possible and that any decisions made on their behalf when they lack capacity are made in their best interests and least restrictive of their rights and freedoms."
-        section: "8.2 Mental Capacity Act (2005)"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "It is important that the purpose and use of artificial intelligence is clearly defined and understood."
-        section: "5 Procedure"
-  - id: atlas-ip-information-in-prompt
-    name: IP information in prompt
-    evidence:
-      - text: "The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "be aware of any copyright and intellectual property considerations."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind it must be explainable"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "patients must be fully informed and fully understand the use"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "It addresses aspects such as data privacy, transparency, accountability, and appropriate use."
-        section: "2.1 Innovation and emerging technologies"
-      - text: "Understanding the governance and clinical safety aspects of artificial intelligence (AI) can be complex"
-        section: "11.1 Appendix A use of generative artificial intelligence in clinical practice"
-      - text: "While the General Medical Council (GMC) primarily regulates doctors and physician associates, this framework is relevant to all staff."
-        section: "11.1 Appendix A use of generative artificial intelligence in clinical practice"
-  - id: atlas-model-usage-rights
-    name: Model usage rights restrictions
-    evidence:
-      - text: "Refer to appendix B: Microsoft 365 Copilot acceptable use policy."
-        section: "11.2 Appendix B Microsoft 365 Copilot acceptable use policy"
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "it should not be used as your primary source for information because it can produce inaccurate, biased or false information."
-        section: "5.4 Freely available artificial intelligence apps and technologies"
-      - text: "Potential for incorrect or biased outputs from artificial intelligence systems."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "Artificial intelligence can support clinical decision-making but must not replace professional judgment."
-        section: "11.1.2 Key principles"
-      - text: "artificial intelligence outcomes or outputs must be reviewed by a human; you cannot rely solely on the use of artificial intelligence for decision-making, there must be substantial involvement from an appropriately qualified human"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "Users are responsible for verifying outputs and ensuring that any content generated is appropriate, accurate, and compliant with relevant governance standards."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "do not use person identifiable data."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "The combined details of a local area, a rare disease and a very young age may enable a patient to be identified."
-        section: "5 Procedure"
-      - text: "In such cases you would need to treat this as personal data"
-        section: "5 Procedure"
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "do not use person identifiable data."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "Ensure confidential patient information is processed legally, ethically and appropriately."
-        section: "4.3 Caldicott guardian (CG)"
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind it must be explainable"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "General Medical Council guidance requires understanding the limitations of any technology used."
-        section: "11.1.2 Key principles"
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Reduced clinician engagement and critical thinking."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-      - text: "Artificial intelligence can support clinical decision-making but must not replace professional judgment."
-        section: "11.1.2 Key principles"
-      - text: "Over-reliance on artificial intelligence without oversight may compromise patient safety and breach professional obligations."
-        section: "11.1.3 General Medical Council accountability requirements"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "Within the trust induction programme, all employees commencing employment are trained in the data security and awareness training."
-        section: "6 Training implications"
-      - text: "Understanding the governance and clinical safety aspects of artificial intelligence (AI) can be complex, and guidance may sometimes feel unclear."
-        section: "11.1 Appendix A use of generative artificial intelligence in clinical practice"
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "Reduced clinician engagement and critical thinking."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "be aware of ethical considerations when using these products. Including the potential to produce biased, discriminatory, or harmful content"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "Potential for incorrect or biased outputs from artificial intelligence systems."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "meet national and local legislation and, or requirements in relation to and including the artificial intelligence policy."
-        section: "4.1 Chief executive"
-  - id: credo-risk-030
-    name: Integration challenges with existing systems
-    evidence:
-      - text: "Ensure the proper configuration, security, and compatibility of artificial intelligence systems with existing information technology infrastructure."
-        section: "4.6 Information technology or technical and business intelligence"
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "Assist in the implementation, integration, and maintenance of artificial intelligence systems."
-        section: "4.6 Information technology or technical and business intelligence"
-      - text: "this artificial intelligence policy is not exhaustive and may need to be adapted and updated periodically as technology advances, regulatory requirements evolve, and best practices in artificial intelligence governance emerge."
-        section: "2.1 Innovation and emerging technologies"
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "Assess the safety risks associated with artificial intelligence systems used in clinical settings."
-        section: "4.5 Clinical safety officer"
-      - text: "Monitor and evaluate the performance and safety of all health information technology (IT) systems."
-        section: "4.5 Clinical safety officer"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "it is important to use artificial intelligence appropriately to ensure that it does not compromise personal data, business sensitive information, or pose a risk to patient safety or our network integrity."
-        section: "5.4 Freely available artificial intelligence apps and technologies"
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Ensure confidential patient information is processed legally, ethically and appropriately."
-        section: "4.3 Caldicott guardian (CG)"
-      - text: "ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "do not use business sensitive data (see definition below)"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: credo-risk-038
-    name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
-    evidence:
-      - text: "do not use business sensitive data"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "Always label confidential and sensitive information as official sensitive"
-        section: "11.1.5 Practical guidance for clinicians"
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Ensure the proper configuration, security, and compatibility of artificial intelligence systems with existing information technology infrastructure."
-        section: "4.6 Information technology or technical and business intelligence"
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "Take responsibility for the overall governance and management of information risks associated."
-        section: "4.4 Senior information risk owner (SIRO)"
-      - text: "Ensure that appropriate risk management processes, controls, and policies are in place."
-        section: "4.4 Senior information risk owner (SIRO)"
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "be aware of ethical considerations when using these products. Including the potential to produce biased, discriminatory, or harmful content"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "Potential for incorrect or biased outputs from artificial intelligence systems."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-  - id: mit-ai-risk-subdomain-1.2
-    name: Exposure to toxic content
-    evidence:
-      - text: "be aware of ethical considerations when using these products. Including the potential to produce biased, discriminatory, or harmful content"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "Potential for incorrect or biased outputs from artificial intelligence systems."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-      - text: "ensuring that innovation remains safe, inclusive, and impactful for our communities."
-        section: "2.1 Innovation and emerging technologies"
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "Ensure confidential patient information is processed legally, ethically and appropriately."
-        section: "4.3 Caldicott guardian (CG)"
-      - text: "Using Copilot chat to create a care plan for John Smith, NHS number 123 456 7890, to help him lose weight."
-        section: "11.1.6 Further guidance"
-      - text: "Oversee and ensure compliance with data protection regulations and best practice associated with artificial intelligence (AI)."
-        section: "4.2 Data protection officer (DPO)"
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "Ensure the proper configuration, security, and compatibility of artificial intelligence systems with existing information technology infrastructure."
-        section: "4.6 Information technology or technical and business intelligence"
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "Potential for incorrect or biased outputs from artificial intelligence systems."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "ensuring that you check the sources of the information it retrieves and assess the quality of that information source"
-        section: "11.1.6 Further guidance"
-      - text: "Users are responsible for verifying outputs and ensuring that any content generated is appropriate, accurate, and compliant with relevant governance standards."
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "Reduced clinician engagement and critical thinking."
-        section: "11.1.4 Risks of over-reliance on artificial intelligence"
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "Take responsibility for the overall governance and management of information risks associated."
-        section: "4.4 Senior information risk owner (SIRO)"
-      - text: "Ensure that appropriate risk management processes, controls, and policies are in place."
-        section: "4.4 Senior information risk owner (SIRO)"
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind it must be explainable"
-        section: "5.5 Use of ChatGPT (and other as per 5.4) on trust devices"
-      - text: "patients must be fully informed and fully understand the use"
-        section: "5.3 Use of publicly available artificial intelligence in clinical practice"
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---health-data
+  name: Non-consensual tracking/monitoring/stalking/spyware - Health data
+  evidence:
+  - text: 'If trust approved artificial intelligence is used during patient consultations or for recording patient information (for example, Microsoft Teams and Ambient Scribe technologies):'
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+  - text: patients must be fully informed and fully understand the use
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+  - text: explicit consent must be obtained prior to any processing
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
+  name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
+  evidence:
+  - text: Using Copilot chat to create a care plan for John Smith, NHS number 123 456 7890, to help him lose weight.
+    section: 11.1.6 Further guidance
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---health-data
+  name: Unauthorized collection/gathering/stealing - Health data
+  evidence:
+  - text: 'it must not be used for: making clinical decisions or determining diagnosis and treatment; processing identifiable patient data'
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+  - text: Where person identifiable data is expected to be used determine a legal basis for the use of data is identified before any data is processed.
+    section: 5 Procedure
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
+  name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
+  evidence:
+  - text: do not use person identifiable data.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: the UK's National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: ai-risk-taxonomy-unauthorized-disclosure---health-data
+  name: Unauthorized disclosure - Health data
+  evidence:
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+    section: 4.3 Caldicott guardian (CG)
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII (Personal Identifiable Information)
+  evidence:
+  - text: it is important to use artificial intelligence appropriately to ensure that it does not compromise personal data, business sensitive information, or pose a risk to patient safety or our network
+      integrity.
+    section: 5.4 Freely available artificial intelligence apps and technologies
+  - text: do not use person identifiable data.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: ai-risk-taxonomy-unauthorized-processing---health-data
+  name: Unauthorized processing - Health data
+  evidence:
+  - text: the above requirements also apply to data used to test artificial intelligence systems even if there is no outcome or decision for an individual, this is because you are processing data by using
+      it to train artificial intelligence models or algorithms.
+    section: 5 Procedure
+  - text: a data protection impact assessment must be completed prior to implementation; this is a legal requirement for artificial intelligence.
+    section: 4.7 Finance and procurement teams
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+    section: 4.3 Caldicott guardian (CG)
+  - text: 'it must not be used for: ... - processing identifiable patient data'
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+  - text: explicit consent must be obtained prior to any processing
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+- id: atlas-confidential-information-in-data
+  name: Confidential information in data
+  evidence:
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: In such cases you would need to treat this as personal data and therefore identify a legal basis for the processing along with meeting the requirements of the common law duty of confidentiality.
+    section: 5 Procedure
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+    section: 4.3 Caldicott guardian (CG)
+- id: atlas-dangerous-use
+  name: Dangerous use
+  evidence:
+  - text: 'Artificial intelligence (AI) may be considered for use as a supportive tool within clinical practice; however, it must not be used for: making clinical decisions or determining diagnosis and
+      treatment; processing identifiable patient data; replacing professional judgment'
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+  - text: Over-reliance on artificial intelligence without oversight may compromise patient safety and breach professional obligations.
+    section: 11.1.3 General Medical Council accountability requirements
+- id: atlas-data-acquisition
+  name: Data acquisition restrictions
+  evidence:
+  - text: Where person identifiable data is expected to be used determine a legal basis for the use of data is identified before any data is processed.
+    section: 5 Procedure
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Serve as the point of contact for employees, data subjects and supervisory authorities regarding data protection concerns.
+    section: 4.2 Data protection officer (DPO)
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind
+      it must be explainable
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: adhere to the trust’s data protection, information governance and security policies, protocols and guidelines
+    section: 4.9 Employees and users
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: do not use person identifiable data.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: complete a data protection impact assessment (DPIA), where person identifiable data is to be used
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: be aware that you will need to verify any output of these products to ensure accuracy
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: All outputs should be reviewed and validated before use to ensure accuracy and compliance.
+    section: 11.1.1 NHS England guidance on Copilot (relevant for all generative artificial intelligence models)
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: ensuring that innovation remains safe, inclusive, and impactful for our communities.
+    section: 2.1 Innovation and emerging technologies
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: Central to any aspect of care delivered to adults and young people aged 16 years or over will be the consideration of the individuals’ capacity to participate in the decision-making process.
+    section: 8.2 Mental Capacity Act (2005)
+  - text: ensure that the rights of individual are protected and they are supported to make their own decisions where possible and that any decisions made on their behalf when they lack capacity are made
+      in their best interests and least restrictive of their rights and freedoms.
+    section: 8.2 Mental Capacity Act (2005)
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: It is important that the purpose and use of artificial intelligence is clearly defined and understood.
+    section: 5 Procedure
+- id: atlas-ip-information-in-prompt
+  name: IP information in prompt
+  evidence:
+  - text: The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: be aware of any copyright and intellectual property considerations.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind
+      it must be explainable
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: patients must be fully informed and fully understand the use
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: It addresses aspects such as data privacy, transparency, accountability, and appropriate use.
+    section: 2.1 Innovation and emerging technologies
+  - text: Understanding the governance and clinical safety aspects of artificial intelligence (AI) can be complex
+    section: 11.1 Appendix A use of generative artificial intelligence in clinical practice
+  - text: While the General Medical Council (GMC) primarily regulates doctors and physician associates, this framework is relevant to all staff.
+    section: 11.1 Appendix A use of generative artificial intelligence in clinical practice
+- id: atlas-model-usage-rights
+  name: Model usage rights restrictions
+  evidence:
+  - text: 'Refer to appendix B: Microsoft 365 Copilot acceptable use policy.'
+    section: 11.2 Appendix B Microsoft 365 Copilot acceptable use policy
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: it should not be used as your primary source for information because it can produce inaccurate, biased or false information.
+    section: 5.4 Freely available artificial intelligence apps and technologies
+  - text: Potential for incorrect or biased outputs from artificial intelligence systems.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: Artificial intelligence can support clinical decision-making but must not replace professional judgment.
+    section: 11.1.2 Key principles
+  - text: artificial intelligence outcomes or outputs must be reviewed by a human; you cannot rely solely on the use of artificial intelligence for decision-making, there must be substantial involvement
+      from an appropriately qualified human
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: Users are responsible for verifying outputs and ensuring that any content generated is appropriate, accurate, and compliant with relevant governance standards.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: do not use person identifiable data.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: The combined details of a local area, a rare disease and a very young age may enable a patient to be identified.
+    section: 5 Procedure
+  - text: In such cases you would need to treat this as personal data
+    section: 5 Procedure
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: do not use person identifiable data.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: The UK’s National Cyber Security Centre (NCSC) states that you should not enter sensitive information (such as personal details or company intellectual property) into chatbots
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+    section: 4.3 Caldicott guardian (CG)
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind
+      it must be explainable
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: General Medical Council guidance requires understanding the limitations of any technology used.
+    section: 11.1.2 Key principles
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Reduced clinician engagement and critical thinking.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+  - text: Artificial intelligence can support clinical decision-making but must not replace professional judgment.
+    section: 11.1.2 Key principles
+  - text: Over-reliance on artificial intelligence without oversight may compromise patient safety and breach professional obligations.
+    section: 11.1.3 General Medical Council accountability requirements
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: Within the trust induction programme, all employees commencing employment are trained in the data security and awareness training.
+    section: 6 Training implications
+  - text: Understanding the governance and clinical safety aspects of artificial intelligence (AI) can be complex, and guidance may sometimes feel unclear.
+    section: 11.1 Appendix A use of generative artificial intelligence in clinical practice
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Reduced clinician engagement and critical thinking.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: be aware of ethical considerations when using these products. Including the potential to produce biased, discriminatory, or harmful content
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: Potential for incorrect or biased outputs from artificial intelligence systems.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: meet national and local legislation and, or requirements in relation to and including the artificial intelligence policy.
+    section: 4.1 Chief executive
+- id: credo-risk-030
+  name: Integration challenges with existing systems
+  evidence:
+  - text: Ensure the proper configuration, security, and compatibility of artificial intelligence systems with existing information technology infrastructure.
+    section: 4.6 Information technology or technical and business intelligence
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: Assist in the implementation, integration, and maintenance of artificial intelligence systems.
+    section: 4.6 Information technology or technical and business intelligence
+  - text: this artificial intelligence policy is not exhaustive and may need to be adapted and updated periodically as technology advances, regulatory requirements evolve, and best practices in artificial
+      intelligence governance emerge.
+    section: 2.1 Innovation and emerging technologies
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: Assess the safety risks associated with artificial intelligence systems used in clinical settings.
+    section: 4.5 Clinical safety officer
+  - text: Monitor and evaluate the performance and safety of all health information technology (IT) systems.
+    section: 4.5 Clinical safety officer
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: it is important to use artificial intelligence appropriately to ensure that it does not compromise personal data, business sensitive information, or pose a risk to patient safety or our network
+      integrity.
+    section: 5.4 Freely available artificial intelligence apps and technologies
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+    section: 4.3 Caldicott guardian (CG)
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: do not use business sensitive data (see definition below)
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: do not use business sensitive data
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: Always label confidential and sensitive information as official sensitive
+    section: 11.1.5 Practical guidance for clinicians
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Ensure the proper configuration, security, and compatibility of artificial intelligence systems with existing information technology infrastructure.
+    section: 4.6 Information technology or technical and business intelligence
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: Take responsibility for the overall governance and management of information risks associated.
+    section: 4.4 Senior information risk owner (SIRO)
+  - text: Ensure that appropriate risk management processes, controls, and policies are in place.
+    section: 4.4 Senior information risk owner (SIRO)
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: be aware of ethical considerations when using these products. Including the potential to produce biased, discriminatory, or harmful content
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: Potential for incorrect or biased outputs from artificial intelligence systems.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+- id: mit-ai-risk-subdomain-1.2
+  name: Exposure to toxic content
+  evidence:
+  - text: be aware of ethical considerations when using these products. Including the potential to produce biased, discriminatory, or harmful content
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: Potential for incorrect or biased outputs from artificial intelligence systems.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+  - text: ensuring that innovation remains safe, inclusive, and impactful for our communities.
+    section: 2.1 Innovation and emerging technologies
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+    section: 4.3 Caldicott guardian (CG)
+  - text: Using Copilot chat to create a care plan for John Smith, NHS number 123 456 7890, to help him lose weight.
+    section: 11.1.6 Further guidance
+  - text: Oversee and ensure compliance with data protection regulations and best practice associated with artificial intelligence (AI).
+    section: 4.2 Data protection officer (DPO)
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: Ensure the proper configuration, security, and compatibility of artificial intelligence systems with existing information technology infrastructure.
+    section: 4.6 Information technology or technical and business intelligence
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: Potential for incorrect or biased outputs from artificial intelligence systems.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: ensuring that you check the sources of the information it retrieves and assess the quality of that information source
+    section: 11.1.6 Further guidance
+  - text: Users are responsible for verifying outputs and ensuring that any content generated is appropriate, accurate, and compliant with relevant governance standards.
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: Reduced clinician engagement and critical thinking.
+    section: 11.1.4 Risks of over-reliance on artificial intelligence
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: Take responsibility for the overall governance and management of information risks associated.
+    section: 4.4 Senior information risk owner (SIRO)
+  - text: Ensure that appropriate risk management processes, controls, and policies are in place.
+    section: 4.4 Senior information risk owner (SIRO)
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind
+      it must be explainable
+    section: 5.5 Use of ChatGPT (and other as per 5.4) on trust devices
+  - text: patients must be fully informed and fully understand the use
+    section: 5.3 Use of publicly available artificial intelligence in clinical practice
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: 'Artificial intelligence (AI) may be considered for use as a supportive tool within clinical practice; however, it must not be used for: - making clinical decisions or determining diagnosis and
+      treatment - processing identifiable patient data - replacing professional judgment'
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: use of artificial intelligence must be transparent to employees and patients ensuring they understand where it is being used and how it may impact their employment, work or care; the logic behind
+      it must be explainable
+- id: atlas-spreading-disinformation
+  name: Spreading disinformation
+  evidence:
+  - text: it should not be used as your primary source for information because it can produce inaccurate, biased or false information.
+- id: atlas-unexplainable-output
+  name: Unexplainable output
+  evidence:
+  - text: the logic behind it must be explainable
+- id: credo-risk-009
+  name: Black box decisionmaking (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: the logic behind it must be explainable
+- id: atlas-copyright-infringement
+  name: Copyright infringement
+  evidence:
+  - text: be aware of any copyright and intellectual property considerations.
+- id: atlas-harmful-output
+  name: Harmful output
+  evidence:
+  - text: Potential for incorrect or biased outputs from artificial intelligence systems.
+- id: atlas-incomplete-advice
+  name: Incomplete advice
+  evidence:
+  - text: Artificial intelligence can support clinical decision-making but must not replace professional judgment.
+  - text: Over-reliance on artificial intelligence without oversight may compromise patient safety and breach professional obligations.
+- id: atlas-spreading-toxicity
+  name: Spreading toxicity
+  evidence:
+  - text: Including the potential to produce biased, discriminatory, or harmful content

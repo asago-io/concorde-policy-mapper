@@ -1,635 +1,762 @@
-# reviewed: 2026-05-27 — initial ground truth from Firstsource AI Policy v1.0
-# Comprehensive enterprise AI policy covering: ethical AI principles (transparency, fairness, explainability,
-# human-centered values), approved/prohibited tools, data guardrails (PII, restricted data, credentials),
-# output guardrails (disclosure, bias check, IP check, likeness consent), transparency & accountability,
-# data privacy & security (access controls, encryption, anonymization), AI governance board, compliance,
-# EU AI Act deployer/developer obligations, consumer data rights, sustainability.
 risks:
-  - id: ai-risk-taxonomy-content-abetting/involving/furthering-activities-violating-any-applicable-law
-    name: Content abetting/involving/furthering activities violating any applicable law
-    evidence:
-      - text: "Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities."
-        section: "Don'ts"
-      - text: "Employees must not use AI programs to engage in activities that could damage the reputation of the company or violate the Privacy rights of others."
-        section: "Don'ts"
-      - text: "Employees should not use, implement or develop any AI tool that is prohibited by regulation/law."
-        section: "7. Prohibited AI Tools"
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "Clearly attribute AI-generated content, indicating that it was created with the assistance of an AI tool, to maintain transparency."
-        section: "8.3 Additional Restrictions"
-      - text: "If an AI feature shall directly present a response to customers or third parties without human review or intervention, you must disclose to the customer that they are: Engaging solely with an AI."
-        section: "8.4 AI-Generated Output Guardrails"
-      - text: "Properly attribute any AI-generated content and be transparent about its use in reports, presentations, and communications."
-        section: "8.1 Guidelines"
-  - id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
-    name: Unauthorized processing - PII (Personal Identifiable Information)
-    evidence:
-      - text: "Deployer or developer must inform users if their personal data is going to be used to train an AI system, to ensure that processing is fair and transparent."
-        section: "14. General Consumer Data Rights"
-        page: 14
-      - text: "User/Consumer consent must be obtained before collecting any data."
-        section: "14. General Consumer Data Rights"
-        page: 14
-      - text: "Only input the data you need. Only input data that is required for the purpose for which you are using the AI tool"
-        section: "8.2 Data Guardrails"
-        page: 7
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential data in prompt
-    evidence:
-      - text: "Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool. Examples include passwords and other credentials, protected health information, personnel material, information from documents marked Confidential, Sensitive, or Proprietary, or any other nonpublic Company information that might be of use to competitors or harmful to the Company if disclosed."
-        section: "8.3 Additional Restrictions"
-      - text: "Employees must not disclose any company information, client specific information or trade secrets to any third party, including AI tools, programs such as ChatGPT, Gemini, and Midjourney."
-        section: "Do's"
-      - text: "Treat every bit of information you provide to a GenAI tool as if it shall go viral on the Internet, attributed to you or the Company, regardless of the settings you have selected within the tool (or the assurances made by its creators)."
-        section: "8.1 Guidelines"
-  - id: atlas-confidential-information-in-data
-    name: Confidential information in data
-    evidence:
-      - text: "Internal Corporate Data : All proprietary information and internal data belonging to the organization, including operational data, financial records, and strategic plans."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-  - id: atlas-copyright-infringement
-    name: Copyright infringement
-    evidence:
-      - text: "Don't Use AI to Violate Copyright or Intellectual Property"
-        section: "Don'ts"
-      - text: "AI systems should adhere to intellectual property laws related to AI-generated content and ensure that the use of AI tools does not infringe on the rights of others."
-        section: "12. Compliance and Regulation"
-      - text: "Check output for any indication of third-party ownership, such as trademarks or watermarks, and don't use any output that contains such content."
-        section: "8.4 AI-Generated Output Guardrails"
-  - id: atlas-dangerous-use
-    name: Dangerous use
-    evidence:
-      - text: "Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities."
-        section: "Don'ts"
-        page: 5
-      - text: "Employees must report any suspicious or unauthorized use of AI programs to Chief Digital and AI Officer, Head - Enterprise Transformation and Chief Information Officer immediately."
-        section: "Do's"
-        page: 4
-      - text: "Employees must remain vigilant for the malicious use of generative AI by scammers."
-        section: "Do's"
-        page: 4
-  - id: atlas-data-bias
-    name: Data bias
-    evidence:
-      - text: "Measures to identify and mitigate biases that may arise from biased, non-inclusive training data or bias in algorithms, thereby promoting equitable outcomes for all user groups"
-        section: "5. Ethical use of AI"
-      - text: "Examples of prohibited AI tools: facial recognition systems without explicit consent, biased AI models that discriminate, and any AI tool employed for malicious purposes."
-        section: "7. Prohibited AI Tools"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Right to Privacy and Data Protection"
-        section: "5. Ethical use of AI"
-        page: 4
-      - text: "AI systems should respect and uphold privacy rights and data protection"
-        section: "5. Ethical use of AI"
-        page: 4
-      - text: "This helps to prevent reidentification of individuals and minimizes the impact of data breaches."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 10
-  - id: atlas-data-transfer
-    name: Data transfer restrictions
-    evidence:
-      - text: "Establish clear protocols for sharing data with third-party AI tools, including agreements on data usage and security measures."
-        section: "8.2 Data Guardrails"
-      - text: "When data is transferred between different components or systems within an AI infrastructure, secure communication protocols (e.g., HTTPS, VPN / IPSec) should be employed to protect data integrity and confidentiality. This is particularly important when data is transmitted over public networks or shared with external entities. The Data when exchanged with external entities, this must be restricted to whitelisted IP addresses or through Secure VPN tunnel."
-        section: "10. Data Privacy and Security in AI Systems"
-      - text: "All AI systems sourced and 3rd party AI leveraged must go through Risk assessment and signed off before data is ingested, shared or integrated with any 3rd party."
-        section: "12. Compliance and Regulation"
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-      - text: "Clearly disclose what types of data are being collected and how they shall be used in AI processes."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-      - text: "Deployer or developer must inform users if their personal data is going to be used to train an AI system, to ensure that processing is fair and transparent."
-        section: "14. General Consumer Data Rights"
-        page: 14
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "Prohibit the use of AI tools that do not comply with data protection regulations"
-        section: "7. Prohibited AI Tools"
-        page: 6
-      - text: "8.2 Data Guardrails"
-        section: "Index"
-        page: 2
-      - text: "12. Compliance and Regulation"
-        section: "Index"
-        page: 2
-  - id: atlas-data-usage-rights
-    name: Data usage rights restrictions
-    evidence:
-      - text: "Data Ownership and Usage Rights: Clearly define ownership of data used in AI processes, including rights related to the use of AI-generated content and any derived data."
-        section: "12. Compliance and Regulation:"
-        page: 11
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "Do not use GenAI tools to make or help you make employment decisions about applicants or employees, including recruitment, hiring, retention, promotions, transfers, performance monitoring, discipline, demotion, or terminations."
-        section: "8.3 Additional Restrictions"
-      - text: "Fairness: AI systems should be inclusive and accessible and should not involve or result in unfair discrimination against individuals, communities, or groups."
-        section: "5. Ethical use of AI"
-      - text: "Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased, not a violation of any other individual or entity's intellectual property or privacy, and consistent with Company policies and applicable laws."
-        section: "8.1 Guidelines"
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-      - text: "Anonymization and De-identification: Where possible, anonymize or de-identify data before using it in AI applications to protect individual privacy."
-        section: "8.2 Data Guardrails"
-        page: 7
-  - id: atlas-generated-content-ownership
-    name: Generated content ownership and IP
-    evidence:
-      - text: "AI systems should adhere to intellectual property laws related to AI-generated content and ensure that the use of AI tools does not infringe on the rights of others."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "Clearly define ownership of data used in AI processes, including rights related to the use of AI-generated content and any derived data."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "does not infringe on any internal or external intellectual property rights"
-        section: "8.1 Guidelines"
-        page: 7
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "the output does not present false or misleading information (e.g. hallucinations)."
-        section: "8.1 Guidelines"
-        page: 7
-      - text: "Understand that many GenAI tools are prone to 'hallucinations,' false answers or information, or information that is stale, and therefore responses must always be carefully verified by a human."
-        section: "8.1 Guidelines"
-        page: 7
-      - text: "Responsible for checking it for accuracy."
-        section: "8.4 AI-Generated Output Guardrails"
-        page: 8
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-        page: 5
-  - id: atlas-impact-on-the-environment
-    name: Impact on the environment
-    evidence:
-      - text: "Use AI to become more efficient, conserve energy, water"
-        section: "3. Purpose and Objectives"
-        page: 3
-  - id: atlas-improper-usage
-    name: Improper usage
-    evidence:
-      - text: "Employees must use AI programs responsibly and for legitimate business purposes only, and only for the purposes for which they were designed and intended."
-        section: "Do's"
-      - text: "Employees must report any suspicious or unauthorized use of AI programs to Chief Digital and AI Officer, Head - Enterprise Transformation and Chief Information Officer immediately."
-        section: "Do's"
-      - text: "Prohibit the use of unverified AI tools that have not been vetted or approved by Chief Digital and AI Officer, Head - Enterprise Transformation and Chief Information Officer."
-        section: "7. Prohibited AI Tools"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "Deployers of high-risk AI systems shall take appropriate technical and organisational measures to ensure they use such systems in accordance with the instructions for use accompanying the systems"
-        section: "13. Developer and Deployer Obligations"
-      - text: "AI systems should reliably operate in accordance with their intended purpose."
-        section: "5. Ethical use of AI"
-      - text: "Deployer has the responsibility to train as to how to use the GenAI specialized system being deployed and ensure AI disclosure is prominently disclosed before release."
-        section: "Additional Deployer Responsibilities"
-  - id: atlas-ip-information-in-prompt
-    name: IP information in prompt
-    evidence:
-      - text: "Employees must not disclose any company information, client specific information or trade secrets to any third party, including AI tools, programs such as ChatGPT, Gemini, and Midjourney."
-        section: "Do's"
-        page: 4
-  - id: atlas-lack-of-data-transparency
-    name: Lack of data transparency
-    evidence:
-      - text: "Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "Employees must utilize Company's centralized system for AI governance and compliance efforts to ensure transparency of proposed and active AI activities."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "All contracts involving AI must be reviewed by the legal and compliance team and chief Digital and AI office to ensure compliance with applicable laws, protect the organization from potential liabilities, and address any specific provisions related to AI usage and responsibilities."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "Employees are responsible for the outcomes generated by AI systems and should be prepared to explain and justify those outcomes."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-      - text: "Clearly outline roles and responsibilities for AI development, deployment, and oversight to ensure accountability at all levels."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-  - id: atlas-model-usage-rights
-    name: Model usage rights restrictions
-    evidence:
-      - text: "All AI tools and software must be used in accordance with their licensing agreements, prohibiting unauthorized access or distribution."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "The process to review all contracts involving AI and generative AI to ensure alignment with the company's ethical standards and compliance requirements."
-        section: "4. Scope"
-        page: 3
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "Clearly attribute AI-generated content, indicating that it was created with the assistance of an AI tool, to maintain transparency."
-        section: "8.3 Additional Restrictions"
-        page: 7
-      - text: "GenAI disclosure must be prominent by following below 'Artificial Intelligence Disclosure (AID) Framework of 2012'."
-        section: "GenAI Consumer /User Disclosure :"
-        page: 13
-      - text: "Properly attribute any AI-generated content and be transparent about its use in reports, presentations, and communications."
-        section: "8.1 Guidelines"
-        page: 7
-  - id: atlas-nonconsensual-use
-    name: Nonconsensual use
-    evidence:
-      - text: "If you are using an AI tool to replicate someone's image, likeness, or voice - you need to get their express written permission first."
-        section: "8.4 AI-Generated Output Guardrails"
-        page: 8
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "AI-generated content should be reviewed by a human to ensure it's appropriate for its intended purpose, it adheres to Company's inclusion principles, does not promote bias, does not infringe on any internal or external intellectual property rights, that the content generated is accurate, and that the output does not present false or misleading information (e.g. hallucinations)."
-        section: "8.1 Guidelines"
-      - text: "Responsible for checking the response for detectable bias."
-        section: "8.4 AI-Generated Output Guardrails"
-      - text: "Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased"
-        section: "8.1 Guidelines"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "Employees must always verify data produced via generative AI. It should never be used as a single source of the truth and only to supplement additional research or writing methods."
-        section: "Do's"
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-      - text: "Understand that many GenAI tools are prone to 'hallucinations,' false answers or information, or information that is stale, and therefore responses must always be carefully verified by a human."
-        section: "8.1 Guidelines"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "Do not input Sensitive Personal Data."
-        section: "8.2 Data Guardrails"
-        page: 7
-      - text: "do not guarantee the confidentiality of input data"
-        section: "7. Prohibited AI Tools"
-        page: 6
-      - text: "Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "Do not input Sensitive Personal Data."
-        section: "8.2 Data Guardrails"
-        page: 7
-      - text: "Do not input access credentials."
-        section: "8.2 Data Guardrails"
-        page: 7
-      - text: "Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool."
-        section: "8.3 Additional Restrictions"
-        page: 7
-  - id: atlas-plagiarism
-    name: "Impact on education: plagiarism"
-    evidence:
-      - text: "Do not represent work generated by a GenAI tool as being your own original work."
-        section: "8.3 Additional Restrictions"
-        page: 7
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-      - text: "Classification: Firstsource Restricted"
-        section: "Information Classification Details"
-        page: 15
-      - text: "Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool."
-        section: "8.3 Additional Restrictions"
-        page: 7
-  - id: atlas-spreading-disinformation
-    name: Spreading disinformation
-    evidence:
-      - text: "Don't Use AI to Spread Misinformation or Disinformation"
-        section: "Don'ts"
-        page: 5
-      - text: "the output does not present false or misleading information (e.g. hallucinations)."
-        section: "8.1 Guidelines"
-        page: 7
-  - id: credo-risk-002
-    name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
-    evidence:
-      - text: "Human-centered values: AI systems should respect human rights, diversity, and the autonomy of individuals."
-        section: "5. Ethical use of AI"
-      - text: "Workforce - People Strategy (AI will amplify human potential and not displace), will transform Firstsource Workforce to become AI ready."
-        section: "3. Purpose and Objectives"
-      - text: "Deployers shall assign human oversight to natural persons who have the necessary competence, training and authority, as well as the necessary support"
-        section: "13. Developer and Deployer Obligations"
-  - id: credo-risk-005
-    name: Lack of training data transparency (IBM, 2024)
-    evidence:
-      - text: "Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-      - text: "Deployer or developer must inform users if their personal data is going to be used to train an AI system, to ensure that processing is fair and transparent."
-        section: "14. General Consumer Data Rights"
-        page: 14
-      - text: "The selection of tool or tools and versions of those tools used and dates of use. May also include note of any known biases or limitations of the models or data sets."
-        section: "AID Statement and their definitions: (AID)"
-        page: 13
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-  - id: credo-risk-012
-    name: Unequal access to AI benefits
-    evidence:
-      - text: "Fairness: AI systems should be inclusive and accessible"
-        section: "5. Ethical use of AI"
-        page: 4
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-        page: 5
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "Before using a high-risk AI system, employees must be informed."
-        section: "13. Developer and Deployer Obligations"
-        page: 12
-      - text: "Deployers of high-risk AI systems shall take appropriate technical and organisational measures to ensure they use such systems in accordance with the instructions for use accompanying the systems"
-        section: "13. Developer and Deployer Obligations"
-        page: 12
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "Human-centered values : AI systems should respect human rights, diversity, and the autonomy of individuals."
-        section: "5. Ethical use of AI"
-        page: 4
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-        page: 5
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "the output does not present false or misleading information (e.g. hallucinations)."
-        section: "8.1 Guidelines"
-        page: 7
-      - text: "Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased, not a violation of any other individual or entity's intellectual property or privacy, and consistent with Company policies and applicable laws."
-        section: "8.1 Guidelines"
-        page: 7
-      - text: "Don't Use AI to Spread Misinformation or Disinformation"
-        section: "Don'ts"
-        page: 5
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "All AI tools and processes must comply with applicable laws, regulations, and industry standards."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "All contracts involving AI must be reviewed by the legal and compliance team and chief Digital and AI office to ensure compliance with applicable laws"
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "Firstsource shall ensure the Regulation and Laws followed by various geographies are in line with the usage of AI"
-        section: "5. Ethical use of AI"
-        page: 4
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "Liability Indemnification for Firstsource: Contracts should include indemnification provisions that protect Firstsource from all liabilities arising from the use of AI technologies, including but not limited to issues related to data breaches, misuse of AI outputs, and any regulatory non-compliance."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "Limitation of Liability: Consider including clauses that limit liability related to AI outputs, clarifying the extent of liability in case of errors or issues arising from AI technologies."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "Don't Use AI to Violate Copyright or Intellectual Property"
-        section: "Don'ts"
-        page: 5
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "The process of continued observation and governance. This involves setting up mechanisms to continuously monitor and evaluate AI systems"
-        section: "4. Scope"
-        page: 3
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "Periodic audits of AI systems may be conducted to ensure ongoing compliance."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "AI governance board will continuously identify AI risks and register the same which will be reviewed periodically"
-        section: "11. Implementation and Monitoring"
-        page: 11
-      - text: "The AICoE shall conduct periodic reviews of AI system use within the company to ensure adherence to this policy, identify any emerging risks"
-        section: "11. Implementation and Monitoring"
-        page: 11
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-      - text: "Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool."
-        section: "8.3 Additional Restrictions"
-        page: 7
-      - text: "Examples include passwords and other credentials, protected health information, personnel material"
-        section: "8.3 Additional Restrictions"
-        page: 7
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-      - text: "Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-      - text: "Employees must not disregard treating Firstsource data and customer data confidentially"
-        section: "Don'ts"
-        page: 5
-  - id: credo-risk-038
-    name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
-    evidence:
-      - text: "Employees must not disregard treating Firstsource data and customer data confidentially"
-        section: "Don'ts"
-        page: 5
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Adequate security measures should be implemented to protect data repositories, databases, or cloud storage systems."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 10
-      - text: "This includes physical security measures, such as access controls to data centers, as well as logical security measures, such as firewalls, intrusion detection systems"
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 10
-      - text: "inadequate security"
-        section: "7. Prohibited AI Tools"
-        page: 6
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "AI Governance Board A multidisciplinary AI risk management team('AI Governance Board') comprised of a diverse team of experts, including Data Architect, and Information Security Architect professionals and AICoE shall ensure that AI initiatives are developed and deployed responsibly, in compliance with relevant laws and regulations, and with ethical considerations in mind."
-        section: "11. Implementation and Monitoring"
-      - text: "AI governance board will continuously identify AI risks and register the same which will be reviewed periodically and feed into overall organization level risk registry"
-        section: "11. Implementation and Monitoring"
-      - text: "The process of continued observation and governance. This involves setting up mechanisms to continuously monitor and evaluate AI systems, ensuring they comply with established ethical norms and legal regulations."
-        section: "4. Scope"
-  - id: credo-risk-047
-    name: Insufficient upstream transparency (AI, 2023)
-    evidence:
-      - text: "The composition of any AI model built and what has gone in (tech stack, data, 3rd party leverage) are transparently communicated including known risks if any."
-        section: "3. Purpose and Objectives"
-      - text: "Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning."
-        section: "9. Transparency, Explainability and Accountability"
-      - text: "If AI systems integrate with third-party services or utilize external APIs, proper due diligence should be conducted to ensure the security practices of these entities. Contracts and agreements should specify data security requirements and responsibilities of all parties involved."
-        section: "10. Data Privacy and Security in AI Systems"
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "All AI systems sourced and 3 rd  party AI leveraged must go through Risk assessment and signed off before data is ingested, shared or integrated with any 3 rd  party."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "And if Firstsource is using any 3rd party AI system, all the 3rd party reports (ISO 27001, SOC2 Type 2, HITRUST, PCIDSS etc.) must be reviewed and verified at least annually."
-        section: "12. Compliance and Regulation:"
-        page: 11
-      - text: "If AI systems integrate with third-party services or utilize external APIs, proper due diligence should be conducted to ensure the security practices of these entities."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 11
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "should not involve or result in unfair discrimination against individuals, communities, or groups."
-        section: "5. Ethical use of AI"
-        page: 4
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "Fairness: AI systems should be inclusive and accessible and should not involve or result in unfair discrimination against individuals, communities, or groups."
-        section: "5. Ethical use of AI"
-        page: 4
-      - text: "Implement regular audits of AI systems to assess their performance, bias, and compliance with ethical standards and regulations."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "Employees must not disregard treating Firstsource data and customer data confidentially"
-        section: "Don'ts"
-        page: 5
-      - text: "Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-      - text: "Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "Periodic security assessments and audits should be conducted to identify vulnerabilities and ensure that security controls are effective."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 10
-      - text: "This includes penetration testing, vulnerability scanning, and code reviews to identify and remediate any security weaknesses in AI systems."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 10
-      - text: "Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse."
-        section: "10. Data Privacy and Security in AI Systems"
-        page: 9
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "Don't Use AI to Spread Misinformation or Disinformation"
-        section: "Don'ts"
-        page: 5
-      - text: "promoting mis information"
-        section: "7. Prohibited AI Tools"
-        page: 6
-  - id: mit-ai-risk-subdomain-4.2
-    name: Cyberattacks, weapon development or use, and mass harm
-    evidence:
-      - text: "Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities."
-        section: "Don'ts"
-      - text: "Employees must remain vigilant for the malicious use of generative AI by scammers. Do not share any sensitive information in your conversations or email exchanges."
-        section: "Do's"
-      - text: "Don't Use AI to Manipulate or Exploit Vulnerable Groups"
-        section: "Don'ts"
-  - id: mit-ai-risk-subdomain-4.3
-    name: Fraud, scams, and targeted manipulation
-    evidence:
-      - text: "Don't Use AI to Manipulate or Exploit Vulnerable Groups"
-        section: "Don'ts"
-        page: 5
-      - text: "If you are using an AI tool to replicate someone's image, likeness, or voice - you need to get their express written permission first."
-        section: "8.4 AI-Generated Output Guardrails"
-        page: 8
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-        page: 5
-      - text: "Employees must always verify data produced via generative AI. It should never be used as a single source of the truth and only to supplement additional research or writing methods."
-        section: "Do's"
-        page: 4
-      - text: "responses must always be carefully verified by a human."
-        section: "8.1 Guidelines"
-        page: 7
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "AI systems should respect human rights, diversity, and the autonomy of individuals."
-        section: "5. Ethical use of AI"
-        page: 4
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-        page: 5
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "AI Governance Board A multidisciplinary AI risk management team('AI Governance Board') comprised of a diverse team of experts, including Data Architect, and Information Security Architect professionals and AICoE shall ensure that AI initiatives are developed and deployed responsibly, in compliance with relevant laws and regulations, and with ethical considerations in mind."
-        section: "11. Implementation and Monitoring"
-      - text: "Clearly outline roles and responsibilities for AI development, deployment, and oversight to ensure accountability at all levels."
-        section: "9. Transparency, Explainability and Accountability"
-      - text: "Clearly state the consequences for non-compliance with the policy, including misuse of AI tools or failure to adhere to transparency and accountability measures."
-        section: "9. Transparency, Explainability and Accountability"
-  - id: mit-ai-risk-subdomain-6.6
-    name: Environmental harm
-    evidence:
-      - text: "Ensuring that the development and execution of AI products and services are done using models that consume lower compute and infra resources resulting in lower carbon footprint"
-        section: "11. Implementation and Monitoring"
-        page: 11
-  - id: mit-ai-risk-subdomain-7.1
-    name: AI pursuing its own goals in conflict with human goals or values
-    evidence:
-      - text: "Human-centered values: AI systems should respect human rights, diversity, and the autonomy of individuals."
-        section: "5. Ethical use of AI"
-      - text: "Deployers shall assign human oversight to natural persons who have the necessary competence, training and authority, as well as the necessary support"
-        section: "13. Developer and Deployer Obligations"
-      - text: "Don't Use AI to Replace Human Judgment in Critical Decisions"
-        section: "Don'ts"
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "Explainability: AI systems, should offer clear and understandable explanations for recommendations, decisions, responses and predictions"
-        section: "5. Ethical use of AI"
-        page: 4
-      - text: "AI systems and models should provide clear explanations of their decision-making processes, especially when impacting individuals."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
-      - text: "Be able to articulate the reasoning behind AI-generated outputs, including which factors influenced the AI's conclusions."
-        section: "9. Transparency, Explainability and Accountability:"
-        page: 9
+- id: ai-risk-taxonomy-content-abetting/involving/furthering-activities-violating-any-applicable-law
+  name: Content abetting/involving/furthering activities violating any applicable law
+  evidence:
+  - text: Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities.
+    section: Don'ts
+  - text: Employees must not use AI programs to engage in activities that could damage the reputation of the company or violate the Privacy rights of others.
+    section: Don'ts
+  - text: Employees should not use, implement or develop any AI tool that is prohibited by regulation/law.
+    section: 7. Prohibited AI Tools
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: Clearly attribute AI-generated content, indicating that it was created with the assistance of an AI tool, to maintain transparency.
+    section: 8.3 Additional Restrictions
+  - text: 'If an AI feature shall directly present a response to customers or third parties without human review or intervention, you must disclose to the customer that they are: Engaging solely with an
+      AI.'
+    section: 8.4 AI-Generated Output Guardrails
+  - text: Properly attribute any AI-generated content and be transparent about its use in reports, presentations, and communications.
+    section: 8.1 Guidelines
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: Deployer or developer must inform users if their personal data is going to be used to train an AI system, to ensure that processing is fair and transparent.
+    section: 14. General Consumer Data Rights
+    page: 14
+  - text: User/Consumer consent must be obtained before collecting any data.
+    section: 14. General Consumer Data Rights
+    page: 14
+  - text: Only input the data you need. Only input data that is required for the purpose for which you are using the AI tool
+    section: 8.2 Data Guardrails
+    page: 7
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool. Examples include passwords and other credentials, protected health information, personnel
+      material, information from documents marked Confidential, Sensitive, or Proprietary, or any other nonpublic Company information that might be of use to competitors or harmful to the Company if disclosed.
+    section: 8.3 Additional Restrictions
+  - text: Employees must not disclose any company information, client specific information or trade secrets to any third party, including AI tools, programs such as ChatGPT, Gemini, and Midjourney.
+    section: Do's
+  - text: Treat every bit of information you provide to a GenAI tool as if it shall go viral on the Internet, attributed to you or the Company, regardless of the settings you have selected within the tool
+      (or the assurances made by its creators).
+    section: 8.1 Guidelines
+- id: atlas-confidential-information-in-data
+  name: Confidential information in data
+  evidence:
+  - text: 'Internal Corporate Data : All proprietary information and internal data belonging to the organization, including operational data, financial records, and strategic plans.'
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+- id: atlas-copyright-infringement
+  name: Copyright infringement
+  evidence:
+  - text: Don't Use AI to Violate Copyright or Intellectual Property
+    section: Don'ts
+  - text: AI systems should adhere to intellectual property laws related to AI-generated content and ensure that the use of AI tools does not infringe on the rights of others.
+    section: 12. Compliance and Regulation
+  - text: Check output for any indication of third-party ownership, such as trademarks or watermarks, and don't use any output that contains such content.
+    section: 8.4 AI-Generated Output Guardrails
+- id: atlas-dangerous-use
+  name: Dangerous use
+  evidence:
+  - text: Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities.
+    section: Don'ts
+    page: 5
+  - text: Employees must report any suspicious or unauthorized use of AI programs to Chief Digital and AI Officer, Head - Enterprise Transformation and Chief Information Officer immediately.
+    section: Do's
+    page: 4
+  - text: Employees must remain vigilant for the malicious use of generative AI by scammers.
+    section: Do's
+    page: 4
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: Measures to identify and mitigate biases that may arise from biased, non-inclusive training data or bias in algorithms, thereby promoting equitable outcomes for all user groups
+    section: 5. Ethical use of AI
+  - text: 'Examples of prohibited AI tools: facial recognition systems without explicit consent, biased AI models that discriminate, and any AI tool employed for malicious purposes.'
+    section: 7. Prohibited AI Tools
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Right to Privacy and Data Protection
+    section: 5. Ethical use of AI
+    page: 4
+  - text: AI systems should respect and uphold privacy rights and data protection
+    section: 5. Ethical use of AI
+    page: 4
+  - text: This helps to prevent reidentification of individuals and minimizes the impact of data breaches.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 10
+- id: atlas-data-transfer
+  name: Data transfer restrictions
+  evidence:
+  - text: Establish clear protocols for sharing data with third-party AI tools, including agreements on data usage and security measures.
+    section: 8.2 Data Guardrails
+  - text: When data is transferred between different components or systems within an AI infrastructure, secure communication protocols (e.g., HTTPS, VPN / IPSec) should be employed to protect data integrity
+      and confidentiality. This is particularly important when data is transmitted over public networks or shared with external entities. The Data when exchanged with external entities, this must be restricted
+      to whitelisted IP addresses or through Secure VPN tunnel.
+    section: 10. Data Privacy and Security in AI Systems
+  - text: All AI systems sourced and 3rd party AI leveraged must go through Risk assessment and signed off before data is ingested, shared or integrated with any 3rd party.
+    section: 12. Compliance and Regulation
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+  - text: Clearly disclose what types of data are being collected and how they shall be used in AI processes.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+  - text: Deployer or developer must inform users if their personal data is going to be used to train an AI system, to ensure that processing is fair and transparent.
+    section: 14. General Consumer Data Rights
+    page: 14
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: Prohibit the use of AI tools that do not comply with data protection regulations
+    section: 7. Prohibited AI Tools
+    page: 6
+  - text: 8.2 Data Guardrails
+    section: Index
+    page: 2
+  - text: 12. Compliance and Regulation
+    section: Index
+    page: 2
+- id: atlas-data-usage-rights
+  name: Data usage rights restrictions
+  evidence:
+  - text: 'Data Ownership and Usage Rights: Clearly define ownership of data used in AI processes, including rights related to the use of AI-generated content and any derived data.'
+    section: '12. Compliance and Regulation:'
+    page: 11
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: Do not use GenAI tools to make or help you make employment decisions about applicants or employees, including recruitment, hiring, retention, promotions, transfers, performance monitoring, discipline,
+      demotion, or terminations.
+    section: 8.3 Additional Restrictions
+  - text: 'Fairness: AI systems should be inclusive and accessible and should not involve or result in unfair discrimination against individuals, communities, or groups.'
+    section: 5. Ethical use of AI
+  - text: Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased, not a violation of any other individual or entity's intellectual property or
+      privacy, and consistent with Company policies and applicable laws.
+    section: 8.1 Guidelines
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+  - text: 'Anonymization and De-identification: Where possible, anonymize or de-identify data before using it in AI applications to protect individual privacy.'
+    section: 8.2 Data Guardrails
+    page: 7
+- id: atlas-generated-content-ownership
+  name: Generated content ownership and IP
+  evidence:
+  - text: AI systems should adhere to intellectual property laws related to AI-generated content and ensure that the use of AI tools does not infringe on the rights of others.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: Clearly define ownership of data used in AI processes, including rights related to the use of AI-generated content and any derived data.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: does not infringe on any internal or external intellectual property rights
+    section: 8.1 Guidelines
+    page: 7
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: the output does not present false or misleading information (e.g. hallucinations).
+    section: 8.1 Guidelines
+    page: 7
+  - text: Understand that many GenAI tools are prone to 'hallucinations,' false answers or information, or information that is stale, and therefore responses must always be carefully verified by a human.
+    section: 8.1 Guidelines
+    page: 7
+  - text: Responsible for checking it for accuracy.
+    section: 8.4 AI-Generated Output Guardrails
+    page: 8
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+    page: 5
+- id: atlas-impact-on-the-environment
+  name: Impact on the environment
+  evidence:
+  - text: Use AI to become more efficient, conserve energy, water
+    section: 3. Purpose and Objectives
+    page: 3
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: Employees must use AI programs responsibly and for legitimate business purposes only, and only for the purposes for which they were designed and intended.
+    section: Do's
+  - text: Employees must report any suspicious or unauthorized use of AI programs to Chief Digital and AI Officer, Head - Enterprise Transformation and Chief Information Officer immediately.
+    section: Do's
+  - text: Prohibit the use of unverified AI tools that have not been vetted or approved by Chief Digital and AI Officer, Head - Enterprise Transformation and Chief Information Officer.
+    section: 7. Prohibited AI Tools
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: Deployers of high-risk AI systems shall take appropriate technical and organisational measures to ensure they use such systems in accordance with the instructions for use accompanying the systems
+    section: 13. Developer and Deployer Obligations
+  - text: AI systems should reliably operate in accordance with their intended purpose.
+    section: 5. Ethical use of AI
+  - text: Deployer has the responsibility to train as to how to use the GenAI specialized system being deployed and ensure AI disclosure is prominently disclosed before release.
+    section: Additional Deployer Responsibilities
+- id: atlas-ip-information-in-prompt
+  name: IP information in prompt
+  evidence:
+  - text: Employees must not disclose any company information, client specific information or trade secrets to any third party, including AI tools, programs such as ChatGPT, Gemini, and Midjourney.
+    section: Do's
+    page: 4
+- id: atlas-lack-of-data-transparency
+  name: Lack of data transparency
+  evidence:
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: Employees must utilize Company's centralized system for AI governance and compliance efforts to ensure transparency of proposed and active AI activities.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: All contracts involving AI must be reviewed by the legal and compliance team and chief Digital and AI office to ensure compliance with applicable laws, protect the organization from potential
+      liabilities, and address any specific provisions related to AI usage and responsibilities.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: Employees are responsible for the outcomes generated by AI systems and should be prepared to explain and justify those outcomes.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+  - text: Clearly outline roles and responsibilities for AI development, deployment, and oversight to ensure accountability at all levels.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+- id: atlas-model-usage-rights
+  name: Model usage rights restrictions
+  evidence:
+  - text: All AI tools and software must be used in accordance with their licensing agreements, prohibiting unauthorized access or distribution.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: The process to review all contracts involving AI and generative AI to ensure alignment with the company's ethical standards and compliance requirements.
+    section: 4. Scope
+    page: 3
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: Clearly attribute AI-generated content, indicating that it was created with the assistance of an AI tool, to maintain transparency.
+    section: 8.3 Additional Restrictions
+    page: 7
+  - text: GenAI disclosure must be prominent by following below 'Artificial Intelligence Disclosure (AID) Framework of 2012'.
+    section: 'GenAI Consumer /User Disclosure :'
+    page: 13
+  - text: Properly attribute any AI-generated content and be transparent about its use in reports, presentations, and communications.
+    section: 8.1 Guidelines
+    page: 7
+- id: atlas-nonconsensual-use
+  name: Nonconsensual use
+  evidence:
+  - text: If you are using an AI tool to replicate someone's image, likeness, or voice - you need to get their express written permission first.
+    section: 8.4 AI-Generated Output Guardrails
+    page: 8
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: AI-generated content should be reviewed by a human to ensure it's appropriate for its intended purpose, it adheres to Company's inclusion principles, does not promote bias, does not infringe on
+      any internal or external intellectual property rights, that the content generated is accurate, and that the output does not present false or misleading information (e.g. hallucinations).
+    section: 8.1 Guidelines
+  - text: Responsible for checking the response for detectable bias.
+    section: 8.4 AI-Generated Output Guardrails
+  - text: Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased
+    section: 8.1 Guidelines
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: Employees must always verify data produced via generative AI. It should never be used as a single source of the truth and only to supplement additional research or writing methods.
+    section: Do's
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+  - text: Understand that many GenAI tools are prone to 'hallucinations,' false answers or information, or information that is stale, and therefore responses must always be carefully verified by a human.
+    section: 8.1 Guidelines
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: Do not input Sensitive Personal Data.
+    section: 8.2 Data Guardrails
+    page: 7
+  - text: do not guarantee the confidentiality of input data
+    section: 7. Prohibited AI Tools
+    page: 6
+  - text: Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: Do not input Sensitive Personal Data.
+    section: 8.2 Data Guardrails
+    page: 7
+  - text: Do not input access credentials.
+    section: 8.2 Data Guardrails
+    page: 7
+  - text: Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool.
+    section: 8.3 Additional Restrictions
+    page: 7
+- id: atlas-plagiarism
+  name: 'Impact on education: plagiarism'
+  evidence:
+  - text: Do not represent work generated by a GenAI tool as being your own original work.
+    section: 8.3 Additional Restrictions
+    page: 7
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+  - text: 'Classification: Firstsource Restricted'
+    section: Information Classification Details
+    page: 15
+  - text: Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool.
+    section: 8.3 Additional Restrictions
+    page: 7
+- id: atlas-spreading-disinformation
+  name: Spreading disinformation
+  evidence:
+  - text: Don't Use AI to Spread Misinformation or Disinformation
+    section: Don'ts
+    page: 5
+  - text: the output does not present false or misleading information (e.g. hallucinations).
+    section: 8.1 Guidelines
+    page: 7
+- id: credo-risk-002
+  name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
+  evidence:
+  - text: 'Human-centered values: AI systems should respect human rights, diversity, and the autonomy of individuals.'
+    section: 5. Ethical use of AI
+  - text: Workforce - People Strategy (AI will amplify human potential and not displace), will transform Firstsource Workforce to become AI ready.
+    section: 3. Purpose and Objectives
+  - text: Deployers shall assign human oversight to natural persons who have the necessary competence, training and authority, as well as the necessary support
+    section: 13. Developer and Deployer Obligations
+- id: credo-risk-005
+  name: Lack of training data transparency (IBM, 2024)
+  evidence:
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+  - text: Deployer or developer must inform users if their personal data is going to be used to train an AI system, to ensure that processing is fair and transparent.
+    section: 14. General Consumer Data Rights
+    page: 14
+  - text: The selection of tool or tools and versions of those tools used and dates of use. May also include note of any known biases or limitations of the models or data sets.
+    section: 'AID Statement and their definitions: (AID)'
+    page: 13
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+- id: credo-risk-012
+  name: Unequal access to AI benefits
+  evidence:
+  - text: 'Fairness: AI systems should be inclusive and accessible'
+    section: 5. Ethical use of AI
+    page: 4
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+    page: 5
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: Before using a high-risk AI system, employees must be informed.
+    section: 13. Developer and Deployer Obligations
+    page: 12
+  - text: Deployers of high-risk AI systems shall take appropriate technical and organisational measures to ensure they use such systems in accordance with the instructions for use accompanying the systems
+    section: 13. Developer and Deployer Obligations
+    page: 12
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: 'Human-centered values : AI systems should respect human rights, diversity, and the autonomy of individuals.'
+    section: 5. Ethical use of AI
+    page: 4
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+    page: 5
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: the output does not present false or misleading information (e.g. hallucinations).
+    section: 8.1 Guidelines
+    page: 7
+  - text: Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased, not a violation of any other individual or entity's intellectual property or
+      privacy, and consistent with Company policies and applicable laws.
+    section: 8.1 Guidelines
+    page: 7
+  - text: Don't Use AI to Spread Misinformation or Disinformation
+    section: Don'ts
+    page: 5
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: All AI tools and processes must comply with applicable laws, regulations, and industry standards.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: All contracts involving AI must be reviewed by the legal and compliance team and chief Digital and AI office to ensure compliance with applicable laws
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: Firstsource shall ensure the Regulation and Laws followed by various geographies are in line with the usage of AI
+    section: 5. Ethical use of AI
+    page: 4
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: 'Liability Indemnification for Firstsource: Contracts should include indemnification provisions that protect Firstsource from all liabilities arising from the use of AI technologies, including
+      but not limited to issues related to data breaches, misuse of AI outputs, and any regulatory non-compliance.'
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: 'Limitation of Liability: Consider including clauses that limit liability related to AI outputs, clarifying the extent of liability in case of errors or issues arising from AI technologies.'
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: Don't Use AI to Violate Copyright or Intellectual Property
+    section: Don'ts
+    page: 5
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: The process of continued observation and governance. This involves setting up mechanisms to continuously monitor and evaluate AI systems
+    section: 4. Scope
+    page: 3
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: Periodic audits of AI systems may be conducted to ensure ongoing compliance.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: AI governance board will continuously identify AI risks and register the same which will be reviewed periodically
+    section: 11. Implementation and Monitoring
+    page: 11
+  - text: The AICoE shall conduct periodic reviews of AI system use within the company to ensure adherence to this policy, identify any emerging risks
+    section: 11. Implementation and Monitoring
+    page: 11
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+  - text: Do not upload or input any confidential, proprietary, or sensitive Company information into any GenAI tool.
+    section: 8.3 Additional Restrictions
+    page: 7
+  - text: Examples include passwords and other credentials, protected health information, personnel material
+    section: 8.3 Additional Restrictions
+    page: 7
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+  - text: Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+  - text: Employees must not disregard treating Firstsource data and customer data confidentially
+    section: Don'ts
+    page: 5
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: Employees must not disregard treating Firstsource data and customer data confidentially
+    section: Don'ts
+    page: 5
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Adequate security measures should be implemented to protect data repositories, databases, or cloud storage systems.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 10
+  - text: This includes physical security measures, such as access controls to data centers, as well as logical security measures, such as firewalls, intrusion detection systems
+    section: 10. Data Privacy and Security in AI Systems
+    page: 10
+  - text: inadequate security
+    section: 7. Prohibited AI Tools
+    page: 6
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: AI Governance Board A multidisciplinary AI risk management team('AI Governance Board') comprised of a diverse team of experts, including Data Architect, and Information Security Architect professionals
+      and AICoE shall ensure that AI initiatives are developed and deployed responsibly, in compliance with relevant laws and regulations, and with ethical considerations in mind.
+    section: 11. Implementation and Monitoring
+  - text: AI governance board will continuously identify AI risks and register the same which will be reviewed periodically and feed into overall organization level risk registry
+    section: 11. Implementation and Monitoring
+  - text: The process of continued observation and governance. This involves setting up mechanisms to continuously monitor and evaluate AI systems, ensuring they comply with established ethical norms and
+      legal regulations.
+    section: 4. Scope
+- id: credo-risk-047
+  name: Insufficient upstream transparency (AI, 2023)
+  evidence:
+  - text: The composition of any AI model built and what has gone in (tech stack, data, 3rd party leverage) are transparently communicated including known risks if any.
+    section: 3. Purpose and Objectives
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+    section: 9. Transparency, Explainability and Accountability
+  - text: If AI systems integrate with third-party services or utilize external APIs, proper due diligence should be conducted to ensure the security practices of these entities. Contracts and agreements
+      should specify data security requirements and responsibilities of all parties involved.
+    section: 10. Data Privacy and Security in AI Systems
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: All AI systems sourced and 3 rd  party AI leveraged must go through Risk assessment and signed off before data is ingested, shared or integrated with any 3 rd  party.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: And if Firstsource is using any 3rd party AI system, all the 3rd party reports (ISO 27001, SOC2 Type 2, HITRUST, PCIDSS etc.) must be reviewed and verified at least annually.
+    section: '12. Compliance and Regulation:'
+    page: 11
+  - text: If AI systems integrate with third-party services or utilize external APIs, proper due diligence should be conducted to ensure the security practices of these entities.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 11
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: should not involve or result in unfair discrimination against individuals, communities, or groups.
+    section: 5. Ethical use of AI
+    page: 4
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: 'Fairness: AI systems should be inclusive and accessible and should not involve or result in unfair discrimination against individuals, communities, or groups.'
+    section: 5. Ethical use of AI
+    page: 4
+  - text: Implement regular audits of AI systems to assess their performance, bias, and compliance with ethical standards and regulations.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: Employees must not disregard treating Firstsource data and customer data confidentially
+    section: Don'ts
+    page: 5
+  - text: Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+  - text: Any personal or sensitive information about customers stored within the company's internal systems, which must be protected in accordance with data privacy regulations.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: Periodic security assessments and audits should be conducted to identify vulnerabilities and ensure that security controls are effective.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 10
+  - text: This includes penetration testing, vulnerability scanning, and code reviews to identify and remediate any security weaknesses in AI systems.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 10
+  - text: Data security is a critical aspect of AI systems to protect data from unauthorized access, breaches, and misuse.
+    section: 10. Data Privacy and Security in AI Systems
+    page: 9
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: Don't Use AI to Spread Misinformation or Disinformation
+    section: Don'ts
+    page: 5
+  - text: promoting mis information
+    section: 7. Prohibited AI Tools
+    page: 6
+- id: mit-ai-risk-subdomain-4.2
+  name: Cyberattacks, weapon development or use, and mass harm
+  evidence:
+  - text: Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities.
+    section: Don'ts
+  - text: Employees must remain vigilant for the malicious use of generative AI by scammers. Do not share any sensitive information in your conversations or email exchanges.
+    section: Do's
+  - text: Don't Use AI to Manipulate or Exploit Vulnerable Groups
+    section: Don'ts
+- id: mit-ai-risk-subdomain-4.3
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: Don't Use AI to Manipulate or Exploit Vulnerable Groups
+    section: Don'ts
+    page: 5
+  - text: If you are using an AI tool to replicate someone's image, likeness, or voice - you need to get their express written permission first.
+    section: 8.4 AI-Generated Output Guardrails
+    page: 8
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+    page: 5
+  - text: Employees must always verify data produced via generative AI. It should never be used as a single source of the truth and only to supplement additional research or writing methods.
+    section: Do's
+    page: 4
+  - text: responses must always be carefully verified by a human.
+    section: 8.1 Guidelines
+    page: 7
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: AI systems should respect human rights, diversity, and the autonomy of individuals.
+    section: 5. Ethical use of AI
+    page: 4
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+    page: 5
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: AI Governance Board A multidisciplinary AI risk management team('AI Governance Board') comprised of a diverse team of experts, including Data Architect, and Information Security Architect professionals
+      and AICoE shall ensure that AI initiatives are developed and deployed responsibly, in compliance with relevant laws and regulations, and with ethical considerations in mind.
+    section: 11. Implementation and Monitoring
+  - text: Clearly outline roles and responsibilities for AI development, deployment, and oversight to ensure accountability at all levels.
+    section: 9. Transparency, Explainability and Accountability
+  - text: Clearly state the consequences for non-compliance with the policy, including misuse of AI tools or failure to adhere to transparency and accountability measures.
+    section: 9. Transparency, Explainability and Accountability
+- id: mit-ai-risk-subdomain-6.6
+  name: Environmental harm
+  evidence:
+  - text: Ensuring that the development and execution of AI products and services are done using models that consume lower compute and infra resources resulting in lower carbon footprint
+    section: 11. Implementation and Monitoring
+    page: 11
+- id: mit-ai-risk-subdomain-7.1
+  name: AI pursuing its own goals in conflict with human goals or values
+  evidence:
+  - text: 'Human-centered values: AI systems should respect human rights, diversity, and the autonomy of individuals.'
+    section: 5. Ethical use of AI
+  - text: Deployers shall assign human oversight to natural persons who have the necessary competence, training and authority, as well as the necessary support
+    section: 13. Developer and Deployer Obligations
+  - text: Don't Use AI to Replace Human Judgment in Critical Decisions
+    section: Don'ts
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: 'Explainability: AI systems, should offer clear and understandable explanations for recommendations, decisions, responses and predictions'
+    section: 5. Ethical use of AI
+    page: 4
+  - text: AI systems and models should provide clear explanations of their decision-making processes, especially when impacting individuals.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+  - text: Be able to articulate the reasoning behind AI-generated outputs, including which factors influenced the AI's conclusions.
+    section: '9. Transparency, Explainability and Accountability:'
+    page: 9
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---financial-records
+  name: Unauthorized collection/gathering/stealing - Financial records
+  evidence:
+  - text: Do not input Sensitive Personal Data. This includes information such as social security numbers, financial information like credit card or bank account numbers, personal addresses, or personal
+      health information but not limited to these.
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
+  name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
+  evidence:
+  - text: Do not input Sensitive Personal Data. This includes information such as social security numbers, financial information like credit card or bank account numbers, personal addresses, or personal
+      health information but not limited to these.
+- id: ai-risk-taxonomy-unauthorized-disclosure---financial-records
+  name: Unauthorized disclosure - Financial records
+  evidence:
+  - text: Do not input Sensitive Personal Data. This includes information such as social security numbers, financial information like credit card or bank account numbers, personal addresses, or personal
+      health information but not limited to these.
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII (Personal Identifiable Information)
+  evidence:
+  - text: Do not input Sensitive Personal Data.
+  - text: 'Anonymization and De-identification: Where possible, anonymize or de-identify data before using it in AI applications to protect individual privacy.'
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: Do not input Sensitive Personal Data. This includes information such as social security numbers, financial information like credit card or bank account numbers, personal addresses, or personal
+      health information but not limited to these.
+  - text: Do not use any customer specific data without prior approvals.
+  - text: 'Anonymization and De-identification: Where possible, anonymize or de-identify data before using it in AI applications to protect individual privacy.'
+- id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
+  name: Unauthorized generation - PII (Personal Identifiable Information)
+  evidence:
+  - text: Do not input Sensitive Personal Data. This includes information such as social security numbers, financial information like credit card or bank account numbers, personal addresses, or personal
+      health information but not limited to these.
+  - text: 'Anonymization and De-identification: Where possible, anonymize or de-identify data before using it in AI applications to protect individual privacy.'
+- id: atlas-impact-on-jobs
+  name: Impact on Jobs
+  evidence:
+  - text: Workforce - People Strategy (AI will amplify human potential and not displace)
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: The composition of any AI model built and what has gone in (tech stack, data, 3 rd  party leverage) are transparently communicated including known risks if any.
+  - text: AI systems, should offer clear and understandable explanations for recommendations, decisions, responses and predictions
+- id: atlas-unexplainable-output
+  name: Unexplainable output
+  evidence:
+  - text: AI systems, should offer clear and understandable explanations for recommendations, decisions, responses and predictions, considering the necessary level of accuracy and the technological limitations
+      inherent to the specific context
+  - text: AI systems and models should provide clear explanations of their decision-making processes, especially when impacting individuals.
+- id: atlas-unrepresentative-data
+  name: Unrepresentative data
+  evidence:
+  - text: Measures to identify and mitigate biases that may arise from biased, non-inclusive training data or bias in algorithms, thereby promoting equitable outcomes for all user groups
+- id: credo-risk-006
+  name: Lack of inference data transparency
+  evidence:
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Firstsource aims to ensure ethical and responsible AI implementation while promoting transparency, fairness, and compliance
+  - text: 'Examples of prohibited AI tools: facial recognition systems without explicit consent, biased AI models that discriminate, and any AI tool employed for malicious purposes.'
+  - text: Verify that any response from a GenAI tool that you intend to rely on or use is accurate, appropriate, not biased, not a violation of any other individual or entity's intellectual property or
+      privacy, and consistent with Company policies and applicable laws.
+- id: credo-risk-027
+  name: Cyberattacks, weapon development, and mass harm (AI, 2023; IBM, 2024)
+  evidence:
+  - text: Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities.
+  - text: Malicious chatbots can be designed to steal or convince you to divulge information.
+- id: credo-risk-028
+  name: Coordinated influence operations (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Don't Use AI to Spread Misinformation or Disinformation
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: Don't Violate Privacy
+  - text: Employees must not use AI programs to engage in activities that could damage the reputation of the company or violate the Privacy rights of others.
+  - text: 'Anonymization and De-identification: Where possible, anonymize or de-identify data before using it in AI applications to protect individual privacy.'
+- id: mit-ai-risk-subdomain-4.1
+  name: Disinformation, surveillance, and influence at scale
+  evidence:
+  - text: Don't Use AI to Spread Misinformation or Disinformation
+  - text: Passage 10
+- id: ai-risk-taxonomy-adversely-affects-legal-rights
+  name: Adversely affects legal rights
+  evidence:
+  - text: Do not use GenAI tools to make or help you make employment decisions about applicants or employees, including recruitment, hiring, retention, promotions, transfers, performance monitoring, discipline,
+      demotion, or terminations.
+- id: atlas-data-provenance
+  name: Uncertain data provenance
+  evidence:
+  - text: Maintain documentation that outlines the data sources, algorithms, and methodologies used in AI systems to ensure clarity about their functioning.
+  - text: Clearly define ownership of data used in AI processes, including rights related to the use of AI-generated content and any derived data.
+- id: atlas-harmful-output
+  name: Harmful output
+  evidence:
+  - text: 'Ethics Principles : Proportionality and Do No Harm, Safety and Security, Right to Privacy and Data Protection, & Multi-stakeholder and Adaptive Governance & Collaboration.'
+  - text: AI adoption and/or use of AI application at Firstsource must be safe, secure, reliable and align with Firstsource values and strategic priorities.
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: AI systems, should offer clear and understandable explanations for recommendations, decisions, responses and predictions, considering the necessary level of accuracy and the technological limitations
+      inherent to the specific context
+  - text: AI systems should reliably operate in accordance with their intended purpose .
+- id: credo-risk-003
+  name: AI possessing dangerous capabilities (Slattery et al., 2024)
+  evidence:
+  - text: Employees must not use AI programs to create or disseminate malicious software or engage in hacking or other unauthorized activities.
+  - text: Don't Use AI to Manipulate or Exploit Vulnerable Groups
+- id: credo-risk-033
+  name: Lack of adequate capabilities (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: AI systems, should offer clear and understandable explanations for recommendations, decisions, responses and predictions, considering the necessary level of accuracy and the technological limitations
+      inherent to the specific context
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: AI systems should reliably operate in accordance with their intended purpose .

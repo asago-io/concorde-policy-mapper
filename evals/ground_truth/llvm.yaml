@@ -1,107 +1,112 @@
-# reviewed: 2026-05-27 — initial ground truth from LLVM AI Tool Use Policy
-# Narrow open-source contributor policy: human-in-the-loop, transparency/labeling of AI content,
-# agent ban, copyright, community sustainability (anti-extractive contributions), accountability.
-# No privacy, bias, security, or hallucination themes.
 risks:
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "Contributors are expected to be transparent and label contributions that contain substantial amounts of tool-generated content."
-        section: "Policy"
-      - text: "Contributors should note tool usage in their pull request description, commit message, or wherever authorship is normally indicated for the work."
-        section: "Policy"
-  - id: ai-risk-taxonomy-other-unauthorized-actions-on-behalf-of-users
-    name: Other unauthorized actions on behalf of users
-    evidence:
-      - text: "it bans agents that take action in our digital spaces without human approval"
-        section: "Details"
-  - id: atlas-copyright-infringement
-    name: Copyright infringement
-    evidence:
-      - text: "make a change less extractive"
-        section: "Handling Violations"
-      - text: "Using AI tools to regenerate copyrighted material does not remove the copyright"
-        section: "Copyright"
-      - text: "contributors are responsible for ensuring that such material does not appear in their contributions."
-        section: "Copyright"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "An important implication of this policy is that it bans agents that take action in our digital spaces without human approval"
-        section: "Details"
-      - text: "While new tools enable more development, it shifts effort from the implementor to the reviewer, and our policy exists to ensure that we value and do not squander maintainer time."
-        section: "Extractive Contributions"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "This [generated documentation](https://discourse.llvm.org/t/searching-for-gsym-documentation/85185/2) was reviewed for correctness by a human before being posted."
-        section: "Examples"
-      - text: "The contributor is always the author and is fully accountable for their contributions."
-        section: "Policy"
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "This PR doesn't appear to comply with our policy on tool-generated content"
-        section: "Handling Violations"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "To ensure sufficient self review and understanding of the work, it is strongly recommended that contributors write PR descriptions themselves"
-        section: "Details"
-      - text: "there must be a **human in the loop** ."
-        section: "Policy"
-      - text: "**Contributors must read and review all LLM-generated code or text before they ask other project members to review it.**"
-        section: "Policy"
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Contributors must read and review all LLM-generated code or text before they ask other project members to review it."
-        section: "Policy"
-      - text: "Contributors should be sufficiently confident that the contribution is high enough quality that asking for a review is a good use of scarce maintainer time, and they should be able to answer questions about their work during review."
-        section: "Policy"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "We expect that new contributors will be less confident in their contributions, and our guidance to them is to start with small contributions that they can fully understand to build confidence."
-        section: "Policy"
-      - text: "Using AI tools to fix issues labelled as \"good first issues\" is forbidden"
-        section: "Details"
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "LLVM's policy is that contributors can use whatever tools they would like to craft their contributions, but there must be a human in the loop."
-        section: "Policy"
-      - text: "it bans agents that take action in our digital spaces without human approval, such as the GitHub @claude agent"
-        section: "Details"
-  - id: credo-risk-043
-    name: Economic and cultural devaluation of human effort (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "Sending the unreviewed output of an LLM to open source project maintainers *extracts* work from them in the form of design and code review"
-        section: "Extractive Contributions"
-      - text: "it shifts effort from the implementor to the reviewer, and our policy exists to ensure that we value and do not squander maintainer time."
-        section: "Extractive Contributions"
-      - text: "The best ways to make a change less extractive and more valuable are to reduce its size or complexity or to increase its usefulness to the community."
-        section: "Handling Violations"
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Contributors must read and review all LLM-generated code or text before they ask other project members to review it."
-        section: "Policy"
-      - text: "an opt-in review tool that keeps a human in the loop is acceptable under this policy."
-        section: "Details"
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "it bans agents that take action in our digital spaces without human approval"
-        section: "Details"
-      - text: "The contributor is always the author and is fully accountable for their contributions."
-        section: "Policy"
-  - id: mit-ai-risk-subdomain-6.3
-    name: Economic and cultural devaluation of human effort
-    evidence:
-      - text: "Sending the unreviewed output of an LLM to open source project maintainers *extracts* work from them in the form of design and code review"
-        section: "Extractive Contributions"
-      - text: "it shifts effort from the implementor to the reviewer, and our policy exists to ensure that we value and do not squander maintainer time."
-        section: "Extractive Contributions"
-      - text: "Whether you are a newcomer or not, fully automating the process of fixing this issue squanders the learning opportunity and doesn't add much value to the project."
-        section: "Details"
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: Contributors are expected to be transparent and label contributions that contain substantial amounts of tool-generated content.
+    section: Policy
+  - text: Contributors should note tool usage in their pull request description, commit message, or wherever authorship is normally indicated for the work.
+    section: Policy
+- id: ai-risk-taxonomy-other-unauthorized-actions-on-behalf-of-users
+  name: Other unauthorized actions on behalf of users
+  evidence:
+  - text: it bans agents that take action in our digital spaces without human approval
+    section: Details
+- id: atlas-copyright-infringement
+  name: Copyright infringement
+  evidence:
+  - text: make a change less extractive
+    section: Handling Violations
+  - text: Using AI tools to regenerate copyrighted material does not remove the copyright
+    section: Copyright
+  - text: contributors are responsible for ensuring that such material does not appear in their contributions.
+    section: Copyright
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: An important implication of this policy is that it bans agents that take action in our digital spaces without human approval
+    section: Details
+  - text: While new tools enable more development, it shifts effort from the implementor to the reviewer, and our policy exists to ensure that we value and do not squander maintainer time.
+    section: Extractive Contributions
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: This [generated documentation](https://discourse.llvm.org/t/searching-for-gsym-documentation/85185/2) was reviewed for correctness by a human before being posted.
+    section: Examples
+  - text: The contributor is always the author and is fully accountable for their contributions.
+    section: Policy
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: This PR doesn't appear to comply with our policy on tool-generated content
+    section: Handling Violations
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: To ensure sufficient self review and understanding of the work, it is strongly recommended that contributors write PR descriptions themselves
+    section: Details
+  - text: there must be a **human in the loop** .
+    section: Policy
+  - text: '**Contributors must read and review all LLM-generated code or text before they ask other project members to review it.**'
+    section: Policy
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Contributors must read and review all LLM-generated code or text before they ask other project members to review it.
+    section: Policy
+  - text: Contributors should be sufficiently confident that the contribution is high enough quality that asking for a review is a good use of scarce maintainer time, and they should be able to answer questions
+      about their work during review.
+    section: Policy
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: We expect that new contributors will be less confident in their contributions, and our guidance to them is to start with small contributions that they can fully understand to build confidence.
+    section: Policy
+  - text: Using AI tools to fix issues labelled as "good first issues" is forbidden
+    section: Details
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: LLVM's policy is that contributors can use whatever tools they would like to craft their contributions, but there must be a human in the loop.
+    section: Policy
+  - text: it bans agents that take action in our digital spaces without human approval, such as the GitHub @claude agent
+    section: Details
+- id: credo-risk-043
+  name: Economic and cultural devaluation of human effort (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Sending the unreviewed output of an LLM to open source project maintainers *extracts* work from them in the form of design and code review
+    section: Extractive Contributions
+  - text: it shifts effort from the implementor to the reviewer, and our policy exists to ensure that we value and do not squander maintainer time.
+    section: Extractive Contributions
+  - text: The best ways to make a change less extractive and more valuable are to reduce its size or complexity or to increase its usefulness to the community.
+    section: Handling Violations
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: Contributors must read and review all LLM-generated code or text before they ask other project members to review it.
+    section: Policy
+  - text: an opt-in review tool that keeps a human in the loop is acceptable under this policy.
+    section: Details
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: it bans agents that take action in our digital spaces without human approval
+    section: Details
+  - text: The contributor is always the author and is fully accountable for their contributions.
+    section: Policy
+- id: mit-ai-risk-subdomain-6.3
+  name: Economic and cultural devaluation of human effort
+  evidence:
+  - text: Sending the unreviewed output of an LLM to open source project maintainers *extracts* work from them in the form of design and code review
+    section: Extractive Contributions
+  - text: it shifts effort from the implementor to the reviewer, and our policy exists to ensure that we value and do not squander maintainer time.
+    section: Extractive Contributions
+  - text: Whether you are a newcomer or not, fully automating the process of fixing this issue squanders the learning opportunity and doesn't add much value to the project.
+    section: Details
+- id: atlas-bypassing-learning
+  name: 'Impact on education: bypassing learning'
+  evidence:
+  - text: Whether you are a newcomer or not, fully automating the process of fixing this issue squanders the learning opportunity and doesn't add much value to the project.
+- id: credo-risk-002
+  name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
+  evidence:
+  - text: it bans agents that take action in our digital spaces without human approval

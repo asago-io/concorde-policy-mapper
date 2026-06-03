@@ -1,234 +1,269 @@
-# reviewed: 2026-05-26 — initial ground truth from EU Commission Guidelines for Staff on Use of Generative AI Tools
-# Short, focused policy (7.6k chars) — 4 rules: use internal tools, no non-public data in external tools,
-# verify accuracy/bias, respect IP. Also covers AI Act compliance, personal data protection (Reg 2018/1725).
 risks:
-  - id: ai-risk-taxonomy-ip-rights/-trade-secrets
-    name: IP Rights/ Trade Secrets
-    evidence:
-      - text: "Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights, regardless of whether the tool is internal or external."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-      - text: "It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output. Always assess whether generated output might violate intellectual property rights."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-      - text: "Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal Commission information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential data in prompt
-    evidence:
-      - text: "Never input into external Al tools any information that is not already public or any personal data."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal Commission information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "the handling of Classified information is strictly prohibited in any generative Al tool, including Commission-internal ones."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-confidential-information-in-data
-    name: Confidential information in data
-    evidence:
-      - text: "Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal Commission information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Never input into external Al tools any information that is not already public or any personal data."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Some internal tools like GPT@EC and GPT@JRC offer optional settings for handling Sensitive Non-Classified (SNC) information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-copyright-infringement
-    name: Copyright infringement
-    evidence:
-      - text: "It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-      - text: "Always assess whether generated output might violate intellectual property rights."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "it should be ensured that individuals can effectively exercise their rights under data protection law."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "the processing of personal data must fully comply with the applicable personal data protection rules."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-data-transfer
-    name: Data transfer restrictions
-    evidence:
-      - text: "Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal Commission information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "For any work-related task involving generative AI, staff must use the Commission's internal tools as the default option and follow their terms and conditions. These tools operate in controlled IT environments. External Al tools may only be considered if no suitable internal alternative is available."
-        section: "2.1. [Rule n°1] Use Commission internal Al tools as the first choice."
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights"
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624)."
-        section: "1. INTRODUCTION"
-        page: 1
-      - text: "When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data."
-        section: "1. INTRODUCTION"
-        page: 1
-  - id: atlas-generated-content-ownership
-    name: Generated content ownership and IP
-    evidence:
-      - text: "Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights, regardless of whether the tool is internal or external."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "Generative AI may produce outputs that are factually incorrect, incomplete or biased"
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-        page: 3
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "Do not rely on AI tools as authoritative sources. Staff must always verify all AI-generated content, even when it appears coherent and confident, before using it further in Commission work."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "Staff remain fully responsible for the final result."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "it is not permitted to subject individuals to decisions which produce legal effects based solely on automated processing."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-lack-of-data-transparency
-    name: Lack of data transparency
-    evidence:
-      - text: "Lack of transparency on the origin of materials used for training generative AI models"
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "Staff remain fully responsible for the final result."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-        page: 3
-      - text: "any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624)."
-        section: "1. INTRODUCTION"
-        page: 1
-  - id: atlas-model-usage-rights
-    name: Model usage rights restrictions
-    evidence:
-      - text: "generative AI tools -particularly online third-party ones -must only be used when appropriate and safe, and always in full compliance with the applicable terms of use."
-        section: "1. INTRODUCTION"
-        page: 1
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal Commission information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Never input into external Al tools any information that is not already public or any personal data."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "the handling of Classified information is strictly prohibited in any generative Al tool, including Commission-internal ones."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "Generative AI may produce outputs that are factually incorrect, incomplete or biased -regardless of whether the tool is internal or external."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "Staff must always verify all AI-generated content, even when it appears coherent and confident, before using it further in Commission work."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "Do not rely on AI tools as authoritative sources."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "Treat AI-generated content only as an initial draft: revise, adapt, and validate it (including the sources and references mentioned in the output) before use."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "Staff remain fully responsible for the final result."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "Never input into external Al tools any information that is not already public or any personal data."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Staff should carefully assess whether there is a need to process any personal data and only do so when there is a legal basis for such processing and only to the extend strictly necessary."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal Commission information."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Never input into external Al tools any information that is not already public or any personal data."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-      - text: "Using internal Commission tools significantly mitigates the risk of disclosing non-public information, as these tools operate within trusted environments."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
-  - id: atlas-unreliable-source-attribution
-    name: Unreliable source attribution
-    evidence:
-      - text: "revise, adapt, and validate it (including the sources and references mentioned in the output) before use."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-        page: 3
-  - id: credo-risk-005
-    name: Lack of training data transparency (IBM, 2024)
-    evidence:
-      - text: "Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights"
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-      - text: "It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "These guidelines are designed to help staff members ( 1 ) assess the risks and limitations of generative Artificial Intelligence (AI) tools and set conditions for their safe and appropriate use"
-        section: "1. INTRODUCTION"
-        page: 1
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "Generative AI may produce outputs that are factually incorrect, incomplete or biased"
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-        page: 3
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624)."
-        section: "1. INTRODUCTION"
-      - text: "This regulation introduces a risk-based framework, with specific requirements depending on the risk posed by an Al system."
-        section: "1. INTRODUCTION"
-      - text: "Staff must ensure that Al is used in a way that respects fundamental rights and is fully compliant with the Al Act."
-        section: "1. INTRODUCTION"
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624)."
-        section: "1. INTRODUCTION"
-        page: 1
-      - text: "Always assess whether generated output might violate intellectual property rights."
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-        page: 3
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "The document covers both third-party tools that are publicly available on the internet, and internal tools developed and/or approved by the IT governance of the Commission"
-        section: "1. INTRODUCTION"
-        page: 1
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data."
-        section: "1. INTRODUCTION"
-        page: 1
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "Generative AI may produce outputs that are factually incorrect, incomplete or biased -regardless of whether the tool is internal or external."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "Staff must always verify all AI-generated content, even when it appears coherent and confident, before using it further in Commission work."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Do not rely on AI tools as authoritative sources."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "Treat AI-generated content only as an initial draft: revise, adapt, and validate it (including the sources and references mentioned in the output) before use. Staff remain fully responsible for the final result."
-        section: "2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias."
-      - text: "certain use cases - such as recruitment or decision-making affecting individuals - may be considered high-risk in the sense of the Al Act."
-        section: "1. INTRODUCTION"
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights"
-        section: "2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents."
-      - text: "a human review of outputs is necessary to comply with the principle of accuracy and transparency regarding the use of generative Al tools."
-        section: "2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools."
+- id: ai-risk-taxonomy-ip-rights/-trade-secrets
+  name: IP Rights/ Trade Secrets
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights, regardless of whether the tool is internal
+      or external.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+  - text: It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output. Always assess whether generated output might violate intellectual
+      property rights.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+  - text: Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal
+      Commission information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: Never input into external Al tools any information that is not already public or any personal data.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal
+      Commission information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: the handling of Classified information is strictly prohibited in any generative Al tool, including Commission-internal ones.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-confidential-information-in-data
+  name: Confidential information in data
+  evidence:
+  - text: Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal
+      Commission information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Never input into external Al tools any information that is not already public or any personal data.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Some internal tools like GPT@EC and GPT@JRC offer optional settings for handling Sensitive Non-Classified (SNC) information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-copyright-infringement
+  name: Copyright infringement
+  evidence:
+  - text: It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+  - text: Always assess whether generated output might violate intellectual property rights.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: it should be ensured that individuals can effectively exercise their rights under data protection law.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: the processing of personal data must fully comply with the applicable personal data protection rules.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-data-transfer
+  name: Data transfer restrictions
+  evidence:
+  - text: Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal
+      Commission information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: For any work-related task involving generative AI, staff must use the Commission's internal tools as the default option and follow their terms and conditions. These tools operate in controlled
+      IT environments. External Al tools may only be considered if no suitable internal alternative is available.
+    section: 2.1. [Rule n°1] Use Commission internal Al tools as the first choice.
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624).
+    section: 1. INTRODUCTION
+    page: 1
+  - text: When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data.
+    section: 1. INTRODUCTION
+    page: 1
+- id: atlas-generated-content-ownership
+  name: Generated content ownership and IP
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights, regardless of whether the tool is internal
+      or external.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: Generative AI may produce outputs that are factually incorrect, incomplete or biased
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+    page: 3
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: Do not rely on AI tools as authoritative sources. Staff must always verify all AI-generated content, even when it appears coherent and confident, before using it further in Commission work.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: Staff remain fully responsible for the final result.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: it is not permitted to subject individuals to decisions which produce legal effects based solely on automated processing.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-lack-of-data-transparency
+  name: Lack of data transparency
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: Staff remain fully responsible for the final result.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+    page: 3
+  - text: any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624).
+    section: 1. INTRODUCTION
+    page: 1
+- id: atlas-model-usage-rights
+  name: Model usage rights restrictions
+  evidence:
+  - text: generative AI tools -particularly online third-party ones -must only be used when appropriate and safe, and always in full compliance with the applicable terms of use.
+    section: 1. INTRODUCTION
+    page: 1
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal
+      Commission information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Never input into external Al tools any information that is not already public or any personal data.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: the handling of Classified information is strictly prohibited in any generative Al tool, including Commission-internal ones.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: Generative AI may produce outputs that are factually incorrect, incomplete or biased -regardless of whether the tool is internal or external.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: Staff must always verify all AI-generated content, even when it appears coherent and confident, before using it further in Commission work.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: Do not rely on AI tools as authoritative sources.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: 'Treat AI-generated content only as an initial draft: revise, adapt, and validate it (including the sources and references mentioned in the output) before use.'
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: Staff remain fully responsible for the final result.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: Never input into external Al tools any information that is not already public or any personal data.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Staff should carefully assess whether there is a need to process any personal data and only do so when there is a legal basis for such processing and only to the extend strictly necessary.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: Anything you write or upload into an external AI tool, as with any other external online tools in general, risks being stored and reused by the service provider, potentially exposing internal
+      Commission information.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Never input into external Al tools any information that is not already public or any personal data.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+  - text: Using internal Commission tools significantly mitigates the risk of disclosing non-public information, as these tools operate within trusted environments.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-unreliable-source-attribution
+  name: Unreliable source attribution
+  evidence:
+  - text: revise, adapt, and validate it (including the sources and references mentioned in the output) before use.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+    page: 3
+- id: credo-risk-005
+  name: Lack of training data transparency (IBM, 2024)
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+  - text: It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: These guidelines are designed to help staff members ( 1 ) assess the risks and limitations of generative Artificial Intelligence (AI) tools and set conditions for their safe and appropriate use
+    section: 1. INTRODUCTION
+    page: 1
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: Generative AI may produce outputs that are factually incorrect, incomplete or biased
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+    page: 3
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624).
+    section: 1. INTRODUCTION
+  - text: This regulation introduces a risk-based framework, with specific requirements depending on the risk posed by an Al system.
+    section: 1. INTRODUCTION
+  - text: Staff must ensure that Al is used in a way that respects fundamental rights and is fully compliant with the Al Act.
+    section: 1. INTRODUCTION
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: any use of AI tools must comply with all applicable legal obligations, in particular the EU Artificial Intelligence Act (Regulation (EU) 2024/1624).
+    section: 1. INTRODUCTION
+    page: 1
+  - text: Always assess whether generated output might violate intellectual property rights.
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+    page: 3
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: The document covers both third-party tools that are publicly available on the internet, and internal tools developed and/or approved by the IT governance of the Commission
+    section: 1. INTRODUCTION
+    page: 1
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data.
+    section: 1. INTRODUCTION
+    page: 1
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: Generative AI may produce outputs that are factually incorrect, incomplete or biased -regardless of whether the tool is internal or external.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: Staff must always verify all AI-generated content, even when it appears coherent and confident, before using it further in Commission work.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: Do not rely on AI tools as authoritative sources.
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: 'Treat AI-generated content only as an initial draft: revise, adapt, and validate it (including the sources and references mentioned in the output) before use. Staff remain fully responsible for
+      the final result.'
+    section: 2.3. [Rule n°3] Always critically assess AI outputs for accuracy and bias.
+  - text: certain use cases - such as recruitment or decision-making affecting individuals - may be considered high-risk in the sense of the Al Act.
+    section: 1. INTRODUCTION
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights
+    section: 2.4. [Rule n°4] Be mindful of potential intellectual property rights violations and avoid directly replicating the output of a generative AI tool in public documents.
+  - text: a human review of outputs is necessary to comply with the principle of accuracy and transparency regarding the use of generative Al tools.
+    section: 2.2. [Rule n°2] Do not use non-public or personal data in external Al tools and ensure proper handling of sensitive and personal data when using internal AI tools.
+- id: atlas-data-usage-rights
+  name: Data usage rights restrictions
+  evidence:
+  - text: Lack of transparency on the origin of materials used for training generative AI models raises concerns related to intellectual property (IP) rights, regardless of whether the tool is internal
+      or external.
+  - text: It is possible that copyright protected information has been used for training the AI model and ends up being reproduced in the output.
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: Generative AI may produce outputs that are factually incorrect, incomplete or biased
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data.
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Generative AI may produce outputs that are factually incorrect, incomplete or biased
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: Staff are reminded that any use of AI tools must comply with all applicable legal obligations,  in particular  the  EU  Artificial  Intelligence  Act (Regulation (EU) 2024/1624).
+  - text: When in doubt, services should consult their Data Protection Coordinator before initiating any processing of personal data.
+- id: mit-ai-risk-subdomain-7.3
+  name: Lack of capability or robustness
+  evidence:
+  - text: assess the risks and limitations of generative Artificial Intelligence (AI) tools

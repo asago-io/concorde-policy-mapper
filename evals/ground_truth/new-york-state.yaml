@@ -1,420 +1,490 @@
-# reviewed: 2026-05-26 — initial ground truth from NYS Acceptable Use of AI Technologies policy
-# Comprehensive governance policy covering: human oversight, fairness/equity/bias, transparency/disclosure,
-# NIST AI RMF risk assessment, privacy (PIA, data minimization), security, IP, AI inventory, compliance.
 risks:
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed by the SE."
-        section: "4.4 Transparency"
-      - text: "Using automatic speech recognition with outputs clearly labelled as AI-generated accordingly."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential data in prompt
-    evidence:
-      - text: "Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information to an unauthorized recipient."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "SEs must develop polices and controls to ensure the appropriate use of all AI systems (e.g., open-source AI systems, publicly available AI systems), particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable, confidential, or sensitive information."
-        section: "4.7 Privacy"
-  - id: atlas-data-bias
-    name: Data bias
-    evidence:
-      - text: "SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases."
-        section: "4.3 Fairness and Equity"
-      - text: "Use of non-vetted data to generate content without human review and without disclosure."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Providing data subjects with control and transparency in relation to data processing."
-        section: "4.7 Privacy"
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-      - text: "Privacy-oriented settings, including data minimization, such as only processing data that is necessary during the development and use the AI system."
-        section: "4.7 Privacy"
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "Data  retention  settings  that  follow  the  requirements  of  federal  and  state  standards;"
-        section: "4.7 Privacy"
-        page: 4
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "Use of AI systems must be fair and equitable in accordance with applicable State and Federal laws, rules, and regulations."
-        section: "4.3 Fairness and Equity"
-      - text: "SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases."
-        section: "4.3 Fairness and Equity"
-      - text: "Examples of such activities include but are not limited to assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare contexts, decisions regarding access to or eligibility for government benefits or about child welfare."
-        section: "3.2 Definitions and Covered Use (footnote 3)"
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information."
-        section: "4.7 Privacy"
-        page: 4
-  - id: atlas-generated-content-ownership
-    name: Generated content ownership and IP
-    evidence:
-      - text: "the extent to which a work created by an AI system may contain copyrighted elements."
-        section: "4.10 Intellectual Property"
-        page: 5
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-      - text: "Ensuring the accuracy of data put into the AI system and the AI system's outputs;"
-        section: "4.7 Privacy"
-        page: 4
-  - id: atlas-impact-on-affected-communities
-    name: Impact on affected communities
-    evidence:
-      - text: "'Directly impact the public' shall mean when the use of an AI system would control, have a material impact on, or meaningfully influence the outcome of activities that impact the safety, welfare, or rights of the public."
-        section: "3.2 Definitions and Covered Use (footnote 3)"
-      - text: "Examples of such activities include but are not limited to assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare contexts, decisions regarding access to or eligibility for government benefits or about child welfare, or the functioning of emergency services or critical infrastructure."
-        section: "3.2 Definitions and Covered Use (footnote 3)"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions."
-        section: "4.2 Human Oversight"
-        page: 3
-      - text: "AI system automatically takes actions that impact the public without human oversight."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "The SE must identify an Information Owner for each AI system that meets the criteria set forth in Section 3.2. The information Owner is responsible for understanding and implementing this policy for each AI System in use."
-        section: "4.1 Use of AI"
-      - text: "The SE must perform a Risk Assessment for each AI system that meets the criteria set forth in Section 3.2. The Risk Assessment must include a review of all security, privacy, legal, reputational, and competency risks as well as the additional risks listed in this policy."
-        section: "4.5 AI Risk Assessment and Management"
-  - id: atlas-ip-information-in-prompt
-    name: IP information in prompt
-    evidence:
-      - text: "using copyrighted materials as inputs into an AI system"
-        section: "4.10 Intellectual Property"
-        page: 5
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "Transparency is an important principle of AI governance. Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed by the SE."
-        section: "4.4 Transparency"
-      - text: "SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output."
-        section: "4.4 Transparency"
-      - text: "Characteristics of trustworthy AI systems are that they are valid and reliable, safe, secure, resilient, accountable, and transparent, explainable and interpretable, privacy-enhanced, and fair with harmful bias managed."
-        section: "4.5 AI Risk Assessment and Management (footnote 7)"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "The Information Owner is responsible for periodically  assessing  the  outputs  of their  in-production  AI  systems to validate continuing  reliability, safety, and fairness."
-        section: "4.2 Human Oversight"
-        page: 3
-      - text: "Following these processes will result in appropriate ITS reviews and approvals."
-        section: "4.9 Technology"
-        page: 5
-      - text: "The SE must identify an Information Owner for each AI system that meets the criteria set forth in Section 3.2. The information Owner is responsible for understanding and implementing this policy for each AI System in use."
-        section: "4.1 Use of AI"
-        page: 2
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "Use of non-vetted data to generate content without human review and without disclosure."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-      - text: "Using automatic speech recognition with outputs clearly labelled as AI- generated accordingly."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 8
-      - text: "Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed  by the SE."
-        section: "4.4 Transparency"
-        page: 3
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases."
-        section: "4.3 Fairness and Equity"
-      - text: "The Information Owner is responsible for periodically assessing the outputs of their in-production AI systems to validate continuing reliability, safety, and fairness."
-        section: "4.2 Human Oversight"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions."
-        section: "4.2 Human Oversight"
-        page: 3
-      - text: "Automated final decision systems are not permitted."
-        section: "4.2 Human Oversight"
-        page: 3
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information."
-        section: "4.7 Privacy"
-        page: 4
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information to an unauthorized recipient."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "SEs must develop polices and controls to ensure the appropriate use of all AI systems (e.g., open-source AI systems, publicly available AI systems), particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable, confidential, or sensitive information."
-        section: "4.7 Privacy"
-  - id: atlas-poor-model-accuracy
-    name: Poor model accuracy
-    evidence:
-      - text: "Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "Ensuring the accuracy of data put into the AI system and the AI system's outputs."
-        section: "4.7 Privacy"
-      - text: "Characteristics of trustworthy AI systems are that they are valid and reliable, safe, secure, resilient, accountable, and transparent, explainable and interpretable, privacy-enhanced, and fair with harmful bias managed."
-        section: "4.5 AI Risk Assessment and Management (footnote 7)"
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information."
-        section: "4.7 Privacy"
-        page: 4
-  - id: atlas-spreading-disinformation
-    name: Spreading disinformation
-    evidence:
-      - text: "Use of AI to generate content with the intent to deceive users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-  - id: credo-risk-002
-    name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
-    evidence:
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 8
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "Transparency is an important principle of AI governance. Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed by the SE."
-        section: "4.4 Transparency"
-      - text: "SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output."
-        section: "4.4 Transparency"
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "AI systems aid and enhance human decision making that may impact the public. SEs must ensure that decisions that impact the public are not made without oversight by appropriate staff, who make the final decisions. Automated final decision systems are not permitted."
-        section: "4.2 Human Oversight"
-      - text: "Using a secured and well tested AI system to automate processes with periodic auditing."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "AI system automatically takes actions that impact the public without human oversight."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output."
-        section: "4.4 Transparency"
-      - text: "The SE must identify an Information Owner for each AI system that meets the criteria set forth in Section 3.2. The information Owner is responsible for understanding and implementing this policy for each AI System in use."
-        section: "4.1 Use of AI"
-      - text: "if an SE is using an AI-enabled chatbot to answer questions from members of the public, the user should be made aware that they are interacting with a machine rather than with a human."
-        section: "4.4 Transparency (footnote 6)"
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-      - text: "AI system automatically takes actions that impact the public without human oversight."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-      - text: "SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions."
-        section: "4.2 Human Oversight"
-        page: 3
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "Use of AI to generate content with the intent to deceive users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "Ensuring the accuracy of data put into the AI system and the AI system's outputs."
-        section: "4.7 Privacy"
-      - text: "Secured use of approved and vetted data with content suggestions reviewed and approved by human users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "The use of AI, even if not subject to this policy, must be in compliance with applicable New York State and ITS policies and standards and New York and federal law."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "AI systems must comply with NYS-P03-002: Information Security Policy, NYS-P14-001 Acceptable Use of Information Technology Resources, and all associated standards"
-        section: "4.8 Security"
-        page: 5
-      - text: "Any additional controls required by applicable Federal or State law, rule, or regulation (e.g., IRS Publication 1075) must also be incorporated."
-        section: "4.8 Security"
-        page: 5
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "The legal landscape regarding intellectual property protections of AI systems and their outputs  is  evolving."
-        section: "4.10 Intellectual Property"
-        page: 5
-      - text: "SEs  should  confer  with  their  counsel's  office  regarding  the  intellectual  property  implications  of  using  AI  systems"
-        section: "4.10 Intellectual Property"
-        page: 5
-  - id: credo-risk-026
-    name: Fraud, scams, and targeted manipulation
-    evidence:
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 8
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "Open standards, model lifecycle management, and regular retraining of AI systems are all important elements that SEs should consider."
-        section: "4.9 Technology"
-        page: 5
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "SEs must ensure that decisions that impact the public are not made without oversight by appropriate staff, who make the final decisions. Automated final decision systems are not permitted."
-        section: "4.2 Human Oversight"
-      - text: "The Information Owner is responsible for periodically assessing the outputs of their in-production AI systems to validate continuing reliability, safety, and fairness."
-        section: "4.2 Human Oversight"
-      - text: "SEs shall take steps to ensure that where AI systems are used to aid in decision making that impacts the public, the outcomes, decisions, and supporting methodologies of such AI systems are documented appropriately."
-        section: "4.2 Human Oversight"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information."
-        section: "4.7 Privacy"
-        page: 4
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information to an unauthorized recipient."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information."
-        section: "4.7 Privacy"
-        page: 4
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "SEs are required to have SE leadership approval prior to adopting new AI systems. Such approval should include SE executive, legal, and operational leadership."
-        section: "4.1 Use of AI"
-      - text: "SEs should adopt applicable elements of the current version of the National Institute of Standards and Technology (NIST) AI 100-1 Artificial Intelligence Risk Management Framework (RMF) and accompanying NIST Artificial Intelligence Risk Management Framework Playbook to address and meet the characteristics of trustworthy AI."
-        section: "4.5 AI Risk Assessment and Management"
-      - text: "ITS shall create and maintain an inventory that identifies AI systems in use and in scope under this policy."
-        section: "4.6 AI Inventory"
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "This includes employees and all third parties (such as local governments, consultants, vendors, and contractors) that use or access any Information Technology (IT) Resource for which the SE or ITS has administrative responsibility, including systems managed or hosted by third parties on behalf of the SE or ITS."
-        section: "3.1 Agencies"
-        page: 2
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "Use of AI systems must be fair and equitable in accordance with applicable State and Federal laws, rules, and regulations."
-        section: "4.3 Fairness and Equity"
-      - text: "SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases."
-        section: "4.3 Fairness and Equity"
-      - text: "Examples of such activities include but are not limited to assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare contexts."
-        section: "3.2 Definitions and Covered Use (footnote 3)"
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "SE must be aware that systemic, computational, and human biases may impact AI systems"
-        section: "4.3 Fairness and Equity"
-        page: 3
-      - text: "should develop a plan to monitor for such biases, and, where identified, remediated identified biases."
-        section: "4.3 Fairness and Equity"
-        page: 3
-      - text: "The Information Owner is responsible for periodically  assessing  the  outputs  of their  in-production  AI  systems to validate continuing  reliability, safety, and fairness."
-        section: "4.2 Human Oversight"
-        page: 3
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices, and policies."
-        section: "4.1 Use of AI"
-        page: 2
-      - text: "Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information to an unauthorized recipient."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-      - text: "particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information."
-        section: "4.7 Privacy"
-        page: 4
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "AI systems must be developed and reviewed in alignment with NYS-S13-001: Secure Systems Development Lifecycle."
-        section: "4.8 Security"
-        page: 5
-      - text: "SEs must ensure there are adequate security controls including encryption and pseudonymization, where appropriate, depending on the risk throughout the data lifecycle."
-        section: "4.8 Security"
-        page: 5
-      - text: "establish statewide technology policies, including technology and security standards."
-        section: "2.0 Authority"
-        page: 1
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "Use of AI to generate content with the intent to deceive users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-      - text: "Ensuring the accuracy of data put into the AI system and the AI system's outputs."
-        section: "4.7 Privacy"
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-  - id: mit-ai-risk-subdomain-4.3
-    name: Fraud, scams, and targeted manipulation
-    evidence:
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 8
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 8
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions."
-        section: "4.2 Human Oversight"
-        page: 3
-      - text: "Automated final decision systems are not permitted."
-        section: "4.2 Human Oversight"
-        page: 3
-      - text: "Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 7
-  - id: mit-ai-risk-subdomain-7.1
-    name: AI pursuing its own goals in conflict with human goals or values
-    evidence:
-      - text: "Using an AI-powered chatbot that is not identified as such and that intentionally deceives users."
-        section: "Appendix A - Acceptable and Unacceptable use of AI Examples"
-        page: 8
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "Furthermore, SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output."
-        section: "4.4 Transparency"
-        page: 3
-      - text: "SEs shall take steps to ensure that where AI systems are used to aid in decision making that impacts the public, the outcomes, decisions, and supporting methodologies of such AI systems are documented appropriately."
-        section: "4.2 Human Oversight"
-        page: 3
-      - text: "Providing  data  subjects  with  control  and  transparency  in  relation  to  data processing."
-        section: "4.7 Privacy"
-        page: 4
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed by the SE.
+    section: 4.4 Transparency
+  - text: Using automatic speech recognition with outputs clearly labelled as AI-generated accordingly.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information
+      to an unauthorized recipient.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: SEs must develop polices and controls to ensure the appropriate use of all AI systems (e.g., open-source AI systems, publicly available AI systems), particularly in the limited circumstances when
+      the SE identifies a need to use the AI system to process personally identifiable, confidential, or sensitive information.
+    section: 4.7 Privacy
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+    section: 4.3 Fairness and Equity
+  - text: Use of non-vetted data to generate content without human review and without disclosure.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Providing data subjects with control and transparency in relation to data processing.
+    section: 4.7 Privacy
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+  - text: Privacy-oriented settings, including data minimization, such as only processing data that is necessary during the development and use the AI system.
+    section: 4.7 Privacy
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+    page: 2
+  - text: Data  retention  settings  that  follow  the  requirements  of  federal  and  state  standards;
+    section: 4.7 Privacy
+    page: 4
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: Use of AI systems must be fair and equitable in accordance with applicable State and Federal laws, rules, and regulations.
+    section: 4.3 Fairness and Equity
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+    section: 4.3 Fairness and Equity
+  - text: Examples of such activities include but are not limited to assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare
+      contexts, decisions regarding access to or eligibility for government benefits or about child welfare.
+    section: 3.2 Definitions and Covered Use (footnote 3)
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+    page: 2
+  - text: particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information.
+    section: 4.7 Privacy
+    page: 4
+- id: atlas-generated-content-ownership
+  name: Generated content ownership and IP
+  evidence:
+  - text: the extent to which a work created by an AI system may contain copyrighted elements.
+    section: 4.10 Intellectual Property
+    page: 5
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+  - text: Ensuring the accuracy of data put into the AI system and the AI system's outputs;
+    section: 4.7 Privacy
+    page: 4
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: '''Directly impact the public'' shall mean when the use of an AI system would control, have a material impact on, or meaningfully influence the outcome of activities that impact the safety, welfare,
+      or rights of the public.'
+    section: 3.2 Definitions and Covered Use (footnote 3)
+  - text: Examples of such activities include but are not limited to assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare
+      contexts, decisions regarding access to or eligibility for government benefits or about child welfare, or the functioning of emergency services or critical infrastructure.
+    section: 3.2 Definitions and Covered Use (footnote 3)
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions.
+    section: 4.2 Human Oversight
+    page: 3
+  - text: AI system automatically takes actions that impact the public without human oversight.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: The SE must identify an Information Owner for each AI system that meets the criteria set forth in Section 3.2. The information Owner is responsible for understanding and implementing this policy
+      for each AI System in use.
+    section: 4.1 Use of AI
+  - text: The SE must perform a Risk Assessment for each AI system that meets the criteria set forth in Section 3.2. The Risk Assessment must include a review of all security, privacy, legal, reputational,
+      and competency risks as well as the additional risks listed in this policy.
+    section: 4.5 AI Risk Assessment and Management
+- id: atlas-ip-information-in-prompt
+  name: IP information in prompt
+  evidence:
+  - text: using copyrighted materials as inputs into an AI system
+    section: 4.10 Intellectual Property
+    page: 5
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: Transparency is an important principle of AI governance. Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed
+      by the SE.
+    section: 4.4 Transparency
+  - text: SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output.
+    section: 4.4 Transparency
+  - text: Characteristics of trustworthy AI systems are that they are valid and reliable, safe, secure, resilient, accountable, and transparent, explainable and interpretable, privacy-enhanced, and fair
+      with harmful bias managed.
+    section: 4.5 AI Risk Assessment and Management (footnote 7)
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: The Information Owner is responsible for periodically  assessing  the  outputs  of their  in-production  AI  systems to validate continuing  reliability, safety, and fairness.
+    section: 4.2 Human Oversight
+    page: 3
+  - text: Following these processes will result in appropriate ITS reviews and approvals.
+    section: 4.9 Technology
+    page: 5
+  - text: The SE must identify an Information Owner for each AI system that meets the criteria set forth in Section 3.2. The information Owner is responsible for understanding and implementing this policy
+      for each AI System in use.
+    section: 4.1 Use of AI
+    page: 2
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: Use of non-vetted data to generate content without human review and without disclosure.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+  - text: Using automatic speech recognition with outputs clearly labelled as AI- generated accordingly.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 8
+  - text: Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed  by the SE.
+    section: 4.4 Transparency
+    page: 3
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+    section: 4.3 Fairness and Equity
+  - text: The Information Owner is responsible for periodically assessing the outputs of their in-production AI systems to validate continuing reliability, safety, and fairness.
+    section: 4.2 Human Oversight
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions.
+    section: 4.2 Human Oversight
+    page: 3
+  - text: Automated final decision systems are not permitted.
+    section: 4.2 Human Oversight
+    page: 3
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information.
+    section: 4.7 Privacy
+    page: 4
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information
+      to an unauthorized recipient.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: SEs must develop polices and controls to ensure the appropriate use of all AI systems (e.g., open-source AI systems, publicly available AI systems), particularly in the limited circumstances when
+      the SE identifies a need to use the AI system to process personally identifiable, confidential, or sensitive information.
+    section: 4.7 Privacy
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: Ensuring the accuracy of data put into the AI system and the AI system's outputs.
+    section: 4.7 Privacy
+  - text: Characteristics of trustworthy AI systems are that they are valid and reliable, safe, secure, resilient, accountable, and transparent, explainable and interpretable, privacy-enhanced, and fair
+      with harmful bias managed.
+    section: 4.5 AI Risk Assessment and Management (footnote 7)
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+    page: 2
+  - text: particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information.
+    section: 4.7 Privacy
+    page: 4
+- id: atlas-spreading-disinformation
+  name: Spreading disinformation
+  evidence:
+  - text: Use of AI to generate content with the intent to deceive users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+- id: credo-risk-002
+  name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
+  evidence:
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 8
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: Transparency is an important principle of AI governance. Where members of the public interact directly with SE systems that use AI technology, the use of such AI technology should be disclosed
+      by the SE.
+    section: 4.4 Transparency
+  - text: SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output.
+    section: 4.4 Transparency
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: AI systems aid and enhance human decision making that may impact the public. SEs must ensure that decisions that impact the public are not made without oversight by appropriate staff, who make
+      the final decisions. Automated final decision systems are not permitted.
+    section: 4.2 Human Oversight
+  - text: Using a secured and well tested AI system to automate processes with periodic auditing.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: AI system automatically takes actions that impact the public without human oversight.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output.
+    section: 4.4 Transparency
+  - text: The SE must identify an Information Owner for each AI system that meets the criteria set forth in Section 3.2. The information Owner is responsible for understanding and implementing this policy
+      for each AI System in use.
+    section: 4.1 Use of AI
+  - text: if an SE is using an AI-enabled chatbot to answer questions from members of the public, the user should be made aware that they are interacting with a machine rather than with a human.
+    section: 4.4 Transparency (footnote 6)
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+  - text: AI system automatically takes actions that impact the public without human oversight.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+  - text: SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions.
+    section: 4.2 Human Oversight
+    page: 3
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: Use of AI to generate content with the intent to deceive users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: Ensuring the accuracy of data put into the AI system and the AI system's outputs.
+    section: 4.7 Privacy
+  - text: Secured use of approved and vetted data with content suggestions reviewed and approved by human users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: The use of AI, even if not subject to this policy, must be in compliance with applicable New York State and ITS policies and standards and New York and federal law.
+    section: 4.1 Use of AI
+    page: 2
+  - text: 'AI systems must comply with NYS-P03-002: Information Security Policy, NYS-P14-001 Acceptable Use of Information Technology Resources, and all associated standards'
+    section: 4.8 Security
+    page: 5
+  - text: Any additional controls required by applicable Federal or State law, rule, or regulation (e.g., IRS Publication 1075) must also be incorporated.
+    section: 4.8 Security
+    page: 5
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: The legal landscape regarding intellectual property protections of AI systems and their outputs  is  evolving.
+    section: 4.10 Intellectual Property
+    page: 5
+  - text: SEs  should  confer  with  their  counsel's  office  regarding  the  intellectual  property  implications  of  using  AI  systems
+    section: 4.10 Intellectual Property
+    page: 5
+- id: credo-risk-026
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 8
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: Open standards, model lifecycle management, and regular retraining of AI systems are all important elements that SEs should consider.
+    section: 4.9 Technology
+    page: 5
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: SEs must ensure that decisions that impact the public are not made without oversight by appropriate staff, who make the final decisions. Automated final decision systems are not permitted.
+    section: 4.2 Human Oversight
+  - text: The Information Owner is responsible for periodically assessing the outputs of their in-production AI systems to validate continuing reliability, safety, and fairness.
+    section: 4.2 Human Oversight
+  - text: SEs shall take steps to ensure that where AI systems are used to aid in decision making that impacts the public, the outcomes, decisions, and supporting methodologies of such AI systems are documented
+      appropriately.
+    section: 4.2 Human Oversight
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+    page: 2
+  - text: particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information.
+    section: 4.7 Privacy
+    page: 4
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information
+      to an unauthorized recipient.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+    page: 2
+  - text: particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information.
+    section: 4.7 Privacy
+    page: 4
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: SEs are required to have SE leadership approval prior to adopting new AI systems. Such approval should include SE executive, legal, and operational leadership.
+    section: 4.1 Use of AI
+  - text: SEs should adopt applicable elements of the current version of the National Institute of Standards and Technology (NIST) AI 100-1 Artificial Intelligence Risk Management Framework (RMF) and accompanying
+      NIST Artificial Intelligence Risk Management Framework Playbook to address and meet the characteristics of trustworthy AI.
+    section: 4.5 AI Risk Assessment and Management
+  - text: ITS shall create and maintain an inventory that identifies AI systems in use and in scope under this policy.
+    section: 4.6 AI Inventory
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: This includes employees and all third parties (such as local governments, consultants, vendors, and contractors) that use or access any Information Technology (IT) Resource for which the SE or
+      ITS has administrative responsibility, including systems managed or hosted by third parties on behalf of the SE or ITS.
+    section: 3.1 Agencies
+    page: 2
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: Use of AI systems must be fair and equitable in accordance with applicable State and Federal laws, rules, and regulations.
+    section: 4.3 Fairness and Equity
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+    section: 4.3 Fairness and Equity
+  - text: Examples of such activities include but are not limited to assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare
+      contexts.
+    section: 3.2 Definitions and Covered Use (footnote 3)
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems
+    section: 4.3 Fairness and Equity
+    page: 3
+  - text: should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+    section: 4.3 Fairness and Equity
+    page: 3
+  - text: The Information Owner is responsible for periodically  assessing  the  outputs  of their  in-production  AI  systems to validate continuing  reliability, safety, and fairness.
+    section: 4.2 Human Oversight
+    page: 3
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: SEs must maintain awareness of how the AI system uses personally identifiable, confidential, or sensitive information to ensure such use complies with applicable laws, rules, regulations, notices,
+      and policies.
+    section: 4.1 Use of AI
+    page: 2
+  - text: Inputting personally identifiable, confidential, or sensitive information into an AI system where that AI system uses that information to build upon its model and/or may disclose that information
+      to an unauthorized recipient.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+  - text: particularly in the limited circumstances when the SE identifies a need to use the AI system to process personally identifiable,  confidential, or sensitive information.
+    section: 4.7 Privacy
+    page: 4
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: 'AI systems must be developed and reviewed in alignment with NYS-S13-001: Secure Systems Development Lifecycle.'
+    section: 4.8 Security
+    page: 5
+  - text: SEs must ensure there are adequate security controls including encryption and pseudonymization, where appropriate, depending on the risk throughout the data lifecycle.
+    section: 4.8 Security
+    page: 5
+  - text: establish statewide technology policies, including technology and security standards.
+    section: 2.0 Authority
+    page: 1
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: Use of AI to generate content with the intent to deceive users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+  - text: Ensuring the accuracy of data put into the AI system and the AI system's outputs.
+    section: 4.7 Privacy
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+- id: mit-ai-risk-subdomain-4.3
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 8
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 8
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: SEs must ensure that decisions that impact the public are not made without oversight by appropriate  staff, who make the final decisions.
+    section: 4.2 Human Oversight
+    page: 3
+  - text: Automated final decision systems are not permitted.
+    section: 4.2 Human Oversight
+    page: 3
+  - text: Letting AI make decisions, without thorough testing to confirm accuracy and without review by a human.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 7
+- id: mit-ai-risk-subdomain-7.1
+  name: AI pursuing its own goals in conflict with human goals or values
+  evidence:
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.
+    section: Appendix A - Acceptable and Unacceptable use of AI Examples
+    page: 8
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: Furthermore, SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output.
+    section: 4.4 Transparency
+    page: 3
+  - text: SEs shall take steps to ensure that where AI systems are used to aid in decision making that impacts the public, the outcomes, decisions, and supporting methodologies of such AI systems are documented
+      appropriately.
+    section: 4.2 Human Oversight
+    page: 3
+  - text: Providing  data  subjects  with  control  and  transparency  in  relation  to  data processing.
+    section: 4.7 Privacy
+    page: 4
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: SEs shall take steps to ensure that where AI systems are used to aid in decision making that impacts the public, the outcomes, decisions, and supporting methodologies of such AI systems are documented
+      appropriately.
+  - text: Furthermore, SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output.
+- id: atlas-unexplainable-output
+  name: Unexplainable output
+  evidence:
+  - text: Furthermore, SE users of AI systems must provide meaningful oversight over all decisions made by an AI system and be able to explain the decision or output.
+  - text: Characteristics of trustworthy AI systems are that they are valid and reliable, safe, secure, resilient, accountable, and transparent, explainable and interpretable, privacy-enhanced, and fair
+      with harmful bias managed.
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+  - text: The Information Owner is responsible for periodically assessing the outputs of their in-production AI systems to validate continuing reliability, safety, and fairness.
+- id: atlas-exclusion
+  name: Exclusion
+  evidence:
+  - text: SE must be aware that systemic, computational, and human biases may impact AI systems and should develop a plan to monitor for such biases, and, where identified, remediated identified biases.
+- id: credo-risk-007
+  name: Inadequate observability (Slatteryet al., 2024)
+  evidence:
+  - text: The Information Owner is responsible for periodically assessing the outputs of their in-production AI systems to validate continuing reliability, safety, and fairness.
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: The Information Owner is responsible for periodically  assessing  the  outputs  of  their  in-production  AI  systems  to  validate continuing  reliability, safety, and fairness.
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: The Risk Assessment must include a review of all security, privacy, legal, reputational,  and competency risks as well as the additional  risks listed in this policy.
+  - text: jeopardize the capacity to guarantee the security of information technology assets
+- id: credo-risk-042
+  name: Increased inequality and decline in employment quality (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: assessments or decisions about individuals including in law enforcement, housing, hiring and employment, financial, educational, or healthcare contexts
+- id: mit-ai-risk-subdomain-7.2
+  name: AI possessing dangerous capabilities
+  evidence:
+  - text: Use of AI to generate content with the intent to deceive users.
+  - text: Using an AI-powered chatbot that is not identified as such and that intentionally deceives users.

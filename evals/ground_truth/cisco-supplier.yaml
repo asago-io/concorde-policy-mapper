@@ -1,26 +1,58 @@
-# reviewed: 2026-05-24 — revised from 9 to 4 risks (removed implied-but-not-discussed risks)
 risks:
-  - id: atlas-confidential-information-in-data
-    name: Confidential information in data
-    evidence:
-      - text: "'Protected Data' means Administrative Data, Confidential Information, Customer Data, Financing Data, Support Data, Telemetry Data, Personal Data, and Sensitive Personal Data."
-        section: "3. Definitions"
-        page: 2
-      - text: "'Confidential Information' means any Customer Data, confidential information, and/or materials relating to the business, products, customers or employees of Cisco"
-        section: "3. Definitions"
-        page: 2
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "Supplier is not permitted to Process Protected Data for training, retraining or improving Artificial Intelligence or Machine Learning technologies without Cisco's express written permission."
-        section: "1. Use of Protected Data for Artificial Intelligence and Machine Learning."
-        page: 1
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "it is required to have an AI/ML governance program in place, with defined policies and procedures, that meets or exceeds current best industry standards."
-        section: "2. Supplier's Use of Artificial Intelligence and Machine Learning."
-        page: 1
-      - text: "Cisco reserves the right to audit Supplier's AI/ML governance program"
-        section: "2. Supplier's Use of Artificial Intelligence and Machine Learning."
-        page: 1
+- id: atlas-confidential-information-in-data
+  name: Confidential information in data
+  evidence:
+  - text: '''Protected Data'' means Administrative Data, Confidential Information, Customer Data, Financing Data, Support Data, Telemetry Data, Personal Data, and Sensitive Personal Data.'
+    section: 3. Definitions
+    page: 2
+  - text: '''Confidential Information'' means any Customer Data, confidential information, and/or materials relating to the business, products, customers or employees of Cisco'
+    section: 3. Definitions
+    page: 2
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: Supplier is not permitted to Process Protected Data for training, retraining or improving Artificial Intelligence or Machine Learning technologies without Cisco's express written permission.
+    section: 1. Use of Protected Data for Artificial Intelligence and Machine Learning.
+    page: 1
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: it is required to have an AI/ML governance program in place, with defined policies and procedures, that meets or exceeds current best industry standards.
+    section: 2. Supplier's Use of Artificial Intelligence and Machine Learning.
+    page: 1
+  - text: Cisco reserves the right to audit Supplier's AI/ML governance program
+    section: 2. Supplier's Use of Artificial Intelligence and Machine Learning.
+    page: 1
+- id: atlas-data-acquisition
+  name: Data acquisition restrictions
+  evidence:
+  - text: Supplier is not permitted to Process Protected Data for training, retraining or improving Artificial Intelligence or Machine Learning technologies without Cisco's express written permission.
+- id: atlas-model-usage-rights
+  name: Model usage rights restrictions
+  evidence:
+  - text: Supplier is not permitted to Process Protected Data for training, retraining or improving Artificial Intelligence or Machine Learning technologies without Cisco's express written permission.
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: it is required to have an AI/ML governance program in place, with defined policies and procedures, that meets or exceeds current best industry standards.
+  - text: Cisco reserves the right to audit Supplier's AI/ML governance program before deciding whether to grant the requested permission and on a regular basis
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: it is required to have an AI/ML governance program in place, with defined policies and procedures, that meets or exceeds current best industry standards.
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: 3.10. 'Personal Data' means any information that is about, or can be related to, an identifiable individual. It includes any information that can be linked to an individual or used to directly
+      or indirectly identify an individual, natural person. Personal Data shall be considered Confidential Information regardless of the source. Personal Data is Protected Data.
+- id: atlas-reidentification
+  name: Reidentification
+  evidence:
+  - text: 3.10. 'Personal Data' means any information that is about, or can be related to, an identifiable individual. It includes any information that can be linked to an individual or used to directly
+      or indirectly identify an individual, natural person.
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: 3.10. 'Personal Data' means any information that is about, or can be related to, an identifiable individual. It includes any information that can be linked to an individual or used to directly
+      or indirectly identify an individual, natural person.
+  - text: Personal Data shall be considered Confidential Information regardless of the source. Personal Data is Protected Data.

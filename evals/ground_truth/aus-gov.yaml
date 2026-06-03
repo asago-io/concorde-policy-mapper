@@ -1,236 +1,296 @@
-# reviewed: 2026-05-24
 risks:
-  - id: ai-risk-taxonomy-involvement-in-data-adversarially-adversely-affects-national-security-or-public-interests
-    name: Involvement in data adversarially adversely affects national security or public interests
-    evidence:
-      - text: "National security carveouts"
-        section: "Contents"
-        page: 3
-      - text: "the use of AI in the defence portfolio."
-        section: "National security carveouts"
-        page: 6
-      - text: "the 'national intelligence community' (NIC) as defined by Section 4 of the Office of National Intelligence Act 2018 ."
-        section: "National security carveouts"
-        page: 6
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
-    name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
-    evidence:
-      - text: "The AI is designed to use personal or sensitive data 1  or security classified information 2 ."
-        section: "Criteria and areas of consideration"
-        page: 21
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "The AI is designed to use personal or sensitive data 1  or security classified information 2 ."
-        section: "Criteria and areas of consideration"
-        page: 21
-  - id: atlas-data-usage-rights
-    name: Data usage rights restrictions
-    evidence:
-      - text: "violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;"
-        section: "AI incident"
-        page: 20
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "The use, misuse or failure of AI could lead to more than insignificant harm to individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "In-scope AI use cases — Criteria"
-      - text: "The AI technical standard for Australian Government... embeds the principles of fairness, transparency, and accountability into a set of technical requirements and guidelines."
-        section: "AI technical standard"
-      - text: "The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "In-scope AI use cases — Criteria"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "Criteria and areas of consideration"
-        page: 21
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "If an agency adopts an out-of-scope AI use case, they must assess whether the use case becomes in-scope of this policy if there is a material change in the scope, usage or operation of the solution."
-        section: "Out-of-scope AI use cases"
-        page: 16
-      - text: "AI systems can have one or more applications, which can each differ in their intended purpose, functionality and risk level."
-        section: "AI use case"
-        page: 19
-      - text: "The policy focuses on conducting assessments and applying actions at the AI use case level."
-        section: "AI use case"
-        page: 19
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "Agencies must make a publicly available statement outlining their approach to AI adoption and use, as prescribed under the Standard for transparency statements."
-        section: "AI transparency statement"
-      - text: "Build public trust through transparency about government AI use."
-        section: "Strategy and oversight — Principles"
-      - text: "AI use is lawful, ethical, responsible, transparent and explainable to the public."
-        section: "AI use case impact assessment — Principles"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "Agencies must assess all new AI use cases against the in-scope criteria ( Appendix C ) to determine if they are in scope of the policy."
-        section: "All new AI use cases"
-        page: 14
-      - text: "The assessment must be documented and take place during the design phase while developing requirements."
-        section: "All new AI use cases"
-        page: 14
-      - text: "incident remediation must be overseen by an appropriate governance body or senior executive and should be undertaken in line with any other legal obligations."
-        section: "Operationalise the responsible use of AI"
-        page: 12
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "Therefore, you should not solely rely on this information when making a commercial decision."
-        section: "Policy for the responsible use of AI in government"
-        page: 1
-  - id: credo-risk-004
-    name: Environmental harm (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "The use, misuse or failure of AI could lead to more than insignificant harm to individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "Criteria and areas of consideration"
-        page: 21
-      - text: "harm to property, communities or the environment."
-        section: "AI incident"
-        page: 20
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "a way to inform staff who are designing and implementing AI use cases about Australia's AI Ethics Principles."
-        section: "Operationalise the responsible use of AI"
-        page: 12
-      - text: "Developing staff AI capability to effectively use AI"
-        section: "Capability development"
-        page: 13
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI."
-        section: "Principles"
-        page: 12
-      - text: "The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "Criteria and areas of consideration"
-        page: 21
-  - id: credo-risk-024
-    name: Civil liability
-    evidence:
-      - text: "violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;"
-        section: "AI incident"
-        page: 20
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;"
-        section: "AI incident"
-        page: 20
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "This policy provides implementation timeframes for agencies to meet some of its requirements."
-        section: "Timeframes"
-        page: 7
-      - text: "Agencies could consider putting in place interim processes and building out their approach as they reach the specified implementation deadline."
-        section: "Timeframes"
-        page: 7
-      - text: "re-validate the AI use case impact assessment by checking its accuracy and updating it when there is a material change in the use case scope, usage or operation."
-        section: "In-scope AI use cases"
-        page: 14
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "Ongoing monitoring and evaluation of AI uses."
-        section: "Principles"
-        page: 14
-      - text: "ensure additional oversight of higher risk AI"
-        section: "AI use case impact assessment"
-        page: 14
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;"
-        section: "AI incident"
-        page: 20
-      - text: "The AI is designed to use personal or sensitive data 1  or security classified information 2 ."
-        section: "Criteria and areas of consideration"
-        page: 21
-      - text: "Guidance on privacy and the use of commercially available AI products"
-        section: "Artificial intelligence"
-        page: 17
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "introduce or exacerbate any privacy or security risks."
-        section: "Experimentation"
-        page: 22
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "Agencies should also monitor changes that are not initiated by the agency. For example, vendor changes and changes in the regulatory environment."
-        section: "In-scope AI use cases"
-        page: 14
-      - text: "Agencies could also ask vendors to provide information on updates through contractual mechanisms."
-        section: "In-scope AI use cases"
-        page: 14
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "The AI is designed to use personal or sensitive data 1  or security classified information 2 ."
-        section: "Criteria and areas of consideration"
-        page: 21
-      - text: "Guidance on privacy and the use of commercially available AI products"
-        section: "Artificial intelligence"
-        page: 17
-      - text: "violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;"
-        section: "AI incident"
-        page: 20
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "The challenges raised by government use of AI are complex and inherently linked with other considerations, such as the APS Code of Conduct, data governance, cyber security, privacy and ethics practices."
-        section: "Existing frameworks"
-        page: 7
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI."
-        section: "Preparedness and operations — Principles"
-      - text: "Agencies must implement mandatory training for all staff on responsible AI use within 12 months of this policy taking effect."
-        section: "Staff training on AI"
-      - text: "regularly monitor and evaluate their use case to ensure it is operating as intended and that risks are being effectively managed."
-        section: "In-scope AI use cases — Mandatory requirements"
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI."
-        section: "Principles"
-        page: 12
-      - text: "The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "Criteria and areas of consideration"
-        page: 21
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "Agencies must designate accountable official(s) to take accountability for implementing this policy."
-        section: "Accountable officials"
-      - text: "Agencies must establish an approach to embed responsible AI practices within 12 months of this policy taking effect."
-        section: "Operationalise the responsible use of AI"
-      - text: "Agencies must designate an accountable use case owner for each in-scope AI use case within 12 months of this policy taking effect. Accountable official(s) are to maintain a register of accountable use case owners."
-        section: "Accountable use case owners"
-  - id: mit-ai-risk-subdomain-6.6
-    name: Environmental harm
-    evidence:
-      - text: "The use, misuse or failure of AI could lead to more than insignificant harm to individuals, communities, organisations, the environment or the collective rights of cultural groups including First Nations peoples."
-        section: "Criteria and areas of consideration"
-        page: 21
-      - text: "harm to property, communities or the environment."
-        section: "AI incident"
-        page: 20
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "Agencies must make a publicly available statement outlining their approach to AI adoption and use, as prescribed under the Standard for transparency statements."
-        section: "AI transparency statement"
-        page: 10
-      - text: "Build public trust through transparency about government AI use."
-        section: "Principles"
-        page: 10
+- id: ai-risk-taxonomy-involvement-in-data-adversarially-adversely-affects-national-security-or-public-interests
+  name: Involvement in data adversarially adversely affects national security or public interests
+  evidence:
+  - text: National security carveouts
+    section: Contents
+    page: 3
+  - text: the use of AI in the defence portfolio.
+    section: National security carveouts
+    page: 6
+  - text: the 'national intelligence community' (NIC) as defined by Section 4 of the Office of National Intelligence Act 2018 .
+    section: National security carveouts
+    page: 6
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
+  name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+    section: Criteria and areas of consideration
+    page: 21
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+    section: Criteria and areas of consideration
+    page: 21
+- id: atlas-data-usage-rights
+  name: Data usage rights restrictions
+  evidence:
+  - text: violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;
+    section: AI incident
+    page: 20
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: The use, misuse or failure of AI could lead to more than insignificant harm to individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: In-scope AI use cases — Criteria
+  - text: The AI technical standard for Australian Government... embeds the principles of fairness, transparency, and accountability into a set of technical requirements and guidelines.
+    section: AI technical standard
+  - text: The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: In-scope AI use cases — Criteria
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: Criteria and areas of consideration
+    page: 21
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: If an agency adopts an out-of-scope AI use case, they must assess whether the use case becomes in-scope of this policy if there is a material change in the scope, usage or operation of the solution.
+    section: Out-of-scope AI use cases
+    page: 16
+  - text: AI systems can have one or more applications, which can each differ in their intended purpose, functionality and risk level.
+    section: AI use case
+    page: 19
+  - text: The policy focuses on conducting assessments and applying actions at the AI use case level.
+    section: AI use case
+    page: 19
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: Agencies must make a publicly available statement outlining their approach to AI adoption and use, as prescribed under the Standard for transparency statements.
+    section: AI transparency statement
+  - text: Build public trust through transparency about government AI use.
+    section: Strategy and oversight — Principles
+  - text: AI use is lawful, ethical, responsible, transparent and explainable to the public.
+    section: AI use case impact assessment — Principles
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: Agencies must assess all new AI use cases against the in-scope criteria ( Appendix C ) to determine if they are in scope of the policy.
+    section: All new AI use cases
+    page: 14
+  - text: The assessment must be documented and take place during the design phase while developing requirements.
+    section: All new AI use cases
+    page: 14
+  - text: incident remediation must be overseen by an appropriate governance body or senior executive and should be undertaken in line with any other legal obligations.
+    section: Operationalise the responsible use of AI
+    page: 12
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: Therefore, you should not solely rely on this information when making a commercial decision.
+    section: Policy for the responsible use of AI in government
+    page: 1
+- id: credo-risk-004
+  name: Environmental harm (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: The use, misuse or failure of AI could lead to more than insignificant harm to individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: Criteria and areas of consideration
+    page: 21
+  - text: harm to property, communities or the environment.
+    section: AI incident
+    page: 20
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: a way to inform staff who are designing and implementing AI use cases about Australia's AI Ethics Principles.
+    section: Operationalise the responsible use of AI
+    page: 12
+  - text: Developing staff AI capability to effectively use AI
+    section: Capability development
+    page: 13
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI.
+    section: Principles
+    page: 12
+  - text: The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: Criteria and areas of consideration
+    page: 21
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;
+    section: AI incident
+    page: 20
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;
+    section: AI incident
+    page: 20
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: This policy provides implementation timeframes for agencies to meet some of its requirements.
+    section: Timeframes
+    page: 7
+  - text: Agencies could consider putting in place interim processes and building out their approach as they reach the specified implementation deadline.
+    section: Timeframes
+    page: 7
+  - text: re-validate the AI use case impact assessment by checking its accuracy and updating it when there is a material change in the use case scope, usage or operation.
+    section: In-scope AI use cases
+    page: 14
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: Ongoing monitoring and evaluation of AI uses.
+    section: Principles
+    page: 14
+  - text: ensure additional oversight of higher risk AI
+    section: AI use case impact assessment
+    page: 14
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;
+    section: AI incident
+    page: 20
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+    section: Criteria and areas of consideration
+    page: 21
+  - text: Guidance on privacy and the use of commercially available AI products
+    section: Artificial intelligence
+    page: 17
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: introduce or exacerbate any privacy or security risks.
+    section: Experimentation
+    page: 22
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: Agencies should also monitor changes that are not initiated by the agency. For example, vendor changes and changes in the regulatory environment.
+    section: In-scope AI use cases
+    page: 14
+  - text: Agencies could also ask vendors to provide information on updates through contractual mechanisms.
+    section: In-scope AI use cases
+    page: 14
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+    section: Criteria and areas of consideration
+    page: 21
+  - text: Guidance on privacy and the use of commercially available AI products
+    section: Artificial intelligence
+    page: 17
+  - text: violations of human rights or harms arising from a breach of obligations under applicable laws, including intellectual property, privacy and Indigenous cultural and intellectual property;
+    section: AI incident
+    page: 20
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: The challenges raised by government use of AI are complex and inherently linked with other considerations, such as the APS Code of Conduct, data governance, cyber security, privacy and ethics
+      practices.
+    section: Existing frameworks
+    page: 7
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI.
+    section: Preparedness and operations — Principles
+  - text: Agencies must implement mandatory training for all staff on responsible AI use within 12 months of this policy taking effect.
+    section: Staff training on AI
+  - text: regularly monitor and evaluate their use case to ensure it is operating as intended and that risks are being effectively managed.
+    section: In-scope AI use cases — Mandatory requirements
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI.
+    section: Principles
+    page: 12
+  - text: The use of AI will materially influence administrative decisions that affect individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: Criteria and areas of consideration
+    page: 21
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: Agencies must designate accountable official(s) to take accountability for implementing this policy.
+    section: Accountable officials
+  - text: Agencies must establish an approach to embed responsible AI practices within 12 months of this policy taking effect.
+    section: Operationalise the responsible use of AI
+  - text: Agencies must designate an accountable use case owner for each in-scope AI use case within 12 months of this policy taking effect. Accountable official(s) are to maintain a register of accountable
+      use case owners.
+    section: Accountable use case owners
+- id: mit-ai-risk-subdomain-6.6
+  name: Environmental harm
+  evidence:
+  - text: The use, misuse or failure of AI could lead to more than insignificant harm to individuals, communities, organisations, the environment or the collective rights of cultural groups including First
+      Nations peoples.
+    section: Criteria and areas of consideration
+    page: 21
+  - text: harm to property, communities or the environment.
+    section: AI incident
+    page: 20
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: Agencies must make a publicly available statement outlining their approach to AI adoption and use, as prescribed under the Standard for transparency statements.
+    section: AI transparency statement
+    page: 10
+  - text: Build public trust through transparency about government AI use.
+    section: Principles
+    page: 10
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: harm to property, communities or the environment.
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: setting consistent requirements for transparency and accountability
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+- id: atlas-unexplainable-output
+  name: Unexplainable output
+  evidence:
+  - text: APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI.
+  - text: AI use is lawful, ethical, responsible, transparent and explainable to the public.
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+  - text: introduce or exacerbate any privacy or security risks.
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: It embeds the principles of fairness, transparency, and accountability into a set of technical requirements and guidelines.
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1  or security classified information 2 .
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: It embeds the principles of fairness, transparency, and accountability into a set of technical requirements and guidelines.
+- id: credo-risk-007
+  name: Inadequate observability (Slatteryet al., 2024)
+  evidence:
+  - text: Ongoing monitoring and evaluation of AI uses.
+- id: credo-risk-009
+  name: Black box decisionmaking (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: APS officers need to be able to explain, justify and take ownership of advice and decisions when using AI.
+  - text: AI use is lawful, ethical, responsible, transparent and explainable to the public.
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: It embeds the principles of fairness, transparency, and accountability into a set of technical requirements and guidelines.
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: The AI is designed to use personal or sensitive data 1 or security classified information 2 .
+  - text: introduce or exacerbate any privacy or security risks.

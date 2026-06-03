@@ -1,443 +1,543 @@
-# reviewed: 2026-05-26 — revised with gap analysis (added 15 missing cross-framework risks)
 risks:
-  - id: ai-risk-taxonomy-model-attacks-(membership-inference,-model-inversion)---pii-(personal-identifiable-information)
-    name: Model Attacks (membership inference, model inversion) - PII (Personal Identifiable Information)
-    evidence:
-      - text: "Model inversion attacks"
-        section: "5.5 Information Security"
-        page: 6
-      - text: "Membership inference attacks"
-        section: "5.5 Information Security"
-        page: 6
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
-    name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
-    evidence:
-      - text: "Biometric data for user logins/identification (as defined by UK GDPR Article 4.14) must not be used for any AI technology within Trust-owned solutions."
-        section: "5.3 Operation and Monitoring"
-        page: 5
-      - text: "surveillance concerns  [eg.RIPA]"
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-  - id: ai-risk-taxonomy-unauthorized-processing---biometric-data-(facial-recognition)
-    name: Unauthorized processing - Biometric data (facial recognition)
-    evidence:
-      - text: "Biometric data for user logins/identification (as defined by UK GDPR Article 4.14) must not be used for any AI technology within Trust-owned solutions."
-        section: "5.3 Operation and Monitoring"
-        page: 5
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential data in prompt
-    evidence:
-      - text: "Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution. This includes but is not limited to: Sensitive information; Patient Information; Staff Information; Intellectual Property; Proprietary Code or proprietary information; Passwords; Keys; credit card numbers or other financial information."
-        section: "8 Do's and Don'ts"
-      - text: "Data marked as Sensitive/Highly Sensitive or restricted must not be used in AI solutions unless wholly owned by the Trust and supported by appropriate contractual clauses."
-        section: "5.4 Information Governance and Resilience"
-      - text: "Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach."
-        section: "5.6 Information Governance and Security Incidents"
-  - id: atlas-data-acquisition
-    name: Data acquisition restrictions
-    evidence:
-      - text: "For existing data sets to train the AI system, colleagues must assess the quantity and suitability of available data that will be needed by the system."
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-      - text: "the nature, scope, context and purposes of the processing of personal data by the AI system"
-        section: "2 Rationale"
-        page: 2
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "All development and procurement must take into account data privacy; consent (& opt out), surveillance concerns  [eg.RIPA]"
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-      - text: "The LLM itself may store and use the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR"
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "Ensure transparency regarding collection and processing of data, to include annotation, labelling, cleaning, enrichment, and aggregation."
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-      - text: "AI prompts should be documented and standardised."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Documentation of these actions must be retained as part of any project."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "Other nations legislation regarding use of AI should also be considered."
-        section: "7.2  Other Considerations"
-        page: 8
-      - text: "Only information that is already available in the public domain should be used, unless data access and sharing can be locked down and guaranteed via contractual clauses."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "The LLM itself may store and use the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR"
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "Remember that an LLM itself may store the information entered into it insecurely"
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "mitigating risks connected with the loss and breach of personal data."
-        section: "4 Duties"
-        page: 3
-      - text: "Bear this in mind to prevent a data breach of sensitive information."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "They can sometimes generate incorrect or misleading information that can appear correct."
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-      - text: "they can sometimes generate incorrect or misleading information."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: atlas-harmful-code-generation
-    name: Harmful code generation
-    evidence:
-      - text: "When using AI tools in system development, it must not be assumed that the AI generated code is inherently more secure. Code should be static and dynamically tested to ensure secure coding has been achieved."
-        section: "5.2 Development"
-      - text: "AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating sensitive Trust data (e.g. personal, patient or financial information), or to evade detection."
-        section: "3.1 This policy is intended to"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "Data requirements for all AI projects with respect to the system's intended uses, stakeholders, and the geographic areas where the system will be deployed - must be defined and documented."
-        section: "5.1 Documentation of use"
-        page: 4
-  - id: atlas-ip-information-in-prompt
-    name: IP information in prompt
-    evidence:
-      - text: "Under no circumstances should personal identifiable or business sensitive information be entered in to the LLM."
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-      - text: "All development and procurement must take into account data privacy; consent (& opt out), surveillance concerns  [eg.RIPA] data sharing, intellectual property; equality of use; copyright law; FOI; etc."
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "Data Processing or Sharing Agreements (DPA) and Data Privacy Impact Assessments (DPIA) must be completed with regards to risk assessment and Data Sharing respectively."
-        section: "5.4 Information Governance and Resilience"
-        page: 5
-      - text: "The Head of Information Security and Risk will ensure this policy is kept up to date. They are responsible for assurance of technical and organisational security measures at the Trust, and mitigating risks connected with the loss and breach of personal data."
-        section: "4 Duties"
-        page: 3
-      - text: "They are responsible for risk assessment of and security incident management involving AI solutions in use at the Trust."
-        section: "4 Duties"
-        page: 3
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "LLMs should be used with caution, and their output should always be verified via human intervention."
-        section: "5.4 Information Governance and Resilience"
-      - text: "LLMs are trained on massive datasets of text and code, and are still under development. They can sometimes generate incorrect or misleading information that can appear correct."
-        section: "5.4 Information Governance and Resilience"
-      - text: "Output from LLMs should be validated and correlated with other trusted sources of information. Fact-check all content. False positives and negatives do occur."
-        section: "8 Do's and Don'ts"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "mitigating risks connected with the loss and breach of personal data."
-        section: "4 Duties"
-        page: 3
-      - text: "the nature, scope, context and purposes of the processing of personal data by the AI system"
-        section: "2 Rationale"
-        page: 2
-      - text: "AI Data classification must be determined along with sensitivity (e.g. Identifiable; Anonymous; Synthetic data)"
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Under no circumstances should personal identifiable or business sensitive information be entered in to the LLM."
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-  - id: atlas-plagiarism
-    name: "Impact on education: plagiarism"
-    evidence:
-      - text: "Passing off work generated by AI is not acceptable, and will be treated as seriously as plagiarism."
-        section: "7.1  Education"
-        page: 7
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "Bear this in mind to prevent a data breach of sensitive information."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "The LLM itself may store and use the information entered into it insecurely"
-        section: "5.4 Information Governance and Resilience"
-        page: 6
-      - text: "The Trust must ensure Confidentiality, Integrity and Availability of Trust data and computer assets when using Artificial Intelligence technology."
-        section: "IT Security and Information Governance Policy"
-        page: 1
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "Ensure transparency regarding collection and processing of data, to include annotation, labelling, cleaning, enrichment, and aggregation."
-        section: "5.4 Information Governance and Resilience"
-      - text: "AI systems should have measures in place addressing traceability during their lifecycles."
-        section: "5.2 Development"
-      - text: "Appropriate Transparency and Explainability"
-        section: "5.2 Development"
-  - id: credo-risk-012
-    name: Unequal access to AI benefits
-    evidence:
-      - text: "AI tools have the potential to enhance learning, and can support inclusivity and accessibility when used appropriately."
-        section: "7.1  Education"
-        page: 7
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "LLMs should only be used for tasks that are appropriate for their capabilities."
-        section: "5.4 Information Governance and Resilience"
-      - text: "LLMs should not be used to make medical diagnoses or to provide medical advice if not approved for use as medical device."
-        section: "5.4 Information Governance and Resilience"
-      - text: "LLM output must always be verified via human intervention."
-        section: "8 Do's and Don'ts"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "AI tools have the potential to enhance learning, and can support inclusivity and accessibility when used appropriately. It is important that you understand the potential risks and benefits of these tools if you plan to use them during your studies."
-        section: "7.1 Education"
-      - text: "Line Managers must ensure that staff have access to, are aware and understand the content of this Policy and other relevant documents and enforce their contents."
-        section: "4 Duties"
-      - text: "Provide security/governance guidance to any user wishing to use AI tools."
-        section: "3.1 This policy is intended to"
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "they can sometimes generate incorrect or misleading information."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Output from LLMs should be validated and correlated with other trusted sources of information. Fact-check all content."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Misinformation spread"
-        section: "5.5 Information Security"
-        page: 6
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "Regulatory compliance: All development and procurement must take into account data privacy; consent (& opt out), surveillance concerns [eg.RIPA] data sharing, intellectual property; equality of use; copyright law; FOI; etc."
-        section: "5.4 Information Governance and Resilience"
-      - text: "The Trust must meet security requirements in line with the Trust and NHS information security policy and standards, laws and regulations, and contractual obligations."
-        section: "2 Rationale"
-      - text: "Other nations legislation regarding use of AI should also be considered. (EU/US/China etc..) For example, the EU AI Act is referenced in section 9 of this document."
-        section: "7.2 Other Considerations"
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "which put GSTT at risk of not being compliant with UK data protection law."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: credo-risk-026
-    name: Fraud, scams, and targeted manipulation
-    evidence:
-      - text: "Monitoring for AI specific attacks (e.g. generate phishing emails; malicious code; QR Codes; Deepfakes; malware; scrape internet; to obtain credentials, personal Data or financial information; or evade detection) will be carried out."
-        section: "5.3 Operation and Monitoring"
-        page: 5
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "This process must be repeated [periodically, and] in the event that the AI develops beyond the documented tolerances of current documented use and/or current design."
-        section: "5.1 Documentation of use"
-        page: 4
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "AI solutions must have stakeholders who are responsible and accountable for troubleshooting, managing, operating, overseeing, and controlling the system."
-        section: "5.3 Operation and Monitoring"
-        page: 5
-  - id: credo-risk-035
-    name: Lack of robustness (Slattery et al., 2024)
-    evidence:
-      - text: "Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks."
-        section: "8 Do's and Don'ts"
-      - text: "The Trust must guard against security risks specific to AI solutions, including but not limited to: Adversarial examples"
-        section: "5.5 Information Security"
-      - text: "When developing AI, make sure that Disaster Recovery and Resilience is considered at solution design stage."
-        section: "8 Do's and Don'ts"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach."
-        section: "5.6 Information Governance and Security Incidents"
-        page: 7
-      - text: "Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself."
-        section: "5.5 Information Security"
-        page: 6
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach."
-        section: "5.6 Information Governance and Security Incidents"
-        page: 7
-      - text: "Bear this in mind to prevent a data breach of sensitive information."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Remember that an LLM itself may store the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR"
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: credo-risk-038
-    name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
-    evidence:
-      - text: "Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself."
-        section: "5.5 Information Security"
-      - text: "The LLM itself may store and use the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR, which could lead to risk of GSTT not being compliant with data protection law or NHS value sharing frameworks."
-        section: "5.4 Information Governance and Resilience"
-      - text: "Remember that providers can and do monitor conversations to improve their systems and ensure the content complies with their own policies and safety requirements. There are no known assurances regarding their employees, contractors or partners who may view the information you post."
-        section: "8 Do's and Don'ts"
-  - id: credo-risk-039
-    name: AI model and intellectual property theft
-    evidence:
-      - text: "This includes but is not limited to: ... Intellectual Property; Proprietary Code or proprietary information;"
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Ensure security is embedded for any use of AI at the Trust"
-        section: "8 Monitoring and Assurance"
-        page: 9
-      - text: "Clarify security requirements for the development and purchase of AI solutions"
-        section: "8 Monitoring and Assurance"
-        page: 9
-      - text: "The Trust must guard against security risks specific to AI solutions"
-        section: "5.5 Information Security"
-        page: 6
-  - id: credo-risk-041
-    name: Vulnerability to adversarial attacks (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Adversarial examples"
-        section: "5.5 Information Security"
-        page: 6
-      - text: "Trust policy regarding risk management, data protection, security assurance, vulnerability management and penetration testing applies."
-        section: "5.2 Development"
-        page: 4
-      - text: "Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "Adoption and deployment decisions must be documented with appropriate records of information processing, decisions made, and risks assessed, mitigated in line with Trust policy. This process must be repeated [periodically, and] in the event that the AI develops beyond the documented tolerances of current documented use and/or current design."
-        section: "5.1 Documentation of use"
-      - text: "A system owner (also the named Information Asset Owners (IAO)) must be identified for accountability as identified in the Trust Information Governance and Asset Management Policy."
-        section: "5.1 Documentation of use"
-      - text: "AI solutions must have stakeholders who are responsible and accountable for troubleshooting, managing, operating, overseeing, and controlling the system."
-        section: "5.3 Operation and Monitoring"
-  - id: credo-risk-047
-    name: Insufficient upstream transparency (AI, 2023)
-    evidence:
-      - text: "When procuring AI solutions, terms and conditions must be clearly reviewed and ensure that they align with the Trust security standards. Appropriate and relevant Security risk assessments must be completed before procurement."
-        section: "5.2 Development"
-      - text: "Appropriate and relevant Technical security / organisational measures must be included in contracts to ensure security by design. See Trust Third Party Security Policy for further information."
-        section: "5.2 Development"
-      - text: "Third Parties access Trust's information systems comply with this policy. See Third Party Security Policy for further information."
-        section: "4 Duties"
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "When procuring AI solutions, terms and conditions must be clearly reviewed and ensure that they align with the Trust security standards."
-        section: "5.2 Development"
-        page: 4
-      - text: "Data breaches involving any AI tool, including Trust developed and third party solutions, must be reported promptly"
-        section: "5.6 Information Governance and Security Incidents"
-        page: 7
-      - text: "Contractual agreements between The Trust and its third parties."
-        section: "2 Rationale"
-        page: 2
-  - id: credo-risk-004
-    name: Environmental harm
-    evidence:
-      - text: "Power consumption used by AI tools may have operational impact."
-        section: "7.2 Other Considerations"
-  - id: mit-ai-risk-subdomain-1.2
-    name: Exposure to toxic content
-    evidence:
-      - text: "guard against inappropriate content generated by employees"
-        section: "5.5 Information Security"
-        page: 6
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution."
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Remember that an LLM itself may store the information entered into it insecurely"
-        section: "8 Do's and Don'ts"
-        page: 8
-      - text: "Data breaches involving any AI tool, including Trust developed and third party solutions, must be reported promptly via the Trust Incident Management reporting system (RADAR)."
-        section: "5.6 Information Governance and Security Incidents"
-        page: 7
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "Data breaches involving any AI tool, including Trust developed and third party solutions, must be reported promptly"
-        section: "5.6 Information Governance and Security Incidents"
-        page: 7
-      - text: "AI tooling must never be used to circumvent security controls at the Trust.  (For example hacking devices, jailbreak, eavesdropping, etc)."
-        section: "5.5 Information Security"
-        page: 6
-      - text: "Malicious Self-replicating prompts (worms in GenAI ecosystems 2 ) and other GenAI ecosystem compromise"
-        section: "5.5 Information Security"
-        page: 6
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "they can sometimes generate incorrect or misleading information."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: mit-ai-risk-subdomain-4.2
-    name: Cyberattacks, weapon development or use, and mass harm
-    evidence:
-      - text: "AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating sensitive Trust data (e.g. personal, patient or financial information), or to evade detection."
-        section: "3.1 This policy is intended to:"
-        page: 3
-  - id: mit-ai-risk-subdomain-4.3
-    name: Fraud, scams, and targeted manipulation
-    evidence:
-      - text: "Passing off work generated by AI is not acceptable, and will be treated as seriously as plagiarism."
-        section: "7.1  Education"
-        page: 7
-      - text: "Monitoring for AI specific attacks (e.g. generate phishing emails; malicious code; QR Codes; Deepfakes; malware; scrape internet; to obtain credentials, personal Data or financial information; or evade detection) will be carried out."
-        section: "5.3 Operation and Monitoring"
-        page: 5
-      - text: "Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks."
-        section: "8 Do's and Don'ts"
-        page: 8
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "LLMs should not be used to make medical diagnoses or to provide medical advice if not approved for use as medical device."
-        section: "5.4 Information Governance and Resilience"
-      - text: "Significant decisions should not be based solely on the output of any AI system without human intervention."
-        section: "5.4 Information Governance and Resilience"
-      - text: "LLMs should be used in conjunction with other sources of information, such as medical textbooks and clinical guidelines."
-        section: "5.4 Information Governance and Resilience"
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "Embed AI security into the Trust risk management framework."
-        section: "3.1 This policy is intended to"
-      - text: "Data requirements for all AI projects with respect to the system's intended uses, stakeholders, and the geographic areas where the system will be deployed - must be defined and documented."
-        section: "5.1 Documentation of use"
-      - text: "All solutions must follow Architecture and Software Development Life Cycle (SDLC) best practice, and a High Level Design (HLD) must be produced."
-        section: "5.2 Development"
-  - id: mit-ai-risk-subdomain-7.2
-    name: AI possessing dangerous capabilities
-    evidence:
-      - text: "AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating sensitive Trust data (e.g. personal, patient or financial information), or to evade detection."
-        section: "3.1 This policy is intended to:"
-        page: 3
+- id: ai-risk-taxonomy-model-attacks-(membership-inference,-model-inversion)---pii-(personal-identifiable-information)
+  name: Model Attacks (membership inference, model inversion) - PII (Personal Identifiable Information)
+  evidence:
+  - text: Model inversion attacks
+    section: 5.5 Information Security
+    page: 6
+  - text: Membership inference attacks
+    section: 5.5 Information Security
+    page: 6
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
+  name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
+  evidence:
+  - text: Biometric data for user logins/identification (as defined by UK GDPR Article 4.14) must not be used for any AI technology within Trust-owned solutions.
+    section: 5.3 Operation and Monitoring
+    page: 5
+  - text: surveillance concerns  [eg.RIPA]
+    section: 5.4 Information Governance and Resilience
+    page: 6
+- id: ai-risk-taxonomy-unauthorized-processing---biometric-data-(facial-recognition)
+  name: Unauthorized processing - Biometric data (facial recognition)
+  evidence:
+  - text: Biometric data for user logins/identification (as defined by UK GDPR Article 4.14) must not be used for any AI technology within Trust-owned solutions.
+    section: 5.3 Operation and Monitoring
+    page: 5
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: 'Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution.
+      This includes but is not limited to: Sensitive information; Patient Information; Staff Information; Intellectual Property; Proprietary Code or proprietary information; Passwords; Keys; credit card
+      numbers or other financial information.'
+    section: 8 Do's and Don'ts
+  - text: Data marked as Sensitive/Highly Sensitive or restricted must not be used in AI solutions unless wholly owned by the Trust and supported by appropriate contractual clauses.
+    section: 5.4 Information Governance and Resilience
+  - text: Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach.
+    section: 5.6 Information Governance and Security Incidents
+- id: atlas-data-acquisition
+  name: Data acquisition restrictions
+  evidence:
+  - text: For existing data sets to train the AI system, colleagues must assess the quantity and suitability of available data that will be needed by the system.
+    section: 5.4 Information Governance and Resilience
+    page: 6
+  - text: the nature, scope, context and purposes of the processing of personal data by the AI system
+    section: 2 Rationale
+    page: 2
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: All development and procurement must take into account data privacy; consent (& opt out), surveillance concerns  [eg.RIPA]
+    section: 5.4 Information Governance and Resilience
+    page: 6
+  - text: The LLM itself may store and use the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR
+    section: 5.4 Information Governance and Resilience
+    page: 6
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: Ensure transparency regarding collection and processing of data, to include annotation, labelling, cleaning, enrichment, and aggregation.
+    section: 5.4 Information Governance and Resilience
+    page: 6
+  - text: AI prompts should be documented and standardised.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Documentation of these actions must be retained as part of any project.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: Other nations legislation regarding use of AI should also be considered.
+    section: 7.2  Other Considerations
+    page: 8
+  - text: Only information that is already available in the public domain should be used, unless data access and sharing can be locked down and guaranteed via contractual clauses.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: The LLM itself may store and use the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR
+    section: 5.4 Information Governance and Resilience
+    page: 6
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: Remember that an LLM itself may store the information entered into it insecurely
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: mitigating risks connected with the loss and breach of personal data.
+    section: 4 Duties
+    page: 3
+  - text: Bear this in mind to prevent a data breach of sensitive information.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: They can sometimes generate incorrect or misleading information that can appear correct.
+    section: 5.4 Information Governance and Resilience
+    page: 6
+  - text: they can sometimes generate incorrect or misleading information.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: atlas-harmful-code-generation
+  name: Harmful code generation
+  evidence:
+  - text: When using AI tools in system development, it must not be assumed that the AI generated code is inherently more secure. Code should be static and dynamically tested to ensure secure coding has
+      been achieved.
+    section: 5.2 Development
+  - text: AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating
+      sensitive Trust data (e.g. personal, patient or financial information), or to evade detection.
+    section: 3.1 This policy is intended to
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: Data requirements for all AI projects with respect to the system's intended uses, stakeholders, and the geographic areas where the system will be deployed - must be defined and documented.
+    section: 5.1 Documentation of use
+    page: 4
+- id: atlas-ip-information-in-prompt
+  name: IP information in prompt
+  evidence:
+  - text: Under no circumstances should personal identifiable or business sensitive information be entered in to the LLM.
+    section: 5.4 Information Governance and Resilience
+    page: 6
+  - text: All development and procurement must take into account data privacy; consent (& opt out), surveillance concerns  [eg.RIPA] data sharing, intellectual property; equality of use; copyright law;
+      FOI; etc.
+    section: 5.4 Information Governance and Resilience
+    page: 6
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: Data Processing or Sharing Agreements (DPA) and Data Privacy Impact Assessments (DPIA) must be completed with regards to risk assessment and Data Sharing respectively.
+    section: 5.4 Information Governance and Resilience
+    page: 5
+  - text: The Head of Information Security and Risk will ensure this policy is kept up to date. They are responsible for assurance of technical and organisational security measures at the Trust, and mitigating
+      risks connected with the loss and breach of personal data.
+    section: 4 Duties
+    page: 3
+  - text: They are responsible for risk assessment of and security incident management involving AI solutions in use at the Trust.
+    section: 4 Duties
+    page: 3
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: LLMs should be used with caution, and their output should always be verified via human intervention.
+    section: 5.4 Information Governance and Resilience
+  - text: LLMs are trained on massive datasets of text and code, and are still under development. They can sometimes generate incorrect or misleading information that can appear correct.
+    section: 5.4 Information Governance and Resilience
+  - text: Output from LLMs should be validated and correlated with other trusted sources of information. Fact-check all content. False positives and negatives do occur.
+    section: 8 Do's and Don'ts
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: mitigating risks connected with the loss and breach of personal data.
+    section: 4 Duties
+    page: 3
+  - text: the nature, scope, context and purposes of the processing of personal data by the AI system
+    section: 2 Rationale
+    page: 2
+  - text: AI Data classification must be determined along with sensitivity (e.g. Identifiable; Anonymous; Synthetic data)
+    section: 5.4 Information Governance and Resilience
+    page: 6
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Under no circumstances should personal identifiable or business sensitive information be entered in to the LLM.
+    section: 5.4 Information Governance and Resilience
+    page: 6
+- id: atlas-plagiarism
+  name: 'Impact on education: plagiarism'
+  evidence:
+  - text: Passing off work generated by AI is not acceptable, and will be treated as seriously as plagiarism.
+    section: 7.1  Education
+    page: 7
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: Bear this in mind to prevent a data breach of sensitive information.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: The LLM itself may store and use the information entered into it insecurely
+    section: 5.4 Information Governance and Resilience
+    page: 6
+  - text: The Trust must ensure Confidentiality, Integrity and Availability of Trust data and computer assets when using Artificial Intelligence technology.
+    section: IT Security and Information Governance Policy
+    page: 1
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: Ensure transparency regarding collection and processing of data, to include annotation, labelling, cleaning, enrichment, and aggregation.
+    section: 5.4 Information Governance and Resilience
+  - text: AI systems should have measures in place addressing traceability during their lifecycles.
+    section: 5.2 Development
+  - text: Appropriate Transparency and Explainability
+    section: 5.2 Development
+- id: credo-risk-012
+  name: Unequal access to AI benefits
+  evidence:
+  - text: AI tools have the potential to enhance learning, and can support inclusivity and accessibility when used appropriately.
+    section: 7.1  Education
+    page: 7
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: LLMs should only be used for tasks that are appropriate for their capabilities.
+    section: 5.4 Information Governance and Resilience
+  - text: LLMs should not be used to make medical diagnoses or to provide medical advice if not approved for use as medical device.
+    section: 5.4 Information Governance and Resilience
+  - text: LLM output must always be verified via human intervention.
+    section: 8 Do's and Don'ts
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: AI tools have the potential to enhance learning, and can support inclusivity and accessibility when used appropriately. It is important that you understand the potential risks and benefits of
+      these tools if you plan to use them during your studies.
+    section: 7.1 Education
+  - text: Line Managers must ensure that staff have access to, are aware and understand the content of this Policy and other relevant documents and enforce their contents.
+    section: 4 Duties
+  - text: Provide security/governance guidance to any user wishing to use AI tools.
+    section: 3.1 This policy is intended to
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: they can sometimes generate incorrect or misleading information.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Output from LLMs should be validated and correlated with other trusted sources of information. Fact-check all content.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Misinformation spread
+    section: 5.5 Information Security
+    page: 6
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: 'Regulatory compliance: All development and procurement must take into account data privacy; consent (& opt out), surveillance concerns [eg.RIPA] data sharing, intellectual property; equality
+      of use; copyright law; FOI; etc.'
+    section: 5.4 Information Governance and Resilience
+  - text: The Trust must meet security requirements in line with the Trust and NHS information security policy and standards, laws and regulations, and contractual obligations.
+    section: 2 Rationale
+  - text: Other nations legislation regarding use of AI should also be considered. (EU/US/China etc..) For example, the EU AI Act is referenced in section 9 of this document.
+    section: 7.2 Other Considerations
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: which put GSTT at risk of not being compliant with UK data protection law.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: credo-risk-026
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: Monitoring for AI specific attacks (e.g. generate phishing emails; malicious code; QR Codes; Deepfakes; malware; scrape internet; to obtain credentials, personal Data or financial information;
+      or evade detection) will be carried out.
+    section: 5.3 Operation and Monitoring
+    page: 5
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: This process must be repeated [periodically, and] in the event that the AI develops beyond the documented tolerances of current documented use and/or current design.
+    section: 5.1 Documentation of use
+    page: 4
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: AI solutions must have stakeholders who are responsible and accountable for troubleshooting, managing, operating, overseeing, and controlling the system.
+    section: 5.3 Operation and Monitoring
+    page: 5
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks.
+    section: 8 Do's and Don'ts
+  - text: 'The Trust must guard against security risks specific to AI solutions, including but not limited to: Adversarial examples'
+    section: 5.5 Information Security
+  - text: When developing AI, make sure that Disaster Recovery and Resilience is considered at solution design stage.
+    section: 8 Do's and Don'ts
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach.
+    section: 5.6 Information Governance and Security Incidents
+    page: 7
+  - text: Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself.
+    section: 5.5 Information Security
+    page: 6
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach.
+    section: 5.6 Information Governance and Security Incidents
+    page: 7
+  - text: Bear this in mind to prevent a data breach of sensitive information.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Remember that an LLM itself may store the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR
+    section: 8 Do's and Don'ts
+    page: 8
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself.
+    section: 5.5 Information Security
+  - text: The LLM itself may store and use the information entered into it insecurely or in a country where data protection laws are not in line with UK GDPR, which could lead to risk of GSTT not being
+      compliant with data protection law or NHS value sharing frameworks.
+    section: 5.4 Information Governance and Resilience
+  - text: Remember that providers can and do monitor conversations to improve their systems and ensure the content complies with their own policies and safety requirements. There are no known assurances
+      regarding their employees, contractors or partners who may view the information you post.
+    section: 8 Do's and Don'ts
+- id: credo-risk-039
+  name: AI model and intellectual property theft
+  evidence:
+  - text: 'This includes but is not limited to: ... Intellectual Property; Proprietary Code or proprietary information;'
+    section: 8 Do's and Don'ts
+    page: 8
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Ensure security is embedded for any use of AI at the Trust
+    section: 8 Monitoring and Assurance
+    page: 9
+  - text: Clarify security requirements for the development and purchase of AI solutions
+    section: 8 Monitoring and Assurance
+    page: 9
+  - text: The Trust must guard against security risks specific to AI solutions
+    section: 5.5 Information Security
+    page: 6
+- id: credo-risk-041
+  name: Vulnerability to adversarial attacks (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Adversarial examples
+    section: 5.5 Information Security
+    page: 6
+  - text: Trust policy regarding risk management, data protection, security assurance, vulnerability management and penetration testing applies.
+    section: 5.2 Development
+    page: 4
+  - text: Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: Adoption and deployment decisions must be documented with appropriate records of information processing, decisions made, and risks assessed, mitigated in line with Trust policy. This process must
+      be repeated [periodically, and] in the event that the AI develops beyond the documented tolerances of current documented use and/or current design.
+    section: 5.1 Documentation of use
+  - text: A system owner (also the named Information Asset Owners (IAO)) must be identified for accountability as identified in the Trust Information Governance and Asset Management Policy.
+    section: 5.1 Documentation of use
+  - text: AI solutions must have stakeholders who are responsible and accountable for troubleshooting, managing, operating, overseeing, and controlling the system.
+    section: 5.3 Operation and Monitoring
+- id: credo-risk-047
+  name: Insufficient upstream transparency (AI, 2023)
+  evidence:
+  - text: When procuring AI solutions, terms and conditions must be clearly reviewed and ensure that they align with the Trust security standards. Appropriate and relevant Security risk assessments must
+      be completed before procurement.
+    section: 5.2 Development
+  - text: Appropriate and relevant Technical security / organisational measures must be included in contracts to ensure security by design. See Trust Third Party Security Policy for further information.
+    section: 5.2 Development
+  - text: Third Parties access Trust's information systems comply with this policy. See Third Party Security Policy for further information.
+    section: 4 Duties
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: When procuring AI solutions, terms and conditions must be clearly reviewed and ensure that they align with the Trust security standards.
+    section: 5.2 Development
+    page: 4
+  - text: Data breaches involving any AI tool, including Trust developed and third party solutions, must be reported promptly
+    section: 5.6 Information Governance and Security Incidents
+    page: 7
+  - text: Contractual agreements between The Trust and its third parties.
+    section: 2 Rationale
+    page: 2
+- id: credo-risk-004
+  name: Environmental harm
+  evidence:
+  - text: Power consumption used by AI tools may have operational impact.
+    section: 7.2 Other Considerations
+- id: mit-ai-risk-subdomain-1.2
+  name: Exposure to toxic content
+  evidence:
+  - text: guard against inappropriate content generated by employees
+    section: 5.5 Information Security
+    page: 6
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: Under no circumstances should personal identifiable or business sensitive information be entered into a Large Language Model (LLM) or publicly available Artificial Intelligence (AI) solution.
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Remember that an LLM itself may store the information entered into it insecurely
+    section: 8 Do's and Don'ts
+    page: 8
+  - text: Data breaches involving any AI tool, including Trust developed and third party solutions, must be reported promptly via the Trust Incident Management reporting system (RADAR).
+    section: 5.6 Information Governance and Security Incidents
+    page: 7
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: Data breaches involving any AI tool, including Trust developed and third party solutions, must be reported promptly
+    section: 5.6 Information Governance and Security Incidents
+    page: 7
+  - text: AI tooling must never be used to circumvent security controls at the Trust.  (For example hacking devices, jailbreak, eavesdropping, etc).
+    section: 5.5 Information Security
+    page: 6
+  - text: Malicious Self-replicating prompts (worms in GenAI ecosystems 2 ) and other GenAI ecosystem compromise
+    section: 5.5 Information Security
+    page: 6
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: they can sometimes generate incorrect or misleading information.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: mit-ai-risk-subdomain-4.2
+  name: Cyberattacks, weapon development or use, and mass harm
+  evidence:
+  - text: AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating
+      sensitive Trust data (e.g. personal, patient or financial information), or to evade detection.
+    section: '3.1 This policy is intended to:'
+    page: 3
+- id: mit-ai-risk-subdomain-4.3
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: Passing off work generated by AI is not acceptable, and will be treated as seriously as plagiarism.
+    section: 7.1  Education
+    page: 7
+  - text: Monitoring for AI specific attacks (e.g. generate phishing emails; malicious code; QR Codes; Deepfakes; malware; scrape internet; to obtain credentials, personal Data or financial information;
+      or evade detection) will be carried out.
+    section: 5.3 Operation and Monitoring
+    page: 5
+  - text: Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks.
+    section: 8 Do's and Don'ts
+    page: 8
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: LLMs should not be used to make medical diagnoses or to provide medical advice if not approved for use as medical device.
+    section: 5.4 Information Governance and Resilience
+  - text: Significant decisions should not be based solely on the output of any AI system without human intervention.
+    section: 5.4 Information Governance and Resilience
+  - text: LLMs should be used in conjunction with other sources of information, such as medical textbooks and clinical guidelines.
+    section: 5.4 Information Governance and Resilience
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: Embed AI security into the Trust risk management framework.
+    section: 3.1 This policy is intended to
+  - text: Data requirements for all AI projects with respect to the system's intended uses, stakeholders, and the geographic areas where the system will be deployed - must be defined and documented.
+    section: 5.1 Documentation of use
+  - text: All solutions must follow Architecture and Software Development Life Cycle (SDLC) best practice, and a High Level Design (HLD) must be produced.
+    section: 5.2 Development
+- id: mit-ai-risk-subdomain-7.2
+  name: AI possessing dangerous capabilities
+  evidence:
+  - text: AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating
+      sensitive Trust data (e.g. personal, patient or financial information), or to evade detection.
+    section: '3.1 This policy is intended to:'
+    page: 3
+- id: ai-risk-taxonomy-model-attacks-(membership-inference,-model-inversion)---demographic-data
+  name: Model Attacks (membership inference, model inversion) - Demographic data
+  evidence:
+  - text: Model inversion attacks
+  - text: Membership inference attacks
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII (Personal Identifiable Information)
+  evidence:
+  - text: Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself.
+  - text: Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach.
+- id: atlas-jailbreaking
+  name: Jailbreaking
+  evidence:
+  - text: AI tooling must never be used to circumvent security controls at the Trust.  (For example hacking devices, jailbreak, eavesdropping, etc).
+- id: credo-risk-007
+  name: Inadequate observability (Slatteryet al., 2024)
+  evidence:
+  - text: Accountability / Audit capabilities, including forensic evidence
+  - text: Data traceability must be available.
+- id: credo-risk-027
+  name: Cyberattacks, weapon development, and mass harm (AI, 2023; IBM, 2024)
+  evidence:
+  - text: AI can be used by cybercriminals to generate phishing emails, malicious code, QR codes, deepfake video / audio, malware, internet scraping, to obtain credentials for hacking accounts, exfiltrating
+      sensitive Trust data (e.g. personal, patient or financial information), or to evade detection.
+- id: credo-risk-028
+  name: Coordinated influence operations (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Misinformation spread
+  - text: They can sometimes generate incorrect or misleading information that can appear correct.
+- id: ai-risk-taxonomy-model-attacks-(membership-inference,-model-inversion)---communication-records
+  name: Model Attacks (membership inference, model inversion) - Communication Records
+  evidence:
+  - text: Model inversion attacks
+  - text: Membership inference attacks
+- id: ai-risk-taxonomy-model-attacks-(membership-inference,-model-inversion)---location-data
+  name: Model Attacks (membership inference, model inversion) - Location data
+  evidence:
+  - text: Model inversion attacks
+  - text: Membership inference attacks
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
+  name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
+  evidence:
+  - text: Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself.
+- id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
+  name: Unauthorized generation - PII (Personal Identifiable Information)
+  evidence:
+  - text: Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself.
+- id: ai-risk-taxonomy-unauthorized-inference/synthesis---pii-(personal-identifiable-information)
+  name: Unauthorized inference/synthesis - PII (Personal Identifiable Information)
+  evidence:
+  - text: Personal data of users of the AI system being inadvertently revealed by the outputs of the system itself.
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: Input of Trust sensitive and proprietary data outside of those approved in 5.6.2 into public, free or publicly available AI tools such as ChatGPT or OSINT tools will be considered a data breach.
+- id: atlas-data-curation
+  name: Improper data curation
+  evidence:
+  - text: For existing data sets to train the AI system, colleagues must assess the quantity and suitability of available data that will be needed by the system.
+- id: atlas-direct-instructions-attack
+  name: Direct instructions attack
+  evidence:
+  - text: Ensure that adversarial scenarios are tested against solutions to ensure resilience in the face of manipulative attacks.
+- id: atlas-incomplete-advice
+  name: Incomplete advice
+  evidence:
+  - text: LLMs should not be used to make medical diagnoses or to provide medical advice if not approved for use as medical device.
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: ensuring the safety of patients and the public and the protection of their rights; and upholding the Trust's probity with respect to legal obligations and standards of care.
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: surveillance concerns  [eg.RIPA]
+  - text: Remember that providers can and do monitor conversations to improve their systems and ensure the content complies with their own policies and safety requirements.
+- id: credo-risk-030
+  name: Integration challenges with existing systems
+  evidence:
+  - text: Don't integrate any AI technology with Trust systems without the correct due diligence and approval.
+  - text: Don't install or use a solution that will require an unauthorised change to Trust systems including desktops, firewall rules, etc.
+- id: mit-ai-risk-subdomain-6.3
+  name: Economic and cultural devaluation of human effort
+  evidence:
+  - text: Passing off work generated by AI is not acceptable, and will be treated as seriously as plagiarism.

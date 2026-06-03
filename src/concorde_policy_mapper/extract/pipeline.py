@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
-from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence
+from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group
 from concorde_policy_mapper.extract.index import RiskIndex
 from concorde_policy_mapper.extract.merge import merge_matches
 from concorde_policy_mapper.extract.models import (
@@ -88,6 +88,7 @@ def run_extraction(
     top_n_judge: int = 10,
     min_score_floor: float = 0.70,
     bi_encoder_model: str = "all-mpnet-base-v2",
+    query_instruction: str = "",
     cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-12-v2",
     bm25_rescue_rank: int = 0,
     use_cross_encoder: bool = True,
@@ -99,6 +100,7 @@ def run_extraction(
     no_grounding: bool = False,
     judge_prompt: str = "judge_risk",
     judge_context_tokens: int = 0,
+    expand_siblings: bool = False,
 ) -> ExtractionResult:
     timing: dict[str, float] = {}
     max_workers = config.max_concurrent
@@ -136,6 +138,7 @@ def run_extraction(
         bi_encoder_model=bi_encoder_model,
         cross_encoder_model=cross_encoder_model if use_cross_encoder and not colbert_model else None,
         colbert_model=colbert_model,
+        query_instruction=query_instruction,
     )
     timing["index_ms"] = (time.time() - t0) * 1000
 
@@ -313,6 +316,86 @@ def run_extraction(
     merged = merge_matches(all_matches)
     timing["merge_ms"] = (time.time() - t0) * 1000
 
+    expansion_stats = {"expanded_candidates": 0, "expanded_grounded": 0, "expansion_groups": 0}
+    if expand_siblings and not no_grounding and client is not None:
+        from concorde_policy_mapper.extract.expand import (
+            build_expansion_graph,
+            expand_with_siblings,
+            group_for_grounding,
+        )
+
+        t0 = time.time()
+        expansion_graph = build_expansion_graph(risks)
+        risk_lookup = {
+            r.id: {"name": r.name or "", "description": r.description or ""}
+            for r in risks
+        }
+        risk_to_parent = {}
+        for r in risks:
+            parent = getattr(r, "isPartOf", "") or ""
+            if parent:
+                risk_to_parent[r.id] = parent
+
+        merged_ids = {m.risk_id for m in merged}
+        expanded = expand_with_siblings(merged_ids, expansion_graph, risk_lookup)
+        expansion_stats["expanded_candidates"] = len(expanded)
+
+        if expanded:
+            found_risk_chunks: dict[str, set[int]] = {}
+            for cr in chunk_results:
+                for candidate in cr.accepted:
+                    cid = candidate.risk_id.split(" ")[0].strip()
+                    found_risk_chunks.setdefault(cid, set()).add(cr.chunk_index)
+
+            groups = group_for_grounding(
+                expanded, found_risk_chunks, risk_to_parent, len(chunks),
+            )
+            expansion_stats["expansion_groups"] = len(groups)
+
+            def _ground_group(group):
+                return ground_risk_group(
+                    chunks=chunks,
+                    chunk_indices=group.chunk_indices,
+                    risks=list(group.risk_lookup.values()),
+                    client=client,
+                    model=config.model,
+                    document=str(documents[0]) if documents else "",
+                    call_collector=call_collector,
+                )
+
+            expansion_matches: list[RiskMatch] = []
+            with ThreadPoolExecutor(max_workers=max_workers) as pool:
+                futures = {pool.submit(_ground_group, g): g for g in groups}
+                for future in as_completed(futures):
+                    group = futures[future]
+                    grounded = future.result()
+                    expansion_stats["expanded_grounded"] += len(grounded)
+                    for rid, (evidence, confidence) in grounded.items():
+                        info = risk_lookup.get(rid, {})
+                        expansion_matches.append(
+                            RiskMatch(
+                                risk_id=rid,
+                                risk_name=info.get("name", ""),
+                                risk_description=info.get("description", ""),
+                                taxonomy=index.get_taxonomy(rid),
+                                confidence=0.0,
+                                grounding_confidence=confidence,
+                                accepted_by="expansion",
+                                evidence=evidence,
+                                scores=RetrievalScores(
+                                    bm25_rank=0,
+                                    embedding_distance=0.0,
+                                    cross_encoder_score=0.0,
+                                    rrf_score=0.0,
+                                ),
+                            )
+                        )
+
+            if expansion_matches:
+                merged = merge_matches(merged + expansion_matches)
+
+        timing["expansion_ms"] = (time.time() - t0) * 1000
+
     total_stats = RetrievalStats(
         total_chunks=len(chunks),
         total_candidates_retrieved=sum(
@@ -348,6 +431,8 @@ def run_extraction(
             "no_judge": no_judge,
             "no_grounding": no_grounding,
             "judge_context_tokens": judge_context_tokens,
+            "expand_siblings": expand_siblings,
+            "expansion_stats": expansion_stats,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         },
         chunks=chunk_summaries,

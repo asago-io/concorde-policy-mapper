@@ -1,240 +1,337 @@
-# reviewed: 2026-05-26 — revised with gap analysis (added 11 missing cross-framework risks)
 risks:
-  - id: atlas-data-bias
-    name: Data bias
-    evidence:
-      - text: "This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended."
-        section: "3.2 Inclusivity and Fairness"
-      - text: "AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic."
-        section: "3.2 Inclusivity and Fairness"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "3.4 Privacy by Design"
-        section: "EI-COREAI-POL-1. 0. 0. 1"
-        page: 1
-  - id: atlas-data-transparency
-    name: Lack of training data transparency
-    evidence:
-      - text: "This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended."
-        section: "3.2 Inclusivity and Fairness"
-      - text: "these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation."
-        section: "3.3 Accountability and Lawfulness"
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "They should not cause harm, mislead users, or create unfair or biased outcomes."
-        section: "3.2 Inclusivity and Fairness"
-      - text: "AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic. To ensure fairness, we must build AI systems with fairness and bias issues in mind, test and monitor AI systems regularly and give users the ability to give us feedback."
-        section: "3.2 Inclusivity and Fairness"
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "minimizes unpredictability and hallucinations"
-        section: "3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure"
-        page: 3
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "Our Responsible AI approach is risk-based, the criticality and applicability of each principle being dependent on how and for what purpose each AI system is being used."
-        section: "1. PURPOSE"
-        page: 1
-      - text: "For example, using Natural Language Processing (NLP) to support internal data processing presents a distinct set of risks from using the same technology to flag suspicious customer activity."
-        section: "1. PURPOSE"
-        page: 1
-  - id: atlas-lack-of-model-transparency
-    name: Lack of model transparency
-    evidence:
-      - text: "requiring thoughtful human involvement and a commitment to transparency."
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-      - text: "these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation."
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-      - text: "eBay should be transparent to users about its use of AI."
-        section: "3.5 Transparency: Provide users with transparency into our use of AI"
-        page: 4
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "eBay should be transparent to users about its use of AI. We will promote transparency with disclosures about the type of AI being used within a particular experience or broader disclosures about our AI use more generally."
-        section: "3.5 Transparency"
-      - text: "These transparency efforts should be tailored to the roles, needs, and levels of understanding of the individuals using the AI system."
-        section: "3.5 Transparency"
-  - id: atlas-lack-of-testing-diversity
-    name: Lack of testing diversity
-    evidence:
-      - text: "It also requires that we get representative user feedback where relevant, and design for accessibility to accommodate visual, hearing, and other impairments."
-        section: "3.2 Inclusivity and Fairness"
-      - text: "We strive to ensure our AI systems reflect the diversity of human cultures, backgrounds, and experiences, enabling everyone to engage with and benefit from them."
-        section: "3.2 Inclusivity and Fairness"
-      - text: "eBay should ensure appropriate testing and refining of the AI system to achieve this end."
-        section: "3.1 Reliability, Safety, and Security"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community"
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-      - text: "these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation."
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-      - text: "The Responsible AI principles delineated in this Policy will be operationalized through the Responsible AI Standard, which establishes accountability for adherence to this Policy"
-        section: "1. PURPOSE"
-        page: 1
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "eBay should be transparent to users about its use of AI. We will promote transparency with disclosures about the type of AI being used within a particular experience or broader disclosures about our AI use more generally."
-        section: "3.5 Transparency"
-      - text: "These transparency efforts should be tailored to the roles, needs, and levels of understanding of the individuals using the AI system."
-        section: "3.5 Transparency"
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "They should not cause harm, mislead users, or create unfair or biased outcomes."
-        section: "3.2 Inclusivity and Fairness"
-      - text: "test and monitor AI systems regularly and give users the ability to give us feedback."
-        section: "3.2 Inclusivity and Fairness"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "To the extent personal information is involved, eBay's Privacy principles-which are the backbone of eBay's Privacy program-should guide choices for AI system design, development, deployment, and use."
-        section: "3.4 Privacy by Design: Build AI systems with privacy at the forefront"
-        page: 4
-  - id: credo-risk-012
-    name: Unequal access to AI benefits
-    evidence:
-      - text: "design for accessibility to accommodate visual, hearing, and other impairments."
-        section: "3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences"
-        page: 3
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "human oversight should be integrated throughout the development, launch, and monitoring of AI systems."
-        section: "3.3 Accountability and Lawfulness"
-      - text: "Throughout this lifecycle, decision-making should be informed by the level of risk and potential impact associated with the use case at hand."
-        section: "3.3 Accountability and Lawfulness"
-      - text: "give users the ability to give us feedback."
-        section: "3.2 Inclusivity and Fairness"
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community"
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "eBay should ensure appropriate testing and refining of the AI system to achieve this end."
-        section: "3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure"
-        page: 3
-      - text: "this Policy will be updated, as needed, to remain up to date with new laws and new learnings, technologies, and best practices from within and outside the company."
-        section: "1. PURPOSE"
-        page: 1
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "test and monitor AI systems regularly"
-        section: "3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences"
-        page: 3
-  - id: credo-risk-035
-    name: Lack of robustness (Slattery et al., 2024)
-    evidence:
-      - text: "Every AI system should consistently produce the expected outcome and task it is designed for, across various conditions and in a way that minimizes unpredictability and hallucinations."
-        section: "3.1 Reliability, Safety, and Security"
-      - text: "eBay should ensure appropriate testing and refining of the AI system to achieve this end."
-        section: "3.1 Reliability, Safety, and Security"
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "tradeoffs may be needed to balance the need for transparency with ensuring security and privacy."
-        section: "1. PURPOSE"
-        page: 1
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "eBay will implement internal governance structures and measures to ensure that AI systems perform to the high standards set forth herein, satisfy internal and external expectations, identify, and mitigate potential negative impacts, and more generally to ensure compliance with this Policy."
-        section: "2. SCOPE"
-      - text: "Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community, requiring thoughtful human involvement and a commitment to transparency."
-        section: "3.3 Accountability and Lawfulness"
-      - text: "these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation."
-        section: "3.3 Accountability and Lawfulness"
-  - id: credo-risk-047
-    name: Insufficient upstream transparency (AI, 2023)
-    evidence:
-      - text: "eBay will expect our vendors to adhere through our Supplier Code of Business Conduct & Ethics."
-        section: "2. SCOPE"
-      - text: "eBay should be transparent to users about its use of AI. We will promote transparency with disclosures about the type of AI being used within a particular experience or broader disclosures about our AI use more generally."
-        section: "3.5 Transparency"
-  - id: credo-risk-048
-    name: Upstream third-party dependencies (AI, 2023)
-    evidence:
-      - text: "eBay will expect our vendors to adhere through our Supplier Code of Business Conduct & Ethics."
-        section: "2. SCOPE"
-        page: 2
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic."
-        section: "3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences"
-        page: 3
-      - text: "They should not cause harm, mislead users, or create unfair or biased outcomes."
-        section: "3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences"
-        page: 3
-      - text: "3.2 Inclusivity and Fairness"
-        section: "EI-COREAI-POL-1. 0. 0. 1"
-        page: 1
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "To ensure fairness, we must build AI systems with fairness and bias issues in mind, test and monitor AI systems regularly"
-        section: "3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences"
-        page: 3
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "To the extent personal information is involved, eBay's Privacy principles-which are the backbone of eBay's Privacy program-should guide choices for AI system design, development, deployment, and use."
-        section: "3.4 Privacy by Design: Build AI systems with privacy at the forefront"
-        page: 4
-      - text: "tradeoffs may be needed to balance the need for transparency with ensuring security and privacy."
-        section: "1. PURPOSE"
-        page: 1
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention"
-        section: "3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure"
-        page: 3
-      - text: "eBay recognizes that AI technology comes with unique security risks that require constant attention to stay ahead of these risks."
-        section: "3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure"
-        page: 3
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "Every AI system should consistently produce the expected outcome and task it is designed for, across various conditions and in a way that minimizes unpredictability and hallucinations."
-        section: "3.1 Reliability, Safety, and Security"
-      - text: "They should not cause harm, mislead users, or create unfair or biased outcomes."
-        section: "3.2 Inclusivity and Fairness"
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "human oversight should be integrated throughout the development, launch, and monitoring of AI systems."
-        section: "3.3 Accountability and Lawfulness"
-      - text: "Throughout this lifecycle, decision-making should be informed by the level of risk and potential impact associated with the use case at hand."
-        section: "3.3 Accountability and Lawfulness"
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "In particular, human oversight should be integrated throughout the development, launch, and monitoring of AI systems."
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "requiring thoughtful human involvement and a commitment to transparency."
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
-      - text: "In particular, human oversight should be integrated throughout the development, launch, and monitoring of AI systems."
-        section: "3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI"
-        page: 4
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended.
+    section: 3.2 Inclusivity and Fairness
+  - text: AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic.
+    section: 3.2 Inclusivity and Fairness
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: 3.4 Privacy by Design
+    section: EI-COREAI-POL-1. 0. 0. 1
+    page: 1
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended.
+    section: 3.2 Inclusivity and Fairness
+  - text: these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation.
+    section: 3.3 Accountability and Lawfulness
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: They should not cause harm, mislead users, or create unfair or biased outcomes.
+    section: 3.2 Inclusivity and Fairness
+  - text: AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic. To ensure fairness, we must build AI systems with fairness and
+      bias issues in mind, test and monitor AI systems regularly and give users the ability to give us feedback.
+    section: 3.2 Inclusivity and Fairness
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: minimizes unpredictability and hallucinations
+    section: '3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure'
+    page: 3
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: Our Responsible AI approach is risk-based, the criticality and applicability of each principle being dependent on how and for what purpose each AI system is being used.
+    section: 1. PURPOSE
+    page: 1
+  - text: For example, using Natural Language Processing (NLP) to support internal data processing presents a distinct set of risks from using the same technology to flag suspicious customer activity.
+    section: 1. PURPOSE
+    page: 1
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: requiring thoughtful human involvement and a commitment to transparency.
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+  - text: these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation.
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+  - text: eBay should be transparent to users about its use of AI.
+    section: '3.5 Transparency: Provide users with transparency into our use of AI'
+    page: 4
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: eBay should be transparent to users about its use of AI. We will promote transparency with disclosures about the type of AI being used within a particular experience or broader disclosures about
+      our AI use more generally.
+    section: 3.5 Transparency
+  - text: These transparency efforts should be tailored to the roles, needs, and levels of understanding of the individuals using the AI system.
+    section: 3.5 Transparency
+- id: atlas-lack-of-testing-diversity
+  name: Lack of testing diversity
+  evidence:
+  - text: It also requires that we get representative user feedback where relevant, and design for accessibility to accommodate visual, hearing, and other impairments.
+    section: 3.2 Inclusivity and Fairness
+  - text: We strive to ensure our AI systems reflect the diversity of human cultures, backgrounds, and experiences, enabling everyone to engage with and benefit from them.
+    section: 3.2 Inclusivity and Fairness
+  - text: eBay should ensure appropriate testing and refining of the AI system to achieve this end.
+    section: 3.1 Reliability, Safety, and Security
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+  - text: these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation.
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+  - text: The Responsible AI principles delineated in this Policy will be operationalized through the Responsible AI Standard, which establishes accountability for adherence to this Policy
+    section: 1. PURPOSE
+    page: 1
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: eBay should be transparent to users about its use of AI. We will promote transparency with disclosures about the type of AI being used within a particular experience or broader disclosures about
+      our AI use more generally.
+    section: 3.5 Transparency
+  - text: These transparency efforts should be tailored to the roles, needs, and levels of understanding of the individuals using the AI system.
+    section: 3.5 Transparency
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: They should not cause harm, mislead users, or create unfair or biased outcomes.
+    section: 3.2 Inclusivity and Fairness
+  - text: test and monitor AI systems regularly and give users the ability to give us feedback.
+    section: 3.2 Inclusivity and Fairness
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: To the extent personal information is involved, eBay's Privacy principles-which are the backbone of eBay's Privacy program-should guide choices for AI system design, development, deployment, and
+      use.
+    section: '3.4 Privacy by Design: Build AI systems with privacy at the forefront'
+    page: 4
+- id: credo-risk-012
+  name: Unequal access to AI benefits
+  evidence:
+  - text: design for accessibility to accommodate visual, hearing, and other impairments.
+    section: '3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences'
+    page: 3
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: human oversight should be integrated throughout the development, launch, and monitoring of AI systems.
+    section: 3.3 Accountability and Lawfulness
+  - text: Throughout this lifecycle, decision-making should be informed by the level of risk and potential impact associated with the use case at hand.
+    section: 3.3 Accountability and Lawfulness
+  - text: give users the ability to give us feedback.
+    section: 3.2 Inclusivity and Fairness
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: eBay should ensure appropriate testing and refining of the AI system to achieve this end.
+    section: '3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure'
+    page: 3
+  - text: this Policy will be updated, as needed, to remain up to date with new laws and new learnings, technologies, and best practices from within and outside the company.
+    section: 1. PURPOSE
+    page: 1
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: test and monitor AI systems regularly
+    section: '3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences'
+    page: 3
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: Every AI system should consistently produce the expected outcome and task it is designed for, across various conditions and in a way that minimizes unpredictability and hallucinations.
+    section: 3.1 Reliability, Safety, and Security
+  - text: eBay should ensure appropriate testing and refining of the AI system to achieve this end.
+    section: 3.1 Reliability, Safety, and Security
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: tradeoffs may be needed to balance the need for transparency with ensuring security and privacy.
+    section: 1. PURPOSE
+    page: 1
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: eBay will implement internal governance structures and measures to ensure that AI systems perform to the high standards set forth herein, satisfy internal and external expectations, identify,
+      and mitigate potential negative impacts, and more generally to ensure compliance with this Policy.
+    section: 2. SCOPE
+  - text: Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community, requiring thoughtful human involvement and a commitment to transparency.
+    section: 3.3 Accountability and Lawfulness
+  - text: these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation.
+    section: 3.3 Accountability and Lawfulness
+- id: credo-risk-047
+  name: Insufficient upstream transparency (AI, 2023)
+  evidence:
+  - text: eBay will expect our vendors to adhere through our Supplier Code of Business Conduct & Ethics.
+    section: 2. SCOPE
+  - text: eBay should be transparent to users about its use of AI. We will promote transparency with disclosures about the type of AI being used within a particular experience or broader disclosures about
+      our AI use more generally.
+    section: 3.5 Transparency
+- id: credo-risk-048
+  name: Upstream third-party dependencies (AI, 2023)
+  evidence:
+  - text: eBay will expect our vendors to adhere through our Supplier Code of Business Conduct & Ethics.
+    section: 2. SCOPE
+    page: 2
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic.
+    section: '3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences'
+    page: 3
+  - text: They should not cause harm, mislead users, or create unfair or biased outcomes.
+    section: '3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences'
+    page: 3
+  - text: 3.2 Inclusivity and Fairness
+    section: EI-COREAI-POL-1. 0. 0. 1
+    page: 1
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: To ensure fairness, we must build AI systems with fairness and bias issues in mind, test and monitor AI systems regularly
+    section: '3.2 Inclusivity and Fairness: Strive to enable inclusive and fair AI experiences'
+    page: 3
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: To the extent personal information is involved, eBay's Privacy principles-which are the backbone of eBay's Privacy program-should guide choices for AI system design, development, deployment, and
+      use.
+    section: '3.4 Privacy by Design: Build AI systems with privacy at the forefront'
+    page: 4
+  - text: tradeoffs may be needed to balance the need for transparency with ensuring security and privacy.
+    section: 1. PURPOSE
+    page: 1
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention
+    section: '3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure'
+    page: 3
+  - text: eBay recognizes that AI technology comes with unique security risks that require constant attention to stay ahead of these risks.
+    section: '3.1 Reliability, Safety, and Security: Build trustworthy AI systems that are reliable, safe, and secure'
+    page: 3
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: Every AI system should consistently produce the expected outcome and task it is designed for, across various conditions and in a way that minimizes unpredictability and hallucinations.
+    section: 3.1 Reliability, Safety, and Security
+  - text: They should not cause harm, mislead users, or create unfair or biased outcomes.
+    section: 3.2 Inclusivity and Fairness
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: human oversight should be integrated throughout the development, launch, and monitoring of AI systems.
+    section: 3.3 Accountability and Lawfulness
+  - text: Throughout this lifecycle, decision-making should be informed by the level of risk and potential impact associated with the use case at hand.
+    section: 3.3 Accountability and Lawfulness
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: In particular, human oversight should be integrated throughout the development, launch, and monitoring of AI systems.
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: requiring thoughtful human involvement and a commitment to transparency.
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+  - text: In particular, human oversight should be integrated throughout the development, launch, and monitoring of AI systems.
+    section: '3.3 Accountability and Lawfulness: Everyone in the eBay community has a role to play in Responsible AI'
+    page: 4
+- id: atlas-data-curation
+  name: Improper data curation
+  evidence:
+  - text: This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended.
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: It also requires that we get representative user feedback where relevant, and design for accessibility to accommodate visual, hearing, and other impairments.
+- id: atlas-impact-on-cultural-diversity
+  name: Impact on cultural diversity
+  evidence:
+  - text: We strive to ensure our AI systems reflect the diversity of human cultures, backgrounds, and experiences, enabling everyone to engage with and benefit from them.
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: Our Responsible AI approach is risk-based, the criticality and applicability of each principle being dependent on how and for what purpose each AI system is being used.
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: Every AI system should consistently produce the expected outcome and task it is designed for, across various conditions and in a way that minimizes unpredictability and hallucinations.
+- id: atlas-unrepresentative-data
+  name: Unrepresentative data
+  evidence:
+  - text: This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended.
+- id: atlas-unrepresentative-risk-testing
+  name: Unrepresentative risk testing
+  evidence:
+  - text: This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended.
+- id: credo-risk-005
+  name: Lack of training data transparency (IBM, 2024)
+  evidence:
+  - text: This means using data that is accurate, relevant, representative, and verifiable-and regularly testing our systems to confirm they perform fairly and as intended.
+- id: credo-risk-007
+  name: Inadequate observability (Slatteryet al., 2024)
+  evidence:
+  - text: In particular, human oversight should be integrated throughout the development, launch, and monitoring of AI systems.
+  - text: Throughout this lifecycle, decision-making should be informed by the level of risk and potential impact associated with the use case at hand.
+  - text: Finally, these decisions and details regarding development, deployment, and oversight should be recorded with clear and comprehensive documentation.
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: They should not cause harm, mislead users, or create unfair or biased outcomes.
+  - text: In particular, AI decisions must not discriminate based on age, gender, race, sexual orientation, religion, or any other protected characteristic.
+  - text: To ensure fairness, we must build AI systems with fairness and bias issues in mind, test and monitor AI systems regularly and give users the ability to give us feedback.
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: The Responsible AI principles delineated in this Policy will be operationalized through the Responsible AI Standard, which establishes accountability for adherence to this Policy
+  - text: Ensuring that AI systems comply with laws, regulations, and standards is a shared responsibility across the eBay community
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: 3.4 Privacy by Design
+  - text: To the extent personal information is involved, eBay's Privacy principles-which are the backbone of eBay's Privacy program-should guide choices for AI system design, development, deployment, and
+      use.
+- id: credo-risk-033
+  name: Lack of adequate capabilities (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Every AI system should consistently produce the expected outcome and task it is designed for, across various conditions and in a way that minimizes unpredictability and hallucinations.
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention
+  - text: eBay recognizes that AI technology comes with unique security risks that require constant attention to stay ahead of these risks.
+- id: atlas-dangerous-use
+  name: Dangerous use
+  evidence:
+  - text: eBay should ensure its AI systems do not cause harm or unintended consequences
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention
+- id: atlas-data-poisoning
+  name: Data poisoning
+  evidence:
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention, in accordance with eBay's Information Security Policy and Standards.
+      (Passage 10)
+- id: atlas-jailbreaking
+  name: Jailbreaking
+  evidence:
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention, in accordance with eBay's Information Security Policy and Standards.
+      (Passage 10)
+- id: atlas-prompt-injection
+  name: Prompt injection attack
+  evidence:
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: These transparency efforts should be tailored to the roles, needs, and levels of understanding of the individuals using the AI system.
+- id: credo-risk-038
+  name: Compromised confidential information (Slattery et al., 2024; IBM, 2024;AI, 2023)
+  evidence:
+  - text: eBay's AI systems should be secure and protected from unauthorized access, tampering, and any other form of malicious intervention, in accordance with eBay's Information Security Policy and Standards.

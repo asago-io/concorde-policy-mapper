@@ -1,298 +1,339 @@
-# reviewed: 2026-05-26 — initial ground truth from LSE Principles and Guidance for AI-assisted Marking & Feedback
 risks:
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---educational-records
-    name: Non-consensual tracking/monitoring/stalking/spyware - Educational records
-    evidence:
-      - text: "Staff must not include student details or upload student work into GenAI tools without explicit permission."
-        section: "4. Guidelines for Implementation"
-        page: 4
-      - text: "Do not upload student work into AI tools without their explicit consent"
-        section: "Executive Summary"
-        page: 1
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
-    name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
-    evidence:
-      - text: "Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without consent."
-        section: "4. Guidelines for Implementation"
-        page: 4
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "Staff must clearly communicate to students when and how they use AI tools for marking and feedback"
-        section: "Principles of AI-assisted Marking and Feedback"
-      - text: "Transparency first: You must tell students when and how you use AI tools"
-        section: "Executive Summary"
-      - text: "Students are made aware of this process in advance and shown a demonstration, reinforcing transparency and trust."
-        section: "Scenario A -- Scaling Feedback While Maintaining Quality"
-  - id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---educational-records
-    name: Unauthorized collection/gathering/stealing - Educational records
-    evidence:
-      - text: "Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without consent."
-        section: "4. Guidelines for Implementation"
-        page: 4
-  - id: atlas-data-bias
-    name: Data bias
-    evidence:
-      - text: "GenAI can generate incorrect responses based on probabilities and biases."
-        section: "Guidelines for Implementation"
-      - text: "Generative AI tools can produce believable content with human-like results. However, the information is based on large volumes of data, some of which can be inaccurate, biased, or discriminatory."
-        section: "Bias and discrimination risks with AI"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without consent."
-        section: "Guidelines for Implementation"
-      - text: "Staff should use institutionally approved GenAI tools that comply with GDPR and relevant privacy regulations. These tools provide enterprise-grade assurances of security, data privacy, and training restrictions for Large Language Models (LLMs)."
-        section: "Guidelines for Implementation"
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "These tools are selected to ensure compliance with data protection regulations (e.g. UK GDPR)"
-        section: "3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE"
-        page: 4
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "GenAI can generate incorrect responses based on probabilities and biases."
-        section: "4. Guidelines for Implementation"
-        page: 4
-      - text: "While GenAI excels at summarising information and solving known problems, it can produce simplified or incorrect outputs."
-        section: "4. Guidelines for Implementation"
-        page: 4
-  - id: atlas-impact-on-affected-communities
-    name: Impact on affected communities
-    evidence:
-      - text: "Staff should critically reflect on how AI-assisted practices affect student perceptions of authenticity, trust, and fairness. Staff are encouraged to seek student feedback on these practices."
-        section: "Guidelines for Implementation"
-      - text: "Students question the authenticity of AI-generated comments, finding them impersonal and ethically inconsistent, especially when their own GenAI use may be discouraged."
-        section: "Research Context and Rationale"
-      - text: "Without proper guidance, integrating GenAI into educational practices could undermine the integrity and quality of education we provide."
-        section: "Why Guidance is Needed"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency."
-        section: "Executive Summary"
-        page: 1
-      - text: "Academic judgment stays with you: AI cannot determine marks, conduct moderation, or make final assessment decisions"
-        section: "Executive Summary"
-        page: 1
-      - text: "Staff should ensure AI-assisted feedback does not independently determine marks or academic judgements. Marking responsibilities remain strictly with human educators."
-        section: "4. Guidelines for Implementation"
-        page: 4
-  - id: atlas-incomplete-advice
-    name: Incomplete advice
-    evidence:
-      - text: "While GenAI excels at summarising information and solving known problems, it can produce simplified or incorrect outputs."
-        section: "Guidelines for Implementation"
-      - text: "GenAI can generate incorrect responses based on probabilities and biases."
-        section: "Guidelines for Implementation"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "The paper draws a clear distinction between AI-assisted marking and feedback and automated marking and feedback: AI-assisted marking and feedback: Human educators use AI tools to support and enhance their work, with full human oversight and final decision-making at every stage. AI-generated marking and feedback: AI systems independently generate marks and feedback with minimal or no human involvement."
-        section: "Introduction"
-      - text: "The use AI-generated marking and feedback, where AI systems independently generate marks and/or feedback with minimal or no human involvement is not permitted."
-        section: "Introduction"
-  - id: atlas-lack-of-model-transparency
-    name: Lack of model transparency
-    evidence:
-      - text: "use AI transparently"
-        section: "Appendix: Examples of Effective Practice"
-        page: 6
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "these responsibilities remain entirely the responsibility of academic staff."
-        section: "3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE"
-        page: 4
-      - text: "address challenges including ethical dilemmas, legal ramifications, social implications, and concerns about trust, data privacy and security, and quality assurance."
-        section: "2. Why Guidance is Needed"
-        page: 3
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "students who mistakenly assume AI-generated feedback comes from humans tend to rate it higher."
-        section: "5. Research Context and Rationale"
-        page: 5
-      - text: "being transparent with students"
-        section: "For further reading…."
-        page: 1
-      - text: "Staff must clearly communicate to students when and how they use AI tools for marking and feedback"
-        section: "3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE"
-        page: 4
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "GenAI can generate incorrect responses based on probabilities and biases."
-        section: "Guidelines for Implementation"
-      - text: "identifying where markers interpret criteria differently to focus calibration discussions."
-        section: "Executive Summary"
-      - text: "Nazaretsky et al. (2024) found that students often prefer human feedback, particularly after learning who provided it. However, students who mistakenly assume AI-generated feedback comes from humans tend to rate it higher."
-        section: "Research Context and Rationale"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "ensuring human oversight and judgment remain central"
-        section: "Appendix: Examples of Effective Practice"
-        page: 6
-      - text: "This feedback is then carefully reviewed, adapted, and personalised before being uploaded to the marking platform."
-        section: "Scenario A -- Scaling Feedback While Maintaining Quality"
-        page: 6
-      - text: "students rated human feedback higher for trustworthiness."
-        section: "5. Research Context and Rationale"
-        page: 5
-  - id: atlas-plagiarism
-    name: "Impact on education: plagiarism"
-    evidence:
-      - text: "Academic staff should not use GenAI tools to detect students' use of GenAI, as these tools are unreliable"
-        section: "Principles of AI-assisted Marking and Feedback"
-      - text: "Without proper guidance, integrating GenAI into educational practices could undermine the integrity and quality of education we provide."
-        section: "Why Guidance is Needed"
-      - text: "We know our students are actively engaging with GenAI tools with both positive and negative outcomes."
-        section: "Why Guidance is Needed"
-  - id: atlas-poor-model-accuracy
-    name: Poor model accuracy
-    evidence:
-      - text: "GenAI can generate incorrect responses based on probabilities and biases."
-        section: "4. Guidelines for Implementation"
-        page: 4
-      - text: "it can produce simplified or incorrect outputs."
-        section: "4. Guidelines for Implementation"
-        page: 4
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without consent."
-        section: "Guidelines for Implementation"
-      - text: "Without ever uploading student work directly, Lecturer A composes an anonymised summary for each student, noting which marking criteria were met and the approximate percentage achieved for each."
-        section: "Scenario A -- Scaling Feedback While Maintaining Quality"
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "Do not upload student work into AI tools without their explicit consent"
-        section: "Executive Summary"
-      - text: "They verbally articulate their comments during the review, ensuring all input remains anonymised and free of identifying details."
-        section: "Scenario B -- Harnessing Accessibility Features"
-      - text: "The course convenor compiles the anonymised feedback comments from all markers (removing student names and identifiers)"
-        section: "Scenario G - Supporting moderation calibration"
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "the course convenor compiles the anonymised feedback comments from all markers (removing student names and identifiers)"
-        section: "Scenario G - Supporting moderation calibration"
-        page: 7
-  - id: credo-risk-012
-    name: Unequal access to AI benefits
-    evidence:
-      - text: "AI tools offer genuine opportunities to enhance feedback quality, manage workload more sustainably, and support colleagues with accessibility needs."
-        section: "Executive Summary"
-        page: 1
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "This paper is not proposing that AI is used to replace, human activity, judgement and oversight in marking and feedback."
-        section: "1. Introduction"
-        page: 2
-      - text: "students rated human feedback higher for trustworthiness."
-        section: "5. Research Context and Rationale"
-        page: 5
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "use AI transparently"
-        section: "Appendix: Examples of Effective Practice"
-        page: 6
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "AI-assisted marking and feedback : Human educators use AI tools to support and enhance their work, with full human oversight and final decision-making at every stage"
-        section: "1. Introduction"
-        page: 2
-      - text: "Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency."
-        section: "Executive Summary"
-        page: 1
-      - text: "Academic judgment stays with you: AI cannot determine marks, conduct moderation, or make final assessment decisions"
-        section: "Executive Summary"
-        page: 1
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "GenAI can generate incorrect responses based on probabilities and biases."
-        section: "4. Guidelines for Implementation"
-        page: 4
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "Staff must use LSE approved GenAI tools - such as Claude AI and Microsoft Copilot - for any AI-assisted activities related to assessment, including feedback, marking, and moderation. These tools are selected to ensure compliance with data protection regulations (e.g. UK GDPR), and offer enterprise-grade assurances around security, data integrity, privacy, and responsible AI use."
-        section: "Principles of AI-assisted Marking and Feedback"
-      - text: "Staff should use institutionally approved GenAI tools that comply with GDPR and relevant privacy regulations."
-        section: "Guidelines for Implementation"
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency."
-        section: "Executive Summary"
-      - text: "Staff must provide human oversight at every stage of their approach."
-        section: "Guidelines for Implementation"
-      - text: "AI tools may assist with aspects of the marking process, but cannot replace human academic judgment in determining marks, conducting moderation, or making final assessment decisions-these responsibilities remain entirely the responsibility of academic staff."
-        section: "Principles of AI-assisted Marking and Feedback"
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "the use of AI tools to process decisions and generate outputs may lead to discrimination based on protected characteristics. Without appropriate due diligence and human accountability, the use of AI can lead to breaches in equality legislation."
-        section: "Bias and discrimination risks with AI"
-      - text: "The risk of profiling. Profiling involves categorising people and predicting their behaviour based on their characteristics. This present discrimination risks."
-        section: "Bias and discrimination risks with AI"
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without consent."
-        section: "4. Guidelines for Implementation"
-        page: 4
-      - text: "Without ever uploading student work directly, Lecturer A composes an anonymised summary for each student"
-        section: "Scenario A -- Scaling Feedback While Maintaining Quality"
-        page: 6
-      - text: "These tools are selected to ensure compliance with data protection regulations (e.g. UK GDPR), and offer enterprise-grade assurances around security, data integrity, privacy, and responsible AI use."
-        section: "3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE"
-        page: 4
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "GenAI can generate incorrect responses based on probabilities and biases. While GenAI excels at summarising information and solving known problems, it can produce simplified or incorrect outputs."
-        section: "Guidelines for Implementation"
-      - text: "the information is based on large volumes of data, some of which can be inaccurate, biased, or discriminatory. Human judgement and filtering for what may be appropriate and reliable is not applied."
-        section: "Bias and discrimination risks with AI"
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Staff should critically reflect on how AI-assisted practices affect student perceptions of authenticity, trust, and fairness."
-        section: "4. Guidelines for Implementation"
-        page: 4
-      - text: "its use raises important concerns about trust in educational relationships"
-        section: "5. Research Context and Rationale"
-        page: 5
-      - text: "students rated human feedback higher for trustworthiness."
-        section: "5. Research Context and Rationale"
-        page: 5
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "This paper is not proposing that AI is used to replace, human activity, judgement and oversight in marking and feedback."
-        section: "1. Introduction"
-        page: 2
-      - text: "Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency."
-        section: "Executive Summary"
-        page: 1
-      - text: "Academic judgment stays with you: AI cannot determine marks, conduct moderation, or make final assessment decisions"
-        section: "Executive Summary"
-        page: 1
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "Transparency first: You must tell students when and how you use AI tools"
-        section: "Executive Summary"
-        page: 1
-      - text: "Students are made aware of this process in advance and shown a demonstration, reinforcing transparency and trust."
-        section: "Scenario A -- Scaling Feedback While Maintaining Quality"
-        page: 6
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---educational-records
+  name: Non-consensual tracking/monitoring/stalking/spyware - Educational records
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission.
+    section: 4. Guidelines for Implementation
+    page: 4
+  - text: Do not upload student work into AI tools without their explicit consent
+    section: Executive Summary
+    page: 1
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
+  name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without
+      consent.
+    section: 4. Guidelines for Implementation
+    page: 4
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: Staff must clearly communicate to students when and how they use AI tools for marking and feedback
+    section: Principles of AI-assisted Marking and Feedback
+  - text: 'Transparency first: You must tell students when and how you use AI tools'
+    section: Executive Summary
+  - text: Students are made aware of this process in advance and shown a demonstration, reinforcing transparency and trust.
+    section: Scenario A -- Scaling Feedback While Maintaining Quality
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---educational-records
+  name: Unauthorized collection/gathering/stealing - Educational records
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without
+      consent.
+    section: 4. Guidelines for Implementation
+    page: 4
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: GenAI can generate incorrect responses based on probabilities and biases.
+    section: Guidelines for Implementation
+  - text: Generative AI tools can produce believable content with human-like results. However, the information is based on large volumes of data, some of which can be inaccurate, biased, or discriminatory.
+    section: Bias and discrimination risks with AI
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without
+      consent.
+    section: Guidelines for Implementation
+  - text: Staff should use institutionally approved GenAI tools that comply with GDPR and relevant privacy regulations. These tools provide enterprise-grade assurances of security, data privacy, and training
+      restrictions for Large Language Models (LLMs).
+    section: Guidelines for Implementation
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: These tools are selected to ensure compliance with data protection regulations (e.g. UK GDPR)
+    section: 3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE
+    page: 4
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: GenAI can generate incorrect responses based on probabilities and biases.
+    section: 4. Guidelines for Implementation
+    page: 4
+  - text: While GenAI excels at summarising information and solving known problems, it can produce simplified or incorrect outputs.
+    section: 4. Guidelines for Implementation
+    page: 4
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: Staff should critically reflect on how AI-assisted practices affect student perceptions of authenticity, trust, and fairness. Staff are encouraged to seek student feedback on these practices.
+    section: Guidelines for Implementation
+  - text: Students question the authenticity of AI-generated comments, finding them impersonal and ethically inconsistent, especially when their own GenAI use may be discouraged.
+    section: Research Context and Rationale
+  - text: Without proper guidance, integrating GenAI into educational practices could undermine the integrity and quality of education we provide.
+    section: Why Guidance is Needed
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency.
+    section: Executive Summary
+    page: 1
+  - text: 'Academic judgment stays with you: AI cannot determine marks, conduct moderation, or make final assessment decisions'
+    section: Executive Summary
+    page: 1
+  - text: Staff should ensure AI-assisted feedback does not independently determine marks or academic judgements. Marking responsibilities remain strictly with human educators.
+    section: 4. Guidelines for Implementation
+    page: 4
+- id: atlas-incomplete-advice
+  name: Incomplete advice
+  evidence:
+  - text: While GenAI excels at summarising information and solving known problems, it can produce simplified or incorrect outputs.
+    section: Guidelines for Implementation
+  - text: GenAI can generate incorrect responses based on probabilities and biases.
+    section: Guidelines for Implementation
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: 'The paper draws a clear distinction between AI-assisted marking and feedback and automated marking and feedback: AI-assisted marking and feedback: Human educators use AI tools to support and
+      enhance their work, with full human oversight and final decision-making at every stage. AI-generated marking and feedback: AI systems independently generate marks and feedback with minimal or no human
+      involvement.'
+    section: Introduction
+  - text: The use AI-generated marking and feedback, where AI systems independently generate marks and/or feedback with minimal or no human involvement is not permitted.
+    section: Introduction
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: use AI transparently
+    section: 'Appendix: Examples of Effective Practice'
+    page: 6
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: these responsibilities remain entirely the responsibility of academic staff.
+    section: 3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE
+    page: 4
+  - text: address challenges including ethical dilemmas, legal ramifications, social implications, and concerns about trust, data privacy and security, and quality assurance.
+    section: 2. Why Guidance is Needed
+    page: 3
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: students who mistakenly assume AI-generated feedback comes from humans tend to rate it higher.
+    section: 5. Research Context and Rationale
+    page: 5
+  - text: being transparent with students
+    section: For further reading….
+    page: 1
+  - text: Staff must clearly communicate to students when and how they use AI tools for marking and feedback
+    section: 3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE
+    page: 4
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: GenAI can generate incorrect responses based on probabilities and biases.
+    section: Guidelines for Implementation
+  - text: identifying where markers interpret criteria differently to focus calibration discussions.
+    section: Executive Summary
+  - text: Nazaretsky et al. (2024) found that students often prefer human feedback, particularly after learning who provided it. However, students who mistakenly assume AI-generated feedback comes from
+      humans tend to rate it higher.
+    section: Research Context and Rationale
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: ensuring human oversight and judgment remain central
+    section: 'Appendix: Examples of Effective Practice'
+    page: 6
+  - text: This feedback is then carefully reviewed, adapted, and personalised before being uploaded to the marking platform.
+    section: Scenario A -- Scaling Feedback While Maintaining Quality
+    page: 6
+  - text: students rated human feedback higher for trustworthiness.
+    section: 5. Research Context and Rationale
+    page: 5
+- id: atlas-plagiarism
+  name: 'Impact on education: plagiarism'
+  evidence:
+  - text: Academic staff should not use GenAI tools to detect students' use of GenAI, as these tools are unreliable
+    section: Principles of AI-assisted Marking and Feedback
+  - text: Without proper guidance, integrating GenAI into educational practices could undermine the integrity and quality of education we provide.
+    section: Why Guidance is Needed
+  - text: We know our students are actively engaging with GenAI tools with both positive and negative outcomes.
+    section: Why Guidance is Needed
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: GenAI can generate incorrect responses based on probabilities and biases.
+    section: 4. Guidelines for Implementation
+    page: 4
+  - text: it can produce simplified or incorrect outputs.
+    section: 4. Guidelines for Implementation
+    page: 4
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without
+      consent.
+    section: Guidelines for Implementation
+  - text: Without ever uploading student work directly, Lecturer A composes an anonymised summary for each student, noting which marking criteria were met and the approximate percentage achieved for each.
+    section: Scenario A -- Scaling Feedback While Maintaining Quality
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: Do not upload student work into AI tools without their explicit consent
+    section: Executive Summary
+  - text: They verbally articulate their comments during the review, ensuring all input remains anonymised and free of identifying details.
+    section: Scenario B -- Harnessing Accessibility Features
+  - text: The course convenor compiles the anonymised feedback comments from all markers (removing student names and identifiers)
+    section: Scenario G - Supporting moderation calibration
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: the course convenor compiles the anonymised feedback comments from all markers (removing student names and identifiers)
+    section: Scenario G - Supporting moderation calibration
+    page: 7
+- id: credo-risk-012
+  name: Unequal access to AI benefits
+  evidence:
+  - text: AI tools offer genuine opportunities to enhance feedback quality, manage workload more sustainably, and support colleagues with accessibility needs.
+    section: Executive Summary
+    page: 1
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: This paper is not proposing that AI is used to replace, human activity, judgement and oversight in marking and feedback.
+    section: 1. Introduction
+    page: 2
+  - text: students rated human feedback higher for trustworthiness.
+    section: 5. Research Context and Rationale
+    page: 5
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: use AI transparently
+    section: 'Appendix: Examples of Effective Practice'
+    page: 6
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: 'AI-assisted marking and feedback : Human educators use AI tools to support and enhance their work, with full human oversight and final decision-making at every stage'
+    section: 1. Introduction
+    page: 2
+  - text: Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency.
+    section: Executive Summary
+    page: 1
+  - text: 'Academic judgment stays with you: AI cannot determine marks, conduct moderation, or make final assessment decisions'
+    section: Executive Summary
+    page: 1
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: GenAI can generate incorrect responses based on probabilities and biases.
+    section: 4. Guidelines for Implementation
+    page: 4
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: Staff must use LSE approved GenAI tools - such as Claude AI and Microsoft Copilot - for any AI-assisted activities related to assessment, including feedback, marking, and moderation. These tools
+      are selected to ensure compliance with data protection regulations (e.g. UK GDPR), and offer enterprise-grade assurances around security, data integrity, privacy, and responsible AI use.
+    section: Principles of AI-assisted Marking and Feedback
+  - text: Staff should use institutionally approved GenAI tools that comply with GDPR and relevant privacy regulations.
+    section: Guidelines for Implementation
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency.
+    section: Executive Summary
+  - text: Staff must provide human oversight at every stage of their approach.
+    section: Guidelines for Implementation
+  - text: AI tools may assist with aspects of the marking process, but cannot replace human academic judgment in determining marks, conducting moderation, or making final assessment decisions-these responsibilities
+      remain entirely the responsibility of academic staff.
+    section: Principles of AI-assisted Marking and Feedback
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: the use of AI tools to process decisions and generate outputs may lead to discrimination based on protected characteristics. Without appropriate due diligence and human accountability, the use
+      of AI can lead to breaches in equality legislation.
+    section: Bias and discrimination risks with AI
+  - text: The risk of profiling. Profiling involves categorising people and predicting their behaviour based on their characteristics. This present discrimination risks.
+    section: Bias and discrimination risks with AI
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared without
+      consent.
+    section: 4. Guidelines for Implementation
+    page: 4
+  - text: Without ever uploading student work directly, Lecturer A composes an anonymised summary for each student
+    section: Scenario A -- Scaling Feedback While Maintaining Quality
+    page: 6
+  - text: These tools are selected to ensure compliance with data protection regulations (e.g. UK GDPR), and offer enterprise-grade assurances around security, data integrity, privacy, and responsible AI
+      use.
+    section: 3. Principles of AI-assisted Marking and Feedback, and Moderation at LSE
+    page: 4
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: GenAI can generate incorrect responses based on probabilities and biases. While GenAI excels at summarising information and solving known problems, it can produce simplified or incorrect outputs.
+    section: Guidelines for Implementation
+  - text: the information is based on large volumes of data, some of which can be inaccurate, biased, or discriminatory. Human judgement and filtering for what may be appropriate and reliable is not applied.
+    section: Bias and discrimination risks with AI
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: Staff should critically reflect on how AI-assisted practices affect student perceptions of authenticity, trust, and fairness.
+    section: 4. Guidelines for Implementation
+    page: 4
+  - text: its use raises important concerns about trust in educational relationships
+    section: 5. Research Context and Rationale
+    page: 5
+  - text: students rated human feedback higher for trustworthiness.
+    section: 5. Research Context and Rationale
+    page: 5
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: This paper is not proposing that AI is used to replace, human activity, judgement and oversight in marking and feedback.
+    section: 1. Introduction
+    page: 2
+  - text: Human oversight is always present - staff conduct primary reading and assessment; AI assists, it does not decide or replace human agency.
+    section: Executive Summary
+    page: 1
+  - text: 'Academic judgment stays with you: AI cannot determine marks, conduct moderation, or make final assessment decisions'
+    section: Executive Summary
+    page: 1
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: 'Transparency first: You must tell students when and how you use AI tools'
+    section: Executive Summary
+    page: 1
+  - text: Students are made aware of this process in advance and shown a demonstration, reinforcing transparency and trust.
+    section: Scenario A -- Scaling Feedback While Maintaining Quality
+    page: 6
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: Our next task is to develop staff guidelines to address challenges including ethical dilemmas, legal ramifications, social implications, and concerns about trust, data privacy and security, and
+      quality assurance.
+  - text: These tools are selected to ensure compliance with data protection regulations (e.g. UK GDPR), and offer enterprise-grade assurances around security, data integrity, privacy, and responsible AI
+      use.
+  - text: This prevents personal data from being collected, stored, accessed, and shared without consent.
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: Staff should use institutionally approved GenAI tools that comply with GDPR and relevant privacy regulations.
+  - text: This prevents personal data from being collected, stored, accessed, and shared without consent.
+  - text: Our next task is to develop staff guidelines to address challenges including ethical dilemmas, legal ramifications, social implications, and concerns about trust, data privacy and security, and
+      quality assurance.
+- id: credo-risk-033
+  name: Lack of adequate capabilities (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Academic staff should not use GenAI tools to detect students' use of GenAI, as these tools are unreliable
+- id: atlas-confidential-data-in-prompt
+  name: Confidential data in prompt
+  evidence:
+  - text: Do not upload student work into AI tools without their explicit consent
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: Our next task is to develop staff guidelines to address challenges including ethical dilemmas, legal ramifications, social implications, and concerns about trust, data privacy and security, and
+      quality assurance.
+  - text: The paper below, approved by Education Committee in November 2025, establishes clear principles for AI-assisted marking and feedback across all programmes at LSE

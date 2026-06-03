@@ -1,344 +1,378 @@
-# reviewed: 2026-05-31
 risks:
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "Inaccurate output can also be generated regardless of the training data. The generative AI system may produce a confident response that appears plausible; however, the response is fabricated and divorced from reality (sometimes referred to as \"hallucinations\"). In one recent example, a user doing legal research using generative AI was provided several court decisions, and the decisions provided by the generative AI system turned out to be non-existent and completely fabricated."
-        section: "5.2.3 Accountability, Review, and Verification"
-      - text: "Generative AI outputs that are inaccurate or misleading in communications to the public or relying on inaccurate or misleading outputs to inform agency programs or policies."
-        section: "5.2.2 Risk Assessment"
-
-  - id: atlas-over-or-under-reliance
-    name: Over or Under Reliance
-    evidence:
-      - text: "Agencies shall ensure that AI solutions have appropriate interventions and checks from humans, otherwise known as human in the loop (HITL) procedures, meaning there is active human participation in the decision-making process, review, oversight, and validation of AI systems including any generated content or output."
-        section: "5.1.1 Decision Making"
-      - text: "Generative AI outputs are not to be used to make decisions for or on behalf of employees. Employees may use generative AI outputs to inform a larger decision-making process, but ultimately the Commonwealth employee or official remains the final decision maker."
-        section: "5.2.6.3 Decision Making"
-      - text: "Generative AI cannot make reliable subjective or value-based judgments and may not be used for such purposes."
-        section: "5.2.6.3 Decision Making"
-
-  - id: credo-risk-016
-    name: Over/under-reliance on AI
-    evidence:
-      - text: "Human in the loop (HITL) refers to the process of consistent human input in the development, deployment, and maintenance of AI solutions. Human in the loop processes ensure the outputs of the AI solution yield the best possible results and do not amplify or create unintended consequences."
-        section: "5.1.3 Human in the Loop Methodology"
-
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance on AI systems
-    evidence:
-      - text: "Users must review and verify all output produced with the assistance of generative AI. The user will be accountable for any decision-making based upon such output."
-        section: "5.2.6.3 Decision Making"
-
-  - id: credo-risk-019
-    name: Loss of human agency
-    evidence:
-      - text: "Generative AI outputs are not to be used to make decisions for or on behalf of employees. Employees may use generative AI outputs to inform a larger decision-making process, but ultimately the Commonwealth employee or official remains the final decision maker."
-        section: "5.2.6.3 Decision Making"
-
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of agency and autonomy
-    evidence:
-      - text: "Generative AI outputs are not to be used to make decisions for or on behalf of employees. Employees may use generative AI outputs to inform a larger decision-making process, but ultimately the Commonwealth employee or official remains the final decision maker."
-        section: "5.2.6.3 Decision Making"
-
-  - id: atlas-decision-bias
-    name: Decision Bias
-    evidence:
-      - text: "AI solutions may exhibit algorithmic bias, which may result in algorithmic discrimination, which are instances when automated systems contribute to unjustified treatment or disfavoring of people or communities based on protected legal classifications."
-        section: "5.1.2 Data Sets"
-      - text: "Protocols and procedures for assessing and handling inquiries or accidental events regarding AI system anomalies with priority given for decisions that have potential implications for public safety or perceived workforce/labor discriminatory practices."
-        section: "5.1.6 Governance"
-
-  - id: atlas-output-bias
-    name: Output Bias
-    evidence:
-      - text: "Bias: Since the data used to train generative AI is vast, from a variety of sources, and not always vetted, outputs may contain inaccurate assumptions or stereotypes regarding certain individuals or communities."
-        section: "5.2.3 Accountability, Review, and Verification"
-      - text: "Reinforcing existing bias in work products due to bias in generative AI outputs."
-        section: "5.2.2 Risk Assessment"
-
-  - id: atlas-data-bias
-    name: Data Bias
-    evidence:
-      - text: "Users often do not know the types of datasets used to develop AI software; because of this, AI solutions may exhibit algorithmic bias, which may result in algorithmic discrimination, which are instances when automated systems contribute to unjustified treatment or disfavoring of people or communities based on protected legal classifications."
-        section: "5.1.2 Data Sets"
-      - text: "Data availability, quality, and integrity are critical for AI systems. AI systems should not be trained with data that is biased, inaccurate, incomplete, or misleading."
-        section: "5.1.7 Data Management"
-
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination or treatment
-    evidence:
-      - text: "algorithmic discrimination, which are instances when automated systems contribute to unjustified treatment or disfavoring of people or communities based on protected legal classifications"
-        section: "5.1.2 Data Sets"
-
-  - id: atlas-personal-information-in-prompt
-    name: Personal Information in Prompt
-    evidence:
-      - text: "No class C data, as defined in the Data Classification Policy, may be input into any generative AI prompt, tool, or system. This includes, but is not limited to: Sensitive Security Information, Personal Identifiable Information (PII), Protected Health Information (PHI)"
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential Data in Prompt
-    evidence:
-      - text: "under no circumstances should production code or proprietary information be used in prompts."
-        section: "5.2.6.1 Production Code and Proprietary Information"
-      - text: "Sharing private or confidential information in a generative AI prompt."
-        section: "5.2.2 Risk Assessment"
-      - text: "No class C data, as defined in the Data Classification Policy, may be input into any generative AI prompt, tool, or system. This includes, but is not limited to: Sensitive Security Information, Personal Identifiable Information (PII), Protected Health Information (PHI), Regulated Data, Confidential or Non-Public Information, Privileged Information, Prerequisite-Required Information"
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: atlas-revealing-confidential-information
-    name: Revealing Confidential Information
-    evidence:
-      - text: "Confidential, Non-Public Information: Since the data used to train generative AI is vast, from a variety of sources, and not always vetted, outputs may contain confidential, non-public information."
-        section: "5.2.3 Accountability, Review, and Verification"
-
-  - id: atlas-exposing-personal-information
-    name: Exposing Personal Information
-    evidence:
-      - text: "Confidential, Non-Public Information: Since the data used to train generative AI is vast, from a variety of sources, and not always vetted, outputs may contain confidential, non-public information."
-        section: "5.2.3 Accountability, Review, and Verification"
-      - text: "AI systems should only collect, use, share, and store data in accordance with privacy and personal data laws and best practices."
-        section: "5.1.9 Security"
-
-  - id: atlas-personal-information-in-data
-    name: Personal Information in Data
-    evidence:
-      - text: "No class C data, as defined in the Data Classification Policy, may be input into any generative AI prompt, tool, or system. This includes, but is not limited to: Sensitive Security Information, Personal Identifiable Information (PII), Protected Health Information (PHI)"
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: credo-risk-036
-    name: Compromised PII
-    evidence:
-      - text: "Personal Identifiable Information (PII), Protected Health Information (PHI), Regulated Data – Such as data from or regulated by: Social Security Administration (SSA), Internal Revenue Service (IRS), Centers for Medicare & Medicaid Services (CMS), Criminal Justice Information (CJI), Criminal History Record Information Act (CHRIA), Family Educational Rights and Privacy Act (FERPA), Payment Card Industry Data Security Standard (PCI DSS)"
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: credo-risk-037
-    name: Compromised sensitive information
-    evidence:
-      - text: "Confidential or Non-Public Information, Privileged Information, Prerequisite-Required Information"
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: mit-ai-risk-subdomain-2.1
-    name: Privacy violations
-    evidence:
-      - text: "any non-public records or information that would be considered privileged or exempt from access under the Right-to-Know Law (RTKL), 65 P.S. §§ 67.101, et seq. may not be input into any generative AI prompt, tool, or system."
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
-    name: Unauthorized disclosure - PII
-    evidence:
-      - text: "Users should not have any expectation of privacy when interacting with generative AI tools. Any data or information that users would not include in public facing documents or emails should never be entered into any generative AI tools."
-        section: "5.2.5 Data Privacy"
-
-  - id: atlas-lack-of-system-transparency
-    name: Lack of System Transparency
-    evidence:
-      - text: "When a customer is interacting with an AI solution on behalf of an agency, the solution shall disclose to the customer that they are interacting with an AI solution."
-        section: "5.1.5 Disclosure"
-      - text: "Users shall be transparent about their use of generative AI and must disclose to customers, residents, visitors, and industry when generative AI has been used to generate content that may be public facing or shared externally."
-        section: "5.2.4 Disclosure"
-
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "Generative AI use must be disclosed even if it was only used to generate a portion of the content. The disclosure shall be prominently displayed and include an indication that the content was generated either entirely or in part by generative AI and identify the Generative AI system and version that was used."
-        section: "5.2.4 Disclosure"
-
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "The disclosure shall be prominently displayed and include an indication that the content was generated either entirely or in part by generative AI and identify the Generative AI system and version that was used. Example: \"ChatGPT-3.5 was used in the creation of this document.\""
-        section: "5.2.4 Disclosure"
-
-  - id: atlas-unexplainable-output
-    name: Unexplainable Output
-    evidence:
-      - text: "Right to Explanation (RTE) that will obligate Commonwealth agencies to explain the purpose of an algorithm and the kind of data it uses when making automated decisions. This includes third-party AI solutions. Agencies shall validate (understand) the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third- party solution."
-        section: "5.1.6 Governance"
-      - text: "The following elements shall be captured for any AI solution to satisfactorily comply with an RTE request: Technical and design details of the AI system and algorithms, How the AI system was trained (including personnel and documentation), How the AI system works (i.e. what are the inputs and outputs), Data sources (documentation of all data sources)"
-        section: "5.1.6 Governance"
-
-  - id: credo-risk-009
-    name: Black box decision making
-    evidence:
-      - text: "Agencies shall validate (understand) the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third- party solution."
-        section: "5.1.6 Governance"
-
-  - id: atlas-poor-model-accuracy
-    name: Poor Model Accuracy
-    evidence:
-      - text: "Inaccurate Information: Generative AI relies on training data. Training data is vast and not always consistent or accurate. Inaccuracies in the training data may be included in the output generated by the generative AI system."
-        section: "5.2.3 Accountability, Review, and Verification"
-      - text: "Generative AI content should not be assumed to be accurate."
-        section: "5.2.3 Accountability, Review, and Verification"
-
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "Generative AI outputs that are inaccurate or misleading in communications to the public or relying on inaccurate or misleading outputs to inform agency programs or policies."
-        section: "5.2.2 Risk Assessment"
-
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "the response is fabricated and divorced from reality (sometimes referred to as \"hallucinations\"). In one recent example, a user doing legal research using generative AI was provided several court decisions, and the decisions provided by the generative AI system turned out to be non-existent and completely fabricated."
-        section: "5.2.3 Accountability, Review, and Verification"
-
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete Usage Definition
-    evidence:
-      - text: "Define the task the tool will be used for. Determine whether AI or generative AI tool to solve the problem."
-        section: "5.1.8 Prompting and Validation"
-
-  - id: atlas-model-usage-rights
-    name: Model Usage Rights
-    evidence:
-      - text: "Intellectual Property: Generative AI tools continually ingest publicly available information for training purposes including information that may be subject to copyright. Copyrighted information could be inappropriately included in any output generated by the generative AI system, creating intellectual property risks."
-        section: "5.2.3 Accountability, Review, and Verification"
-      - text: "Copyright infringement."
-        section: "5.2.2 Risk Assessment"
-
-  - id: atlas-legal-accountability
-    name: Legal Accountability
-    evidence:
-      - text: "Legal reviews required for use of third-party AI services, contracts, licenses, agreements, and specific use cases of AI solutions with potential impacts to workforce."
-        section: "5.1.6 Governance"
-      - text: "It is important to understand the potential liabilities with intellectual property and data ownership associated with third party entities. Legal requirements regarding transparency and disclaimers for public engagement and use of AI systems."
-        section: "5.1.6 Governance"
-
-  - id: credo-risk-023
-    name: Regulatory compliance failures
-    evidence:
-      - text: "AI systems are required to comply with all Commonwealth IT Policies, Management Directives, and any other applicable regulations."
-        section: "5.1.9 Security"
-
-  - id: credo-risk-046
-    name: Governance failures
-    evidence:
-      - text: "Proper governance of AI solutions is required prior to deployment of any AI solutions into the enterprise. Governance and appropriate oversight mitigate risks associated with emerging technologies."
-        section: "5.1.6 Governance"
-      - text: "Because the use of generative AI tools can pose significant risk depending on the information or data input into the tool, proper governance of such tools is required."
-        section: "5.2.2 Risk Assessment"
-
-  - id: ai-risk-taxonomy-employment
-    name: Employment decisions
-    evidence:
-      - text: "For example, do not use generative AI to make final decisions that affect employment."
-        section: "5.2.6.3 Decision Making"
-      - text: "AI solutions that are used to formulate high-risk decisions regarding the topics listed below will be subject to audits: Direct or indirect material financial interests or transactions, Administrative policy and program changes, Benefits eligibility and determinations"
-        section: "5.1.4 Retention"
-
-  - id: ai-risk-taxonomy-government-services
-    name: Government services
-    evidence:
-      - text: "Benefits eligibility and determinations, Life-changing, Health, safety, and welfare of citizens or Commonwealth employees."
-        section: "5.1.4 Retention"
-
-  - id: atlas-data-usage
-    name: Data Usage
-    evidence:
-      - text: "Data sets should be reviewed to ensure quality and integrity of the data sets."
-        section: "5.1.2 Data Sets"
-      - text: "Institute proper data and information management controls, procedures, and processes for data set selection, evaluation, and preparation for use with AI solutions."
-        section: "5.1.7 Data Management"
-
-  - id: atlas-data-privacy-rights
-    name: Data Privacy Rights
-    evidence:
-      - text: "any non-public records or information that would be considered privileged or exempt from access under the Right-to-Know Law (RTKL), 65 P.S. §§ 67.101, et seq. may not be input into any generative AI prompt, tool, or system."
-        section: "5.2.6.2 Private and Sensitive Data"
-
-  - id: atlas-impact-on-human-agency
-    name: Impact on Human Agency
-    evidence:
-      - text: "Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations."
-        section: "5.1.6 Governance"
-
-  - id: atlas-data-poisoning
-    name: Data Poisoning
-    evidence:
-      - text: "Establish controls to prevent adversarial learning to include attacks that try to influence the training data of spam filters or systems for abnormal network traffic detection, designed to mislead the learning algorithm for subsequent exploitation."
-        section: "5.1.9 Security"
-
-  - id: credo-risk-041
-    name: Vulnerability to Adversarial Attacks
-    evidence:
-      - text: "Establish controls to prevent adversarial learning to include attacks that try to influence the training data of spam filters or systems for abnormal network traffic detection, designed to mislead the learning algorithm for subsequent exploitation."
-        section: "5.1.9 Security"
-      - text: "Evaluate the level of risk that AI systems are exploited by malicious actors and determine appropriate risk controls."
-        section: "5.1.9 Security"
-
-  - id: atlas-copyright-infringement
-    name: Copyright Infringement
-    evidence:
-      - text: "Copyrighted information could be inappropriately included in any output generated by the generative AI system, creating intellectual property risks."
-        section: "5.2.3 Accountability, Review, and Verification"
-      - text: "Copyright infringement."
-        section: "5.2.2 Risk Assessment"
-
-  - id: atlas-lack-of-model-transparency
-    name: Lack of Model Transparency
-    evidence:
-      - text: "The following elements shall be captured for any AI solution to satisfactorily comply with an RTE request: Technical and design details of the AI system and algorithms, How the AI system was trained (including personnel and documentation), How the AI system works (i.e. what are the inputs and outputs), Data sources (documentation of all data sources)"
-        section: "5.1.6 Governance"
-
-  - id: credo-risk-048
-    name: Third-Party Dependencies
-    evidence:
-      - text: "It is important to understand the potential liabilities with intellectual property and data ownership associated with third party entities."
-        section: "5.1.6 Governance"
-      - text: "Agencies shall validate (understand) the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third-party solution."
-        section: "5.1.6 Governance"
-
-  - id: atlas-impact-on-affected-communities
-    name: Impact on Affected Communities
-    evidence:
-      - text: "Life-changing, Health, safety, and welfare of citizens or Commonwealth employees."
-        section: "5.1.4 Retention"
-      - text: "Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations."
-        section: "5.1.6 Governance"
-
-  - id: mit-ai-risk-subdomain-2.2
-    name: Security
-    evidence:
-      - text: "Evaluate the level of risk that AI systems are exploited by malicious actors and determine appropriate risk controls."
-        section: "5.1.9 Security"
-      - text: "AI systems vulnerability scanning methods and techniques need to be enhanced for the discovery and categorization of security vulnerabilities or other design flaws and appropriate mitigation or resolution requirements to address known vulnerabilities."
-        section: "5.1.9 Security"
-
-  - id: atlas-harmful-output
-    name: Harmful Output
-    evidence:
-      - text: "Inappropriate Content: If training data contains inappropriate content, the inappropriate content could appear in the generative AI output."
-        section: "5.2.3 Accountability, Review, and Verification"
-
-  - id: credo-risk-013
-    name: Harmful and toxic content generation
-    evidence:
-      - text: "Inappropriate Content: If training data contains inappropriate content, the inappropriate content could appear in the generative AI output."
-        section: "5.2.3 Accountability, Review, and Verification"
-
-  - id: atlas-temporal-gap
-    name: Temporal Gap
-    evidence:
-      - text: "Dated Information: The data used to train generative AI may have a fixed cutoff date, meaning any output generated will not reflect information available after a certain cutoff date."
-        section: "5.2.3 Accountability, Review, and Verification"
-
-  - id: atlas-impact-on-jobs
-    name: Impact on Jobs
-    evidence:
-      - text: "Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations."
-        section: "5.1.6 Governance"
-      - text: "Protocols and procedures for assessing and handling inquiries or accidental events regarding AI system anomalies with priority given for decisions that have potential implications for public safety or perceived workforce/labor discriminatory practices."
-        section: "5.1.6 Governance"
-
-  - id: credo-risk-035
-    name: Lack of Robustness
-    evidence:
-      - text: "Data availability, quality, and integrity are critical for AI systems. AI systems should not be trained with data that is biased, inaccurate, incomplete, or misleading."
-        section: "5.1.7 Data Management"
-      - text: "AI systems vulnerability scanning methods and techniques need to be enhanced for the discovery and categorization of security vulnerabilities or other design flaws and appropriate mitigation or resolution requirements to address known vulnerabilities."
-        section: "5.1.9 Security"
-
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: Inaccurate output can also be generated regardless of the training data. The generative AI system may produce a confident response that appears plausible; however, the response is fabricated and
+      divorced from reality (sometimes referred to as "hallucinations"). In one recent example, a user doing legal research using generative AI was provided several court decisions, and the decisions provided
+      by the generative AI system turned out to be non-existent and completely fabricated.
+    section: 5.2.3 Accountability, Review, and Verification
+  - text: Generative AI outputs that are inaccurate or misleading in communications to the public or relying on inaccurate or misleading outputs to inform agency programs or policies.
+    section: 5.2.2 Risk Assessment
+- id: atlas-over-or-under-reliance
+  name: Over or Under Reliance
+  evidence:
+  - text: Agencies shall ensure that AI solutions have appropriate interventions and checks from humans, otherwise known as human in the loop (HITL) procedures, meaning there is active human participation
+      in the decision-making process, review, oversight, and validation of AI systems including any generated content or output.
+    section: 5.1.1 Decision Making
+  - text: Generative AI outputs are not to be used to make decisions for or on behalf of employees. Employees may use generative AI outputs to inform a larger decision-making process, but ultimately the
+      Commonwealth employee or official remains the final decision maker.
+    section: 5.2.6.3 Decision Making
+  - text: Generative AI cannot make reliable subjective or value-based judgments and may not be used for such purposes.
+    section: 5.2.6.3 Decision Making
+- id: credo-risk-016
+  name: Over/under-reliance on AI
+  evidence:
+  - text: Human in the loop (HITL) refers to the process of consistent human input in the development, deployment, and maintenance of AI solutions. Human in the loop processes ensure the outputs of the
+      AI solution yield the best possible results and do not amplify or create unintended consequences.
+    section: 5.1.3 Human in the Loop Methodology
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance on AI systems
+  evidence:
+  - text: Users must review and verify all output produced with the assistance of generative AI. The user will be accountable for any decision-making based upon such output.
+    section: 5.2.6.3 Decision Making
+- id: credo-risk-019
+  name: Loss of human agency
+  evidence:
+  - text: Generative AI outputs are not to be used to make decisions for or on behalf of employees. Employees may use generative AI outputs to inform a larger decision-making process, but ultimately the
+      Commonwealth employee or official remains the final decision maker.
+    section: 5.2.6.3 Decision Making
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of agency and autonomy
+  evidence:
+  - text: Generative AI outputs are not to be used to make decisions for or on behalf of employees. Employees may use generative AI outputs to inform a larger decision-making process, but ultimately the
+      Commonwealth employee or official remains the final decision maker.
+    section: 5.2.6.3 Decision Making
+- id: atlas-decision-bias
+  name: Decision Bias
+  evidence:
+  - text: AI solutions may exhibit algorithmic bias, which may result in algorithmic discrimination, which are instances when automated systems contribute to unjustified treatment or disfavoring of people
+      or communities based on protected legal classifications.
+    section: 5.1.2 Data Sets
+  - text: Protocols and procedures for assessing and handling inquiries or accidental events regarding AI system anomalies with priority given for decisions that have potential implications for public safety
+      or perceived workforce/labor discriminatory practices.
+    section: 5.1.6 Governance
+- id: atlas-output-bias
+  name: Output Bias
+  evidence:
+  - text: 'Bias: Since the data used to train generative AI is vast, from a variety of sources, and not always vetted, outputs may contain inaccurate assumptions or stereotypes regarding certain individuals
+      or communities.'
+    section: 5.2.3 Accountability, Review, and Verification
+  - text: Reinforcing existing bias in work products due to bias in generative AI outputs.
+    section: 5.2.2 Risk Assessment
+- id: atlas-data-bias
+  name: Data Bias
+  evidence:
+  - text: Users often do not know the types of datasets used to develop AI software; because of this, AI solutions may exhibit algorithmic bias, which may result in algorithmic discrimination, which are
+      instances when automated systems contribute to unjustified treatment or disfavoring of people or communities based on protected legal classifications.
+    section: 5.1.2 Data Sets
+  - text: Data availability, quality, and integrity are critical for AI systems. AI systems should not be trained with data that is biased, inaccurate, incomplete, or misleading.
+    section: 5.1.7 Data Management
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination or treatment
+  evidence:
+  - text: algorithmic discrimination, which are instances when automated systems contribute to unjustified treatment or disfavoring of people or communities based on protected legal classifications
+    section: 5.1.2 Data Sets
+- id: atlas-personal-information-in-prompt
+  name: Personal Information in Prompt
+  evidence:
+  - text: 'No class C data, as defined in the Data Classification Policy, may be input into any generative AI prompt, tool, or system. This includes, but is not limited to: Sensitive Security Information,
+      Personal Identifiable Information (PII), Protected Health Information (PHI)'
+    section: 5.2.6.2 Private and Sensitive Data
+- id: atlas-confidential-data-in-prompt
+  name: Confidential Data in Prompt
+  evidence:
+  - text: under no circumstances should production code or proprietary information be used in prompts.
+    section: 5.2.6.1 Production Code and Proprietary Information
+  - text: Sharing private or confidential information in a generative AI prompt.
+    section: 5.2.2 Risk Assessment
+  - text: 'No class C data, as defined in the Data Classification Policy, may be input into any generative AI prompt, tool, or system. This includes, but is not limited to: Sensitive Security Information,
+      Personal Identifiable Information (PII), Protected Health Information (PHI), Regulated Data, Confidential or Non-Public Information, Privileged Information, Prerequisite-Required Information'
+    section: 5.2.6.2 Private and Sensitive Data
+- id: atlas-revealing-confidential-information
+  name: Revealing Confidential Information
+  evidence:
+  - text: 'Confidential, Non-Public Information: Since the data used to train generative AI is vast, from a variety of sources, and not always vetted, outputs may contain confidential, non-public information.'
+    section: 5.2.3 Accountability, Review, and Verification
+- id: atlas-exposing-personal-information
+  name: Exposing Personal Information
+  evidence:
+  - text: 'Confidential, Non-Public Information: Since the data used to train generative AI is vast, from a variety of sources, and not always vetted, outputs may contain confidential, non-public information.'
+    section: 5.2.3 Accountability, Review, and Verification
+  - text: AI systems should only collect, use, share, and store data in accordance with privacy and personal data laws and best practices.
+    section: 5.1.9 Security
+- id: atlas-personal-information-in-data
+  name: Personal Information in Data
+  evidence:
+  - text: 'No class C data, as defined in the Data Classification Policy, may be input into any generative AI prompt, tool, or system. This includes, but is not limited to: Sensitive Security Information,
+      Personal Identifiable Information (PII), Protected Health Information (PHI)'
+    section: 5.2.6.2 Private and Sensitive Data
+- id: credo-risk-036
+  name: Compromised PII
+  evidence:
+  - text: 'Personal Identifiable Information (PII), Protected Health Information (PHI), Regulated Data – Such as data from or regulated by: Social Security Administration (SSA), Internal Revenue Service
+      (IRS), Centers for Medicare & Medicaid Services (CMS), Criminal Justice Information (CJI), Criminal History Record Information Act (CHRIA), Family Educational Rights and Privacy Act (FERPA), Payment
+      Card Industry Data Security Standard (PCI DSS)'
+    section: 5.2.6.2 Private and Sensitive Data
+- id: credo-risk-037
+  name: Compromised sensitive information
+  evidence:
+  - text: Confidential or Non-Public Information, Privileged Information, Prerequisite-Required Information
+    section: 5.2.6.2 Private and Sensitive Data
+- id: mit-ai-risk-subdomain-2.1
+  name: Privacy violations
+  evidence:
+  - text: any non-public records or information that would be considered privileged or exempt from access under the Right-to-Know Law (RTKL), 65 P.S. §§ 67.101, et seq. may not be input into any generative
+      AI prompt, tool, or system.
+    section: 5.2.6.2 Private and Sensitive Data
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII
+  evidence:
+  - text: Users should not have any expectation of privacy when interacting with generative AI tools. Any data or information that users would not include in public facing documents or emails should never
+      be entered into any generative AI tools.
+    section: 5.2.5 Data Privacy
+- id: atlas-lack-of-system-transparency
+  name: Lack of System Transparency
+  evidence:
+  - text: When a customer is interacting with an AI solution on behalf of an agency, the solution shall disclose to the customer that they are interacting with an AI solution.
+    section: 5.1.5 Disclosure
+  - text: Users shall be transparent about their use of generative AI and must disclose to customers, residents, visitors, and industry when generative AI has been used to generate content that may be public
+      facing or shared externally.
+    section: 5.2.4 Disclosure
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: Generative AI use must be disclosed even if it was only used to generate a portion of the content. The disclosure shall be prominently displayed and include an indication that the content was
+      generated either entirely or in part by generative AI and identify the Generative AI system and version that was used.
+    section: 5.2.4 Disclosure
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: 'The disclosure shall be prominently displayed and include an indication that the content was generated either entirely or in part by generative AI and identify the Generative AI system and version
+      that was used. Example: "ChatGPT-3.5 was used in the creation of this document."'
+    section: 5.2.4 Disclosure
+- id: atlas-unexplainable-output
+  name: Unexplainable Output
+  evidence:
+  - text: Right to Explanation (RTE) that will obligate Commonwealth agencies to explain the purpose of an algorithm and the kind of data it uses when making automated decisions. This includes third-party
+      AI solutions. Agencies shall validate (understand) the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third- party solution.
+    section: 5.1.6 Governance
+  - text: 'The following elements shall be captured for any AI solution to satisfactorily comply with an RTE request: Technical and design details of the AI system and algorithms, How the AI system was
+      trained (including personnel and documentation), How the AI system works (i.e. what are the inputs and outputs), Data sources (documentation of all data sources)'
+    section: 5.1.6 Governance
+- id: credo-risk-009
+  name: Black box decision making
+  evidence:
+  - text: Agencies shall validate (understand) the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third- party solution.
+    section: 5.1.6 Governance
+- id: atlas-poor-model-accuracy
+  name: Poor Model Accuracy
+  evidence:
+  - text: 'Inaccurate Information: Generative AI relies on training data. Training data is vast and not always consistent or accurate. Inaccuracies in the training data may be included in the output generated
+      by the generative AI system.'
+    section: 5.2.3 Accountability, Review, and Verification
+  - text: Generative AI content should not be assumed to be accurate.
+    section: 5.2.3 Accountability, Review, and Verification
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: Generative AI outputs that are inaccurate or misleading in communications to the public or relying on inaccurate or misleading outputs to inform agency programs or policies.
+    section: 5.2.2 Risk Assessment
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: the response is fabricated and divorced from reality (sometimes referred to as "hallucinations"). In one recent example, a user doing legal research using generative AI was provided several court
+      decisions, and the decisions provided by the generative AI system turned out to be non-existent and completely fabricated.
+    section: 5.2.3 Accountability, Review, and Verification
+- id: atlas-incomplete-usage-definition
+  name: Incomplete Usage Definition
+  evidence:
+  - text: Define the task the tool will be used for. Determine whether AI or generative AI tool to solve the problem.
+    section: 5.1.8 Prompting and Validation
+- id: atlas-model-usage-rights
+  name: Model Usage Rights
+  evidence:
+  - text: 'Intellectual Property: Generative AI tools continually ingest publicly available information for training purposes including information that may be subject to copyright. Copyrighted information
+      could be inappropriately included in any output generated by the generative AI system, creating intellectual property risks.'
+    section: 5.2.3 Accountability, Review, and Verification
+  - text: Copyright infringement.
+    section: 5.2.2 Risk Assessment
+- id: atlas-legal-accountability
+  name: Legal Accountability
+  evidence:
+  - text: Legal reviews required for use of third-party AI services, contracts, licenses, agreements, and specific use cases of AI solutions with potential impacts to workforce.
+    section: 5.1.6 Governance
+  - text: It is important to understand the potential liabilities with intellectual property and data ownership associated with third party entities. Legal requirements regarding transparency and disclaimers
+      for public engagement and use of AI systems.
+    section: 5.1.6 Governance
+- id: credo-risk-023
+  name: Regulatory compliance failures
+  evidence:
+  - text: AI systems are required to comply with all Commonwealth IT Policies, Management Directives, and any other applicable regulations.
+    section: 5.1.9 Security
+- id: credo-risk-046
+  name: Governance failures
+  evidence:
+  - text: Proper governance of AI solutions is required prior to deployment of any AI solutions into the enterprise. Governance and appropriate oversight mitigate risks associated with emerging technologies.
+    section: 5.1.6 Governance
+  - text: Because the use of generative AI tools can pose significant risk depending on the information or data input into the tool, proper governance of such tools is required.
+    section: 5.2.2 Risk Assessment
+- id: ai-risk-taxonomy-employment
+  name: Employment decisions
+  evidence:
+  - text: For example, do not use generative AI to make final decisions that affect employment.
+    section: 5.2.6.3 Decision Making
+  - text: 'AI solutions that are used to formulate high-risk decisions regarding the topics listed below will be subject to audits: Direct or indirect material financial interests or transactions, Administrative
+      policy and program changes, Benefits eligibility and determinations'
+    section: 5.1.4 Retention
+- id: ai-risk-taxonomy-government-services
+  name: Government services
+  evidence:
+  - text: Benefits eligibility and determinations, Life-changing, Health, safety, and welfare of citizens or Commonwealth employees.
+    section: 5.1.4 Retention
+- id: atlas-data-usage
+  name: Data Usage
+  evidence:
+  - text: Data sets should be reviewed to ensure quality and integrity of the data sets.
+    section: 5.1.2 Data Sets
+  - text: Institute proper data and information management controls, procedures, and processes for data set selection, evaluation, and preparation for use with AI solutions.
+    section: 5.1.7 Data Management
+- id: atlas-data-privacy-rights
+  name: Data Privacy Rights
+  evidence:
+  - text: any non-public records or information that would be considered privileged or exempt from access under the Right-to-Know Law (RTKL), 65 P.S. §§ 67.101, et seq. may not be input into any generative
+      AI prompt, tool, or system.
+    section: 5.2.6.2 Private and Sensitive Data
+- id: atlas-impact-on-human-agency
+  name: Impact on Human Agency
+  evidence:
+  - text: Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations.
+    section: 5.1.6 Governance
+- id: atlas-data-poisoning
+  name: Data Poisoning
+  evidence:
+  - text: Establish controls to prevent adversarial learning to include attacks that try to influence the training data of spam filters or systems for abnormal network traffic detection, designed to mislead
+      the learning algorithm for subsequent exploitation.
+    section: 5.1.9 Security
+- id: credo-risk-041
+  name: Vulnerability to Adversarial Attacks
+  evidence:
+  - text: Establish controls to prevent adversarial learning to include attacks that try to influence the training data of spam filters or systems for abnormal network traffic detection, designed to mislead
+      the learning algorithm for subsequent exploitation.
+    section: 5.1.9 Security
+  - text: Evaluate the level of risk that AI systems are exploited by malicious actors and determine appropriate risk controls.
+    section: 5.1.9 Security
+- id: atlas-copyright-infringement
+  name: Copyright Infringement
+  evidence:
+  - text: Copyrighted information could be inappropriately included in any output generated by the generative AI system, creating intellectual property risks.
+    section: 5.2.3 Accountability, Review, and Verification
+  - text: Copyright infringement.
+    section: 5.2.2 Risk Assessment
+- id: atlas-lack-of-model-transparency
+  name: Lack of Model Transparency
+  evidence:
+  - text: 'The following elements shall be captured for any AI solution to satisfactorily comply with an RTE request: Technical and design details of the AI system and algorithms, How the AI system was
+      trained (including personnel and documentation), How the AI system works (i.e. what are the inputs and outputs), Data sources (documentation of all data sources)'
+    section: 5.1.6 Governance
+- id: credo-risk-048
+  name: Third-Party Dependencies
+  evidence:
+  - text: It is important to understand the potential liabilities with intellectual property and data ownership associated with third party entities.
+    section: 5.1.6 Governance
+  - text: Agencies shall validate (understand) the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third-party solution.
+    section: 5.1.6 Governance
+- id: atlas-impact-on-affected-communities
+  name: Impact on Affected Communities
+  evidence:
+  - text: Life-changing, Health, safety, and welfare of citizens or Commonwealth employees.
+    section: 5.1.4 Retention
+  - text: Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations.
+    section: 5.1.6 Governance
+- id: mit-ai-risk-subdomain-2.2
+  name: Security
+  evidence:
+  - text: Evaluate the level of risk that AI systems are exploited by malicious actors and determine appropriate risk controls.
+    section: 5.1.9 Security
+  - text: AI systems vulnerability scanning methods and techniques need to be enhanced for the discovery and categorization of security vulnerabilities or other design flaws and appropriate mitigation or
+      resolution requirements to address known vulnerabilities.
+    section: 5.1.9 Security
+- id: atlas-harmful-output
+  name: Harmful Output
+  evidence:
+  - text: 'Inappropriate Content: If training data contains inappropriate content, the inappropriate content could appear in the generative AI output.'
+    section: 5.2.3 Accountability, Review, and Verification
+- id: credo-risk-013
+  name: Harmful and toxic content generation
+  evidence:
+  - text: 'Inappropriate Content: If training data contains inappropriate content, the inappropriate content could appear in the generative AI output.'
+    section: 5.2.3 Accountability, Review, and Verification
+- id: atlas-temporal-gap
+  name: Temporal Gap
+  evidence:
+  - text: 'Dated Information: The data used to train generative AI may have a fixed cutoff date, meaning any output generated will not reflect information available after a certain cutoff date.'
+    section: 5.2.3 Accountability, Review, and Verification
+- id: atlas-impact-on-jobs
+  name: Impact on Jobs
+  evidence:
+  - text: Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations.
+    section: 5.1.6 Governance
+  - text: Protocols and procedures for assessing and handling inquiries or accidental events regarding AI system anomalies with priority given for decisions that have potential implications for public safety
+      or perceived workforce/labor discriminatory practices.
+    section: 5.1.6 Governance
+- id: credo-risk-035
+  name: Lack of Robustness
+  evidence:
+  - text: Data availability, quality, and integrity are critical for AI systems. AI systems should not be trained with data that is biased, inaccurate, incomplete, or misleading.
+    section: 5.1.7 Data Management
+  - text: AI systems vulnerability scanning methods and techniques need to be enhanced for the discovery and categorization of security vulnerabilities or other design flaws and appropriate mitigation or
+      resolution requirements to address known vulnerabilities.
+    section: 5.1.9 Security
+- id: atlas-data-curation
+  name: Improper data curation
+  evidence:
+  - text: Data sets should be reviewed to ensure quality and integrity of the data sets.
+- id: atlas-data-transparency
+  name: Lack of training data transparency
+  evidence:
+  - text: Agencies shall validate (understand)  the functionality of third-party AI algorithms and how the data collected and utilized is managed by the third- party solution.
+  - text: Data sources (documentation of all data sources)
+- id: atlas-generated-content-ownership
+  name: Generated content ownership and IP
+  evidence:
+  - text: It is important to understand the potential liabilities with intellectual property and  data ownership associated with third party entities.
+- id: credo-risk-006
+  name: Lack of inference data transparency
+  evidence:
+  - text: Data sources (documentation of all data sources) (Passage 14)
+  - text: obligate Commonwealth agencies to explain the purpose of an algorithm and the kind of data it uses when making automated decisions. (Passage 13)
+- id: credo-risk-030
+  name: Integration challenges with existing systems
+  evidence:
+  - text: Agencies shall use existing governance bodies to ensure that the integration of AI solutions does not adversely affect business or technology operations.
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: AI systems vulnerability scanning methods and techniques need to be enhanced for the discovery and categorization of security vulnerabilities or other design flaws and appropriate mitigation or
+      resolution requirements to address known vulnerabilities.
+- id: credo-risk-042
+  name: Increased inequality and decline in employment quality (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations.
+- id: credo-risk-047
+  name: Insufficient upstream transparency (AI, 2023)
+  evidence:
+  - text: Legal reviews required for use of third-party AI services, contracts, licenses, agreements, and specific use cases of AI solutions with  potential impacts to workforce.
+  - text: It is important to understand the potential liabilities with intellectual property and  data ownership associated with third party entities.
+  - text: Agencies shall validate (understand)  the functionality of third-party AI  algorithms and how the data collected and utilized is managed by the third- party solution.
+- id: atlas-data-provenance
+  name: Uncertain data provenance
+  evidence:
+  - text: Data sources (documentation of all data sources)
+- id: atlas-exclusion
+  name: Exclusion
+  evidence:
+  - text: outputs may contain inaccurate assumptions or stereotypes regarding certain individuals or communities.
+- id: mit-ai-risk-subdomain-6.2
+  name: Increased inequality and decline in employment quality
+  evidence:
+  - text: Examine the social, economic, and legal impacts of AI adoption on the workforce, citizens, and business operations.

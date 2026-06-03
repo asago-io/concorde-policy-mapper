@@ -14,6 +14,7 @@ _DEFAULT_BI_ENCODER = "all-mpnet-base-v2"
 _DEFAULT_CROSS_ENCODER = "cross-encoder/ms-marco-MiniLM-L-12-v2"
 
 _SIGMOID_MODELS = {"cross-encoder/ms-marco-MiniLM-L-12-v2", "cross-encoder/ms-marco-electra-base"}
+_NLI_MODELS = {"cross-encoder/nli-deberta-v3-base", "cross-encoder/nli-deberta-v3-large", "cross-encoder/nli-deberta-v3-small"}
 
 
 def _is_remote(model: str) -> bool:
@@ -50,14 +51,25 @@ def _parse_remote_url(url: str) -> tuple[str, str]:
 
 
 class _RemoteBiEncoder:
-    """Wraps a vLLM /v1/embeddings endpoint via the OpenAI SDK."""
+    """Wraps a vLLM /v1/embeddings endpoint via the OpenAI SDK.
 
-    def __init__(self, url: str, batch_size: int = 64):
+    Supports instruction-aware models (e.g. Qwen3-Embedding) via
+    query_instruction. When set, queries are prefixed with the instruction
+    but documents (corpus) are encoded without it.
+    """
+
+    def __init__(self, url: str, batch_size: int = 64, query_instruction: str = ""):
         from openai import OpenAI
 
         base_url, self._model = _parse_remote_url(url)
         self._client = OpenAI(base_url=base_url, api_key="none")
         self._batch_size = batch_size
+        self._query_instruction = query_instruction
+
+    def _format_query(self, text: str) -> str:
+        if self._query_instruction:
+            return f"Instruct: {self._query_instruction}\nQuery:{text}"
+        return text
 
     def encode(self, texts: list[str], normalize: bool = True) -> np.ndarray:
         all_embeddings = []
@@ -77,9 +89,10 @@ class _RemoteBiEncoder:
         return arr
 
     def encode_query(self, text: str, normalize: bool = True) -> np.ndarray:
+        query = self._format_query(text)
         response = self._client.embeddings.create(
             model=self._model,
-            input=[text],
+            input=[query],
         )
         arr = np.array(response.data[0].embedding, dtype=np.float32)
         if normalize:
@@ -133,6 +146,7 @@ class RiskIndex:
         bi_encoder_model: str = _DEFAULT_BI_ENCODER,
         cross_encoder_model: str | None = _DEFAULT_CROSS_ENCODER,
         colbert_model: str | None = None,
+        query_instruction: str = "",
     ):
         self._risk_ids: list[str] = []
         self._risk_meta: dict[str, dict] = {}
@@ -196,6 +210,7 @@ class RiskIndex:
             self._bi_encoder = None
             self._cross_encoder = None
             self._apply_sigmoid = False
+            self._is_nli = False
             logger.info("ColBERT index built: %d risks, %s", len(risks), colbert_model)
         else:
             self._colbert = None
@@ -203,7 +218,9 @@ class RiskIndex:
             if _is_remote(bi_encoder_model):
                 self._bi_encoder = None
                 try:
-                    self._remote_bi_encoder = _RemoteBiEncoder(bi_encoder_model)
+                    self._remote_bi_encoder = _RemoteBiEncoder(
+                        bi_encoder_model, query_instruction=query_instruction,
+                    )
                     self._embeddings = self._remote_bi_encoder.encode(descriptions, normalize=True)
                 except Exception as e:
                     raise RuntimeError(
@@ -220,13 +237,16 @@ class RiskIndex:
                 self._cross_encoder = None
                 self._remote_cross_encoder = _RemoteCrossEncoder(cross_encoder_model)
                 self._apply_sigmoid = False
+                self._is_nli = False
                 logger.info("Remote cross-encoder: %s", cross_encoder_model)
             elif cross_encoder_model:
                 self._cross_encoder = CrossEncoder(cross_encoder_model)
                 self._apply_sigmoid = cross_encoder_model in _SIGMOID_MODELS
+                self._is_nli = cross_encoder_model in _NLI_MODELS
             else:
                 self._cross_encoder = None
                 self._apply_sigmoid = False
+                self._is_nli = False
 
     @property
     def risk_count(self) -> int:
@@ -325,15 +345,23 @@ class RiskIndex:
     ) -> list[ScoredCandidate]:
         if not candidates or (not self._cross_encoder and not self._remote_cross_encoder):
             return []
-        pairs = [(f"{c.risk_name}: {c.risk_description}", text) for c in candidates]
+        if self._is_nli:
+            pairs = [(text, f"This text discusses {c.risk_name}") for c in candidates]
+        else:
+            pairs = [(f"{c.risk_name}: {c.risk_description}", text) for c in candidates]
         if self._remote_cross_encoder is not None:
             raw_scores = self._remote_cross_encoder.predict(pairs)
         else:
             raw_scores = self._cross_encoder.predict(pairs)
-        if self._apply_sigmoid:
-            scores = 1.0 / (1.0 + np.exp(-np.array(raw_scores)))
+        raw_scores = np.array(raw_scores)
+        if self._is_nli and raw_scores.ndim == 2:
+            exp_scores = np.exp(raw_scores - np.max(raw_scores, axis=1, keepdims=True))
+            softmax = exp_scores / exp_scores.sum(axis=1, keepdims=True)
+            scores = softmax[:, -1]
+        elif self._apply_sigmoid:
+            scores = 1.0 / (1.0 + np.exp(-raw_scores))
         else:
-            scores = np.clip(np.array(raw_scores, dtype=np.float64), 0.0, 1.0)
+            scores = np.clip(raw_scores.astype(np.float64), 0.0, 1.0)
         scored = sorted(
             zip(candidates, scores), key=lambda x: x[1], reverse=True
         )

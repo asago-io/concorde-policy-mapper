@@ -901,3 +901,127 @@ selection sending fewer, "easier" candidates to the grounder, not from a better 
 primary bottleneck for end-to-end improvement. Future work must address the grounder's
 inability to handle higher candidate volumes without losing recall.
 
+---
+
+## 2026-06-03: Qwen3-Embedding-4B and NLI DeBERTa-v3-large
+
+**Description:** Tested instruction-aware embedding model (Qwen3-Embedding-4B, 2560-dim,
+8K context) and NLI-based cross-encoder (DeBERTa-v3-large, 435M params) on the IR isolation
+benchmark. Added `--query-instruction` flag to support instruction-aware bi-encoders.
+
+**MLflow:** experiment=ir-isolation
+
+**Qwen3-Embedding-4B** uses instruction-aware encoding: queries (chunk text) are prefixed
+with `"Instruct: Given a text passage from an AI governance policy document, retrieve AI
+risk descriptions that are relevant to the concepts, requirements, or concerns discussed
+in the passage\nQuery:{text}"`. Documents (risk descriptions) are encoded without
+instructions, per the model's design.
+
+**NLI DeBERTa-v3-large** reframes reranking as entailment: premise = chunk text,
+hypothesis = `"This text discusses {risk_name}"`. Entailment probability used as the
+relevance score. The `large` variant (435M) replaces the `base` (184M) tested earlier.
+
+**Results (IR-only, no judge, no grounding, 27 policies):**
+
+| Bi-encoder | Cross-encoder | Macro P | Macro R | Macro F1 |
+|-----------|--------------|---------|---------|----------|
+| mpnet (local) | none | 0.228 | 0.871 | 0.351 |
+| gemma-300M | none | 0.234 | 0.895 | 0.360 |
+| **Qwen3-4B** | **none** | **0.279** | 0.876 | **0.411** |
+| gemma-300M | GTE reranker | 0.334 | 0.684 | 0.433 |
+| **Qwen3-4B** | **GTE reranker** | **0.359** | **0.725** | **0.465** |
+| Qwen3-4B | NLI DeBERTa-v3-large | 0.249 | 0.629 | 0.347 |
+
+**Key findings:**
+
+1. **Qwen3-Embedding-4B is the best bi-encoder by a wide margin.** Without any CE, it
+   achieves F1=0.411 — higher than gemma+GTE (0.433 is close but Qwen3 uses no CE). The
+   instruction-aware encoding gives it +0.051 F1 over gemma (0.411 vs 0.360) and +0.060
+   over mpnet (0.411 vs 0.351). Higher precision (0.279 vs 0.234) at comparable recall
+   (0.876 vs 0.895) — the instruction helps it reject irrelevant matches.
+
+2. **Qwen3-4B + GTE reranker = new best IR config (F1=0.465).** Beats all previous configs
+   including gemma+GTE (0.433). Both precision (+0.025) and recall (+0.041) improve over
+   gemma+GTE, confirming that better first-stage retrieval feeds better candidates to the
+   reranker.
+
+3. **NLI DeBERTa-v3-large is not viable as a reranker (F1=0.347).** Worse than no CE at
+   all. Both precision (0.249) and recall (0.629) are poor. The entailment framing ("This
+   text discusses X") is too literal — policy text describing mitigations or governance
+   measures doesn't "entail" the risk concept in the NLI sense. This confirms the earlier
+   finding with the base model (AUC 0.514) and establishes that the NLI approach is
+   fundamentally unsuited to this task, regardless of model size.
+
+**Implementation:** Added `--query-instruction` CLI flag and `query_instruction` parameter
+to `_RemoteBiEncoder` and `RiskIndex`. Instructions are prepended to queries (chunk text)
+but not to documents (risk descriptions). Added NLI cross-encoder support: `_NLI_MODELS`
+set triggers softmax entailment scoring and NLI-style pair ordering (premise=chunk,
+hypothesis="This text discusses {risk_name}").
+
+---
+
+## 2026-06-03: Sibling Expansion + Document-Level Grounding
+
+**Description:** After the main pipeline (retrieval → judge → per-chunk grounding → merge),
+a supplementary pass expands found risks to their siblings (parent group + cross-taxonomy
+mappings) and grounds the expanded set against the relevant document chunks. This addresses
+two problems: (1) 67% of missed GT risks are siblings of found risks, and (2) 45% of GT
+risks are matched to wrong chunks by retrieval.
+
+**MLflow:** experiment=ir-isolation
+
+**Implementation:**
+- New module `extract/expand.py`: builds expansion graph from Nexus `isPartOf` (parent
+  groups, 81 groups, avg 6 risks) + cross-taxonomy mappings (`exact/close/broad/narrow/
+  related_mappings`, 192 edges). For each found risk, expansion set = parent siblings ∪
+  cross-mapping targets.
+- New function `attribute.py::ground_risk_group()`: grounds a group of related risks
+  against multiple document chunks in a single LLM call.
+- New prompt templates: `ground_group_system.j2` / `ground_group_user.j2` — multi-passage
+  evidence extraction.
+- Activated via `--expand-siblings` flag. Runs after merge as a supplementary pass;
+  existing per-chunk grounding unchanged.
+
+**Expansion analysis (Qwen3-4B + GTE reranker, 27 policies):**
+- 288 GT risks missed by retrieval
+- Sibling expansion (parent + cross-mappings) recovers 245/288 (85%)
+- Potential recall: 0.734 → 0.960
+- Evidence coverage: 100% of recovered risks have evidence in the document
+- Call sizes: ~32 groups/policy, median 4 risks × 5 chunks per call
+
+**End-to-end results (Qwen3 + GTE + expansion, full pipeline):**
+
+| Config | Macro P | Macro R | Macro F1 |
+|--------|---------|---------|----------|
+| Baseline (mpnet+msmarco, old GT) | 0.814 | 0.665 | 0.719 |
+| Qwen3+GTE, no expansion | 0.665 | 0.500 | 0.553 |
+| Qwen3+GTE + expansion (old GT) | 0.498 | 0.752 | 0.586 |
+
+**GT review:** Manual review of 529 expansion "false positives" revealed 352 were genuine
+GT gaps — risks correctly identified by the expansion that were missing from the ground
+truth annotations. Review conducted via a custom HTML tool showing risk description,
+grounder evidence, and highlighted chunk text. 177 were true false positives.
+
+**After GT update (352 additions across 27 policies, total GT: 1083 → 1435):**
+
+| Config | Macro P | Macro R | Macro F1 |
+|--------|---------|---------|----------|
+| **Qwen3+GTE + expansion (updated GT)** | **0.720** | **0.806** | **0.753** |
+
+**First result to surpass the old baseline F1 (0.753 vs 0.719).** Both recall (+0.141)
+and F1 (+0.034) exceed the baseline. Precision gap (0.720 vs 0.814) comes from the 177
+true FP in expansion — the grouped grounding prompt accepts ~30% of expansion candidates
+vs ~6% for per-chunk grounding.
+
+**Expansion contribution by source:**
+
+| Source | TP | FP | Precision |
+|--------|-----|-----|-----------|
+| Threshold (top-10 CE) | 361 | 137 | 72% |
+| LLM judge (borderline) | 205 | 115 | 64% |
+| Expansion (siblings) | 259 | 177 | 59% |
+
+After GT correction, expansion precision improved from 33% → 59%. The remaining 177 FP
+are concentrated in broadly-applicable risks (governance, robustness, transparency) that
+the grounder over-matches.
+

@@ -3,6 +3,11 @@
 ## [Unreleased]
 
 ### Added
+- **Mitigation recommendations**: each extracted risk now includes recommended mitigation actions from 5 frameworks (MIT AI Risk Repository, OWASP LLM Top 10, NIST AI RMF 600-1, Credo UCF, AIUC-1). Pre-built index maps 95 Atlas risks to ~5,190 action entries. Mitigations appear in JSON output (`mitigations` field on `RiskMatch`) and in the HTML report as an expandable section per risk.
+- **`scripts/build_mitigation_index.py`**: generates `data/atlas_risk_to_actions.yaml` by reading local MIT/OWASP action files and resolving NIST/Credo/AIUC-1 transitive cross-framework mappings from Nexus. Each action is categorized as `technical`, `operational`, or `governance` via rules in `data/mitigation_categories.yaml`.
+- **`data/mitigation_categories.yaml`**: category assignment rules (MIT group → category, NIST RMF prefix → category, AIUC-1 principle → category) plus explicit assignments for OWASP and Credo actions.
+- **`data/mit_ai_risk_mitigation_to_atlas_data.yaml`**: maps 831 MIT AI Risk Repository controls to IBM Atlas risk IDs (MIT's own risk-to-mitigation mappings are not yet published; these were generated independently).
+- **`data/owasp_llm_2.0_actions_data.yaml`**: 80 structured mitigation actions extracted from OWASP LLM Top 10 v2.0, each mapped to Atlas risk IDs.
 - **`--no-judge` flag**: skips LLM judge stage; auto-promotes borderline candidates to accepted.
 - **`--no-grounding` flag**: skips LLM grounding stage; accepted candidates become matches with empty evidence. Both flags can be used independently or together. `--base-url`/`--model` are optional when both are set.
 - **`--chunk-max-tokens` flag**: configurable chunk size (default: 512). Exposed in CLI and battery runner.

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Expansion FP Review</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #0f1117; color: #e0e0e0; padding: 20px; max-width: 1200px; margin: 0 auto; }
+  .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #2a2d35; margin-bottom: 16px; }
+  .header h1 { font-size: 18px; font-weight: 600; }
+  .progress { font-size: 14px; color: #8b8fa3; }
+  .counter { font-size: 24px; font-weight: 700; color: #fff; }
+  .stats { display: flex; gap: 16px; font-size: 13px; }
+  .stats .stat { padding: 4px 10px; border-radius: 4px; }
+  .stat-add { background: #1a3a2a; color: #4ade80; }
+  .stat-reject { background: #3a1a1a; color: #f87171; }
+  .stat-skip { background: #2a2d35; color: #8b8fa3; }
+  .card { background: #1a1d27; border: 1px solid #2a2d35; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+  .card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .policy-badge { font-size: 11px; background: #2a2d35; color: #8b8fa3; padding: 2px 8px; border-radius: 4px; }
+  .confidence-high { color: #4ade80; font-weight: 600; }
+  .confidence-medium { color: #fbbf24; font-weight: 600; }
+  .confidence-low { color: #f87171; font-weight: 600; }
+  .risk-id { font-size: 14px; font-weight: 600; color: #60a5fa; margin-bottom: 4px; }
+  .risk-name { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+  .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #8b8fa3; margin: 12px 0 6px; }
+  .risk-desc { font-size: 13px; color: #b0b3c0; line-height: 1.5; padding: 10px; background: #12141c; border-radius: 4px; }
+  .evidence-item { font-size: 13px; color: #e0e0e0; padding: 8px 12px; background: #1e2a1e; border-left: 3px solid #4ade80; border-radius: 0 4px 4px 0; margin-bottom: 6px; line-height: 1.4; }
+  .chunk-item { font-size: 12px; color: #a0a3b0; padding: 8px 12px; background: #12141c; border-left: 3px solid #3b3f4f; border-radius: 0 4px 4px 0; margin-bottom: 6px; line-height: 1.4; max-height: 300px; overflow-y: auto; white-space: pre-wrap; }
+  .chunk-item mark { background: #2d4a1e; color: #a3e635; padding: 1px 2px; border-radius: 2px; }
+  .col-right { max-height: 70vh; overflow-y: auto; }
+  .chunk-label { font-size: 11px; color: #6b6f80; margin-bottom: 2px; }
+  .actions { display: flex; gap: 8px; margin-top: 16px; }
+  .btn { padding: 8px 20px; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.1s; }
+  .btn-add { background: #166534; color: #fff; }
+  .btn-add:hover, .btn-add.active { background: #15803d; }
+  .btn-reject { background: #7f1d1d; color: #fff; }
+  .btn-reject:hover, .btn-reject.active { background: #991b1b; }
+  .btn-skip { background: #2a2d35; color: #8b8fa3; }
+  .btn-skip:hover { background: #3a3d45; }
+  .nav { display: flex; gap: 8px; align-items: center; }
+  .nav .btn { padding: 6px 14px; font-size: 13px; }
+  .kbd { display: inline-block; padding: 2px 6px; background: #2a2d35; border: 1px solid #3a3f4f; border-radius: 3px; font-size: 11px; font-family: monospace; color: #8b8fa3; margin-left: 4px; }
+  .shortcuts { font-size: 12px; color: #6b6f80; margin-top: 12px; text-align: center; }
+  .decision-add { border-color: #166534; }
+  .decision-reject { border-color: #7f1d1d; }
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+  .filter-btn { padding: 4px 10px; border: 1px solid #3a3f4f; background: #1a1d27; color: #8b8fa3; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  .filter-btn.active { background: #2a2d35; color: #fff; border-color: #60a5fa; }
+  .export-btn { padding: 6px 14px; background: #1e40af; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; }
+  .export-btn:hover { background: #1d4ed8; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Expansion FP Review</h1>
+    <div class="progress">Reviewing expansion candidates not in GT</div>
+  </div>
+  <div style="text-align:right">
+    <div class="counter"><span id="current">1</span> / <span id="total">0</span></div>
+    <div class="stats">
+      <span class="stat stat-add" id="stat-add">Add: 0</span>
+      <span class="stat stat-reject" id="stat-reject">Reject: 0</span>
+      <span class="stat stat-skip" id="stat-skip">Pending: 0</span>
+    </div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="high">High only</button>
+  <button class="filter-btn" data-filter="medium">Medium only</button>
+  <button class="filter-btn" data-filter="pending">Pending</button>
+  <span style="flex:1"></span>
+  <button class="export-btn" onclick="exportDecisions()">Export decisions (JSON)</button>
+</div>
+
+<div id="card-container"></div>
+
+<div class="actions" style="justify-content:center; margin-top: 20px;">
+  <button class="btn btn-skip" onclick="prev()">&larr; Prev</button>
+  <button class="btn btn-add" onclick="decide('add')">Add to GT <span class="kbd">A</span></button>
+  <button class="btn btn-reject" onclick="decide('reject')">Reject <span class="kbd">R</span></button>
+  <button class="btn btn-skip" onclick="next()">Next &rarr;</button>
+</div>
+
+<div class="shortcuts">
+  <span class="kbd">&larr;</span> Prev &nbsp;
+  <span class="kbd">&rarr;</span> Next &nbsp;
+  <span class="kbd">A</span> Add &nbsp;
+  <span class="kbd">R</span> Reject &nbsp;
+  <span class="kbd">U</span> Undo
+</div>
+
+<script>
+let items = [];
+let decisions = {};
+let currentIndex = 0;
+let filteredIndices = [];
+let filterMode = 'all';
+
+async function init() {
+  const resp = await fetch('expansion_fp_review_data.json');
+  items = await resp.json();
+
+  // Load saved decisions from localStorage
+  const saved = localStorage.getItem('expansion_fp_decisions');
+  if (saved) decisions = JSON.parse(saved);
+
+  applyFilter('all');
+}
+
+function applyFilter(mode) {
+  filterMode = mode;
+  filteredIndices = [];
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const key = item.policy + ':' + item.risk_id;
+    const dec = decisions[key];
+    if (mode === 'all') filteredIndices.push(i);
+    else if (mode === 'high' && item.confidence === 'high') filteredIndices.push(i);
+    else if (mode === 'medium' && item.confidence === 'medium') filteredIndices.push(i);
+    else if (mode === 'pending' && !dec) filteredIndices.push(i);
+  }
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === mode));
+  document.getElementById('total').textContent = filteredIndices.length;
+  currentIndex = 0;
+  render();
+}
+
+function render() {
+  if (filteredIndices.length === 0) {
+    document.getElementById('card-container').innerHTML = '<div class="card"><p>No items match this filter.</p></div>';
+    return;
+  }
+  const idx = filteredIndices[currentIndex];
+  const item = items[idx];
+  const key = item.policy + ':' + item.risk_id;
+  const dec = decisions[key] || null;
+
+  document.getElementById('current').textContent = currentIndex + 1;
+
+  let evidenceHtml = item.evidence.map(e => `<div class="evidence-item">${esc(e.text)}</div>`).join('');
+  const evTexts = item.evidence.map(e => e.text);
+  let chunksHtml = item.chunks.map(c => {
+    let html = highlightEvidence(c.text, evTexts);
+    return `<div class="chunk-label">Chunk ${c.index}</div><div class="chunk-item">${html}</div>`;
+  }).join('');
+
+  const confClass = item.confidence === 'high' ? 'confidence-high' : item.confidence === 'medium' ? 'confidence-medium' : 'confidence-low';
+  const borderClass = dec === 'add' ? 'decision-add' : dec === 'reject' ? 'decision-reject' : '';
+
+  document.getElementById('card-container').innerHTML = `
+    <div class="card ${borderClass}">
+      <div class="card-header">
+        <div>
+          <span class="policy-badge">${esc(item.policy)}</span>
+          <span class="${confClass}" style="margin-left:8px">${item.confidence}</span>
+          ${dec ? `<span style="margin-left:8px;font-size:12px;color:${dec==='add'?'#4ade80':'#f87171'}">[${dec.toUpperCase()}]</span>` : ''}
+        </div>
+      </div>
+      <div class="risk-id">${esc(item.risk_id)}</div>
+      <div class="risk-name">${esc(item.risk_name)}</div>
+      <div class="card-body">
+        <div class="col-left">
+          <div class="section-label">Risk Description</div>
+          <div class="risk-desc">${esc(item.risk_description)}</div>
+          <div class="section-label">Evidence found by grounder</div>
+          ${evidenceHtml || '<div style="color:#6b6f80;font-size:13px">No evidence</div>'}
+        </div>
+        <div class="col-right">
+          <div class="section-label">Relevant chunks</div>
+          ${chunksHtml || '<div style="color:#6b6f80;font-size:13px">No chunks available</div>'}
+        </div>
+      </div>
+    </div>
+  `;
+
+  updateStats();
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function norm(s) {
+  return s.replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+function highlightEvidence(chunkText, evidenceTexts) {
+  // Split chunk into words, track original positions
+  const chunkNorm = norm(chunkText);
+  const chunkWords = chunkNorm.split(' ');
+
+  // For each evidence, find where its normalized words appear in the chunk's normalized words
+  let ranges = []; // [{start, end}] in chunkNorm char positions
+  for (const ev of evidenceTexts) {
+    const evNorm = norm(ev);
+    const pos = chunkNorm.indexOf(evNorm);
+    if (pos >= 0) {
+      ranges.push({start: pos, end: pos + evNorm.length});
+    } else {
+      // Try first 30 normalized chars
+      const snippet = evNorm.substring(0, 30);
+      const spos = chunkNorm.indexOf(snippet);
+      if (spos >= 0) {
+        ranges.push({start: spos, end: Math.min(spos + evNorm.length, chunkNorm.length)});
+      }
+    }
+  }
+
+  if (ranges.length === 0) return esc(chunkText);
+
+  // Map normalized positions back to original text positions
+  // Build a mapping: for each char in norm, what's its position in original?
+  const origChars = [];
+  let ni = 0;
+  let inSpace = false;
+  for (let oi = 0; oi < chunkText.length; oi++) {
+    if (/\s/.test(chunkText[oi])) {
+      if (!inSpace && ni > 0) {
+        origChars.push(oi); // the space in normalized
+        ni++;
+        inSpace = true;
+      }
+    } else {
+      origChars.push(oi);
+      ni++;
+      inSpace = false;
+    }
+  }
+
+  // Sort ranges and build highlighted HTML
+  ranges.sort((a, b) => a.start - b.start);
+  let result = '';
+  let lastEnd = 0;
+  for (const r of ranges) {
+    const origStart = origChars[r.start] || 0;
+    const origEnd = origChars[Math.min(r.end, origChars.length - 1)] || chunkText.length;
+    result += esc(chunkText.substring(lastEnd, origStart));
+    result += '<mark>' + esc(chunkText.substring(origStart, origEnd + 1)) + '</mark>';
+    lastEnd = origEnd + 1;
+  }
+  result += esc(chunkText.substring(lastEnd));
+  return result;
+}
+
+function decide(dec) {
+  if (filteredIndices.length === 0) return;
+  const idx = filteredIndices[currentIndex];
+  const item = items[idx];
+  const key = item.policy + ':' + item.risk_id;
+  decisions[key] = dec;
+  localStorage.setItem('expansion_fp_decisions', JSON.stringify(decisions));
+  next();
+}
+
+function next() {
+  if (currentIndex < filteredIndices.length - 1) {
+    currentIndex++;
+    render();
+  }
+}
+
+function prev() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    render();
+  }
+}
+
+function undo() {
+  if (filteredIndices.length === 0) return;
+  const idx = filteredIndices[currentIndex];
+  const item = items[idx];
+  const key = item.policy + ':' + item.risk_id;
+  delete decisions[key];
+  localStorage.setItem('expansion_fp_decisions', JSON.stringify(decisions));
+  render();
+}
+
+function updateStats() {
+  let adds = 0, rejects = 0, pending = 0;
+  for (let i = 0; i < items.length; i++) {
+    const key = items[i].policy + ':' + items[i].risk_id;
+    const d = decisions[key];
+    if (d === 'add') adds++;
+    else if (d === 'reject') rejects++;
+    else pending++;
+  }
+  document.getElementById('stat-add').textContent = `Add: ${adds}`;
+  document.getElementById('stat-reject').textContent = `Reject: ${rejects}`;
+  document.getElementById('stat-skip').textContent = `Pending: ${pending}`;
+}
+
+function exportDecisions() {
+  const adds = [];
+  const rejects = [];
+  for (const [key, dec] of Object.entries(decisions)) {
+    const [policy, ...ridParts] = key.split(':');
+    const rid = ridParts.join(':');
+    const item = items.find(i => i.policy === policy && i.risk_id === rid);
+    if (dec === 'add') {
+      adds.push({
+        policy, risk_id: rid, risk_name: item?.risk_name || '',
+        evidence: item?.evidence?.map(e => e.text) || [],
+      });
+    } else {
+      rejects.push({ policy, risk_id: rid });
+    }
+  }
+  const data = { adds, rejects, timestamp: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'expansion_fp_decisions.json';
+  a.click();
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'l') next();
+  else if (e.key === 'ArrowLeft' || e.key === 'h') prev();
+  else if (e.key === 'a' || e.key === 'A') decide('add');
+  else if (e.key === 'r' || e.key === 'R') decide('reject');
+  else if (e.key === 'u' || e.key === 'U') undo();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
+
+init();
+</script>
+</body>
+</html>

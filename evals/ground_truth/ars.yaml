@@ -1,83 +1,101 @@
-# reviewed: 2026-05-24
 risks:
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "When synthetic media is used in the context of reporting on AI, it will be clearly identified as AI-generated, with that disclosure placed as close to the material as possible."
-        section: "Images, audio, and video"
-      - text: "AI-generated material is presented as exemplar material and is set apart visually, with disclosure placed as close to the material as possible."
-        section: "Our journalism is human-authored"
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "AI output is never treated as an authoritative source. Everything must be verified."
-        section: "Research and source material"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "with humans making every editorial decision."
-        section: "Ars Technica’s policy on generative AI"
-      - text: "These tools can recommend changes; only humans can make them."
-        section: "Our journalism is human-authored"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work. This responsibility cannot be transferred to colleagues, editors, or the tools themselves."
-        section: "Accountability is non-negotiable"
-      - text: "authors remain fully responsible for their content."
-        section: "Research and source material"
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "When synthetic media is used in the context of reporting on AI, it will be clearly identified as AI-generated, with that disclosure placed as close to the material as possible."
-        section: "Images, audio, and video"
-      - text: "Every author who uses AI tools in the course of reporting a story must disclose that use to their editors"
-        section: "Research and source material"
-      - text: "AI-generated material is presented as exemplar material and is set apart visually, with disclosure placed as close to the material as possible."
-        section: "Our journalism is human-authored"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work. This responsibility cannot be transferred to colleagues, editors, or the tools themselves."
-        section: "Accountability is non-negotiable"
-      - text: "Where we do use AI tools in our workflow, we use them as we do any other tool: with standards, under supervision, and with humans making every editorial decision."
-        section: "Ars Technica’s policy on generative AI"
-      - text: "AI output is never treated as an authoritative source. Everything must be verified."
-        section: "Research and source material"
-  - id: atlas-unreliable-source-attribution
-    name: Unreliable source attribution
-    evidence:
-      - text: "AI tools must not be used to generate, extract, or summarize material that is then attributed to a named source, whether as a direct quote, a paraphrase, or a characterization of someone’s views."
-        section: "Research and source material"
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work."
-        section: "Accountability is non-negotiable"
-      - text: "AI output is never treated as an authoritative source. Everything must be verified."
-        section: "Research and source material"
-      - text: "We do not publish AI-generated images, audio, or video as authentic documentation of real events."
-        section: "Images, audio, and video"
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "We don’t publish claims based solely on AI-generated summaries"
-        section: "Research and source material"
-      - text: "We do not publish AI-generated images, audio, or video as authentic documentation of real events."
-        section: "Images, audio, and video"
-      - text: "We do not alter documentary media in ways that change their meaning."
-        section: "Images, audio, and video"
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "AI output is never treated as an authoritative source. Everything must be verified."
-        section: "Research and source material"
-  - id: mit-ai-risk-subdomain-6.3
-    name: Economic and cultural devaluation of human effort
-    evidence:
-      - text: "Ars Technica’s editorial text is written by humans. We do not use AI to generate our reporting, analysis, or commentary."
-        section: "Our journalism is human-authored"
-      - text: "AI-powered tools may be used to assist with editing and workflow in ways that don’t displace human authorship"
-        section: "Our journalism is human-authored"
-      - text: "AI would not become the author, the illustrator, or the videographer."
-        section: "Our newsroom AI policy"
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: When synthetic media is used in the context of reporting on AI, it will be clearly identified as AI-generated, with that disclosure placed as close to the material as possible.
+    section: Images, audio, and video
+  - text: AI-generated material is presented as exemplar material and is set apart visually, with disclosure placed as close to the material as possible.
+    section: Our journalism is human-authored
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: AI output is never treated as an authoritative source. Everything must be verified.
+    section: Research and source material
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: with humans making every editorial decision.
+    section: Ars Technica’s policy on generative AI
+  - text: These tools can recommend changes; only humans can make them.
+    section: Our journalism is human-authored
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work. This responsibility cannot be transferred to colleagues, editors, or the
+      tools themselves.
+    section: Accountability is non-negotiable
+  - text: authors remain fully responsible for their content.
+    section: Research and source material
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: When synthetic media is used in the context of reporting on AI, it will be clearly identified as AI-generated, with that disclosure placed as close to the material as possible.
+    section: Images, audio, and video
+  - text: Every author who uses AI tools in the course of reporting a story must disclose that use to their editors
+    section: Research and source material
+  - text: AI-generated material is presented as exemplar material and is set apart visually, with disclosure placed as close to the material as possible.
+    section: Our journalism is human-authored
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work. This responsibility cannot be transferred to colleagues, editors, or the
+      tools themselves.
+    section: Accountability is non-negotiable
+  - text: 'Where we do use AI tools in our workflow, we use them as we do any other tool: with standards, under supervision, and with humans making every editorial decision.'
+    section: Ars Technica’s policy on generative AI
+  - text: AI output is never treated as an authoritative source. Everything must be verified.
+    section: Research and source material
+- id: atlas-unreliable-source-attribution
+  name: Unreliable source attribution
+  evidence:
+  - text: AI tools must not be used to generate, extract, or summarize material that is then attributed to a named source, whether as a direct quote, a paraphrase, or a characterization of someone’s views.
+    section: Research and source material
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work.
+    section: Accountability is non-negotiable
+  - text: AI output is never treated as an authoritative source. Everything must be verified.
+    section: Research and source material
+  - text: We do not publish AI-generated images, audio, or video as authentic documentation of real events.
+    section: Images, audio, and video
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: We don’t publish claims based solely on AI-generated summaries
+    section: Research and source material
+  - text: We do not publish AI-generated images, audio, or video as authentic documentation of real events.
+    section: Images, audio, and video
+  - text: We do not alter documentary media in ways that change their meaning.
+    section: Images, audio, and video
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: AI output is never treated as an authoritative source. Everything must be verified.
+    section: Research and source material
+- id: mit-ai-risk-subdomain-6.3
+  name: Economic and cultural devaluation of human effort
+  evidence:
+  - text: Ars Technica’s editorial text is written by humans. We do not use AI to generate our reporting, analysis, or commentary.
+    section: Our journalism is human-authored
+  - text: AI-powered tools may be used to assist with editing and workflow in ways that don’t displace human authorship
+    section: Our journalism is human-authored
+  - text: AI would not become the author, the illustrator, or the videographer.
+    section: Our newsroom AI policy
+- id: mit-ai-risk-subdomain-4.1
+  name: Disinformation, surveillance, and influence at scale
+  evidence:
+  - text: We do not publish AI-generated images, audio, or video as authentic documentation of real events.
+  - text: We do not alter documentary media in ways that change their meaning.
+  - text: When synthetic media is used in the context of reporting on AI, it will be clearly identified as AI-generated
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: Where we use AI tools in our workflow, we use them with standards and oversight, and humans make every editorial decision.
+  - text: AI-powered tools may be used to assist with editing and workflow in ways that don’t displace human authorship, including grammar checks, style suggestions, and structural feedback. These tools
+      can recommend changes; only humans can make them.
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: Anyone who uses AI tools in our editorial workflow is responsible for the accuracy and integrity of the resulting work.
+  - text: Maintaining the standards in this policy is a shared obligation across our editorial operation.

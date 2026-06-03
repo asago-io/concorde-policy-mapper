@@ -1,176 +1,252 @@
-# reviewed: 2026-05-26 — revised with gap analysis (added 13 missing cross-framework risks)
 risks:
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models."
-        section: "4.2. Design"
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "bias controls"
-        section: "4.2. Design"
-        page: 3
-      - text: "auditing for accountability, bias and risks implicated by specific AI models"
-        section: "4.3. Monitor"
-        page: 3
-      - text: "adopting tools for bias check as part of model-development practices"
-        section: "4.3. Monitor"
-        page: 3
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "Where possible, we disclose relevant information regarding the use of AI in non-technical terms to foster trust from individuals and businesses alike."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models."
-        section: "4.2. Design"
-  - id: atlas-lack-of-testing-diversity
-    name: Lack of testing diversity
-    evidence:
-      - text: "Proactive cooperation to monitor across disciplines also helps to preempt AI-related risks"
-        section: "4.3. Monitor"
-        page: 3
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "Our Group companies are expected to specify and announce the governance principles applicable to their  own  development  and deployment  of fair  and responsible  AI"
-        section: "4.1. Govern"
-        page: 3
-      - text: "Should investee companies operate in jurisdictions where specific AI laws apply, including but not limited  to  the  European  Union  Artificial  Intelligence  Act (EU  AI  Act),  they  must  ensure  that the requirements of such laws are met."
-        section: "4.1. Govern"
-        page: 3
-      - text: "Individual businesses are accountable to deploy AI responsibly within their organisations."
-        section: "2. ACCOUNTABILITY"
-        page: 2
-  - id: credo-risk-008
-    name: Opaque system architecture
-    evidence:
-      - text: "AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "pursuing efforts aimed at introducing more explainable and robust models."
-        section: "4.2. Design"
-      - text: "The designers of systems have an ongoing duty to appropriately document how they implement these principles, and to monitor and control for performance over time."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-  - id: credo-risk-011
-    name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "auditing for accountability, bias and risks implicated by specific AI models"
-        section: "4.3. Monitor"
-        page: 3
-      - text: "adopting tools for bias check as part of model-development practices"
-        section: "4.3. Monitor"
-        page: 3
-      - text: "bias controls"
-        section: "4.2. Design"
-        page: 3
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "Should investee companies operate in jurisdictions where specific AI laws apply, including but not limited to the European Union Artificial Intelligence Act (EU AI Act), they must ensure that the requirements of such laws are met."
-        section: "4.1. Govern"
-      - text: "apply globally-benchmarked responsible AI standards, whether set forth in applicable laws, ethical best practices, or voluntary frameworks implemented in the jurisdictions where our companies operate."
-        section: "1. OBJECTIVES"
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "The designers of systems have an ongoing duty to appropriately document how they implement these principles, and to monitor and control for performance over time."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-        page: 2
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "Group companies are to implement appropriate processes aimed at auditing for accountability, bias and risks implicated by specific AI models."
-        section: "4.3. Monitor"
-      - text: "The designers of systems have an ongoing duty to appropriately document how they implement these principles, and to monitor and control for performance over time."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "The Risk Committee of the Prosus Board of Directors reviews this policy and its implementation on an annual basis, as part of its oversight and governance responsibilities."
-        section: "6. GROUP SUPPORT AND MONITORING"
-  - id: credo-risk-035
-    name: Lack of robustness (Slattery et al., 2024)
-    evidence:
-      - text: "We strive to ensure that the scientific and technical standards informing research, design and application of our AI products and services are sound, robust and on par with the global best practices."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models."
-        section: "4.2. Design"
-      - text: "pursuing efforts aimed at introducing more explainable and robust models."
-        section: "4.2. Design"
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "We make sure that the AI we develop, use and deploy are designed in a way that minimises known security threats, through appropriate technical and organisational measures."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models."
-        section: "4.2. Design"
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "Each business is responsible for implementing this policy and should designate appropriate stakeholders with responsibility for AI governance within the relevant business."
-        section: "2. ACCOUNTABILITY"
-      - text: "Our Group companies are expected to specify and announce the governance principles applicable to their own development and deployment of fair and responsible AI in a manner that is reasonably accessible by their users, clients, partners and the public."
-        section: "4.1. Govern"
-      - text: "CEOs in the Group hold ultimate responsibility for the success of their businesses and therefore must demonstrate leadership over how responsible AI is addressed within their organisations."
-        section: "2. ACCOUNTABILITY"
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "We strive to avoid creating unfair biases and reinforcing or exacerbating existing biases."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "We ensure that fairness and inclusivity considerations are appropriately incorporated in the development and deployment of AI systems."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "adopting tools for bias check as part of model-development practices."
-        section: "4.3. Monitor"
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "auditing for accountability, bias and risks implicated by specific AI models"
-        section: "4.3. Monitor"
-        page: 3
-      - text: "adopting tools for bias check as part of model-development practices"
-        section: "4.3. Monitor"
-        page: 3
-      - text: "We strive to avoid creating unfair biases and reinforcing or exacerbating existing biases."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-        page: 2
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "design for privacy"
-        section: "4.2. Design"
-        page: 3
-      - text: "Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-        page: 2
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "Each business is responsible for implementing this policy and should designate appropriate stakeholders with responsibility for AI governance within the relevant business."
-        section: "2. ACCOUNTABILITY"
-      - text: "CEOs in the Group hold ultimate responsibility for the success of their businesses and therefore must demonstrate leadership over how responsible AI is addressed within their organisations."
-        section: "2. ACCOUNTABILITY"
-      - text: "The Risk Committee of the Prosus Board of Directors reviews this policy and its implementation on an annual basis, as part of its oversight and governance responsibilities."
-        section: "6. GROUP SUPPORT AND MONITORING"
-  - id: mit-ai-risk-subdomain-7.3
-    name: Lack of capability or robustness
-    evidence:
-      - text: "We strive to ensure that the scientific and technical standards informing research, design and application of our AI products and services are sound, robust and on par with the global best practices."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-      - text: "pursuing efforts aimed at introducing more explainable and robust models."
-        section: "4.2. Design"
-      - text: "design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models."
-        section: "4.2. Design"
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "transparency"
-        section: "4.2. Design"
-        page: 3
-      - text: "pursuing efforts aimed at introducing more explainable and robust models"
-        section: "4.2. Design"
-        page: 3
-      - text: "AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances."
-        section: "3. RESPONSIBLE AI GUIDING PRINCIPLES"
-        page: 2
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models.
+    section: 4.2. Design
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: bias controls
+    section: 4.2. Design
+    page: 3
+  - text: auditing for accountability, bias and risks implicated by specific AI models
+    section: 4.3. Monitor
+    page: 3
+  - text: adopting tools for bias check as part of model-development practices
+    section: 4.3. Monitor
+    page: 3
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: Where possible, we disclose relevant information regarding the use of AI in non-technical terms to foster trust from individuals and businesses alike.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models.
+    section: 4.2. Design
+- id: atlas-lack-of-testing-diversity
+  name: Lack of testing diversity
+  evidence:
+  - text: Proactive cooperation to monitor across disciplines also helps to preempt AI-related risks
+    section: 4.3. Monitor
+    page: 3
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: Our Group companies are expected to specify and announce the governance principles applicable to their  own  development  and deployment  of fair  and responsible  AI
+    section: 4.1. Govern
+    page: 3
+  - text: Should investee companies operate in jurisdictions where specific AI laws apply, including but not limited  to  the  European  Union  Artificial  Intelligence  Act (EU  AI  Act),  they  must  ensure  that
+      the requirements of such laws are met.
+    section: 4.1. Govern
+    page: 3
+  - text: Individual businesses are accountable to deploy AI responsibly within their organisations.
+    section: 2. ACCOUNTABILITY
+    page: 2
+- id: credo-risk-008
+  name: Opaque system architecture
+  evidence:
+  - text: AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: pursuing efforts aimed at introducing more explainable and robust models.
+    section: 4.2. Design
+  - text: The designers of systems have an ongoing duty to appropriately document how they implement these principles, and to monitor and control for performance over time.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: auditing for accountability, bias and risks implicated by specific AI models
+    section: 4.3. Monitor
+    page: 3
+  - text: adopting tools for bias check as part of model-development practices
+    section: 4.3. Monitor
+    page: 3
+  - text: bias controls
+    section: 4.2. Design
+    page: 3
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: Should investee companies operate in jurisdictions where specific AI laws apply, including but not limited to the European Union Artificial Intelligence Act (EU AI Act), they must ensure that
+      the requirements of such laws are met.
+    section: 4.1. Govern
+  - text: apply globally-benchmarked responsible AI standards, whether set forth in applicable laws, ethical best practices, or voluntary frameworks implemented in the jurisdictions where our companies
+      operate.
+    section: 1. OBJECTIVES
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: The designers of systems have an ongoing duty to appropriately document how they implement these principles, and to monitor and control for performance over time.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+    page: 2
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: Group companies are to implement appropriate processes aimed at auditing for accountability, bias and risks implicated by specific AI models.
+    section: 4.3. Monitor
+  - text: The designers of systems have an ongoing duty to appropriately document how they implement these principles, and to monitor and control for performance over time.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: The Risk Committee of the Prosus Board of Directors reviews this policy and its implementation on an annual basis, as part of its oversight and governance responsibilities.
+    section: 6. GROUP SUPPORT AND MONITORING
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: We strive to ensure that the scientific and technical standards informing research, design and application of our AI products and services are sound, robust and on par with the global best practices.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models.
+    section: 4.2. Design
+  - text: pursuing efforts aimed at introducing more explainable and robust models.
+    section: 4.2. Design
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: We make sure that the AI we develop, use and deploy are designed in a way that minimises known security threats, through appropriate technical and organisational measures.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models.
+    section: 4.2. Design
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: Each business is responsible for implementing this policy and should designate appropriate stakeholders with responsibility for AI governance within the relevant business.
+    section: 2. ACCOUNTABILITY
+  - text: Our Group companies are expected to specify and announce the governance principles applicable to their own development and deployment of fair and responsible AI in a manner that is reasonably
+      accessible by their users, clients, partners and the public.
+    section: 4.1. Govern
+  - text: CEOs in the Group hold ultimate responsibility for the success of their businesses and therefore must demonstrate leadership over how responsible AI is addressed within their organisations.
+    section: 2. ACCOUNTABILITY
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: We strive to avoid creating unfair biases and reinforcing or exacerbating existing biases.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: We ensure that fairness and inclusivity considerations are appropriately incorporated in the development and deployment of AI systems.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: adopting tools for bias check as part of model-development practices.
+    section: 4.3. Monitor
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: auditing for accountability, bias and risks implicated by specific AI models
+    section: 4.3. Monitor
+    page: 3
+  - text: adopting tools for bias check as part of model-development practices
+    section: 4.3. Monitor
+    page: 3
+  - text: We strive to avoid creating unfair biases and reinforcing or exacerbating existing biases.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+    page: 2
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: design for privacy
+    section: 4.2. Design
+    page: 3
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+    page: 2
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: Each business is responsible for implementing this policy and should designate appropriate stakeholders with responsibility for AI governance within the relevant business.
+    section: 2. ACCOUNTABILITY
+  - text: CEOs in the Group hold ultimate responsibility for the success of their businesses and therefore must demonstrate leadership over how responsible AI is addressed within their organisations.
+    section: 2. ACCOUNTABILITY
+  - text: The Risk Committee of the Prosus Board of Directors reviews this policy and its implementation on an annual basis, as part of its oversight and governance responsibilities.
+    section: 6. GROUP SUPPORT AND MONITORING
+- id: mit-ai-risk-subdomain-7.3
+  name: Lack of capability or robustness
+  evidence:
+  - text: We strive to ensure that the scientific and technical standards informing research, design and application of our AI products and services are sound, robust and on par with the global best practices.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+  - text: pursuing efforts aimed at introducing more explainable and robust models.
+    section: 4.2. Design
+  - text: design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and models.
+    section: 4.2. Design
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: transparency
+    section: 4.2. Design
+    page: 3
+  - text: pursuing efforts aimed at introducing more explainable and robust models
+    section: 4.2. Design
+    page: 3
+  - text: AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances.
+    section: 3. RESPONSIBLE AI GUIDING PRINCIPLES
+    page: 2
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: Our Group companies are expected to appropriately design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and
+      models.
+- id: atlas-lack-of-model-transparency
+  name: Lack of model transparency
+  evidence:
+  - text: pursuing efforts aimed at introducing more explainable and robust models.
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: Our Group companies are expected to appropriately design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and
+      models.
+- id: atlas-unexplainable-output
+  name: Unexplainable output
+  evidence:
+  - text: AI systems and their outputs should be context-sensitive, transparent and explainable to different stakeholders in appropriate circumstances.
+  - text: This pillar includes pursuing efforts aimed at introducing more explainable and robust models.
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: Should investee companies operate in jurisdictions where specific AI laws apply, including but not limited to the European Union Artificial Intelligence Act (EU AI Act), they must ensure that
+      the requirements of such laws are met.
+  - text: The Risk Committee of the Prosus Board of Directors reviews this policy and its implementation on an annual basis, as part of its oversight and governance responsibilities.
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+  - text: Our Group companies are expected to appropriately design for privacy, security, transparency, bias controls, and robustness as an integral part of development and deployment of AI systems and
+      models.
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+  - text: We make sure that the AI we develop, use and deploy are designed in a way that minimises known security threats, through appropriate technical and organisational measures.
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: We make sure that the AI we develop, use and deploy are designed in a way that minimises known security threats, through appropriate technical and organisational measures.
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+- id: atlas-impact-on-affected-communities
+  name: Impact on affected communities
+  evidence:
+  - text: We are committed to ensuring that our AI applications contribute to positive changes in people's everyday lives and are in line with our vision as a group to invest in and build companies  that
+      empower people and enrich communities across the world.
+  - text: In this way, we aim for our AI endeavors to benefit our customers, our company and our stakeholders directly, (whilst creating benefits for society at large).
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: Where possible, we disclose relevant information regarding the use of AI in non-technical terms to foster trust from individuals and businesses alike.
+  - text: Our Group companies are expected to specify and announce the governance principles applicable to their  own  development  and deployment  of fair  and responsible  AI  in a manner  that  is  reasonably
+      accessible by their users, clients, partners and  the public.
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+- id: credo-risk-007
+  name: Inadequate observability (Slatteryet al., 2024)
+  evidence:
+  - text: Group companies are to implement appropriate processes aimed at auditing for accountability, bias and risks implicated by specific AI models.
+- id: credo-risk-009
+  name: Black box decisionmaking (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: pursuing efforts aimed at introducing more explainable and robust models.
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: Data used to train and deploy AI systems must be proportionate, handled in conformity with applicable data protection laws.
+  - text: We make sure that the AI we develop, use and deploy are designed in a way that minimises known security threats, through appropriate technical and organisational measures.

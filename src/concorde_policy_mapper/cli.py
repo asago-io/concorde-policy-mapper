@@ -43,6 +43,7 @@ def extract(
     threshold_high: float = typer.Option(None, "--threshold-high", help="Legacy: absolute auto-accept threshold (overrides rank-based)"),
     threshold_low: float = typer.Option(None, "--threshold-low", help="Legacy: absolute discard threshold (overrides rank-based)"),
     bi_encoder_model: str = typer.Option("all-mpnet-base-v2", "--bi-encoder-model", help="Bi-encoder model"),
+    query_instruction: str = typer.Option("", "--query-instruction", help="Instruction prefix for query encoding (e.g. for Qwen3-Embedding)"),
     cross_encoder_model: str = typer.Option("cross-encoder/ms-marco-MiniLM-L-12-v2", "--cross-encoder-model", help="Cross-encoder model"),
     bm25_rescue_rank: int = typer.Option(0, "--bm25-rescue-rank", help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled)"),
     no_cross_encoder: bool = typer.Option(False, "--no-cross-encoder", help="Skip cross-encoder reranking and LLM judge; use RRF score floor instead"),
@@ -50,6 +51,7 @@ def extract(
     colbert_model: str = typer.Option(None, "--colbert-model", help="ColBERT model for late interaction retrieval (replaces bi-encoder + cross-encoder)"),
     judge_prompt: str = typer.Option("judge_risk", "--judge-prompt", help="Judge prompt template name (judge_risk, judge_risk_gepa, judge_risk_gepa_demos)"),
     judge_context_tokens: int = typer.Option(0, "--judge-context-tokens", help="Max tokens for judge context window (0=use default sentence padding)"),
+    expand_siblings: bool = typer.Option(False, "--expand-siblings", help="After merge, expand to sibling risks and ground them against relevant chunks"),
     no_judge: bool = typer.Option(False, "--no-judge", help="Skip LLM judge; auto-promote borderline candidates to accepted"),
     no_grounding: bool = typer.Option(False, "--no-grounding", help="Skip LLM grounding; accepted candidates become matches without evidence"),
 ):
@@ -103,6 +105,7 @@ def extract(
         top_n_judge=top_n_judge,
         min_score_floor=min_score_floor,
         bi_encoder_model=bi_encoder_model,
+        query_instruction=query_instruction,
         cross_encoder_model=cross_encoder_model,
         bm25_rescue_rank=bm25_rescue_rank,
         use_cross_encoder=not no_cross_encoder,
@@ -110,6 +113,7 @@ def extract(
         colbert_model=colbert_model or None,
         threshold_high=threshold_high,
         threshold_low=threshold_low,
+        expand_siblings=expand_siblings,
         no_judge=no_judge,
         no_grounding=no_grounding,
         judge_prompt=judge_prompt,
@@ -117,6 +121,15 @@ def extract(
     )
 
     result.token_usage = tracker.to_dict()
+
+    from concorde_policy_mapper.extract.mitigations import (
+        enrich_with_mitigations,
+        load_mitigation_index,
+    )
+    mitigation_index = load_mitigation_index()
+    if mitigation_index:
+        enrich_with_mitigations(result.risks, mitigation_index)
+        typer.echo(f"  Mitigations attached from {len(mitigation_index)} risk entries")
 
     result_data = result.model_dump()
     result_path = output / "risk-extraction.json"

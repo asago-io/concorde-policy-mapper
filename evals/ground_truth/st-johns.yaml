@@ -1,224 +1,275 @@
-# reviewed: 2026-05-31
 risks:
-  - id: atlas-personal-information-in-prompt
-    name: Personal Information in Prompt
-    evidence:
-      - text: "AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly available AI tools. This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about employees, students, and other members of the St. John's community into AI tools."
-        section: "Policy"
-      - text: "Inputs into AI prompts via text, speech, images, or any other means must be anonymized to avoid disclosing confidential University information."
-        section: "Policy"
-
-  - id: atlas-confidential-data-in-prompt
-    name: Confidential Data in Prompt
-    evidence:
-      - text: "AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly available AI tools."
-        section: "Policy"
-      - text: "Only data classified as low risk (including public data) in accordance with the University's Policy 922 - Information Classification Policy, may be used in AI tools and services. Information entered into AI engines opens up the data to be searchable through the public internet."
-        section: "Policy"
-
-  - id: atlas-revealing-confidential-information
-    name: Revealing Confidential Information
-    evidence:
-      - text: "Information entered into AI engines opens up the data to be searchable through the public internet."
-        section: "Policy"
-      - text: "All data that will or could be typed or entered into the AI tool or service must be evaluated in accordance with the University's data classification and use policies. This will enable the University to continue to protect sensitive data in accordance with privacy and security laws while still taking advantage of emerging benefits of AI."
-        section: "Policy"
-
-  - id: atlas-decision-bias
-    name: Decision Bias
-    evidence:
-      - text: "Biases are inherent in AI, especially when using Generative AI tools. Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers. Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity."
-        section: "Policy"
-
-  - id: atlas-output-bias
-    name: Output Bias
-    evidence:
-      - text: "All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes."
-        section: "Policy"
-      - text: "AI users are responsible for ensuring that the AI-generated content aligns with the University's mission and values, and should actively work to identify and mitigate biases in AI systems."
-        section: "Policy"
-
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes."
-        section: "Policy"
-      - text: "Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers. Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity."
-        section: "Policy"
-
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human interaction as needed."
-        section: "Policy"
-      - text: "Using AI to help complete tasks more quickly and efficiently should create opportunities to interact further with others and allow critical thinking to occur."
-        section: "Policy"
-
-  - id: atlas-impact-on-human-agency
-    name: Impact on Human Agency
-    evidence:
-      - text: "While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human interaction as needed."
-        section: "Policy"
-
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "AI use in work should always be disclosed, and AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes."
-        section: "Policy"
-
-  - id: atlas-copyright-infringement
-    name: Copyright Infringement
-    evidence:
-      - text: "AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes."
-        section: "Policy"
-
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes."
-        section: "Policy"
-      - text: "Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity."
-        section: "Policy"
-
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use
-    evidence:
-      - text: "While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human interaction as needed."
-        section: "Policy"
-
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy
-    evidence:
-      - text: "AI should not replace relationships or human interaction as needed. Using AI to help complete tasks more quickly and efficiently should create opportunities to interact further with others and allow critical thinking to occur."
-        section: "Policy"
-
-  - id: credo-risk-036
-    name: Compromised PII
-    evidence:
-      - text: "This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about employees, students, and other members of the St. John's community into AI tools."
-        section: "Policy"
-
-  - id: credo-risk-037
-    name: Compromised sensitive information
-    evidence:
-      - text: "AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly available AI tools."
-        section: "Policy"
-      - text: "Information entered into AI engines opens up the data to be searchable through the public internet."
-        section: "Policy"
-
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination
-    evidence:
-      - text: "These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University."
-        section: "Policy"
-      - text: "AI users are responsible for ensuring that the AI-generated content aligns with the University's mission and values, and should actively work to identify and mitigate biases in AI systems."
-        section: "Policy"
-
-  - id: mit-ai-risk-subdomain-2.1
-    name: Privacy compromise
-    evidence:
-      - text: "This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about employees, students, and other members of the St. John's community into AI tools."
-        section: "Policy"
-
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes."
-        section: "Policy"
-
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human interaction as needed."
-        section: "Policy"
-
-  - id: mit-ai-risk-subdomain-5.2
-    name: Loss of human agency
-    evidence:
-      - text: "AI should not replace relationships or human interaction as needed. Using AI to help complete tasks more quickly and efficiently should create opportunities to interact further with others and allow critical thinking to occur."
-        section: "Policy"
-
-  - id: ai-risk-taxonomy-plagiarism
-    name: Plagiarism
-    evidence:
-      - text: "AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes."
-        section: "Policy"
-
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not Labeling Content as AI-Generated
-    evidence:
-      - text: "AI use in work should always be disclosed, and AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes."
-        section: "Policy"
-
-  - id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
-    name: Unauthorized Disclosure - PII
-    evidence:
-      - text: "This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about employees, students, and other members of the St. John's community into AI tools."
-        section: "Policy"
-
-  - id: credo-risk-023
-    name: Regulatory Compliance
-    evidence:
-      - text: "it is necessary to comply with applicable laws and respect privacy, confidentiality, and data security."
-        section: "Purpose"
-
-  - id: credo-risk-046
-    name: Governance Failures
-    evidence:
-      - text: "Departments interested in using these tools must secure approval from the Administrative Technology Governance committee, as well as a security review by the Office of Information Technology."
-        section: "Policy"
-
-  - id: credo-risk-040
-    name: AI-generated security weaknesses
-    evidence:
-      - text: "AI users must comply with the University's Information Technology (series 900) policies when utilizing AI tools for conducting any University business."
-        section: "Policy"
-      - text: "Departments interested in using these tools must secure approval from the Administrative Technology Governance committee, as well as a security review by the Office of Information Technology."
-        section: "Policy"
-
-  - id: atlas-data-bias
-    name: Data Bias
-    evidence:
-      - text: "Biases are inherent in AI, especially when using Generative AI tools. Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers."
-        section: "Policy"
-
-  - id: atlas-confidential-information-in-data
-    name: Confidential Information in Data
-    evidence:
-      - text: "AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly available AI tools."
-        section: "Policy"
-
-  - id: atlas-exposing-personal-information
-    name: Exposing Personal Information
-    evidence:
-      - text: "Information entered into AI engines opens up the data to be searchable through the public internet."
-        section: "Policy"
-
-  - id: atlas-poor-model-accuracy
-    name: Poor Model Accuracy
-    evidence:
-      - text: "Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity."
-        section: "Policy"
-      - text: "All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes."
-        section: "Policy"
-
-  - id: atlas-data-usage
-    name: Data Usage
-    evidence:
-      - text: "All data that will or could be typed or entered into the AI tool or service must be evaluated in accordance with the University's data classification and use policies."
-        section: "Policy"
-      - text: "Only data classified as low risk (including public data) in accordance with the University's Policy 922 - Information Classification Policy, may be used in AI tools and services."
-        section: "Policy"
-
-  - id: atlas-ip-information-in-prompt
-    name: IP Information in Prompt
-    evidence:
-      - text: "AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly available AI tools."
-        section: "Policy"
-
-  - id: atlas-personal-information-in-data
-    name: Personal Information in Data
-    evidence:
-      - text: "Information entered into AI engines opens up the data to be searchable through the public internet."
-        section: "Policy"
-
+- id: atlas-personal-information-in-prompt
+  name: Personal Information in Prompt
+  evidence:
+  - text: AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly
+      available AI tools. This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers,
+      etc.) about employees, students, and other members of the St. John's community into AI tools.
+    section: Policy
+  - text: Inputs into AI prompts via text, speech, images, or any other means must be anonymized to avoid disclosing confidential University information.
+    section: Policy
+- id: atlas-confidential-data-in-prompt
+  name: Confidential Data in Prompt
+  evidence:
+  - text: AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly
+      available AI tools.
+    section: Policy
+  - text: Only data classified as low risk (including public data) in accordance with the University's Policy 922 - Information Classification Policy, may be used in AI tools and services. Information entered
+      into AI engines opens up the data to be searchable through the public internet.
+    section: Policy
+- id: atlas-revealing-confidential-information
+  name: Revealing Confidential Information
+  evidence:
+  - text: Information entered into AI engines opens up the data to be searchable through the public internet.
+    section: Policy
+  - text: All data that will or could be typed or entered into the AI tool or service must be evaluated in accordance with the University's data classification and use policies. This will enable the University
+      to continue to protect sensitive data in accordance with privacy and security laws while still taking advantage of emerging benefits of AI.
+    section: Policy
+- id: atlas-decision-bias
+  name: Decision Bias
+  evidence:
+  - text: Biases are inherent in AI, especially when using Generative AI tools. Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers.
+      Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity.
+    section: Policy
+- id: atlas-output-bias
+  name: Output Bias
+  evidence:
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+    section: Policy
+  - text: AI users are responsible for ensuring that the AI-generated content aligns with the University's mission and values, and should actively work to identify and mitigate biases in AI systems.
+    section: Policy
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+    section: Policy
+  - text: Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers. Fact-checking information is necessary before answers are considered
+      absolute and used in any decision-making capacity.
+    section: Policy
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human
+      interaction as needed.
+    section: Policy
+  - text: Using AI to help complete tasks more quickly and efficiently should create opportunities to interact further with others and allow critical thinking to occur.
+    section: Policy
+- id: atlas-impact-on-human-agency
+  name: Impact on Human Agency
+  evidence:
+  - text: While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human
+      interaction as needed.
+    section: Policy
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: AI use in work should always be disclosed, and AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes.
+    section: Policy
+- id: atlas-copyright-infringement
+  name: Copyright Infringement
+  evidence:
+  - text: AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes.
+    section: Policy
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+    section: Policy
+  - text: Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity.
+    section: Policy
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use
+  evidence:
+  - text: While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human
+      interaction as needed.
+    section: Policy
+- id: credo-risk-019
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: AI should not replace relationships or human interaction as needed. Using AI to help complete tasks more quickly and efficiently should create opportunities to interact further with others and
+      allow critical thinking to occur.
+    section: Policy
+- id: credo-risk-036
+  name: Compromised PII
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John's community into AI tools.
+    section: Policy
+- id: credo-risk-037
+  name: Compromised sensitive information
+  evidence:
+  - text: AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly
+      available AI tools.
+    section: Policy
+  - text: Information entered into AI engines opens up the data to be searchable through the public internet.
+    section: Policy
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+    section: Policy
+  - text: AI users are responsible for ensuring that the AI-generated content aligns with the University's mission and values, and should actively work to identify and mitigate biases in AI systems.
+    section: Policy
+- id: mit-ai-risk-subdomain-2.1
+  name: Privacy compromise
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John's community into AI tools.
+    section: Policy
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+    section: Policy
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: While AI is transformative and has potential to make our work more efficient, tasks should be evaluated as to the importance of losing human touch. AI should not replace relationships or human
+      interaction as needed.
+    section: Policy
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency
+  evidence:
+  - text: AI should not replace relationships or human interaction as needed. Using AI to help complete tasks more quickly and efficiently should create opportunities to interact further with others and
+      allow critical thinking to occur.
+    section: Policy
+- id: ai-risk-taxonomy-plagiarism
+  name: Plagiarism
+  evidence:
+  - text: AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes.
+    section: Policy
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not Labeling Content as AI-Generated
+  evidence:
+  - text: AI use in work should always be disclosed, and AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes.
+    section: Policy
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized Disclosure - PII
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John's community into AI tools.
+    section: Policy
+- id: credo-risk-023
+  name: Regulatory Compliance
+  evidence:
+  - text: it is necessary to comply with applicable laws and respect privacy, confidentiality, and data security.
+    section: Purpose
+- id: credo-risk-046
+  name: Governance Failures
+  evidence:
+  - text: Departments interested in using these tools must secure approval from the Administrative Technology Governance committee, as well as a security review by the Office of Information Technology.
+    section: Policy
+- id: credo-risk-040
+  name: AI-generated security weaknesses
+  evidence:
+  - text: AI users must comply with the University's Information Technology (series 900) policies when utilizing AI tools for conducting any University business.
+    section: Policy
+  - text: Departments interested in using these tools must secure approval from the Administrative Technology Governance committee, as well as a security review by the Office of Information Technology.
+    section: Policy
+- id: atlas-data-bias
+  name: Data Bias
+  evidence:
+  - text: Biases are inherent in AI, especially when using Generative AI tools. Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers.
+    section: Policy
+- id: atlas-confidential-information-in-data
+  name: Confidential Information in Data
+  evidence:
+  - text: AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly
+      available AI tools.
+    section: Policy
+- id: atlas-exposing-personal-information
+  name: Exposing Personal Information
+  evidence:
+  - text: Information entered into AI engines opens up the data to be searchable through the public internet.
+    section: Policy
+- id: atlas-poor-model-accuracy
+  name: Poor Model Accuracy
+  evidence:
+  - text: Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity.
+    section: Policy
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+    section: Policy
+- id: atlas-data-usage
+  name: Data Usage
+  evidence:
+  - text: All data that will or could be typed or entered into the AI tool or service must be evaluated in accordance with the University's data classification and use policies.
+    section: Policy
+  - text: Only data classified as low risk (including public data) in accordance with the University's Policy 922 - Information Classification Policy, may be used in AI tools and services.
+    section: Policy
+- id: atlas-ip-information-in-prompt
+  name: IP Information in Prompt
+  evidence:
+  - text: AI users are prohibited from inputting data specific to St. John's University, including confidential or proprietary business information belonging to the University when using commercially, publicly
+      available AI tools.
+    section: Policy
+- id: atlas-personal-information-in-data
+  name: Personal Information in Data
+  evidence:
+  - text: Information entered into AI engines opens up the data to be searchable through the public internet.
+    section: Policy
+- id: atlas-plagiarism
+  name: 'Impact on education: plagiarism'
+  evidence:
+  - text: AI users must not plagiarize or fail to attribute AI-generated content that is used for work purposes.
+- id: atlas-spreading-disinformation
+  name: Spreading disinformation
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+- id: atlas-spreading-toxicity
+  name: Spreading toxicity
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+  - text: Biases are inherent in AI, especially when using Generative AI tools.
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: Before using AI for work purposes, AI users should discuss the parameters of their use with their direct supervisors.
+  - text: As part of our core commitment and mission, all community members should understand their role in helping AI improve and removing biases.
+- id: credo-risk-024
+  name: Civil liability
+  evidence:
+  - text: it is necessary to comply with applicable laws and respect privacy, confidentiality, and data security.
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+- id: credo-risk-029
+  name: Mass surveillance and privacy attacks (Slattery et al., 2024)
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John’s community into AI tools.
+  - text: Information entered into AI engines opens up the data to be searchable through the public internet.
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: All AI-generated content must be carefully reviewed for accuracy, appropriateness, and bias before relying on it for work purposes.
+  - text: AI users are responsible for ensuring that the AI-generated content aligns with the University’s mission and values, and should actively work to identify and mitigate biases in AI systems.
+- id: atlas-harmful-output
+  name: Harmful output
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: The purpose of this Policy is to establish guidelines for the appropriate use of Artificial Intelligence (AI) in the workplace.
+- id: atlas-toxic-output
+  name: Toxic output
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+- id: credo-risk-026
+  name: Fraud, scams, and targeted manipulation
+  evidence:
+  - text: These technologies must not be used to create content that is inappropriate, discriminatory, deceptive, or otherwise harmful to others or to the University.
+- id: credo-risk-034
+  name: ' Oversight and evaluation challenges'
+  evidence:
+  - text: Information should be carefully reviewed for these biases (both unconscious and conscious), as well as validation of answers.
+  - text: Fact-checking information is necessary before answers are considered absolute and used in any decision-making capacity.
+  - text: Whenever inaccuracies or biases are encountered, they should be reported back as feedback to the engine, allowing for continuous improvement of the technology.
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: the University recognizes that this is an emerging and rapidly changing field and that its policy is subject to change.

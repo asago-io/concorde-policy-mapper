@@ -1,412 +1,542 @@
-# reviewed: 2026-05-24
 risks:
-  - id: ai-risk-taxonomy-characterization-of-identity---ethnicity
-    name: Characterization of identity - Ethnicity
-    evidence:
-      - text: "Avoid Bias and Harm - Be alert to potential bias, stereotyping, or inappropriate content in Copilot outputs."
-        section: "5.3 What should I consider when using AI?"
-  - id: ai-risk-taxonomy-characterization-of-identity---physical-characteristics
-    name: Characterization of identity - Physical Characteristics
-    evidence:
-      - text: "This policy has been developed with consideration for the potential risks and benefits of generative AI use across all protected characteristics."
-        section: "Code of Ethics | College of Policing"
-      - text: "It aims to prevent discrimination, promote equality of opportunity, and foster good relations by ensuring responsible and ethical use of AI tools."
-        section: "Code of Ethics | College of Policing"
-  - id: ai-risk-taxonomy-characterization-of-identity---race
-    name: Characterization of identity - Race
-    evidence:
-      - text: "This can result in unintended reinforcement of stereotypes related to gender, race, profession, or other protected characteristics."
-        section: "- Bias and Stereotyping"
-  - id: ai-risk-taxonomy-classification-of-individuals---mental-characteristics
-    name: Classification of individuals - Mental Characteristics
-    evidence:
-      - text: "This policy has been developed with consideration for the potential risks and benefits of generative AI use across all protected characteristics."
-        section: "Code of Ethics | College of Policing"
-      - text: "It aims to prevent discrimination, promote equality of opportunity, and foster good relations by ensuring responsible and ethical use of AI tools."
-        section: "Code of Ethics | College of Policing"
-  - id: ai-risk-taxonomy-classification-of-individuals---pregnancy-status
-    name: Classification of individuals - Pregnancy Status
-    evidence:
-      - text: "Prevents misuse of AI in ways that could expose or mishandle personal data related to pregnancy or maternity."
-        section: "Code of Ethics | College of Policing"
-  - id: ai-risk-taxonomy-criminal-justice/predictive-policing
-    name: Criminal justice/Predictive policing
-    evidence:
-      - text: "The use of AI and in policing is relatively new."
-        section: "5.3 What should I consider when using AI?"
-      - text: "While Artificial Intelligence (AI) offers significant potential to enhance policing operations, it also introduces a range of risks that must be carefully managed."
-        section: "5.5 Key Risks of Using AI in Policing"
-      - text: "The use of AI technologies is not yet authorised for use in the Criminal Justice process, including for the creation of evidential materials."
-        section: "5.4 Al use in the Criminal Justice System"
-  - id: ai-risk-taxonomy-involvement-in-data-adversarially-adversely-affects-national-security-or-public-interests
-    name: Involvement in data adversarially adversely affects national security or public interests
-    evidence:
-      - text: "their use must be carefully managed to protect sensitive information and uphold national security standards"
-        section: "5.2 Prohibited Information Types"
-      - text: "Any data marked or implicitly classified as SECRET or TOP SECRET. Any material classified at these levels, whether explicitly marked or implicitly understood, is strictly prohibited from AI ingestion."
-        section: "5.2 Prohibited Information Types"
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
-    name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
-    evidence:
-      - text: "Facial recognition features embedded in digital evidence platforms."
-        section: "4.1 Integrated AI Tools"
-  - id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
-    name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
-    evidence:
-      - text: "Facial recognition features embedded in digital evidence platforms."
-        section: "4.1 Integrated AI Tools"
-      - text: "using a personal mobile phone with an AI-powered transcription app to record and transcribe a meeting, interview, or operational briefing is strictly prohibited."
-        section: "5.3 What should I consider when using AI?"
-  - id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
-    name: Not labeling content as AI-generated
-    evidence:
-      - text: "Be transparent – Don't claim AI produced work as your own. Always declare the use of AI in any formal report, creative content or when it is used in decision making."
-        section: "5.3 What should I consider when using AI?"
-      - text: "Declare when AI has been used in formal reports, public documents, or decision-making."
-        section: "5.6 Expectations when using AI"
-  - id: atlas-data-bias
-    name: Data bias
-    evidence:
-      - text: "AI systems may reflect or amplify societal biases present in their training data."
-        section: "- Bias and Stereotyping"
-  - id: atlas-data-privacy-rights
-    name: Data privacy rights alignment
-    evidence:
-      - text: "Provides guidance on data protection compliance in relation to AI use."
-        section: "Data Protection Officer (DPO)"
-      - text: "Supports risk assessments and data protection impact assessments (DPIAs) where applicable."
-        section: "Data Protection Officer (DPO)"
-  - id: atlas-data-usage
-    name: Data usage restrictions
-    evidence:
-      - text: "Leicestershire Police permits the use of OFFICIAL and OFFICIAL-SENSITIVE information with approved AI tools, including personal data, provided the tool has undergone a formal risk assessment and has been explicitly authorised for use within the Force."
-        section: "5.2 Prohibited Information Types"
-      - text: "Protect our data - keep personal information secure, and out of the AI unless absolutely necessary."
-        section: "5.3 What should I consider when using AI?"
-      - text: "The use of AI tools must always take place in accordance with the Code of Ethics, Data Protection Laws and the force values."
-        section: "5.6 Expectations when using AI"
-  - id: atlas-decision-bias
-    name: Decision bias
-    evidence:
-      - text: "ensure that any usage of AI is done so in a manner that promotes fairness and avoids bias"
-        section: "2. Scope"
-  - id: atlas-exposing-personal-information
-    name: Exposing personal information
-    evidence:
-      - text: "the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool-regardless of the device or platform"
-        section: "5.2 Prohibited Information Types"
-      - text: "Avoid inputting highly sensitive operational details, such as specific tactics in active use, uncorroborated intelligence, or detailed profiles of ongoing covert operations."
-        section: "5.2 Prohibited Information Types"
-      - text: "Do not input personal, sensitive, or operationally classified information into AI."
-        section: "2. Protect Confidentiality"
-  - id: atlas-hallucination
-    name: Hallucination
-    evidence:
-      - text: "AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as \"hallucinations.\""
-        section: "Information Reliability"
-      - text: "Always fact-check and assess AI-generated content."
-        section: "4. Verify and Validate Outputs"
-      - text: "biased or inaccurate content related to LGBTQIA+ topics"
-        section: "Code of Ethics | College of Policing"
-  - id: atlas-impact-on-human-agency
-    name: AI agents' Impact on human agency
-    evidence:
-      - text: "AI must not be allowed to make operational decisions without human review."
-        section: "5.3 What should I consider when using AI?"
-  - id: atlas-incomplete-usage-definition
-    name: Incomplete usage definition
-    evidence:
-      - text: "AI is intended for use in the following types of activities within Leicestershire Police."
-        section: "5.1 Intended uses of AI tools at Leicestershire Police"
-      - text: "5.1 Intended uses of AI tools at Leicestershire Police"
-        section: "Contents"
-      - text: "The process differs depending on the 'bucket' of tool intended to be used, as the risks associated with each 'bucket' are different."
-        section: "4.3 New AI Tools"
-  - id: atlas-lack-of-system-transparency
-    name: Lack of system transparency
-    evidence:
-      - text: "AI technology is not always visible, especially where it forms part of a background function incorporated into an application or similar tool."
-        section: "3. What is Artificial Intelligence?"
-      - text: "These features are often part of commercial or operational software, and its use may not be overtly visible to users."
-        section: "4.1 Integrated AI Tools"
-  - id: atlas-legal-accountability
-    name: Legal accountability
-    evidence:
-      - text: "The governance procedure for all new AI ideas is outlined above."
-        section: "Governance"
-      - text: "Consultation with key stakeholders should be sought before submission (IT, Information Management, Information Security etc)."
-        section: "Governance"
-      - text: "Monitoring the use of AI will be covered by the Digital Board."
-        section: "Digital Board"
-  - id: atlas-model-usage-rights
-    name: Model usage rights restrictions
-    evidence:
-      - text: "Use only authorised AI tools in accordance with this policy."
-        section: "All Leicestershire Police Staff and Officers"
-      - text: "Manages access to authorised AI tools"
-        section: "IT and Digital Services Team"
-  - id: atlas-non-disclosure
-    name: Non-disclosure
-    evidence:
-      - text: "Declare when AI has been used in formal reports, public documents, or decision-making."
-        section: "3. Be Transparent When Required"
-      - text: "maintain transparency in formal outputs"
-        section: "All Leicestershire Police Staff and Officers"
-      - text: "transparency is essential to maintain the public trust so always declare the use of AI in any formal report, creative content or when it is used in decision making."
-        section: "5.3 What should I consider when using AI?"
-  - id: atlas-output-bias
-    name: Output bias
-    evidence:
-      - text: "Certain groups may be disproportionately represented-or excluded-in Al-generated outputs."
-        section: "Overrepresentation or Underrepresentation"
-      - text: "AI systems may reflect or amplify societal biases present in their training data."
-        section: "- Bias and Stereotyping"
-      - text: "Be alert to potential bias, stereotyping, or inappropriate content in AI outputs."
-        section: "5. Avoid Bias and Harm"
-  - id: atlas-over-or-under-reliance
-    name: Over- or under-reliance
-    evidence:
-      - text: "AI must not be allowed to make operational decisions without human review."
-        section: "5.3 What should I consider when using AI?"
-      - text: "the responsibility and liability remain with the police decision maker."
-        section: "5.3 What should I consider when using AI?"
-  - id: atlas-personal-information-in-data
-    name: Personal information in data
-    evidence:
-      - text: "Do not input personal, sensitive, or operationally classified information into AI."
-        section: "2. Protect Confidentiality"
-      - text: "All relevant Data Protection legislation including the UK GDPR and the Data Protection Act 2018."
-        section: "5.3 What should I consider when using AI?"
-  - id: atlas-personal-information-in-prompt
-    name: Personal information in prompt
-    evidence:
-      - text: "the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool-regardless of the device or platform"
-        section: "5.2 Prohibited Information Types"
-      - text: "Do not input personal, sensitive, or operationally classified information into AI."
-        section: "2. Protect Confidentiality"
-  - id: atlas-poor-model-accuracy
-    name: Poor model accuracy
-    evidence:
-      - text: "AI tools can produce inaccurate, misleading, or fabricated information"
-        section: "Information Reliability"
-      - text: "Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation."
-        section: "Multilingual Performance"
-      - text: "Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation."
-        section: "Audio Input Limitations"
-  - id: atlas-revealing-confidential-information
-    name: Revealing confidential information
-    evidence:
-      - text: "Do not input personal, sensitive, or operationally classified information into AI."
-        section: "2. Protect Confidentiality"
-      - text: "the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool-regardless of the device or platform"
-        section: "5.2 Prohibited Information Types"
-      - text: "Any material classified at these levels, whether explicitly marked or implicitly understood, is strictly prohibited from AI ingestion."
-        section: "5.2 Prohibited Information Types"
-  - id: atlas-spreading-toxicity
-    name: Spreading toxicity
-    evidence:
-      - text: "AI may generate content that is offensive, controversial, or inappropriate, including text, images, or audio containing harmful symbols, language, or themes."
-        section: "- Inappropriate or Offensive Content"
-  - id: atlas-unreliable-source-attribution
-    name: Unreliable source attribution
-    evidence:
-      - text: "This includes misrepresentation of facts, sources, or context."
-        section: "Information Reliability"
-  - id: credo-risk-002
-    name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
-    evidence:
-      - text: "ensure that any usage of AI is done so in a manner that promotes fairness and avoids bias and continues to align with the Forces values and ethical standards."
-        section: "2. Scope"
-  - id: credo-risk-011
-    name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "AI systems used within the Force are optimised for English. Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation."
-        section: "Multilingual Performance"
-      - text: "Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation."
-        section: "Audio Input Limitations"
-      - text: "Certain groups may be disproportionately represented-or excluded-in Al-generated outputs."
-        section: "Overrepresentation or Underrepresentation"
-  - id: credo-risk-012
-    name: Unequal access to AI benefits
-    evidence:
-      - text: "Supports productivity for staff with disabilities through features like summarisation and drafting."
-        section: "Code of Ethics | College of Policing"
-      - text: "AI systems used within the Force are optimised for English. Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation."
-        section: "Multilingual Performance"
-  - id: credo-risk-013
-    name: Toxic content (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "AI may generate content that is offensive, controversial, or inappropriate, including text, images, or audio containing harmful symbols, language, or themes."
-        section: "- Inappropriate or Offensive Content"
-  - id: credo-risk-014
-    name: Obscene and sexually abusive content (Slattery et al., 2024; AI, 2023)
-    evidence:
-      - text: "to determine if it contains illegal activities such as child sexual abuse"
-        section: "3. What is Artificial Intelligence?"
-  - id: credo-risk-016
-    name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Mitigation: Users must verify all AI-generated content before acting on it, especially where operational or evidential decisions are involved."
-        section: "Information Reliability"
-  - id: credo-risk-017
-    name: Inadequate AI literacy and communication
-    evidence:
-      - text: "Use Copilot only for appropriate tasks (e.g., drafting, summarising, research support)."
-        section: "6. Stay Within intended Use Cases"
-      - text: "Do not use it for legal interpretation, risk assessments, or direct public communication without review."
-        section: "6. Stay Within intended Use Cases"
-      - text: "Oversees the development, review, and communication of the AI policy."
-        section: "Strategic Lead"
-  - id: credo-risk-019
-    name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
-    evidence:
-      - text: "AI should support, not replace, professional judgment, especially in sensitive situations."
-        section: "1. Use Responsibly and Ethically"
-  - id: credo-risk-021
-    name: False or misleading information
-    evidence:
-      - text: "AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as \"hallucinations.\""
-        section: "Information Reliability"
-      - text: "This includes misrepresentation of facts, sources, or context."
-        section: "Information Reliability"
-      - text: "Verify AI-generated content before use"
-        section: "All Leicestershire Police Staff and Officers"
-  - id: credo-risk-023
-    name: Regulatory compliance
-    evidence:
-      - text: "these tools present a heightened risk and are therefore subject to strict regulation within policing"
-        section: "4.2 Standalone AI Tools"
-      - text: "Provides guidance on data protection compliance in relation to AI use."
-        section: "Data Protection Officer (DPO)"
-      - text: "Ensures policy compliance across the force and coordinates updates in response to legal, technological, or operational changes."
-        section: "Strategic Lead"
-  - id: credo-risk-025
-    name: Corporate liability (IBM, 2024)
-    evidence:
-      - text: "Ensures policy compliance across the force"
-        section: "Strategic Lead"
-      - text: "Escalate any misuse or incidents to the DPO or Strategic Lead."
-        section: "Line Managers / Supervisors"
-  - id: credo-risk-031
-    name: Maintenance and update requirements
-    evidence:
-      - text: "The rapid nature of the development and application of AI is such that this document will be subject to regular review."
-        section: "1. Statement of Purpose"
-      - text: "Ensures policy compliance across the force and coordinates updates in response to legal, technological, or operational changes."
-        section: "6. Roles and Responsibilities"
-  - id: credo-risk-034
-    name: Oversight and evaluation challenges
-    evidence:
-      - text: "Reviews reported incidents or breaches involving AI tools."
-        section: "Data Protection Officer (DPO)"
-      - text: "Act as the first point of contact for questions or concerns about AI use."
-        section: "Line Managers / Supervisors"
-  - id: credo-risk-035
-    name: Lack of robustness (Slattery et al., 2024)
-    evidence:
-      - text: "Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation."
-        section: "Audio Input Limitations"
-  - id: credo-risk-036
-    name: Compromised personally identifiable information (Slattery et al., 2024)
-    evidence:
-      - text: "Do not input personal, sensitive, or operationally classified information into AI."
-        section: "2. Protect Confidentiality"
-      - text: "Leicestershire Police permits the use of OFFICIAL and OFFICIAL-SENSITIVE information with approved AI tools, including personal data, provided the tool has undergone a formal risk assessment"
-        section: "5.2 Prohibited Information Types"
-  - id: credo-risk-037
-    name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool"
-        section: "5.2 Prohibited Information Types"
-      - text: "Covert Human Intelligence Sources (CHIS) Related Information This includes any data that identifies or could potentially identify CHIS, their handlers, or associated covert operations."
-        section: "5.2 Prohibited Information Types"
-      - text: "due to their extensive capabilities and potential for uncontrolled data processing, these tools present a heightened risk"
-        section: "4.2 Standalone AI Tools"
-  - id: credo-risk-040
-    name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
-    evidence:
-      - text: "Ensures technical safeguards are in place to prevent unauthorised use."
-        section: "IT and Digital Services Team"
-  - id: credo-risk-046
-    name: Governance failures (Slattery et al., 2024)
-    evidence:
-      - text: "6.1 Governance"
-        section: "Contents"
-      - text: "6.2 Artificial Intelligence Board"
-        section: "Contents"
-  - id: mit-ai-risk-subdomain-1.1
-    name: Unfair discrimination and misrepresentation
-    evidence:
-      - text: "Certain groups may be disproportionately represented-or excluded-in Al-generated outputs."
-        section: "Overrepresentation or Underrepresentation"
-      - text: "For example, legitimate content relating to LGBTQ+ topics may be filtered or misrepresented."
-        section: "Overrepresentation or Underrepresentation"
-      - text: "This can result in unintended reinforcement of stereotypes related to gender, race, profession, or other protected characteristics."
-        section: "- Bias and Stereotyping"
-  - id: mit-ai-risk-subdomain-1.2
-    name: Exposure to toxic content
-    evidence:
-      - text: "AI may generate content that is offensive, controversial, or inappropriate, including text, images, or audio containing harmful symbols, language, or themes."
-        section: "- Inappropriate or Offensive Content"
-      - text: "Be alert to potential bias, stereotyping, or inappropriate content in AI outputs."
-        section: "5. Avoid Bias and Harm"
-      - text: "Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs."
-        section: "Code of Ethics | College of Policing"
-  - id: mit-ai-risk-subdomain-1.3
-    name: Unequal performance across groups
-    evidence:
-      - text: "Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation."
-        section: "Multilingual Performance"
-      - text: "Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation."
-        section: "Audio Input Limitations"
-      - text: "ensures outputs do not discriminate based on age."
-        section: "Code of Ethics | College of Policing"
-  - id: mit-ai-risk-subdomain-2.1
-    name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
-    evidence:
-      - text: "Avoid inputting prohibited or sensitive information into AI systems."
-        section: "All Leicestershire Police Staff and Officers"
-      - text: "Do not input personal, sensitive, or operationally classified information into AI."
-        section: "2. Protect Confidentiality"
-      - text: "their use must be carefully managed to protect sensitive information and uphold national security standards."
-        section: "5.2 Prohibited Information Types"
-  - id: mit-ai-risk-subdomain-2.2
-    name: AI system security vulnerabilities and attacks
-    evidence:
-      - text: "Ensures technical safeguards are in place to prevent unauthorised use."
-        section: "IT and Digital Services Team"
-  - id: mit-ai-risk-subdomain-3.1
-    name: False or misleading information
-    evidence:
-      - text: "AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as \"hallucinations.\""
-        section: "Information Reliability"
-      - text: "This includes misrepresentation of facts, sources, or context."
-        section: "Information Reliability"
-      - text: "Always fact-check and assess AI-generated content."
-        section: "4. Verify and Validate Outputs"
-  - id: mit-ai-risk-subdomain-5.1
-    name: Overreliance and unsafe use
-    evidence:
-      - text: "Mitigation: Users must verify all AI-generated content before acting on it, especially where operational or evidential decisions are involved."
-        section: "Information Reliability"
-      - text: "AI must not be allowed to make operational decisions without human review."
-        section: "5.3 What should I consider when using AI?"
-      - text: "Users are responsible for the accuracy and appropriateness of any content they use."
-        section: "4. Verify and Validate Outputs"
-  - id: mit-ai-risk-subdomain-6.5
-    name: Governance failure
-    evidence:
-      - text: "6.1 Governance"
-        section: "Contents"
-      - text: "6.2 Artificial Intelligence Board"
-        section: "Contents"
-  - id: mit-ai-risk-subdomain-7.1
-    name: AI pursuing its own goals in conflict with human goals or values
-    evidence:
-      - text: "ensure that any usage of AI is done so in a manner that promotes fairness and avoids bias and continues to align with the Forces values and ethical standards."
-        section: "2. Scope"
-  - id: mit-ai-risk-subdomain-7.4
-    name: Lack of transparency or interpretability
-    evidence:
-      - text: "maintain transparency in formal outputs"
-        section: "All Leicestershire Police Staff and Officers"
+- id: ai-risk-taxonomy-characterization-of-identity---ethnicity
+  name: Characterization of identity - Ethnicity
+  evidence:
+  - text: Avoid Bias and Harm - Be alert to potential bias, stereotyping, or inappropriate content in Copilot outputs.
+    section: 5.3 What should I consider when using AI?
+- id: ai-risk-taxonomy-characterization-of-identity---physical-characteristics
+  name: Characterization of identity - Physical Characteristics
+  evidence:
+  - text: This policy has been developed with consideration for the potential risks and benefits of generative AI use across all protected characteristics.
+    section: Code of Ethics | College of Policing
+  - text: It aims to prevent discrimination, promote equality of opportunity, and foster good relations by ensuring responsible and ethical use of AI tools.
+    section: Code of Ethics | College of Policing
+- id: ai-risk-taxonomy-characterization-of-identity---race
+  name: Characterization of identity - Race
+  evidence:
+  - text: This can result in unintended reinforcement of stereotypes related to gender, race, profession, or other protected characteristics.
+    section: '- Bias and Stereotyping'
+- id: ai-risk-taxonomy-classification-of-individuals---mental-characteristics
+  name: Classification of individuals - Mental Characteristics
+  evidence:
+  - text: This policy has been developed with consideration for the potential risks and benefits of generative AI use across all protected characteristics.
+    section: Code of Ethics | College of Policing
+  - text: It aims to prevent discrimination, promote equality of opportunity, and foster good relations by ensuring responsible and ethical use of AI tools.
+    section: Code of Ethics | College of Policing
+- id: ai-risk-taxonomy-classification-of-individuals---pregnancy-status
+  name: Classification of individuals - Pregnancy Status
+  evidence:
+  - text: Prevents misuse of AI in ways that could expose or mishandle personal data related to pregnancy or maternity.
+    section: Code of Ethics | College of Policing
+- id: ai-risk-taxonomy-criminal-justice/predictive-policing
+  name: Criminal justice/Predictive policing
+  evidence:
+  - text: The use of AI and in policing is relatively new.
+    section: 5.3 What should I consider when using AI?
+  - text: While Artificial Intelligence (AI) offers significant potential to enhance policing operations, it also introduces a range of risks that must be carefully managed.
+    section: 5.5 Key Risks of Using AI in Policing
+  - text: The use of AI technologies is not yet authorised for use in the Criminal Justice process, including for the creation of evidential materials.
+    section: 5.4 Al use in the Criminal Justice System
+- id: ai-risk-taxonomy-involvement-in-data-adversarially-adversely-affects-national-security-or-public-interests
+  name: Involvement in data adversarially adversely affects national security or public interests
+  evidence:
+  - text: their use must be carefully managed to protect sensitive information and uphold national security standards
+    section: 5.2 Prohibited Information Types
+  - text: Any data marked or implicitly classified as SECRET or TOP SECRET. Any material classified at these levels, whether explicitly marked or implicitly understood, is strictly prohibited from AI ingestion.
+    section: 5.2 Prohibited Information Types
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
+  name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
+  evidence:
+  - text: Facial recognition features embedded in digital evidence platforms.
+    section: 4.1 Integrated AI Tools
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---pii-(personal-identifiable-information)
+  name: Non-consensual tracking/monitoring/stalking/spyware - PII (Personal Identifiable Information)
+  evidence:
+  - text: Facial recognition features embedded in digital evidence platforms.
+    section: 4.1 Integrated AI Tools
+  - text: using a personal mobile phone with an AI-powered transcription app to record and transcribe a meeting, interview, or operational briefing is strictly prohibited.
+    section: 5.3 What should I consider when using AI?
+- id: ai-risk-taxonomy-not-labeling-content-as-ai-generated
+  name: Not labeling content as AI-generated
+  evidence:
+  - text: Be transparent – Don't claim AI produced work as your own. Always declare the use of AI in any formal report, creative content or when it is used in decision making.
+    section: 5.3 What should I consider when using AI?
+  - text: Declare when AI has been used in formal reports, public documents, or decision-making.
+    section: 5.6 Expectations when using AI
+- id: atlas-data-bias
+  name: Data bias
+  evidence:
+  - text: AI systems may reflect or amplify societal biases present in their training data.
+    section: '- Bias and Stereotyping'
+- id: atlas-data-privacy-rights
+  name: Data privacy rights alignment
+  evidence:
+  - text: Provides guidance on data protection compliance in relation to AI use.
+    section: Data Protection Officer (DPO)
+  - text: Supports risk assessments and data protection impact assessments (DPIAs) where applicable.
+    section: Data Protection Officer (DPO)
+- id: atlas-data-usage
+  name: Data usage restrictions
+  evidence:
+  - text: Leicestershire Police permits the use of OFFICIAL and OFFICIAL-SENSITIVE information with approved AI tools, including personal data, provided the tool has undergone a formal risk assessment and
+      has been explicitly authorised for use within the Force.
+    section: 5.2 Prohibited Information Types
+  - text: Protect our data - keep personal information secure, and out of the AI unless absolutely necessary.
+    section: 5.3 What should I consider when using AI?
+  - text: The use of AI tools must always take place in accordance with the Code of Ethics, Data Protection Laws and the force values.
+    section: 5.6 Expectations when using AI
+- id: atlas-decision-bias
+  name: Decision bias
+  evidence:
+  - text: ensure that any usage of AI is done so in a manner that promotes fairness and avoids bias
+    section: 2. Scope
+- id: atlas-exposing-personal-information
+  name: Exposing personal information
+  evidence:
+  - text: the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool-regardless of the device or platform
+    section: 5.2 Prohibited Information Types
+  - text: Avoid inputting highly sensitive operational details, such as specific tactics in active use, uncorroborated intelligence, or detailed profiles of ongoing covert operations.
+    section: 5.2 Prohibited Information Types
+  - text: Do not input personal, sensitive, or operationally classified information into AI.
+    section: 2. Protect Confidentiality
+- id: atlas-hallucination
+  name: Hallucination
+  evidence:
+  - text: AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as "hallucinations."
+    section: Information Reliability
+  - text: Always fact-check and assess AI-generated content.
+    section: 4. Verify and Validate Outputs
+  - text: biased or inaccurate content related to LGBTQIA+ topics
+    section: Code of Ethics | College of Policing
+- id: atlas-impact-on-human-agency
+  name: AI agents' Impact on human agency
+  evidence:
+  - text: AI must not be allowed to make operational decisions without human review.
+    section: 5.3 What should I consider when using AI?
+- id: atlas-incomplete-usage-definition
+  name: Incomplete usage definition
+  evidence:
+  - text: AI is intended for use in the following types of activities within Leicestershire Police.
+    section: 5.1 Intended uses of AI tools at Leicestershire Police
+  - text: 5.1 Intended uses of AI tools at Leicestershire Police
+    section: Contents
+  - text: The process differs depending on the 'bucket' of tool intended to be used, as the risks associated with each 'bucket' are different.
+    section: 4.3 New AI Tools
+- id: atlas-lack-of-system-transparency
+  name: Lack of system transparency
+  evidence:
+  - text: AI technology is not always visible, especially where it forms part of a background function incorporated into an application or similar tool.
+    section: 3. What is Artificial Intelligence?
+  - text: These features are often part of commercial or operational software, and its use may not be overtly visible to users.
+    section: 4.1 Integrated AI Tools
+- id: atlas-legal-accountability
+  name: Legal accountability
+  evidence:
+  - text: The governance procedure for all new AI ideas is outlined above.
+    section: Governance
+  - text: Consultation with key stakeholders should be sought before submission (IT, Information Management, Information Security etc).
+    section: Governance
+  - text: Monitoring the use of AI will be covered by the Digital Board.
+    section: Digital Board
+- id: atlas-model-usage-rights
+  name: Model usage rights restrictions
+  evidence:
+  - text: Use only authorised AI tools in accordance with this policy.
+    section: All Leicestershire Police Staff and Officers
+  - text: Manages access to authorised AI tools
+    section: IT and Digital Services Team
+- id: atlas-non-disclosure
+  name: Non-disclosure
+  evidence:
+  - text: Declare when AI has been used in formal reports, public documents, or decision-making.
+    section: 3. Be Transparent When Required
+  - text: maintain transparency in formal outputs
+    section: All Leicestershire Police Staff and Officers
+  - text: transparency is essential to maintain the public trust so always declare the use of AI in any formal report, creative content or when it is used in decision making.
+    section: 5.3 What should I consider when using AI?
+- id: atlas-output-bias
+  name: Output bias
+  evidence:
+  - text: Certain groups may be disproportionately represented-or excluded-in Al-generated outputs.
+    section: Overrepresentation or Underrepresentation
+  - text: AI systems may reflect or amplify societal biases present in their training data.
+    section: '- Bias and Stereotyping'
+  - text: Be alert to potential bias, stereotyping, or inappropriate content in AI outputs.
+    section: 5. Avoid Bias and Harm
+- id: atlas-over-or-under-reliance
+  name: Over- or under-reliance
+  evidence:
+  - text: AI must not be allowed to make operational decisions without human review.
+    section: 5.3 What should I consider when using AI?
+  - text: the responsibility and liability remain with the police decision maker.
+    section: 5.3 What should I consider when using AI?
+- id: atlas-personal-information-in-data
+  name: Personal information in data
+  evidence:
+  - text: Do not input personal, sensitive, or operationally classified information into AI.
+    section: 2. Protect Confidentiality
+  - text: All relevant Data Protection legislation including the UK GDPR and the Data Protection Act 2018.
+    section: 5.3 What should I consider when using AI?
+- id: atlas-personal-information-in-prompt
+  name: Personal information in prompt
+  evidence:
+  - text: the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool-regardless of the device or platform
+    section: 5.2 Prohibited Information Types
+  - text: Do not input personal, sensitive, or operationally classified information into AI.
+    section: 2. Protect Confidentiality
+- id: atlas-poor-model-accuracy
+  name: Poor model accuracy
+  evidence:
+  - text: AI tools can produce inaccurate, misleading, or fabricated information
+    section: Information Reliability
+  - text: Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation.
+    section: Multilingual Performance
+  - text: Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation.
+    section: Audio Input Limitations
+- id: atlas-revealing-confidential-information
+  name: Revealing confidential information
+  evidence:
+  - text: Do not input personal, sensitive, or operationally classified information into AI.
+    section: 2. Protect Confidentiality
+  - text: the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool-regardless of the device or platform
+    section: 5.2 Prohibited Information Types
+  - text: Any material classified at these levels, whether explicitly marked or implicitly understood, is strictly prohibited from AI ingestion.
+    section: 5.2 Prohibited Information Types
+- id: atlas-spreading-toxicity
+  name: Spreading toxicity
+  evidence:
+  - text: AI may generate content that is offensive, controversial, or inappropriate, including text, images, or audio containing harmful symbols, language, or themes.
+    section: '- Inappropriate or Offensive Content'
+- id: atlas-unreliable-source-attribution
+  name: Unreliable source attribution
+  evidence:
+  - text: This includes misrepresentation of facts, sources, or context.
+    section: Information Reliability
+- id: credo-risk-002
+  name: AI pursuing its own goals in conflict with human goals or values (Slattery et al., 2024)
+  evidence:
+  - text: ensure that any usage of AI is done so in a manner that promotes fairness and avoids bias and continues to align with the Forces values and ethical standards.
+    section: 2. Scope
+- id: credo-risk-011
+  name: Disparate model performance (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: AI systems used within the Force are optimised for English. Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation.
+    section: Multilingual Performance
+  - text: Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation.
+    section: Audio Input Limitations
+  - text: Certain groups may be disproportionately represented-or excluded-in Al-generated outputs.
+    section: Overrepresentation or Underrepresentation
+- id: credo-risk-012
+  name: Unequal access to AI benefits
+  evidence:
+  - text: Supports productivity for staff with disabilities through features like summarisation and drafting.
+    section: Code of Ethics | College of Policing
+  - text: AI systems used within the Force are optimised for English. Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation.
+    section: Multilingual Performance
+- id: credo-risk-013
+  name: Toxic content (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: AI may generate content that is offensive, controversial, or inappropriate, including text, images, or audio containing harmful symbols, language, or themes.
+    section: '- Inappropriate or Offensive Content'
+- id: credo-risk-014
+  name: Obscene and sexually abusive content (Slattery et al., 2024; AI, 2023)
+  evidence:
+  - text: to determine if it contains illegal activities such as child sexual abuse
+    section: 3. What is Artificial Intelligence?
+- id: credo-risk-016
+  name: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: 'Mitigation: Users must verify all AI-generated content before acting on it, especially where operational or evidential decisions are involved.'
+    section: Information Reliability
+- id: credo-risk-017
+  name: Inadequate AI literacy and communication
+  evidence:
+  - text: Use Copilot only for appropriate tasks (e.g., drafting, summarising, research support).
+    section: 6. Stay Within intended Use Cases
+  - text: Do not use it for legal interpretation, risk assessments, or direct public communication without review.
+    section: 6. Stay Within intended Use Cases
+  - text: Oversees the development, review, and communication of the AI policy.
+    section: Strategic Lead
+- id: credo-risk-019
+  name: Loss of human agency and autonomy (Slattery et al., 2024; IBM, 2024)
+  evidence:
+  - text: AI should support, not replace, professional judgment, especially in sensitive situations.
+    section: 1. Use Responsibly and Ethically
+- id: credo-risk-021
+  name: False or misleading information
+  evidence:
+  - text: AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as "hallucinations."
+    section: Information Reliability
+  - text: This includes misrepresentation of facts, sources, or context.
+    section: Information Reliability
+  - text: Verify AI-generated content before use
+    section: All Leicestershire Police Staff and Officers
+- id: credo-risk-023
+  name: Regulatory compliance
+  evidence:
+  - text: these tools present a heightened risk and are therefore subject to strict regulation within policing
+    section: 4.2 Standalone AI Tools
+  - text: Provides guidance on data protection compliance in relation to AI use.
+    section: Data Protection Officer (DPO)
+  - text: Ensures policy compliance across the force and coordinates updates in response to legal, technological, or operational changes.
+    section: Strategic Lead
+- id: credo-risk-025
+  name: Corporate liability (IBM, 2024)
+  evidence:
+  - text: Ensures policy compliance across the force
+    section: Strategic Lead
+  - text: Escalate any misuse or incidents to the DPO or Strategic Lead.
+    section: Line Managers / Supervisors
+- id: credo-risk-031
+  name: Maintenance and update requirements
+  evidence:
+  - text: The rapid nature of the development and application of AI is such that this document will be subject to regular review.
+    section: 1. Statement of Purpose
+  - text: Ensures policy compliance across the force and coordinates updates in response to legal, technological, or operational changes.
+    section: 6. Roles and Responsibilities
+- id: credo-risk-034
+  name: Oversight and evaluation challenges
+  evidence:
+  - text: Reviews reported incidents or breaches involving AI tools.
+    section: Data Protection Officer (DPO)
+  - text: Act as the first point of contact for questions or concerns about AI use.
+    section: Line Managers / Supervisors
+- id: credo-risk-035
+  name: Lack of robustness (Slattery et al., 2024)
+  evidence:
+  - text: Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation.
+    section: Audio Input Limitations
+- id: credo-risk-036
+  name: Compromised personally identifiable information (Slattery et al., 2024)
+  evidence:
+  - text: Do not input personal, sensitive, or operationally classified information into AI.
+    section: 2. Protect Confidentiality
+  - text: Leicestershire Police permits the use of OFFICIAL and OFFICIAL-SENSITIVE information with approved AI tools, including personal data, provided the tool has undergone a formal risk assessment
+    section: 5.2 Prohibited Information Types
+- id: credo-risk-037
+  name: Compromised sensitive information (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: the following types of information must never be entered, pasted, uploaded, or otherwise submitted into Microsoft's Co-pilot or any other AI tool
+    section: 5.2 Prohibited Information Types
+  - text: Covert Human Intelligence Sources (CHIS) Related Information This includes any data that identifies or could potentially identify CHIS, their handlers, or associated covert operations.
+    section: 5.2 Prohibited Information Types
+  - text: due to their extensive capabilities and potential for uncontrolled data processing, these tools present a heightened risk
+    section: 4.2 Standalone AI Tools
+- id: credo-risk-040
+  name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
+  evidence:
+  - text: Ensures technical safeguards are in place to prevent unauthorised use.
+    section: IT and Digital Services Team
+- id: credo-risk-046
+  name: Governance failures (Slattery et al., 2024)
+  evidence:
+  - text: 6.1 Governance
+    section: Contents
+  - text: 6.2 Artificial Intelligence Board
+    section: Contents
+- id: mit-ai-risk-subdomain-1.1
+  name: Unfair discrimination and misrepresentation
+  evidence:
+  - text: Certain groups may be disproportionately represented-or excluded-in Al-generated outputs.
+    section: Overrepresentation or Underrepresentation
+  - text: For example, legitimate content relating to LGBTQ+ topics may be filtered or misrepresented.
+    section: Overrepresentation or Underrepresentation
+  - text: This can result in unintended reinforcement of stereotypes related to gender, race, profession, or other protected characteristics.
+    section: '- Bias and Stereotyping'
+- id: mit-ai-risk-subdomain-1.2
+  name: Exposure to toxic content
+  evidence:
+  - text: AI may generate content that is offensive, controversial, or inappropriate, including text, images, or audio containing harmful symbols, language, or themes.
+    section: '- Inappropriate or Offensive Content'
+  - text: Be alert to potential bias, stereotyping, or inappropriate content in AI outputs.
+    section: 5. Avoid Bias and Harm
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+    section: Code of Ethics | College of Policing
+- id: mit-ai-risk-subdomain-1.3
+  name: Unequal performance across groups
+  evidence:
+  - text: Performance in other languages may be less accurate or fluent, potentially affecting usability and interpretation.
+    section: Multilingual Performance
+  - text: Voice-based AI tools may struggle with background noise, regional accents, or unclear speech, leading to transcription errors or misinterpretation.
+    section: Audio Input Limitations
+  - text: ensures outputs do not discriminate based on age.
+    section: Code of Ethics | College of Policing
+- id: mit-ai-risk-subdomain-2.1
+  name: Compromise of privacy by obtaining, leaking or correctly inferring sensitive information
+  evidence:
+  - text: Avoid inputting prohibited or sensitive information into AI systems.
+    section: All Leicestershire Police Staff and Officers
+  - text: Do not input personal, sensitive, or operationally classified information into AI.
+    section: 2. Protect Confidentiality
+  - text: their use must be carefully managed to protect sensitive information and uphold national security standards.
+    section: 5.2 Prohibited Information Types
+- id: mit-ai-risk-subdomain-2.2
+  name: AI system security vulnerabilities and attacks
+  evidence:
+  - text: Ensures technical safeguards are in place to prevent unauthorised use.
+    section: IT and Digital Services Team
+- id: mit-ai-risk-subdomain-3.1
+  name: False or misleading information
+  evidence:
+  - text: AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as "hallucinations."
+    section: Information Reliability
+  - text: This includes misrepresentation of facts, sources, or context.
+    section: Information Reliability
+  - text: Always fact-check and assess AI-generated content.
+    section: 4. Verify and Validate Outputs
+- id: mit-ai-risk-subdomain-5.1
+  name: Overreliance and unsafe use
+  evidence:
+  - text: 'Mitigation: Users must verify all AI-generated content before acting on it, especially where operational or evidential decisions are involved.'
+    section: Information Reliability
+  - text: AI must not be allowed to make operational decisions without human review.
+    section: 5.3 What should I consider when using AI?
+  - text: Users are responsible for the accuracy and appropriateness of any content they use.
+    section: 4. Verify and Validate Outputs
+- id: mit-ai-risk-subdomain-6.5
+  name: Governance failure
+  evidence:
+  - text: 6.1 Governance
+    section: Contents
+  - text: 6.2 Artificial Intelligence Board
+    section: Contents
+- id: mit-ai-risk-subdomain-7.1
+  name: AI pursuing its own goals in conflict with human goals or values
+  evidence:
+  - text: ensure that any usage of AI is done so in a manner that promotes fairness and avoids bias and continues to align with the Forces values and ethical standards.
+    section: 2. Scope
+- id: mit-ai-risk-subdomain-7.4
+  name: Lack of transparency or interpretability
+  evidence:
+  - text: maintain transparency in formal outputs
+    section: All Leicestershire Police Staff and Officers
+- id: ai-risk-taxonomy-characterization-of-identity---age
+  name: Characterization of identity - Age
+  evidence:
+  - text: Ensures outputs do not discriminate based on age.
+  - text: Encourages review of content to avoid age-related bias.
+- id: ai-risk-taxonomy-characterization-of-identity---beliefs
+  name: Characterization of identity - Beliefs
+  evidence:
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+- id: ai-risk-taxonomy-characterization-of-identity---disability
+  name: Characterization of identity - Disability
+  evidence:
+  - text: Supports productivity for staff with disabilities through features like summarisation and drafting. Encourages review to avoid discriminatory content.
+- id: ai-risk-taxonomy-characterization-of-identity---gender
+  name: Characterization of identity - Gender
+  evidence:
+  - text: Promotes fair representation and requires users to identify and correct biased outputs.
+  - text: Reinforces respectful and inclusive language. Promotes awareness of potential bias in AI-generated content.
+- id: ai-risk-taxonomy-characterization-of-identity---pregnancy-status
+  name: Characterization of identity - Pregnancy Status
+  evidence:
+  - text: Prevents misuse of AI in ways that could expose or mishandle personal data related to pregnancy or maternity.
+- id: ai-risk-taxonomy-characterization-of-identity---religion
+  name: Characterization of identity - Religion
+  evidence:
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+- id: ai-risk-taxonomy-classification-of-individuals---age
+  name: Classification of individuals - Age
+  evidence:
+  - text: Promotes inclusive use of AI tools and ensures outputs do not discriminate based on age.
+- id: ai-risk-taxonomy-classification-of-individuals---gender
+  name: Classification of individuals - Gender
+  evidence:
+  - text: Acknowledges potential for gender bias in AI tools.
+  - text: Promotes fair representation and requires users to identify and correct biased outputs.
+- id: ai-risk-taxonomy-classification-of-individuals---race
+  name: Classification of individuals - Race
+  evidence:
+  - text: Recognises the risk of racial bias in AI outputs.
+  - text: Promotes vigilance and correction of racially biased content.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---age
+  name: Discrimination in employment, benefits, or services - Age
+  evidence:
+  - text: Promotes inclusive use of AI tools and ensures outputs do not discriminate based on age. Encourages review of content to avoid age-related bias.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---beliefs
+  name: Discrimination in employment, benefits, or services - Beliefs
+  evidence:
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---disability
+  name: Discrimination in employment, benefits, or services - Disability
+  evidence:
+  - text: Supports productivity for staff with disabilities through features like summarisation and drafting. Encourages review to avoid discriminatory content.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---gender
+  name: Discrimination in employment, benefits, or services - Gender
+  evidence:
+  - text: Acknowledges potential for gender bias in AI tools.
+  - text: Promotes fair representation and requires users to identify and correct biased outputs.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---pregnancy-status
+  name: Discrimination in employment, benefits, or services - Pregnancy Status
+  evidence:
+  - text: Prevents misuse of AI in ways that could expose or mishandle personal data related to pregnancy or maternity.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---race
+  name: Discrimination in employment, benefits, or services - Race
+  evidence:
+  - text: Recognises the risk of racial bias in AI outputs.
+  - text: Promotes vigilance and correction of racially biased content. Supports equality by requiring review and transparency.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---religion
+  name: Discrimination in employment, benefits, or services - Religion
+  evidence:
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---sexual-orientation
+  name: Discrimination in employment, benefits, or services - Sexual orientation
+  evidence:
+  - text: Recognises risk of underrepresentation or
+- id: atlas-spreading-disinformation
+  name: Spreading disinformation
+  evidence:
+  - text: AI tools can produce inaccurate, misleading, or fabricated information-commonly referred to as "hallucinations."
+  - text: AI Models, Including LLM's, can sometimes 'hallucinate'-this means they may generate information that sounds plausible but is actually incorrect, made up, or not supported by real data.
+- id: atlas-unrepresentative-data
+  name: Unrepresentative data
+  evidence:
+  - text: AI systems may reflect or amplify societal biases present in their training data. This can result in unintended reinforcement of stereotypes related to gender, race, profession, or other protected
+      characteristics.
+  - text: Certain groups may be disproportionately represented-or excluded-in Al-generated outputs.
+- id: mit-ai-risk-subdomain-5.2
+  name: Loss of human agency and autonomy
+  evidence:
+  - text: AI must not be allowed to make operational decisions without human review.
+  - text: AI should support, not replace, professional judgment, especially in sensitive situations.
+  - text: However, the responsibility and liability remain with the police decision maker.
+- id: ai-risk-taxonomy-characterization-of-identity---sexual-orientation
+  name: Characterization of identity - Sexual orientation
+  evidence:
+  - text: Recognises risk of underrepresentation or
+- id: ai-risk-taxonomy-classification-of-individuals---beliefs
+  name: Classification of individuals - Beliefs
+  evidence:
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+- id: ai-risk-taxonomy-classification-of-individuals---religion
+  name: Classification of individuals - Religion
+  evidence:
+  - text: Encourages sensitivity in AI-generated content and prohibits offensive or inappropriate outputs.
+- id: ai-risk-taxonomy-classification-of-individuals---sexual-orientation
+  name: Classification of individuals - Sexual orientation
+  evidence:
+  - text: Recognises risk of underrepresentation or
+- id: ai-risk-taxonomy-classification-of-individuals---social-behaviors
+  name: Classification of individuals - Social behaviors
+  evidence:
+  - text: Promotes inclusive use of AI tools and ensures outputs do not discriminate based on age.
+  - text: Promotes fair representation and requires users to identify and correct biased outputs.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---ethnicity
+  name: Discrimination in employment, benefits, or services - Ethnicity
+  evidence:
+  - text: Recognises the risk of racial bias in AI outputs.
+  - text: Promotes vigilance and correction of racially biased content.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---health-conditions
+  name: Discrimination in employment, benefits, or services - Health conditions
+  evidence:
+  - text: Supports productivity for staff with disabilities through features like summarisation and drafting.
+- id: atlas-improper-usage
+  name: Improper usage
+  evidence:
+  - text: The use of AI technologies is not yet authorised for use in the Criminal Justice process, including for the creation of evidential materials.
+  - text: Do not use it for legal interpretation, risk assessments, or direct public communication without review.
+- id: atlas-toxic-output
+  name: Toxic output
+  evidence:
+  - text: Be alert to potential bias, stereotyping, or inappropriate content in AI outputs.
