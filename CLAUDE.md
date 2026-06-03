@@ -38,6 +38,28 @@ just no_mlflow="1" run-risk-extract-battery batteries/risk-selected.yaml <base-u
 
 # Run battery with custom MLflow experiment name
 python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> --mlflow-experiment my-experiment
+
+# IR-only mode (no LLM judge/grounding, no --base-url/--model needed)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-judge --no-grounding
+just no_judge="1" no_grounding="1" run-risk-extract-battery batteries/risk-selected.yaml
+
+# Judge only, no grounding (test judge contribution in isolation)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-grounding \
+  --base-url <url> --model <model>
+
+# Smaller chunks with larger judge context window
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus \
+  --chunk-max-tokens 256 --judge-context-tokens 512 \
+  --base-url <url> --model <model>
+
+# Use remote embedding models on GPU cluster
+uv run concorde-policy-mapper extract policy.pdf -o output/ --no-ground \
+  --nexus-base-dir /path/to/ai-atlas-nexus \
+  --bi-encoder-model https://bge-m3-model-serving.apps.example.com/v1/embeddings \
+  --cross-encoder-model https://gte-reranker-model-serving.apps.example.com/v1/score
 ```
 
 ## Architecture
@@ -54,11 +76,13 @@ Documents → parse_document() → chunk_documents() → per-chunk retrieve → 
 3. **Agentic filter** — If document lacks agent-related terminology, agentic risks are excluded from the catalog
 4. **Index** (`index.py`) — `RiskIndex` builds BM25 + bi-encoder embeddings + optional cross-encoder over risk-level taxonomies only
 5. **Retrieve** (`retrieve.py`) — Per-chunk: BM25 + semantic → RRF fusion → cross-encoder rerank → threshold classify into accepted/borderline/discarded
-6. **Judge** (`retrieve.py`) — LLM judges borderline candidates using padded text (adjacent chunk sentences for context). Parallel via ThreadPoolExecutor
+6. **Judge** (`retrieve.py`) — LLM judges borderline candidates using padded text (adjacent chunk context). `--judge-context-tokens` controls the context window size (default: sentence-based padding; set to e.g. 512 to give the judge a wider window when using smaller chunks). Parallel via ThreadPoolExecutor
 7. **Ground** (`attribute.py`) — LLM extracts evidence quotes + confidence (high/medium/low) for accepted candidates; ungrounded ones filtered out. Parallel via ThreadPoolExecutor
 8. **Merge** (`merge.py`) — Deduplicate matches across chunks, keep best confidence and top-3 evidence spans
 
 With `--no-cross-encoder`, steps 5-6 are replaced by RRF score floor filtering (no LLM judging).
+
+With `--no-judge`, step 6 is skipped (borderline candidates auto-promoted to accepted). With `--no-grounding`, step 7 is skipped (accepted candidates become matches without evidence). Both can be combined for pure IR evaluation — no LLM calls at all.
 
 Category-level taxonomy mapping (NIST, OWASP, AILuminate) is handled at eval time via a static SSSOM mapping, not during extraction.
 
@@ -100,10 +124,10 @@ Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YA
 ## Retrieval Architecture Notes
 
 - The cross-encoder (ms-marco-MiniLM) has AUC ~0.50 on pipeline-mined negatives — it does not discriminate semantically. It functions as a volume reduction filter: randomly rejecting ~70% of candidates, with the grounding stage catching the noise. See `experiments/EXPERIMENT_LOG.md` for details.
-- Candidate selection supports both rank-based (`--top-n-accept`, `--top-n-judge`) and legacy threshold-based (`--threshold-high`, `--threshold-low`) modes. Default is rank-based with top_n_accept=5, top_n_judge=5.
+- Candidate selection supports both rank-based (`--top-n-accept`, `--top-n-judge`) and legacy threshold-based (`--threshold-high`, `--threshold-low`) modes. Default is rank-based with top_n_accept=10, top_n_judge=10, min_score_floor=0.70, bm25_rescue_rank=0 (disabled), rrf_min_score=0.015. These defaults are tuned for recall with GTE-reranker-modernbert-base or no-cross-encoder mode.
 - ColBERT late-interaction models are supported via `--colbert-model` (replaces bi-encoder + cross-encoder with a single model using MaxSim scoring)
 - Modern cross-encoders (GTE, BGE) output calibrated scores — the pipeline skips sigmoid normalisation for these (see `_SIGMOID_MODELS` in `index.py`)
-- Embedding/reranking models can be served on GPU via vLLM's embedding/scoring API on the cluster
+- Embedding/reranking models can be served on GPU via vLLM's embedding/scoring API on the cluster. Pass a URL as `--bi-encoder-model` (uses `/v1/embeddings`) or `--cross-encoder-model` (uses `/v1/score`). ColBERT models (`--colbert-model`) are local-only — vLLM returns pooled embeddings, not token-level
 
 ## Dependency Pins
 

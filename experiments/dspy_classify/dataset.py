@@ -18,7 +18,7 @@ import yaml
 logger = logging.getLogger(__name__)
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
-_GT_DIR = _ROOT / "risk-landscaper" / "evals" / "ground_truth"
+_GT_DIR = _ROOT / "evals" / "ground_truth"
 
 TRAIN_POLICIES = [
     "sap", "cisco-supplier", "firstsource", "guy-nhs", "rdash-nhs",

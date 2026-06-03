@@ -332,11 +332,7 @@ risks:
       - text: "ICRC staff and users do not input any critical humanitarian information, other confidential and/or strictly confidential information, or any proprietary information protected by intellectual property rights when using external or commercial online AI services."
         section: "6. GUIDING PRINCIPLES - Responsibility and accountability"
 
-  - id: ai-risk-taxonomy-automated-decision-making
-    name: Automated Decision-Making
-    evidence:
-      - text: "Additional systematic data quality control and meaningful and effective human oversight mechanisms are put in place to control and review relevant training models, algorithmic systems, inputs and outputs throughout the lifecycle of AI solutions used to support operational activities and decision-making processes that have an impact and present a risk of harm for affected people and users."
-        section: "6. GUIDING PRINCIPLES - Safety and security"
-      - text: "Responsibility and accountability for decision-making supported by AI always lies with the ICRC and/or the staff using the tools or system concerned, in line with the ICRC's Code of Conduct and other applicable internal rules."
-        section: "6. GUIDING PRINCIPLES - Responsibility and accountability"
+  # Removed: ai-risk-taxonomy-automated-decision-making — not in Nexus catalog.
+  # Evidence covers human oversight (mit-ai-risk-subdomain-5.1) and accountability
+  # (atlas-legal-accountability), both already annotated for this policy.
 

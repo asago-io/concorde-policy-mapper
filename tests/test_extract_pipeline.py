@@ -122,8 +122,8 @@ def test_run_extraction_metadata(mock_config, tmp_path):
     )
 
     assert result.metadata["model"] == "test-model"
-    assert result.metadata["top_n_accept"] == 5
-    assert result.metadata["top_n_judge"] == 5
+    assert result.metadata["top_n_accept"] == 10
+    assert result.metadata["top_n_judge"] == 10
 
 
 def test_run_extraction_populates_chunks(mock_config, tmp_path):
@@ -171,6 +171,97 @@ def test_run_extraction_populates_llm_calls(mock_config, tmp_path):
     )
 
     assert isinstance(result.llm_calls, list)
+
+
+def test_run_extraction_no_judge_no_grounding(mock_config, tmp_path):
+    """With no_judge+no_grounding, no LLM calls are made and all candidates become RiskMatch with empty evidence."""
+    doc = tmp_path / "test.md"
+    doc.write_text(
+        "AI policy document about data governance and risk management. "
+        "We must ensure bias detection and mitigation strategies are in place. "
+        "Training data integrity is critical for model reliability."
+    )
+
+    mock_client = MagicMock()
+
+    result = run_extraction(
+        documents=[doc],
+        client=mock_client,
+        config=mock_config,
+        risks=MOCK_RISKS,
+        ocr=False,
+        no_judge=True,
+        no_grounding=True,
+    )
+
+    assert isinstance(result, ExtractionResult)
+    assert result.metadata["no_judge"] is True
+    assert result.metadata["no_grounding"] is True
+    mock_client.chat.completions.create.assert_not_called()
+    assert len(result.llm_calls) == 0
+    for risk in result.risks:
+        assert risk.evidence == []
+        assert risk.grounding_confidence == "ungrounded"
+    assert result.retrieval_stats.grounding_filtered == 0
+
+
+def test_run_extraction_no_grounding_with_judge(mock_config, tmp_path):
+    """With no_grounding only, judge runs but grounding is skipped."""
+    doc = tmp_path / "test.md"
+    doc.write_text(
+        "AI policy document about data governance and risk management. "
+        "We must ensure bias detection and mitigation strategies are in place. "
+        "Training data integrity is critical for model reliability."
+    )
+
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = []
+
+    result = run_extraction(
+        documents=[doc],
+        client=mock_client,
+        config=mock_config,
+        risks=MOCK_RISKS,
+        ocr=False,
+        no_grounding=True,
+    )
+
+    assert isinstance(result, ExtractionResult)
+    assert result.metadata["no_grounding"] is True
+    assert result.metadata["no_judge"] is False
+    for risk in result.risks:
+        assert risk.evidence == []
+        assert risk.grounding_confidence == "ungrounded"
+    assert result.retrieval_stats.grounding_filtered == 0
+
+
+def test_run_extraction_no_judge_no_grounding_no_cross_encoder(mock_config, tmp_path):
+    """With no_judge+no_grounding and no cross-encoder, pure BM25+semantic output."""
+    doc = tmp_path / "test.md"
+    doc.write_text(
+        "AI policy document about data governance and risk management. "
+        "We must ensure bias detection and mitigation strategies are in place. "
+        "Training data integrity is critical for model reliability."
+    )
+
+    mock_client = MagicMock()
+
+    result = run_extraction(
+        documents=[doc],
+        client=mock_client,
+        config=mock_config,
+        risks=MOCK_RISKS,
+        ocr=False,
+        no_judge=True,
+        no_grounding=True,
+        use_cross_encoder=False,
+        rrf_min_score=0.001,
+    )
+
+    assert isinstance(result, ExtractionResult)
+    mock_client.chat.completions.create.assert_not_called()
+    for risk in result.risks:
+        assert risk.accepted_by in ("rrf", "auto_promoted")
 
 
 def test_run_extraction_no_cross_encoder(mock_config, tmp_path):

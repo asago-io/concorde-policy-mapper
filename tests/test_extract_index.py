@@ -2,7 +2,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from concorde_policy_mapper.extract.index import RiskIndex
+from concorde_policy_mapper.extract.index import RiskIndex, _is_remote, _parse_remote_url
 
 
 def _make_risk(id, name, description, concern=""):
@@ -119,3 +119,36 @@ def test_hybrid_search_rrf_only_filters_low_scores(index):
     high_results = index.hybrid_search("bias", top_k=50, rrf_min_score=0.02)
     assert len(high_results) <= len(all_results)
     assert all(c.rrf_score >= 0.02 for c in high_results)
+
+
+def test_is_remote():
+    assert _is_remote("https://host.example.com/v1/embeddings")
+    assert _is_remote("http://localhost:8000/v1/embeddings")
+    assert not _is_remote("all-mpnet-base-v2")
+    assert not _is_remote("cross-encoder/ms-marco-MiniLM-L-12-v2")
+
+
+def test_parse_remote_url():
+    base, model = _parse_remote_url(
+        "https://bge-m3-model-serving.apps.example.com/v1/embeddings"
+    )
+    assert base == "https://bge-m3-model-serving.apps.example.com/v1"
+    assert model == "bge-m3"
+
+    base2, model2 = _parse_remote_url(
+        "https://gte-reranker-modernbert-base-model-serving.apps.rosa.example.com/v1/score"
+    )
+    assert base2 == "https://gte-reranker-modernbert-base-model-serving.apps.rosa.example.com/v1"
+    assert model2 == "gte-reranker-modernbert-base"
+
+    base3, model3 = _parse_remote_url("https://host.com")
+    assert base3 == "https://host.com/v1"
+    assert model3 == "host"
+
+    base4, _ = _parse_remote_url("https://host.com/v1")
+    assert base4 == "https://host.com/v1"
+
+
+def test_colbert_remote_rejected():
+    with pytest.raises(ValueError, match="ColBERT models cannot be served remotely"):
+        RiskIndex(RISKS, colbert_model="https://lateon.example.com/v1/embeddings")

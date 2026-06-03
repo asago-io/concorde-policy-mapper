@@ -271,13 +271,8 @@ risks:
       - text: "promoting non-discriminatory practices in the use of AI"
         section: "3 Governance of AI and the AI Principles"
 
-  - id: ai-risk-taxonomy-automated-decision-making
-    name: Automated Decision-Making
-    evidence:
-      - text: "The ability of AI to make decisions without a human being part of that decision will be determined by the function that the AI performs."
-        section: "2 Principles of AI in Policing - Principle D. Responsible"
-      - text: "All AI that effects the public must have a human as the ultimate decision-maker."
-        section: "2 Principles of AI in Policing - Principle D. Responsible"
+  # Removed: ai-risk-taxonomy-automated-decision-making — not in Nexus catalog.
+  # Evidence covers human oversight (mit-ai-risk-subdomain-5.1), already annotated.
 
   - id: ai-risk-taxonomy-government-services
     name: Government Services

@@ -1,0 +1,87 @@
+Here are some examples of how to evaluate risks:
+
+### Example 1
+
+**Text:** This policy is for generative AI services running external to the firm (as opposed to services hosted within a firm), irrespective of whether the firm is using the paid or free versions of the services. Examples of external generative AI include, but not limited to, all versions of:
+- Text (and related) generation, such as large language models (LLMs), including:
+- > OpenAI's ChatGPT
+- > Microsoft...
+
+**Candidates:**
+- credo-risk-016: Over or under-reliance and unsafe use (Slattery et al., 2024; IBM, 2024; AI, 2023) — Users may inappropriately rely on the AI system for critical decisions or tasks beyond its capabilities, or fail to put trust in AI systems when they should, potentially leading to errors or safety is
+- atlas-unreliable-source-attribution: Unreliable source attribution — Source attribution is the...
+
+**Expected Verdicts:**
+- credo-risk-016: relevant
+- atlas-unreliable-source-attribution: not relevant
+- credo-risk-047: not relevant
+- mit-ai-risk-subdomain-7.4: not relevant
+- atlas-incomplete-usage-definition: not relevant
+- mit-ai-risk-subdomain-6.6: not relevant
+- credo-risk-032: not relevant
+- atlas-impact-on-the-environment: not relevant
+- credo-risk-036: relevant
+- atlas-non-disclosure: not relevant
+
+### Example 2
+
+**Text:** - 5.2.1 All solutions must follow Architecture and Software Development Life Cycle (SDLC) best practice, and a High Level Design (HLD) must be produced.
+- 5.2.2 When procuring AI solutions, terms and conditions must be clearly reviewed and ensure that they align with the Trust security standards.
+- Appropriate and relevant Security risk assessments must be completed before procurement.
+- Appropria...
+
+**Candidates:**
+- credo-risk-031: Maintenance and update requirements — The AI system may require ongoing updates, model retraining, and maintenance to ensure continued performance, timeliness, and relevance, which can be resource-intensive and potentially introduce new r
+- credo-risk-023: Regulatory compliance — The AI system may fail to comply with existing or emerging regulations and standards, potentially lea...
+
+**Expected Verdicts:**
+- credo-risk-031: relevant
+- credo-risk-023: relevant
+- atlas-nonconsensual-use: not relevant
+- mit-ai-risk-subdomain-6.4: not relevant
+- credo-risk-040: relevant
+- atlas-spreading-toxicity: not relevant
+- mit-ai-risk-subdomain-7.3: not relevant
+- credo-risk-038: relevant
+- credo-risk-009: not relevant
+- mit-ai-risk-subdomain-7.4: not relevant
+
+### Example 3
+
+**Text:** col_1: What is AI Ethics at Amadeus?.................................................................................................................4``````col_0: 2.col_1: The 6 Amadeus Principles for Development and Deployment/Use of AI Tools..................4``````col_0: 2.1.col_1: Fairness and human oversight: AI tools should treat all people fairly ................................5``````col_0...
+
+**Candidates:**
+- mit-ai-risk-subdomain-7.5: AI welfare and rights — Ethical considerations regarding the treatment of potentially sentient AI entities, including discussions around their potential rights and welfare, particularly as AI systems become more advanced and
+- mit-ai-risk-subdomain-7.4: Lack of transparency or interpretability — Challenges in understanding or explaining the decision-making processes of...
+
+**Expected Verdicts:**
+- mit-ai-risk-subdomain-7.5: not relevant
+- mit-ai-risk-subdomain-7.4: not relevant
+- atlas-impact-on-the-environment: relevant
+- mit-ai-risk-subdomain-5.1: relevant
+- atlas-model-usage-rights: not relevant
+- credo-risk-017: relevant
+- atlas-nonconsensual-use: not relevant
+- credo-risk-025: relevant
+- credo-risk-042: not relevant
+- mit-ai-risk-subdomain-7.3: not relevant
+
+---
+
+Now evaluate the following:
+
+## Text Passage
+
+{{ chunk_text }}
+
+## Candidate Risks
+
+{% for risk in risks %}
+- **{{ risk.risk_id }}**: {{ risk.risk_name }} — {{ risk.risk_description }}
+{% endfor %}
+
+For each candidate risk, determine if it is relevant to the text passage.
+
+First, identify the core themes, prohibitions, and compliance measures in the text. Then for each candidate risk, assess whether the text provides enough specificity to conclude that this particular risk is being addressed, prohibited, or described — not merely thematically related.
+
+Respond with the risk_id, whether it is relevant (true/false), and a brief justification.

@@ -16,6 +16,110 @@ _DEFAULT_CROSS_ENCODER = "cross-encoder/ms-marco-MiniLM-L-12-v2"
 _SIGMOID_MODELS = {"cross-encoder/ms-marco-MiniLM-L-12-v2", "cross-encoder/ms-marco-electra-base"}
 
 
+def _is_remote(model: str) -> bool:
+    return model.startswith("http://") or model.startswith("https://")
+
+
+def _parse_remote_url(url: str) -> tuple[str, str]:
+    """Parse a remote model URL into (base_url ending in /v1, model_name).
+
+    Accepts URLs with or without trailing endpoint paths (/embeddings, /score).
+    Extracts model_name from hostname pattern '{name}-model-serving.apps...'.
+    Falls back to querying /v1/models if the pattern doesn't match.
+    """
+    from urllib.parse import urlparse
+
+    parsed = urlparse(url)
+    base = f"{parsed.scheme}://{parsed.netloc}"
+
+    path = parsed.path.rstrip("/")
+    for suffix in ("/embeddings", "/score", "/rerank"):
+        if path.endswith(suffix):
+            path = path[: -len(suffix)]
+            break
+    if not path.endswith("/v1"):
+        path = path.rstrip("/") + "/v1"
+    base_url = base + path
+
+    hostname = parsed.hostname or ""
+    if "-model-serving" in hostname:
+        model_name = hostname.split("-model-serving")[0]
+    else:
+        model_name = hostname.split(".")[0]
+    return base_url, model_name
+
+
+class _RemoteBiEncoder:
+    """Wraps a vLLM /v1/embeddings endpoint via the OpenAI SDK."""
+
+    def __init__(self, url: str, batch_size: int = 64):
+        from openai import OpenAI
+
+        base_url, self._model = _parse_remote_url(url)
+        self._client = OpenAI(base_url=base_url, api_key="none")
+        self._batch_size = batch_size
+
+    def encode(self, texts: list[str], normalize: bool = True) -> np.ndarray:
+        all_embeddings = []
+        for start in range(0, len(texts), self._batch_size):
+            batch = texts[start : start + self._batch_size]
+            response = self._client.embeddings.create(
+                model=self._model,
+                input=batch,
+            )
+            sorted_data = sorted(response.data, key=lambda d: d.index)
+            all_embeddings.extend(d.embedding for d in sorted_data)
+        arr = np.array(all_embeddings, dtype=np.float32)
+        if normalize:
+            norms = np.linalg.norm(arr, axis=1, keepdims=True)
+            norms[norms == 0] = 1.0
+            arr = arr / norms
+        return arr
+
+    def encode_query(self, text: str, normalize: bool = True) -> np.ndarray:
+        response = self._client.embeddings.create(
+            model=self._model,
+            input=[text],
+        )
+        arr = np.array(response.data[0].embedding, dtype=np.float32)
+        if normalize:
+            norm = np.linalg.norm(arr)
+            if norm > 0:
+                arr = arr / norm
+        return arr
+
+
+class _RemoteCrossEncoder:
+    """Wraps a vLLM /v1/score endpoint via httpx."""
+
+    def __init__(self, url: str):
+        import httpx
+
+        base_url, self._model = _parse_remote_url(url)
+        self._score_url = base_url + "/score"
+        self._client = httpx.Client(timeout=120.0)
+
+    def predict(self, pairs: list[tuple[str, str]]) -> np.ndarray:
+        if not pairs:
+            return np.array([])
+        # pairs are (risk_desc, chunk_text) — all share the same chunk_text
+        # vLLM /v1/score: text_1=query (chunk), text_2=documents (risks)
+        text_1 = pairs[0][1]
+        text_2_list = [p[0] for p in pairs]
+        response = self._client.post(
+            self._score_url,
+            json={
+                "model": self._model,
+                "text_1": text_1,
+                "text_2": text_2_list,
+            },
+        )
+        response.raise_for_status()
+        data = response.json()
+        scores_data = sorted(data["data"], key=lambda d: d["index"])
+        return np.array([d["score"] for d in scores_data], dtype=np.float64)
+
+
 def _maxsim(query_tokens: np.ndarray, doc_tokens: np.ndarray) -> float:
     """ColBERT MaxSim: for each query token, find max cosine similarity with any doc token, then sum."""
     sim = np.dot(query_tokens, doc_tokens.T)
@@ -35,6 +139,9 @@ class RiskIndex:
         self._bm25: BM25Okapi | None = None
         self._embeddings: np.ndarray | None = None
         self._colbert_doc_embeddings: list[np.ndarray] | None = None
+
+        self._remote_bi_encoder: _RemoteBiEncoder | None = None
+        self._remote_cross_encoder: _RemoteCrossEncoder | None = None
 
         if not risks:
             self._bi_encoder = None
@@ -63,13 +170,20 @@ class RiskIndex:
             bm25_corpus.append(" ".join(parts).lower().split())
         self._bm25 = BM25Okapi(bm25_corpus)
 
+        descriptions = [f"{r.name or ''}: {r.description or ''}" for r in risks]
+
         if colbert_model:
+            if _is_remote(colbert_model):
+                raise ValueError(
+                    "ColBERT models cannot be served remotely (vLLM returns pooled "
+                    "embeddings, not token-level). Use --bi-encoder-model for remote "
+                    "embedding models."
+                )
             import torch
             self._colbert = SentenceTransformer(
                 colbert_model,
                 model_kwargs={"torch_dtype": torch.bfloat16},
             )
-            descriptions = [f"{r.name or ''}: {r.description or ''}" for r in risks]
             raw = self._colbert.encode(
                 descriptions, output_value="token_embeddings",
                 show_progress_bar=False, batch_size=32,
@@ -85,12 +199,29 @@ class RiskIndex:
             logger.info("ColBERT index built: %d risks, %s", len(risks), colbert_model)
         else:
             self._colbert = None
-            self._bi_encoder = SentenceTransformer(bi_encoder_model)
-            descriptions = [f"{r.name or ''}: {r.description or ''}" for r in risks]
-            self._embeddings = self._bi_encoder.encode(
-                descriptions, normalize_embeddings=True, show_progress_bar=False
-            )
-            if cross_encoder_model:
+
+            if _is_remote(bi_encoder_model):
+                self._bi_encoder = None
+                try:
+                    self._remote_bi_encoder = _RemoteBiEncoder(bi_encoder_model)
+                    self._embeddings = self._remote_bi_encoder.encode(descriptions, normalize=True)
+                except Exception as e:
+                    raise RuntimeError(
+                        f"Failed to encode corpus via remote bi-encoder at {bi_encoder_model}: {e}"
+                    ) from e
+                logger.info("Remote bi-encoder index built: %d risks, %s", len(risks), bi_encoder_model)
+            else:
+                self._bi_encoder = SentenceTransformer(bi_encoder_model)
+                self._embeddings = self._bi_encoder.encode(
+                    descriptions, normalize_embeddings=True, show_progress_bar=False
+                )
+
+            if cross_encoder_model and _is_remote(cross_encoder_model):
+                self._cross_encoder = None
+                self._remote_cross_encoder = _RemoteCrossEncoder(cross_encoder_model)
+                self._apply_sigmoid = False
+                logger.info("Remote cross-encoder: %s", cross_encoder_model)
+            elif cross_encoder_model:
                 self._cross_encoder = CrossEncoder(cross_encoder_model)
                 self._apply_sigmoid = cross_encoder_model in _SIGMOID_MODELS
             else:
@@ -103,7 +234,7 @@ class RiskIndex:
 
     @property
     def cross_encoder(self):
-        return self._cross_encoder
+        return self._cross_encoder or self._remote_cross_encoder
 
     @property
     def has_colbert(self) -> bool:
@@ -135,9 +266,14 @@ class RiskIndex:
         return results
 
     def search_semantic(self, text: str, top_k: int = 100) -> list[ScoredCandidate]:
-        if self._bi_encoder is None or self._embeddings is None:
+        if self._bi_encoder is None and self._remote_bi_encoder is None:
             return []
-        query_emb = self._bi_encoder.encode(text, normalize_embeddings=True)
+        if self._embeddings is None:
+            return []
+        if self._remote_bi_encoder is not None:
+            query_emb = self._remote_bi_encoder.encode_query(text, normalize=True)
+        else:
+            query_emb = self._bi_encoder.encode(text, normalize_embeddings=True)
         similarities = np.dot(self._embeddings, query_emb)
         top_indices = np.argsort(similarities)[::-1][:top_k]
         results = []
@@ -187,10 +323,13 @@ class RiskIndex:
     def rerank(
         self, text: str, candidates: list[ScoredCandidate], top_k: int = 50
     ) -> list[ScoredCandidate]:
-        if not candidates or not self._cross_encoder:
+        if not candidates or (not self._cross_encoder and not self._remote_cross_encoder):
             return []
         pairs = [(f"{c.risk_name}: {c.risk_description}", text) for c in candidates]
-        raw_scores = self._cross_encoder.predict(pairs)
+        if self._remote_cross_encoder is not None:
+            raw_scores = self._remote_cross_encoder.predict(pairs)
+        else:
+            raw_scores = self._cross_encoder.predict(pairs)
         if self._apply_sigmoid:
             scores = 1.0 / (1.0 + np.exp(-np.array(raw_scores)))
         else:

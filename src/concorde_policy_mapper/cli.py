@@ -36,17 +36,22 @@ def extract(
     debug_dir: Path = typer.Option(None, "--debug", help="Directory for per-call debug logs"),
     max_concurrent: int = typer.Option(32, "--max-concurrent", help="Max parallel LLM calls"),
     ocr: bool = typer.Option(False, "--ocr", help="Enable OCR for document conversion"),
-    top_n_accept: int = typer.Option(5, "--top-n-accept", help="Auto-accept top N candidates per chunk (rank-based)"),
-    top_n_judge: int = typer.Option(5, "--top-n-judge", help="Send next N candidates to LLM judge (rank-based)"),
-    min_score_floor: float = typer.Option(0.0, "--min-score-floor", help="Reject candidates below this score regardless of rank"),
+    chunk_max_tokens: int = typer.Option(512, "--chunk-max-tokens", help="Max tokens per chunk (default: 512)"),
+    top_n_accept: int = typer.Option(10, "--top-n-accept", help="Auto-accept top N candidates per chunk (rank-based)"),
+    top_n_judge: int = typer.Option(10, "--top-n-judge", help="Send next N candidates to LLM judge (rank-based)"),
+    min_score_floor: float = typer.Option(0.70, "--min-score-floor", help="Reject candidates below this score regardless of rank"),
     threshold_high: float = typer.Option(None, "--threshold-high", help="Legacy: absolute auto-accept threshold (overrides rank-based)"),
     threshold_low: float = typer.Option(None, "--threshold-low", help="Legacy: absolute discard threshold (overrides rank-based)"),
     bi_encoder_model: str = typer.Option("all-mpnet-base-v2", "--bi-encoder-model", help="Bi-encoder model"),
     cross_encoder_model: str = typer.Option("cross-encoder/ms-marco-MiniLM-L-12-v2", "--cross-encoder-model", help="Cross-encoder model"),
-    bm25_rescue_rank: int = typer.Option(10, "--bm25-rescue-rank", help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled)"),
+    bm25_rescue_rank: int = typer.Option(0, "--bm25-rescue-rank", help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled)"),
     no_cross_encoder: bool = typer.Option(False, "--no-cross-encoder", help="Skip cross-encoder reranking and LLM judge; use RRF score floor instead"),
-    rrf_min_score: float = typer.Option(0.01, "--rrf-min-score", help="Minimum RRF score for candidates (only used with --no-cross-encoder)"),
+    rrf_min_score: float = typer.Option(0.015, "--rrf-min-score", help="Minimum RRF score for candidates (only used with --no-cross-encoder)"),
     colbert_model: str = typer.Option(None, "--colbert-model", help="ColBERT model for late interaction retrieval (replaces bi-encoder + cross-encoder)"),
+    judge_prompt: str = typer.Option("judge_risk", "--judge-prompt", help="Judge prompt template name (judge_risk, judge_risk_gepa, judge_risk_gepa_demos)"),
+    judge_context_tokens: int = typer.Option(0, "--judge-context-tokens", help="Max tokens for judge context window (0=use default sentence padding)"),
+    no_judge: bool = typer.Option(False, "--no-judge", help="Skip LLM judge; auto-promote borderline candidates to accepted"),
+    no_grounding: bool = typer.Option(False, "--no-grounding", help="Skip LLM grounding; accepted candidates become matches without evidence"),
 ):
     """Extract risks from policy documents using hybrid retrieval."""
     for pf in policy_files:
@@ -54,17 +59,23 @@ def extract(
             typer.echo(f"Error: {pf} does not exist", err=True)
             raise typer.Exit(1)
 
-    if not base_url or not model:
-        typer.echo("Error: --base-url and --model are required", err=True)
+    needs_llm = not (no_judge and no_grounding) or (not no_judge and use_cross_encoder)
+    if needs_llm and (not base_url or not model):
+        typer.echo("Error: --base-url and --model are required (unless both --no-judge and --no-grounding are set)", err=True)
         raise typer.Exit(1)
 
     if not nexus_base_dir:
         typer.echo("Error: --nexus-base-dir is required", err=True)
         raise typer.Exit(1)
 
-    config = LLMConfig(base_url=base_url, model=model, api_key=api_key, max_concurrent=max_concurrent)
-    tracker = TokenTracker()
-    client = create_client(config, tracker=tracker)
+    if not needs_llm:
+        config = LLMConfig(base_url=base_url or "unused", model=model or "unused", api_key=api_key, max_concurrent=max_concurrent)
+        tracker = TokenTracker()
+        client = None
+    else:
+        config = LLMConfig(base_url=base_url, model=model, api_key=api_key, max_concurrent=max_concurrent)
+        tracker = TokenTracker()
+        client = create_client(config, tracker=tracker)
     debug.configure(debug_dir)
 
     output.mkdir(parents=True, exist_ok=True)
@@ -87,6 +98,7 @@ def extract(
         config=config,
         risks=all_risks,
         ocr=ocr,
+        chunk_max_tokens=chunk_max_tokens,
         top_n_accept=top_n_accept,
         top_n_judge=top_n_judge,
         min_score_floor=min_score_floor,
@@ -98,6 +110,10 @@ def extract(
         colbert_model=colbert_model or None,
         threshold_high=threshold_high,
         threshold_low=threshold_low,
+        no_judge=no_judge,
+        no_grounding=no_grounding,
+        judge_prompt=judge_prompt,
+        judge_context_tokens=judge_context_tokens,
     )
 
     result.token_usage = tracker.to_dict()
@@ -108,11 +124,16 @@ def extract(
     typer.echo(f"Risk extraction written to {result_path}")
     typer.echo(f"  {len(result.risks)} risks matched")
     stats = result.retrieval_stats
-    if no_cross_encoder:
+    if no_judge and no_grounding:
+        typer.echo(f"  {stats.auto_accepted} auto-accepted (IR-only, no LLM stages)")
+    elif no_grounding:
+        typer.echo(f"  {stats.auto_accepted} auto-accepted, {stats.llm_judged} LLM-judged (no grounding)")
+    elif no_cross_encoder:
         typer.echo(f"  {stats.auto_accepted} RRF-accepted, {stats.grounding_filtered} grounding-filtered (no cross-encoder)")
     else:
         typer.echo(f"  {stats.auto_accepted} auto-accepted, {stats.llm_judged} LLM-judged, {stats.grounding_filtered} grounding-filtered")
-    typer.echo(f"Token usage: {tracker.prompt_tokens:,} prompt + {tracker.completion_tokens:,} completion = {tracker.total_tokens:,} total ({tracker.calls} calls)")
+    if needs_llm:
+        typer.echo(f"Token usage: {tracker.prompt_tokens:,} prompt + {tracker.completion_tokens:,} completion = {tracker.total_tokens:,} total ({tracker.calls} calls)")
 
     from concorde_policy_mapper.extract.report import build_risk_extraction_report
     report_path = build_risk_extraction_report(result_data, output / "risk-extraction.html")

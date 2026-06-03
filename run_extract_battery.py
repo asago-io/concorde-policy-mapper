@@ -90,17 +90,23 @@ def run_one(
         base_url: str,
         model: str,
         runs_dir: Path,
-        top_n_accept: int = 5,
-        top_n_judge: int = 5,
-        min_score_floor: float = 0.0,
+        chunk_max_tokens: int = 512,
+        top_n_accept: int = 10,
+        top_n_judge: int = 10,
+        min_score_floor: float = 0.70,
         threshold_high: float | None = None,
         threshold_low: float | None = None,
         bi_encoder_model: str = "all-mpnet-base-v2",
         cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-12-v2",
         name_width: int = 20,
+        bm25_rescue_rank: int = 0,
         no_cross_encoder: bool = False,
-        rrf_min_score: float = 0.01,
+        rrf_min_score: float = 0.015,
         colbert_model: str | None = None,
+        judge_prompt: str = "judge_risk",
+        judge_context_tokens: int = 0,
+        no_judge: bool = False,
+        no_grounding: bool = False,
 ) -> tuple[str, bool, str, int, float]:
     out = runs_dir / name
     tag = _pad_name(name, name_width)
@@ -115,16 +121,26 @@ def run_one(
         "--base-url", base_url,
         "--model", model,
         "--nexus-base-dir", NEXUS_BASE_DIR,
+        "--chunk-max-tokens", str(chunk_max_tokens),
         "--top-n-accept", str(top_n_accept),
         "--top-n-judge", str(top_n_judge),
         "--min-score-floor", str(min_score_floor),
         "--bi-encoder-model", bi_encoder_model,
         "--cross-encoder-model", cross_encoder_model,
+        "--bm25-rescue-rank", str(bm25_rescue_rank),
     ]
     if no_cross_encoder:
         cmd.extend(["--no-cross-encoder", "--rrf-min-score", str(rrf_min_score)])
     if colbert_model:
         cmd.extend(["--colbert-model", colbert_model])
+    if judge_prompt != "judge_risk":
+        cmd.extend(["--judge-prompt", judge_prompt])
+    if judge_context_tokens > 0:
+        cmd.extend(["--judge-context-tokens", str(judge_context_tokens)])
+    if no_judge:
+        cmd.append("--no-judge")
+    if no_grounding:
+        cmd.append("--no-grounding")
     if threshold_high is not None:
         cmd.extend(["--threshold-high", str(threshold_high)])
     if threshold_low is not None:
@@ -322,16 +338,22 @@ def main():
     parser.add_argument("--base-url", default=os.environ.get("POLICY_MAPPER_BASE_URL"), help="LLM API base URL (default: $POLICY_MAPPER_BASE_URL)")
     parser.add_argument("--model", default=None, help="Override model from battery config (default: $POLICY_MAPPER_MODEL)")
     parser.add_argument("-j", "--jobs", type=int, default=6, help="Max parallel jobs (default: 6)")
-    parser.add_argument("--top-n-accept", type=int, default=5, help="Auto-accept top N candidates per chunk (default: 5)")
-    parser.add_argument("--top-n-judge", type=int, default=5, help="Send next N candidates to LLM judge (default: 5)")
-    parser.add_argument("--min-score-floor", type=float, default=0.0, help="Reject candidates below this score (default: 0.0)")
+    parser.add_argument("--chunk-max-tokens", type=int, default=512, help="Max tokens per chunk (default: 512)")
+    parser.add_argument("--top-n-accept", type=int, default=10, help="Auto-accept top N candidates per chunk (default: 10)")
+    parser.add_argument("--top-n-judge", type=int, default=10, help="Send next N candidates to LLM judge (default: 10)")
+    parser.add_argument("--min-score-floor", type=float, default=0.70, help="Reject candidates below this score (default: 0.70)")
     parser.add_argument("--threshold-high", type=float, default=None, help="Legacy: absolute auto-accept threshold (overrides rank-based)")
     parser.add_argument("--threshold-low", type=float, default=None, help="Legacy: absolute discard threshold")
     parser.add_argument("--bi-encoder-model", default="all-mpnet-base-v2", help="Bi-encoder model (default: all-mpnet-base-v2)")
     parser.add_argument("--cross-encoder-model", default="cross-encoder/ms-marco-MiniLM-L-12-v2", help="Cross-encoder model (default: cross-encoder/ms-marco-MiniLM-L-12-v2)")
+    parser.add_argument("--bm25-rescue-rank", type=int, default=0, help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled, default: 0)")
     parser.add_argument("--no-cross-encoder", action="store_true", help="Skip cross-encoder reranking and LLM judge; use RRF score floor instead")
-    parser.add_argument("--rrf-min-score", type=float, default=0.01, help="Minimum RRF score for candidates (only used with --no-cross-encoder)")
+    parser.add_argument("--rrf-min-score", type=float, default=0.015, help="Minimum RRF score for candidates (only used with --no-cross-encoder)")
     parser.add_argument("--colbert-model", default=None, help="ColBERT model for late interaction retrieval (replaces bi-encoder + cross-encoder)")
+    parser.add_argument("--judge-prompt", default="judge_risk", help="Judge prompt template name (default: judge_risk)")
+    parser.add_argument("--judge-context-tokens", type=int, default=0, help="Max tokens for judge context window (0=default sentence padding)")
+    parser.add_argument("--no-judge", action="store_true", help="Skip LLM judge; auto-promote borderline candidates")
+    parser.add_argument("--no-grounding", action="store_true", help="Skip LLM grounding; accepted candidates become matches without evidence")
     parser.add_argument("--mlflow-experiment", default="risk-extraction", help="MLflow experiment name (default: risk-extraction)")
     parser.add_argument("--no-mlflow", action="store_true", help="Disable MLflow tracking")
     args = parser.parse_args()
@@ -342,14 +364,18 @@ def main():
         sys.exit(1)
 
     config = yaml.safe_load(battery_path.read_text())
-    if not args.base_url:
-        print("Error: --base-url is required (or set POLICY_MAPPER_BASE_URL)")
-        sys.exit(1)
-
-    model = args.model or config.get("model") or os.environ.get("POLICY_MAPPER_MODEL")
-    if not model:
-        print("Error: model not specified (set in battery config, pass --model, or set POLICY_MAPPER_MODEL)")
-        sys.exit(1)
+    if args.no_judge and args.no_grounding:
+        base_url = args.base_url or "unused"
+        model = args.model or config.get("model") or os.environ.get("POLICY_MAPPER_MODEL") or "unused"
+    else:
+        if not args.base_url:
+            print("Error: --base-url is required (or set POLICY_MAPPER_BASE_URL)")
+            sys.exit(1)
+        base_url = args.base_url
+        model = args.model or config.get("model") or os.environ.get("POLICY_MAPPER_MODEL")
+        if not model:
+            print("Error: model not specified (set in battery config, pass --model, or set POLICY_MAPPER_MODEL)")
+            sys.exit(1)
 
     battery_name = battery_path.stem
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -372,7 +398,12 @@ def main():
     print(f"Extract Battery: {battery_name}")
     print(f"  model:          {model}")
     print(f"  bi_encoder:     {args.bi_encoder_model}")
+    print(f"  chunk_tokens:   {args.chunk_max_tokens}")
     print(f"  cross_encoder:  {'DISABLED' if args.no_cross_encoder else args.cross_encoder_model}")
+    if args.no_judge:
+        print(f"  no_judge:       True (borderline auto-promoted)")
+    if args.no_grounding:
+        print(f"  no_grounding:   True (skip evidence grounding)")
     if args.no_cross_encoder:
         print(f"  rrf_min_score:  {args.rrf_min_score}")
     if args.threshold_high is not None:
@@ -405,6 +436,9 @@ def main():
             "threshold_low": str(args.threshold_low),
             "rrf_min_score": str(args.rrf_min_score),
             "no_cross_encoder": str(args.no_cross_encoder),
+            "chunk_max_tokens": str(args.chunk_max_tokens),
+            "no_judge": str(args.no_judge),
+            "no_grounding": str(args.no_grounding),
             "jobs": str(args.jobs),
             "battery_config": battery_path.name,
         })
@@ -424,12 +458,16 @@ def main():
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {
             pool.submit(
-                run_one, files, name, args.base_url, model, runs_dir,
+                run_one, files, name, base_url, model, runs_dir,
+                args.chunk_max_tokens,
                 args.top_n_accept, args.top_n_judge, args.min_score_floor,
                 args.threshold_high, args.threshold_low,
                 args.bi_encoder_model, args.cross_encoder_model, name_width,
+                args.bm25_rescue_rank,
                 args.no_cross_encoder, args.rrf_min_score,
                 args.colbert_model,
+                args.judge_prompt, args.judge_context_tokens,
+                args.no_judge, args.no_grounding,
             ): name
             for name, files in runs
         }

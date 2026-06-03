@@ -1,6 +1,7 @@
 model: gemma-4-26b-a4b-it
 max_context: 16384
 runs:
+  - policy_examples/amadeus.pdf
   - policy_examples/aus-gov.pdf
   - policy_examples/ars.md
   - policy_examples/camden-borough-work.pdf
@@ -9,15 +10,21 @@ runs:
   - policy_examples/ebay.pdf
   - policy_examples/eu-com.pdf
   - policy_examples/firstsource.pdf
+  - policy_examples/fs-isac.pdf
+  - policy_examples/gray.pdf
   - policy_examples/guy-nhs.pdf
+  - policy_examples/icrc.pdf
   - policy_examples/leicestershire_police.md
   - policy_examples/llvm.md
   - policy_examples/lenovo.pdf
   - policy_examples/lse-legreg.pdf
   - policy_examples/lse-marking.pdf
   - policy_examples/new-york-state.pdf
+  - policy_examples/npcc.pdf
   - policy_examples/ovic.docx
+  - policy_examples/penn.pdf
   - policy_examples/prosus.pdf
   - policy_examples/rdash-nhs.md
   - policy_examples/sap.pdf
+  - policy_examples/st-johns.md
   - policy_examples/vps.docx

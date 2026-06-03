@@ -181,7 +181,8 @@ examples (one per policy), each classifying 12 NIST risk categories from extract
 - "Mitigation vs. Risk" rule: if evidence describes a requirement/guideline, it's a mitigation NOT a risk — don't map it
 - Precise domain boundaries: Data Privacy (subject identity) vs Information Security (system integrity) vs
   Information Integrity (societal truth at scale). Single hallucination = Confabulation, NOT Information Integrity.
-- Human-AI Configuration requires specific phenomena (anthropomorphism, automation bias) — not general "lack of training"
+- Human-AI Configuration requires specific phenomena (anthropomorphism, automation bias) — not general "lack of
+  training"
 - Value Chain requires upstream third-party components — not internal tool integration
 - Evidence quoting: must cite specific phrases and map to NIST definition
 
@@ -331,6 +332,7 @@ via a static SSSOM cross-taxonomy mapping (`data/risk_to_category.sssom.tsv`, 82
 was removed entirely.
 
 **Changes:**
+
 - Removed `extract/classify.py`, classify prompt templates, `--classify-taxonomies` CLI option
 - Added `_load_risk_to_category_map()`, `_derive_categories()`, `_evaluate_categories()` to eval.py
 - Ground truth stripped to risk-level only (107 category entries removed from 20 existing + 78 from 7 new policies)
@@ -339,12 +341,12 @@ was removed entirely.
 
 **New baseline (27 policies, run `risk-selected_20260601_160553`):**
 
-| Tier | Macro P | Macro R | Macro F1 |
-|------|---------|---------|----------|
-| Risk-level | 0.813 | 0.649 | 0.708 |
-| NIST category | 0.975 | 0.877 | 0.923 |
-| OWASP LLM category | 0.917 | 0.887 | 0.902 |
-| AILuminate category | 0.951 | 0.892 | 0.921 |
+| Tier                | Macro P | Macro R | Macro F1 |
+|---------------------|---------|---------|----------|
+| Risk-level          | 0.813   | 0.649   | 0.708    |
+| NIST category       | 0.975   | 0.877   | 0.923    |
+| OWASP LLM category  | 0.917   | 0.887   | 0.902    |
+| AILuminate category | 0.951   | 0.892   | 0.921    |
 
 Pass rate: 5/27 (thresholds: P≥0.60, R≥0.80)
 
@@ -357,21 +359,29 @@ eval pairs, 27 policies, risk-level only, category taxonomies excluded from risk
 
 **Models tested:**
 
-| Model | AUC-ROC | Best F1 | Precision | Recall | Speed |
-|-------|---------|---------|-----------|--------|-------|
-| ms-marco-MiniLM-L-12-v2 (baseline) | 0.636 | 0.340 | 0.243 | 0.567 | 90 p/s |
-| **gte-reranker-modernbert-base** | **0.813** | **0.512** | 0.468 | 0.565 | 23 p/s |
-| bge-reranker-v2-m3 | 0.788 | 0.466 | 0.522 | 0.420 | 14 p/s |
+| Model                              | AUC-ROC   | Best F1   | Precision | Recall | Speed  |
+|------------------------------------|-----------|-----------|-----------|--------|--------|
+| ms-marco-MiniLM-L-12-v2 (baseline) | 0.636     | 0.340     | 0.243     | 0.567  | 90 p/s |
+| **gte-reranker-modernbert-base**   | **0.813** | **0.512** | 0.468     | 0.565  | 23 p/s |
+| bge-reranker-v2-m3                 | 0.788     | 0.466     | 0.522     | 0.420  | 14 p/s |
 
 **Score distribution analysis:**
-- ms-marco: scores spread across full 0-1 range (std=0.35). Positives score 0.294 mean, hard negatives 0.338 — model can't distinguish them but the wide spread makes absolute thresholds work.
-- GTE: scores cluster in a 0.04-wide band around 0.65 (std=0.14). Better discrimination (AUC 0.813) but absolute thresholds are meaningless — everything scores ~0.65.
+
+- ms-marco: scores spread across full 0-1 range (std=0.35). Positives score 0.294 mean, hard negatives 0.338 — model
+  can't distinguish them but the wide spread makes absolute thresholds work.
+- GTE: scores cluster in a 0.04-wide band around 0.65 (std=0.14). Better discrimination (AUC 0.813) but absolute
+  thresholds are meaningless — everything scores ~0.65.
 - BGE: similar clustering (std=0.05) but weaker discrimination.
 
 **End-to-end battery with GTE (threshold_high=0.68, threshold_low=0.62):**
-Regressed badly — 2/27 pass vs 5/27 baseline. The tight score clustering meant the pipeline couldn't separate accept/borderline/discard. Auto-accepted 1,443 candidates for SAP (vs 1,058 baseline) because almost everything scored above 0.68.
+Regressed badly — 2/27 pass vs 5/27 baseline. The tight score clustering meant the pipeline couldn't separate
+accept/borderline/discard. Auto-accepted 1,443 candidates for SAP (vs 1,058 baseline) because almost everything scored
+above 0.68.
 
-**Conclusion:** GTE-reranker-modernbert-base has substantially better discrimination ability (AUC +0.177) but its sigmoid-normalised scores cluster too tightly for the pipeline's absolute-threshold architecture. Two paths: (1) fine-tune GTE on our data to spread scores, or (2) change pipeline to use relative ranking instead of absolute thresholds. Fine-tuning preferred since ms-marco's absolute thresholds work well and changing architecture is high-risk.
+**Conclusion:** GTE-reranker-modernbert-base has substantially better discrimination ability (AUC +0.177) but its
+sigmoid-normalised scores cluster too tightly for the pipeline's absolute-threshold architecture. Two paths: (1)
+fine-tune GTE on our data to spread scores, or (2) change pipeline to use relative ranking instead of absolute
+thresholds. Fine-tuning preferred since ms-marco's absolute thresholds work well and changing architecture is high-risk.
 
 ---
 
@@ -380,22 +390,29 @@ Regressed badly — 2/27 pass vs 5/27 baseline. The tight score clustering meant
 **Description:** Analysed spurious risk patterns across the 27-policy baseline run.
 
 **Key findings:**
+
 - 19% of spurious evidence spans are under 50 characters (single words like "transparency", "security issues")
-- `mit-ai-risk-subdomain-6.3` (devaluation of human effort) is #1 spurious risk (8/27 policies) — matched on any mention of AI generating content
+- `mit-ai-risk-subdomain-6.3` (devaluation of human effort) is #1 spurious risk (8/27 policies) — matched on any mention
+  of AI generating content
 - 63% of spurious risks have "medium" grounding confidence, 29% "high" — grounder not discriminating
 - 53% of spurious accepted by LLM judge, 47% by threshold — both paths contribute equally
 
 **Minimum evidence length filter simulation:**
+
 - min_len=40 chars would remove 26 spurious but also 13 true positives — too blunt
 - Many "true positives" removed have genuinely thin evidence (single words). 5 of these were GT errors (removed).
 
-**Conclusion:** Hard evidence-length filter is too blunt. The over-extraction problem is best addressed by improving the LLM judge's ability to reject risks matched on generic governance language. DSPy judge re-optimization in progress with updated dataset (27 policies, risk-level only, category taxonomies excluded).
+**Conclusion:** Hard evidence-length filter is too blunt. The over-extraction problem is best addressed by improving the
+LLM judge's ability to reject risks matched on generic governance language. DSPy judge re-optimization in progress with
+updated dataset (27 policies, risk-level only, category taxonomies excluded).
 
 ---
 
 ## 2026-06-01: DSPy Judge Prompt Optimization v3 — Risk-Level Only Dataset
 
-**Description:** Re-ran GEPA with the updated dataset: 187 train / 244 eval examples from 27 policies (13 train, 14 eval). Category-level taxonomies excluded from the risk pool. Hard negatives mined via cross-encoder from risk-level risks only. Amadeus (train) and ICRC (eval) split to test generalisation on EU AI Act prohibition patterns.
+**Description:** Re-ran GEPA with the updated dataset: 187 train / 244 eval examples from 27 policies (13 train, 14
+eval). Category-level taxonomies excluded from the risk pool. Hard negatives mined via cross-encoder from risk-level
+risks only. Amadeus (train) and ICRC (eval) split to test generalisation on EU AI Act prohibition patterns.
 
 **Results (isolated judge eval):**
 
@@ -405,21 +422,24 @@ Regressed badly — 2/27 pass vs 5/27 baseline. The tight score clustering meant
 
 **Optimized prompt key innovations (different from v2):**
 
-- "Avoid Over-Literalism": don't reject because the specific technical term is missing — if text manages a domain, risks in that domain are relevant
-- Theme-to-risk mapping: governance/process → compliance/governance risks; data protection → privacy risks; security → adversarial risks
-- "Crucial Note" on governance frameworks: approval processes, monitoring, contract reviews implicitly address the risks those guardrails prevent
+- "Avoid Over-Literalism": don't reject because the specific technical term is missing — if text manages a domain, risks
+  in that domain are relevant
+- Theme-to-risk mapping: governance/process → compliance/governance risks; data protection → privacy risks; security →
+  adversarial risks
+- "Crucial Note" on governance frameworks: approval processes, monitoring, contract reviews implicitly address the risks
+  those guardrails prevent
 - Specificity guard maintained: general privacy ≠ biometric/facial recognition
 
 **End-to-end battery (v3 judge, 27 policies):**
 
-| Metric          | Baseline (v2 judge) | v3 Judge  | Delta    |
-|-----------------|---------------------|-----------|----------|
+| Metric          | Baseline (v2 judge) | v3 Judge  | Delta      |
+|-----------------|---------------------|-----------|------------|
 | Macro F1        | 0.708               | **0.719** | **+0.010** |
-| Macro Precision | 0.813               | 0.814     | +0.001   |
+| Macro Precision | 0.813               | 0.814     | +0.001     |
 | Macro Recall    | 0.649               | **0.665** | **+0.017** |
-| Pass rate       | 5/27                | **6/27**  | +1       |
-| NIST cat F1     | 0.923               | 0.920     | -0.003   |
-| OWASP LLM F1   | 0.907               | **0.935** | +0.028   |
+| Pass rate       | 5/27                | **6/27**  | +1         |
+| NIST cat F1     | 0.923               | 0.920     | -0.003     |
+| OWASP LLM F1    | 0.907               | **0.935** | +0.028     |
 
 15 policies improved, 8 regressed (mostly small), 4 unchanged. Precision held — the v3 prompt's
 "Avoid Over-Literalism" did NOT cause the over-acceptance that killed v1 (which regressed F1 0.754→0.723).
@@ -450,11 +470,11 @@ use raw scores clipped to [0, 1].
 
 **GTE end-to-end results (with fix, various thresholds):**
 
-| Config | Macro P | Macro R | Macro F1 | Pass |
-|--------|---------|---------|----------|------|
-| Baseline (ms-marco, 0.7/0.15) | 0.814 | 0.665 | **0.719** | 6/27 |
-| GTE, 0.7/0.15 (raw scores) | 0.660 | 0.680 | 0.650 | 5/27 |
-| GTE, 0.82/0.55 (tuned) | 0.651 | 0.663 | 0.644 | 5/27 |
+| Config                        | Macro P | Macro R | Macro F1  | Pass |
+|-------------------------------|---------|---------|-----------|------|
+| Baseline (ms-marco, 0.7/0.15) | 0.814   | 0.665   | **0.719** | 6/27 |
+| GTE, 0.7/0.15 (raw scores)    | 0.660   | 0.680   | 0.650     | 5/27 |
+| GTE, 0.82/0.55 (tuned)        | 0.651   | 0.663   | 0.644     | 5/27 |
 
 **Conclusion:** Even with correct scoring, GTE-reranker regresses end-to-end with arbitrary
 thresholds. Needed data-informed threshold calibration — see next experiment.
@@ -467,11 +487,11 @@ thresholds. Needed data-informed threshold calibration — see next experiment.
 
 **Candidate recall@100 on 8 eval policies:**
 
-| Bi-encoder | Semantic Recall | BM25-only rescues | Params |
-|-----------|----------------|-------------------|--------|
-| all-mpnet-base-v2 (current) | 0.917 | 23 | 110M |
-| **BAAI/bge-m3** | **0.962** | 8 | 568M |
-| gte-modernbert-base | 0.929 | 19 | 110M |
+| Bi-encoder                  | Semantic Recall | BM25-only rescues | Params |
+|-----------------------------|-----------------|-------------------|--------|
+| all-mpnet-base-v2 (current) | 0.917           | 23                | 110M   |
+| **BAAI/bge-m3**             | **0.962**       | 8                 | 568M   |
+| gte-modernbert-base         | 0.929           | 19                | 110M   |
 
 BGE-M3 reduces BM25-only rescues from 23 to 8 — 15 risks now found via semantic search.
 
@@ -496,10 +516,10 @@ These represent the actual candidate distribution any reranker would face.
 
 **Results on pipeline-mined dataset:**
 
-| Model | AUC-ROC | Best F1 | Pos mean | Hard neg mean | Separation |
-|-------|---------|---------|----------|---------------|------------|
-| ms-marco-MiniLM | **0.498** | 0.420 | 0.295 | 0.733 | **-0.438** |
-| GTE-reranker | **0.759** | **0.596** | **0.701** | 0.618 | **+0.083** |
+| Model           | AUC-ROC   | Best F1   | Pos mean  | Hard neg mean | Separation |
+|-----------------|-----------|-----------|-----------|---------------|------------|
+| ms-marco-MiniLM | **0.498** | 0.420     | 0.295     | 0.733         | **-0.438** |
+| GTE-reranker    | **0.759** | **0.596** | **0.701** | 0.618         | **+0.083** |
 
 **Key finding:** ms-marco has AUC 0.498 on pipeline-mined negatives — literally random. Hard
 negatives score HIGHER than positives (0.733 vs 0.295). The previous AUC of 0.636 was an artifact
@@ -516,11 +536,11 @@ threshold_high=0.72 (above positive median), threshold_low=0.55 (below hard nega
 
 **End-to-end results:**
 
-| Config | Macro P | Macro R | Macro F1 | Pass |
-|--------|---------|---------|----------|------|
-| ms-marco + threshold 0.7/0.15 (baseline) | **0.813** | 0.649 | **0.708** | 5/27 |
-| No cross-encoder (RRF only) | 0.676 | 0.625 | 0.635 | 1/27 |
-| GTE calibrated 0.72/0.55 | 0.650 | **0.652** | 0.634 | 6/27 |
+| Config                                   | Macro P   | Macro R   | Macro F1  | Pass |
+|------------------------------------------|-----------|-----------|-----------|------|
+| ms-marco + threshold 0.7/0.15 (baseline) | **0.813** | 0.649     | **0.708** | 5/27 |
+| No cross-encoder (RRF only)              | 0.676     | 0.625     | 0.635     | 1/27 |
+| GTE calibrated 0.72/0.55                 | 0.650     | **0.652** | 0.634     | 6/27 |
 
 **Analysis:** GTE calibrated performs identically to no cross-encoder at all. Despite better
 discrimination (AUC 0.759 vs 0.498), GTE doesn't improve end-to-end because:
@@ -536,16 +556,348 @@ discrimination (AUC 0.759 vs 0.498), GTE doesn't improve end-to-end because:
 
 **Rank-based selection (top_n_accept/top_n_judge) results:**
 
-| Config | Macro P | Macro R | Macro F1 |
-|--------|---------|---------|----------|
-| ms-marco + rank (15/10) | 0.795 | 0.629 | 0.688 |
-| GTE + rank (15/10) | 0.691 | 0.607 | 0.625 |
+| Config                  | Macro P | Macro R | Macro F1 |
+|-------------------------|---------|---------|----------|
+| ms-marco + rank (15/10) | 0.795   | 0.629   | 0.688    |
+| GTE + rank (15/10)      | 0.691   | 0.607   | 0.625    |
 
 Rank-based slightly underperforms threshold-based for ms-marco (-0.020 F1) and is worse for
 GTE because GTE's ranking pushes different (wrong) risks into the top positions.
 
-**Conclusion:** The cross-encoder's role in this pipeline is volume reduction, not semantic
-discrimination. ms-marco's random-but-conservative filtering happens to work well with the
-existing grounding stage. Replacing it requires either: (1) a model fine-tuned on our specific
-task to learn the right rejection pattern, or (2) a fundamentally different pipeline architecture
-that doesn't rely on cross-encoder filtering.
+---
+
+## 2026-06-02: IR Isolation Experiment — LLM Stages Stripped
+
+**Description:** All previous experiments were confounded by the LLM judge and grounding stages.
+To understand the IR pipeline in isolation, added `--no-ground` flag that skips both LLM judge
+and grounding entirely. Borderline candidates are auto-promoted to accepted; all accepted become
+matches with empty evidence. No LLM calls at all — pure retrieval evaluation.
+
+Also added remote model support: bi-encoder and cross-encoder models can now be served via vLLM
+on GPU (`/v1/embeddings` and `/v1/score` endpoints) by passing a URL as the model name.
+
+**MLflow:** experiment=ir-isolation
+
+**Models tested across 7 configurations, 27 policies:**
+
+- **Bi-encoders:** all-mpnet-base-v2 (local, 768d), BAAI/bge-m3 (cluster, 1024d),
+  Alibaba-NLP/gte-modernbert-base (cluster, 768d), lightonai/LateON ColBERT (local, 768d)
+- **Cross-encoders:** ms-marco-MiniLM-L-12-v2 (local), Alibaba-NLP/gte-reranker-modernbert-base
+  (cluster), none
+
+**Parameters:** top_n_accept=5, top_n_judge=5, bm25_rescue_rank=10, rrf_min_score=0.01 (no-CE
+configs). Without a cross-encoder, each chunk keeps ~50 RRF candidates. With a cross-encoder,
+each chunk keeps ~18 (5 threshold + ~13 borderline including BM25 rescues).
+
+**Results (macro over 27 policies):**
+
+| Config | Bi-encoder               | Cross-encoder          | Macro P | Macro R | Macro F1  |
+|--------|--------------------------|------------------------|---------|---------|-----------|
+| A      | mpnet (local)            | none                   | 0.228   | 0.871   | 0.351     |
+| D      | bge-m3 (cluster)         | none                   | 0.226   | 0.893   | 0.352     |
+| G      | LateON ColBERT (local)   | MaxSim                 | 0.214   | 0.865   | 0.335     |
+| B      | mpnet (local)            | ms-marco (local)       | 0.273   | 0.623   | 0.365     |
+| C      | mpnet (local)            | GTE reranker (cluster) | 0.303   | 0.712   | **0.407** |
+| E      | bge-m3 (cluster)         | GTE reranker (cluster) | 0.302   | 0.715   | **0.408** |
+| F      | gte-modernbert (cluster) | GTE reranker (cluster) | 0.298   | 0.698   | 0.402     |
+
+**Per-taxonomy F1:**
+
+| Config              | ai-risk-taxonomy | credo-ucf | ibm-risk-atlas | mit-ai-risk |
+|---------------------|------------------|-----------|----------------|-------------|
+| A (mpnet, no CE)    | 0.126            | 0.439     | 0.422          | 0.493       |
+| B (mpnet, ms-marco) | 0.185            | 0.426     | 0.471          | 0.490       |
+| C (mpnet, GTE)      | 0.182            | 0.518     | 0.451          | 0.536       |
+| D (bge-m3, no CE)   | 0.124            | 0.444     | 0.433          | 0.507       |
+| E (bge-m3, GTE)     | 0.185            | 0.510     | 0.451          | 0.548       |
+| F (gte-bert, GTE)   | 0.169            | 0.511     | 0.451          | 0.527       |
+| G (LateON)          | 0.102            | 0.465     | 0.445          | 0.512       |
+
+**Key findings:**
+
+1. **GTE reranker is unambiguously the best cross-encoder.** Configs C/E/F (all using GTE)
+   cluster at F1=0.40–0.41. ms-marco (B) achieves only 0.365. GTE gains both higher precision
+   (+0.03) AND higher recall (+0.09) compared to ms-marco.
+
+2. **ms-marco destroys recall without gaining proportional precision.** It loses 0.25 recall
+   vs no-CE (0.623 vs 0.871) but gains only 0.045 precision (0.273 vs 0.228). GTE loses less
+   recall (−0.16) and gains more precision (+0.075). ms-marco's scoring is essentially random
+   on this task (AUC 0.498, confirmed again) — it rejects candidates indiscriminately.
+
+3. **Bi-encoder choice barely matters once a cross-encoder is added.** C (mpnet+GTE, F1=0.407)
+   ≈ E (bge-m3+GTE, F1=0.408) ≈ F (gte-modernbert+GTE, F1=0.402). The cross-encoder dominates
+   ranking quality. Without a cross-encoder, bge-m3 has slightly better recall than mpnet
+   (0.893 vs 0.871) but the difference vanishes after reranking.
+
+4. **LateON ColBERT underperforms** (G, F1=0.335). Its 299-token context limit truncates
+   longer risk descriptions, and MaxSim scoring without a separate reranking stage produces
+   worse ranking than the two-stage (bi-encoder → cross-encoder) approach. LateON cannot be
+   served remotely for this task — vLLM returns pooled embeddings, not token-level, and the
+   299-token limit causes 400 errors on longer inputs.
+
+5. **Previous end-to-end results were confounded by LLM stages.** ms-marco appeared to "win"
+   (F1=0.719 end-to-end vs GTE's 0.634–0.650) because the LLM grounding stage independently
+   provided the precision filtering that ms-marco's random rejection couldn't. GTE's genuine
+   discrimination was redundant with the LLM stages — stripping the LLM stages reveals that
+   GTE is the better retrieval component.
+
+**Implication for pipeline architecture:** The current pipeline uses ms-marco as a "volume
+reduction filter" (randomly rejects ~70% of candidates) followed by LLM grounding for actual
+precision. Replacing ms-marco with GTE and potentially reducing LLM grounding effort (fewer
+false positives to filter) could improve both quality and efficiency. The next experiment should
+test GTE + LLM stages end-to-end with the sigmoid fix already in place.
+
+---
+
+## 2026-06-02: Threshold Tuning for GTE Reranker
+
+**Description:** Analysed TP/FP distributions across GTE cross-encoder scores and BM25 rescue
+ranks to find optimal cutoff parameters. Used config C (mpnet + GTE) results from the IR
+isolation experiment.
+
+**MLflow:** experiment=ir-isolation (same experiment, threshold analysis only)
+
+**TP/FP breakdown (config C, old defaults top_n=5+5, BM25 rescue=10):**
+
+| Source                     | TP      | FP       | Precision |
+|----------------------------|---------|----------|-----------|
+| Threshold (top-5 by CE)    | 349     | 391      | 47.2%     |
+| Auto-promoted (borderline) | 422     | 1327     | 24.1%     |
+| BM25 rescue (CE=0)         | 53      | 438      | 10.8%     |
+| **Total**                  | **771** | **1718** | **31.0%** |
+
+**BM25 rescue is actively harmful:** Adds 53 TP but 438 FP. Removing it improves F1 from
+0.431 → 0.466 (+0.035). BM25 rescue by rank shows uniformly poor precision (6–19%) across
+all BM25 ranks 1–10. The rescue mechanism was designed for ms-marco's random scoring; with
+GTE's actual discrimination, rescued candidates are genuinely bad matches.
+
+**GTE CE score precision by bucket:**
+
+| CE Score      | TP  | FP  | Precision | Cumulative Recall |
+|---------------|-----|-----|-----------|-------------------|
+| 0.85–1.00     | 216 | 170 | 56.0%     | 28.0%             |
+| 0.75–0.85     | 407 | 679 | 37.5%     | 80.8%             |
+| 0.70–0.75     | 56  | 191 | 22.7%     | 88.1%             |
+| 0.65–0.70     | 26  | 103 | 20.2%     | 91.4%             |
+| <0.65         | 13  | 137 | 8.7%      | 93.1%             |
+| CE=0 (rescue) | 53  | 438 | 10.8%     | 100%              |
+
+**Recall ceiling:** 86.4% of GT risks appear in the RRF candidate pool. 13.6% are never
+retrieved by BM25+semantic at all. GTE filtering drops an additional 17.1%, keeping 69.2%.
+
+**New defaults (tuned for GTE reranker):**
+
+| Parameter        | Old | New  | Rationale                          |
+|------------------|-----|------|------------------------------------|
+| top_n_accept     | 5   | 10   | GTE precision ~50% through rank 15 |
+| top_n_judge      | 5   | 10   | More candidates for LLM judgment   |
+| min_score_floor  | 0.0 | 0.70 | <23% precision below 0.70          |
+| bm25_rescue_rank | 10  | 0    | 10.8% precision, −0.034 F1         |
+
+**Conclusion:** Shipped as new pipeline defaults. These are tuned for GTE-reranker-modernbert-base;
+ms-marco users may need to override. The wider candidate window (10+10 vs 5+5) with a score
+floor gives the LLM stages more high-quality candidates to work with.
+
+---
+
+## 2026-06-02: IR Isolation Round 2 — New Models & Tuned Defaults
+
+**Description:** Second round of IR isolation testing with new models and the tuned defaults
+(top_n=10+10, floor=0.70, no BM25 rescue). Tested EmbeddingGemma-300M (Google, 300M params)
+as bi-encoder and bge-reranker-v2-m3 (BAAI) as cross-encoder, alongside the previous GTE
+reranker winner.
+
+Also attempted Iso-ModernColBERT (topk-io, isotropy-corrected ColBERT) via remote
+`/v1/embeddings`, but it has a 299-token max_model_len — same as LateON. ColBERT models
+cannot be served remotely as pooled-embedding bi-encoders; they need the local
+`--colbert-model` path for token-level MaxSim scoring.
+
+**MLflow:** experiment=ir-isolation
+
+**Results (27 policies, no LLM stages):**
+
+| Config | Bi-encoder              | Cross-encoder               | Macro P   | Macro R   | Macro F1  |
+|--------|-------------------------|-----------------------------|-----------|-----------|-----------|
+| A      | mpnet (local)           | none                        | 0.228     | 0.871     | 0.351     |
+| O      | embeddinggemma-300m     | none                        | 0.234     | 0.895     | 0.360     |
+| C*     | mpnet                   | GTE reranker (old defaults) | 0.303     | 0.712     | 0.407     |
+| H      | mpnet                   | GTE reranker (new defaults) | 0.339     | 0.686     | 0.438     |
+| I      | mpnet                   | bge-reranker-v2-m3          | 0.426     | 0.289     | 0.306     |
+| **L**  | **embeddinggemma-300m** | **GTE reranker**            | **0.342** | **0.701** | **0.443** |
+| M      | embeddinggemma-300m     | bge-reranker-v2-m3          | 0.427     | 0.296     | 0.309     |
+
+*C uses old defaults (top_n=5+5, floor=0, BM25 rescue=10) for comparison.
+
+**Key findings:**
+
+1. **New defaults improved GTE configs significantly.** H (F1=0.438) vs C (F1=0.407) — the
+   wider candidate window (10+10 vs 5+5) and score floor (0.70) captured more TP at better
+   precision. Disabling BM25 rescue alone accounts for +0.035 of the improvement.
+
+2. **bge-reranker-v2-m3 is far too aggressive.** It kills recall (0.29) for high precision
+   (0.43) — F1=0.31, worst of all CE configs. It's discarding most true positives. Not
+   viable for this task without significant threshold adjustment.
+
+3. **EmbeddingGemma-300M is the best bi-encoder.** Consistently higher recall than mpnet in
+   every pairing: 0.895 vs 0.871 (no CE), 0.701 vs 0.686 (GTE). Small but real improvement
+   across all 27 policies.
+
+4. **ColBERT models (Iso-ModernColBERT, LateON) cannot be served remotely as bi-encoders.**
+   vLLM's `/v1/embeddings` returns pooled embeddings with max_model_len=299, too short for
+   risk descriptions. They need the local `--colbert-model` path for token-level MaxSim.
+
+**Best IR configuration: EmbeddingGemma-300M + GTE-reranker-modernbert-base (F1=0.443).**
+
+---
+
+## 2026-06-02: LLM Stage Isolation — Judge and Grounder Tested Independently
+
+**Description:** Refactored `--no-ground` into two independent flags (`--no-judge`,
+`--no-grounding`) to isolate each LLM stage's contribution. Tested the best IR config
+(EmbeddingGemma-300M + GTE reranker) with judge ON / grounding OFF to measure the judge's
+value without the grounder confounding the results.
+
+Also tested full pipeline (judge + grounding) with two EmbeddingGemma configs for comparison.
+
+**MLflow:** experiment=ir-isolation
+
+**Judge isolation results (EmbeddingGemma + GTE reranker, 27 policies):**
+
+| Config      | Judge | Grounding | Macro P | Macro R | Macro F1 |
+|-------------|-------|-----------|---------|---------|----------|
+| S (IR only) | OFF   | OFF       | 0.342   | 0.701   | 0.443    |
+| R (+ judge) | ON    | OFF       | 0.393   | 0.682   | 0.480    |
+| Judge delta | —     | —         | +0.051  | −0.019  | +0.037   |
+
+**The judge adds clean value:** +5.1% precision for only −1.9% recall = +3.7% F1. It correctly
+rejects borderline false positives from the GTE ranking without significantly hurting recall.
+
+**Full pipeline results (judge + grounding):**
+
+| Config   | CE       | Judge | Grounding | Macro P | Macro R | Macro F1 |
+|----------|----------|-------|-----------|---------|---------|----------|
+| P        | none     | n/a   | ON        | 0.658   | 0.609   | 0.617    |
+| Q        | GTE      | ON    | ON        | 0.665   | 0.500   | 0.553    |
+| Baseline | ms-marco | ON    | ON        | 0.814   | 0.665   | 0.719    |
+
+**Full pipeline regressions explained:** The grounder degrades with higher candidate volume.
+Config P sends ~40 candidates/chunk to the grounder (vs ~20 in baseline); the grounder's
+per-call pass rate drops from 6.3% to 4.0%. It gains 147 new TP but loses 140 baseline TP
+(net +7) — the grounder shifts WHICH risks get grounded rather than finding MORE.
+
+Config Q (GTE + judge + grounder) loses recall (R=0.500 vs baseline 0.665) because GTE's
+ranking pushes some GT risks below the top-20 cutoff — they never reach the judge or grounder.
+
+**Key insight:** The grounder is the bottleneck, not the retrieval or judge. It becomes
+more conservative when overwhelmed with candidates. Future work should either cap candidates
+per grounding call or improve the grounding prompt's robustness to noise.
+
+**Pipeline flag refactoring:** Replaced `--no-ground` with independent `--no-judge` and
+`--no-grounding` flags. `--no-judge` auto-promotes borderline candidates without LLM calls.
+`--no-grounding` creates RiskMatch entries without evidence extraction. Both can be used
+independently or together.
+
+---
+
+## 2026-06-02: Chunk Size Experiment — 256 vs 512 Tokens
+
+**Description:** Tested whether smaller chunks (256 tokens) improve retrieval or judge quality
+compared to the default 512 tokens. Added `--chunk-max-tokens` flag to CLI and battery runner.
+Tested with EmbeddingGemma-300M in two configurations: IR-only (no CE) and GTE + judge (no
+grounding).
+
+**MLflow:** experiment=ir-isolation
+
+**Results (27 policies):**
+
+| Config | Chunk tokens | CE   | Judge | Macro P | Macro R | Macro F1 |
+|--------|--------------|------|-------|---------|---------|----------|
+| O      | 512          | none | OFF   | 0.234   | 0.895   | 0.360    |
+| U      | 256          | none | OFF   | 0.239   | 0.896   | 0.369    |
+| R      | 512          | GTE  | ON    | default  | 0.393   | 0.682   | 0.480    |
+| T      | 256          | GTE  | ON    | default  | 0.366   | 0.741   | 0.473    |
+| W      | 256          | GTE  | ON    | 512 tok  | 0.367   | 0.745   | 0.476    |
+
+Also added `--judge-context-tokens` flag to decouple the judge's context window from the
+chunk size. When set (e.g. 512), the judge receives full text from adjacent chunks up to the
+token budget, regardless of how small the retrieval chunks are.
+
+**Findings:**
+
+1. **IR-only (no CE): chunk size doesn't matter.** 256 vs 512 produces identical recall
+   (0.896 vs 0.895) and near-identical precision. The retrieval ceiling is the same.
+
+2. **GTE + judge: 256-token chunks trade precision for recall.** +0.059 recall (more chunks
+   = more retrieval passes = more risks found) but −0.027 precision (shorter context = judge
+   has less signal to reject FP). Net F1 is −0.007 — a wash.
+
+3. **Decoupled judge context doesn't help.** Config W (256-token chunks with 512-token judge
+   context) is nearly identical to T (256-token chunks with default sentence padding):
+   P=0.367 vs 0.366, R=0.745 vs 0.741, F1=0.476 vs 0.473. The judge's precision loss with
+   smaller chunks is not caused by insufficient context — it's caused by seeing more noise
+   candidates from more retrieval passes.
+
+4. **256-token chunks double the chunk count**, which means ~2x the retrieval, reranking,
+   and judge LLM calls. The cost increase is not justified by the marginal quality difference.
+
+**Conclusion:** 512-token chunks remain the default. Chunk size is not a meaningful lever for
+this task. The judge's precision is limited by candidate quality, not context size.
+
+---
+
+## 2026-06-02: DSPy Judge Prompt Optimization v4 — Pipeline-Mined Dataset
+
+**Description:** Re-ran prompt optimization with a dataset built from actual pipeline
+candidates (EmbeddingGemma + GTE reranker + judge, `--no-grounding`). Each judge call from
+the battery run becomes a training example with real borderline candidates. Three optimizers
+tested: GEPA (instruction-only), MIPROv2 (instructions + few-shot demos), and a combined
+approach (GEPA instructions + MIPROv2 demo selection).
+
+**Dataset:** 225 train / 309 eval examples from 27 policies. 2,352 positive and 2,694
+negative verdicts (47% positive rate), reflecting the actual distribution the judge sees.
+
+**MLflow:** experiment=ir-isolation
+
+**Isolated judge evaluation results:**
+
+| Optimizer | Baseline F1 | Optimized F1 | Improvement |
+|-----------|------------|-------------|-------------|
+| GEPA (instructions only) | 35.24% | **57.43%** | **+22.19%** |
+| MIPROv2 (instructions + 3 demos) | 34.98% | 46.76% | +11.78% |
+| GEPA + MIPROv2 demos | 57.43% | 57.86% | +0.43% |
+
+**GEPA prompt key innovations ("Three Tiers of Relevance"):**
+
+- **Tier 1 — Explicit Mention:** Text directly names the risk or its core components
+- **Tier 2 — Logical Necessity:** Text describes a scenario that *requires* the risk's
+  existence (biometric identification → privacy, data leakage, bias)
+- **Tier 3 — Administrative/Structural Latency:** Organizational structures imply risk
+  management frameworks (steering board → governance, oversight, compliance risks)
+- Domain-specific mapping rules: legal/copyright → compliance risks;
+  law enforcement/surveillance → privacy, bias, robustness; governance → oversight failures
+- Multi-step reasoning strategy: identify subject → determine risk horizon → perform latent
+  mapping → verify against candidates
+
+**Why few-shot demos didn't help:** The GEPA instructions capture the full decision logic.
+Adding worked examples (+0.43%) provides no additional signal — the three-tier framework
+already encodes the same patterns the examples demonstrate.
+
+**End-to-end results (full pipeline: judge + grounding, 27 policies):**
+
+| Config | Judge prompt | Macro P | Macro R | Macro F1 | Pass |
+|--------|-------------|---------|---------|----------|------|
+| Baseline (mpnet+msmarco) | v3 | 0.814 | 0.665 | 0.719 | 6/27 |
+| gemma+GTE, old judge | v3 | 0.665 | 0.500 | 0.553 | 0/27 |
+| gemma+GTE, GEPA judge | GEPA v4 | 0.679 | 0.507 | 0.562 | 0/27 |
+| gemma+GTE, GEPA+demos | GEPA+demos | 0.677 | 0.510 | 0.562 | 0/27 |
+
+**End-to-end disappointment:** The GEPA judge's +22% isolated improvement translates to
+only +0.009 F1 end-to-end. The grounder remains the bottleneck — it receives more candidates
+from the improved judge but rejects them at the same rate, negating the recall gains. The
+baseline's higher end-to-end performance comes from ms-marco's conservative candidate
+selection sending fewer, "easier" candidates to the grounder, not from a better judge.
+
+**Conclusion:** The judge prompt is no longer the limiting factor. The grounder is the
+primary bottleneck for end-to-end improvement. Future work must address the grounder's
+inability to handle higher candidate volumes without losing recall.
+
