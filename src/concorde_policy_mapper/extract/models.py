@@ -16,7 +16,7 @@ class ScoredCandidate(BaseModel):
     rrf_score: float = 0.0
 
 
-DPV_STRATEGIES = Literal[
+DPV_RISK_CONTROLS = Literal[
     "AvoidanceControl",
     "MitigationControl",
     "ModificationControl",
@@ -37,7 +37,7 @@ class MitigationRef(BaseModel):
     description: str | None = None
     source: str
     category: Literal["technical", "operational", "governance"] | None = None
-    strategy: DPV_STRATEGIES | None = None
+    risk_control: DPV_RISK_CONTROLS | None = None
 
 
 class EvidenceSpan(BaseModel):

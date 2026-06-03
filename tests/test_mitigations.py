@@ -92,7 +92,7 @@ def test_risk_match_serializes_mitigations():
     ]
     data = risk.model_dump()
     assert data["mitigations"] == [
-        {"action_id": "act-1", "action_name": "Do X", "description": None, "source": "nist-ai-rmf", "category": None, "strategy": None},
+        {"action_id": "act-1", "action_name": "Do X", "description": None, "source": "nist-ai-rmf", "category": None, "risk_control": None},
     ]
 
 

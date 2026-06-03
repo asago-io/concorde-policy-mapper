@@ -61,7 +61,7 @@ def _build_mit_action_groups(data_dir: Path) -> dict[str, str]:
 
 
 def _resolve_rule(value) -> dict:
-    """Normalize a rule value to {category: ..., strategy: ...} dict."""
+    """Normalize a rule value to {category: ..., risk_control: ...} dict."""
     if isinstance(value, dict):
         return value
     return {"category": value}
@@ -73,7 +73,7 @@ def _assign_labels(
     categories: dict,
     mit_groups: dict[str, str],
 ) -> dict | None:
-    """Return {category: ..., strategy: ...} for an action, or None."""
+    """Return {category: ..., risk_control: ...} for an action, or None."""
     explicit = categories.get("actions", {})
     if action_id in explicit:
         return _resolve_rule(explicit[action_id])
@@ -191,8 +191,8 @@ def main():
             if labels:
                 if "category" in labels:
                     action["category"] = labels["category"]
-                if "strategy" in labels:
-                    action["strategy"] = labels["strategy"]
+                if "risk_control" in labels:
+                    action["risk_control"] = labels["risk_control"]
                 labeled += 1
             else:
                 unlabeled += 1

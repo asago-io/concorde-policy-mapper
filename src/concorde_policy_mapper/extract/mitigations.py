@@ -36,7 +36,7 @@ def load_mitigation_index(
                 action_name=a.get("name"),
                 source=a["source"],
                 category=a.get("category"),
-                strategy=a.get("strategy"),
+                risk_control=a.get("risk_control"),
             )
             for a in actions
         ]
