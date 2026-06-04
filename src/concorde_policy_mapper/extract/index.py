@@ -349,6 +349,18 @@ class RiskIndex:
     def get_taxonomy(self, risk_id: str) -> str:
         return self._risk_meta.get(risk_id, {}).get("taxonomy", "")
 
+    def set_query_instruction(self, instruction: str) -> None:
+        """Update the query instruction on the remote bi-encoder.
+
+        Only query encoding is affected — corpus embeddings are unchanged.
+        """
+        if self._remote_bi_encoder is None:
+            raise ValueError(
+                "set_query_instruction requires a remote bi-encoder. "
+                "Use a URL as --bi-encoder-model."
+            )
+        self._remote_bi_encoder._query_instruction = instruction
+
     def search_bm25(self, text: str, top_k: int = 100) -> list[ScoredCandidate]:
         if not self._bm25:
             return []
