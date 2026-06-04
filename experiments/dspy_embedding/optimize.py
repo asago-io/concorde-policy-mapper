@@ -226,9 +226,9 @@ def main():
         "bi_encoder_model": args.bi_encoder_model,
         "reflection_model": args.model,
         "auto": args.auto,
-        "baseline_recall": round(baseline_recall * 100, 2),
-        "optimized_recall": round(optimized_recall * 100, 2),
-        "improvement": round(improvement * 100, 2),
+        "baseline_recall": round(baseline_recall, 2),
+        "optimized_recall": round(optimized_recall, 2),
+        "improvement": round(improvement, 2),
         "train_policies": train_policies or TRAIN_POLICIES,
         "eval_policies": eval_policies or EVAL_POLICIES,
         "n_train": len(train),
@@ -250,9 +250,9 @@ def main():
     logger.info("Program saved to %s", program_path)
 
     print(f"\n{'=' * 60}")
-    print(f"Baseline recall: {baseline_recall * 100:.2f}%")
-    print(f"Optimized recall: {optimized_recall * 100:.2f}%")
-    print(f"Improvement: {improvement * 100:+.2f}%")
+    print(f"Baseline recall: {baseline_recall:.2f}%")
+    print(f"Optimized recall: {optimized_recall:.2f}%")
+    print(f"Improvement: {improvement:+.2f}%")
     if optimized_instructions:
         print(f"\nOptimized instruction:\n{optimized_instructions}")
     print(f"{'=' * 60}")
