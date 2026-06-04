@@ -259,6 +259,15 @@
                   <div class="flex items-center cursor-pointer hover:bg-gray-50 px-3 py-2" @click="expanded = !expanded">
                     <div class="flex-1 min-w-0 pr-3">
                       <span class="font-semibold text-gray-900" x-text="risk.risk_name"></span>
+                      <span x-show="risk.taxonomy" class="ml-1.5 px-1.5 py-0.5 rounded text-xs font-mono"
+                            :class="{
+                              'bg-sky-100 text-sky-800': risk.taxonomy === 'ibm-risk-atlas',
+                              'bg-teal-100 text-teal-800': risk.taxonomy === 'credo-ucf',
+                              'bg-violet-100 text-violet-800': risk.taxonomy === 'mit-ai-risk-repository',
+                              'bg-lime-100 text-lime-800': risk.taxonomy === 'air-2024',
+                              'bg-gray-100 text-gray-700': !['ibm-risk-atlas','credo-ucf','mit-ai-risk-repository','air-2024'].includes(risk.taxonomy),
+                            }"
+                            x-text="risk.taxonomy"></span>
                     </div>
                     <div class="w-20 text-right pr-3">
                       <span class="px-2 py-0.5 rounded text-xs font-mono font-semibold"
