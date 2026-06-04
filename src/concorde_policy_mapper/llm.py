@@ -246,9 +246,6 @@ def _retry_with_validation(do_call, kwargs, config, tracker, original_messages, 
                 _apply_budget(kwargs, config)
                 continue
             if val_attempt < max_retries:
-                # existing retry handling continues below
-                pass
-    raise RuntimeError("_retry_with_validation exhausted retries without returning a completion")
                 logger.info("Validation error (attempt %d/%d), retrying with fresh messages + error hint", val_attempt + 1, max_retries)
                 retry_messages = copy.deepcopy(current_messages)
                 last_attempt = e.failed_attempts[-1] if e.failed_attempts else None
@@ -267,6 +264,7 @@ def _retry_with_validation(do_call, kwargs, config, tracker, original_messages, 
             if tracker:
                 tracker.record_incident("validation_exhausted", f"Validation retries exhausted: {e}")
             raise
+    raise RuntimeError("_retry_with_validation exhausted retries without returning a completion")
 
 
 def _call_with_retry(
