@@ -42,4 +42,9 @@ allow-direct-references = true
 testpaths = ["tests"]
 
 [dependency-groups]
-dev = ["pytest>=8.0", "dspy>=2.6"]
+dev = [
+    "pytest>=8.0",
+    "dspy>=2.6",
+    "pytest-crap>=0.3.0",
+    "pytest-cov>=7.1.0",
+]

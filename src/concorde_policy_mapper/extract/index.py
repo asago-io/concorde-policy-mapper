@@ -74,7 +74,7 @@ class _RemoteBiEncoder:
     def encode(self, texts: list[str], normalize: bool = True) -> np.ndarray:
         all_embeddings = []
         for start in range(0, len(texts), self._batch_size):
-            batch = texts[start : start + self._batch_size]
+            batch = texts[start: start + self._batch_size]
             response = self._client.embeddings.create(
                 model=self._model,
                 input=batch,
@@ -140,9 +140,9 @@ def _maxsim(query_tokens: np.ndarray, doc_tokens: np.ndarray) -> float:
 
 
 def _rrf_fuse(
-    results_a: list[ScoredCandidate],
-    results_b: list[ScoredCandidate],
-    rrf_k: int = 60,
+        results_a: list[ScoredCandidate],
+        results_b: list[ScoredCandidate],
+        rrf_k: int = 60,
 ) -> tuple[dict[str, float], dict[str, ScoredCandidate], dict[str, int]]:
     rrf_scores: dict[str, float] = {}
     candidate_data: dict[str, ScoredCandidate] = {}
@@ -169,14 +169,17 @@ def _make_score_normalizer(*, is_nli=False, apply_sigmoid=False):
                 softmax = exp_scores / exp_scores.sum(axis=1, keepdims=True)
                 return softmax[:, -1]
             return raw
+
         return normalize
     elif apply_sigmoid:
         def normalize(raw):
             return 1.0 / (1.0 + np.exp(-raw))
+
         return normalize
     else:
         def normalize(raw):
             return np.clip(raw.astype(np.float64), 0.0, 1.0)
+
         return normalize
 
 
@@ -235,9 +238,8 @@ def _rescue_and_merge_scores(reranked, rrf_candidates, bm25_rescue_rank):
         reranked_ids = {c.risk_id for c in reranked}
         for c in rrf_candidates:
             if (
-                c.risk_id not in reranked_ids
-                and c.bm25_rank > 0
-                and c.bm25_rank <= bm25_rescue_rank
+                    c.risk_id not in reranked_ids
+                    and 0 < c.bm25_rank <= bm25_rescue_rank
             ):
                 reranked.append(c)
 
@@ -262,12 +264,12 @@ def _rescue_and_merge_scores(reranked, rrf_candidates, bm25_rescue_rank):
 
 class RiskIndex:
     def __init__(
-        self,
-        risks: list,
-        bi_encoder_model: str = _DEFAULT_BI_ENCODER,
-        cross_encoder_model: str | None = _DEFAULT_CROSS_ENCODER,
-        colbert_model: str | None = None,
-        query_instruction: str = "",
+            self,
+            risks: list,
+            bi_encoder_model: str = _DEFAULT_BI_ENCODER,
+            cross_encoder_model: str | None = _DEFAULT_CROSS_ENCODER,
+            colbert_model: str | None = None,
+            query_instruction: str = "",
     ):
         self._risk_ids: list[str] = []
         self._risk_meta: dict[str, dict] = {}
@@ -425,7 +427,7 @@ class RiskIndex:
         return results
 
     def rerank(
-        self, text: str, candidates: list[ScoredCandidate], top_k: int = 50
+            self, text: str, candidates: list[ScoredCandidate], top_k: int = 50
     ) -> list[ScoredCandidate]:
         if not candidates or (not self._cross_encoder and not self._remote_cross_encoder):
             return []
@@ -452,14 +454,14 @@ class RiskIndex:
         return results
 
     def hybrid_search(
-        self,
-        text: str,
-        top_k: int = 50,
-        bm25_top_k: int = 100,
-        semantic_top_k: int = 100,
-        rrf_k: int = 60,
-        bm25_rescue_rank: int = 0,
-        rrf_min_score: float = 0.0,
+            self,
+            text: str,
+            top_k: int = 50,
+            bm25_top_k: int = 100,
+            semantic_top_k: int = 100,
+            rrf_k: int = 60,
+            bm25_rescue_rank: int = 0,
+            rrf_min_score: float = 0.0,
     ) -> list[ScoredCandidate]:
         if self._colbert is not None:
             return self._hybrid_search_colbert(text, top_k, bm25_top_k, rrf_k, bm25_rescue_rank)
@@ -501,12 +503,12 @@ class RiskIndex:
         return _rescue_and_merge_scores(reranked, rrf_candidates, bm25_rescue_rank)
 
     def _hybrid_search_colbert(
-        self,
-        text: str,
-        top_k: int = 50,
-        bm25_top_k: int = 100,
-        rrf_k: int = 60,
-        bm25_rescue_rank: int = 0,
+            self,
+            text: str,
+            top_k: int = 50,
+            bm25_top_k: int = 100,
+            rrf_k: int = 60,
+            bm25_rescue_rank: int = 0,
     ) -> list[ScoredCandidate]:
         """Hybrid search using ColBERT MaxSim + BM25 with RRF fusion.
 

@@ -9,6 +9,12 @@ from concorde_policy_mapper.evals.eval import (
     _load_risk_to_category_map,
     _derive_categories,
 )
+from concorde_policy_mapper.extract.models import (
+    ExtractionResult,
+    RiskMatch,
+    RetrievalScores,
+    RetrievalStats,
+)
 
 
 @pytest.fixture
@@ -357,3 +363,71 @@ def test_category_eval_missing_sssom(tmp_path):
 
     result = evaluate_extraction(gt, ext, sssom_path=tmp_path / "nonexistent.tsv")
     assert result["category_eval"] == {}
+
+
+# --- Schema drift smoke test ---
+
+
+def test_extraction_result_schema_compatible_with_eval(tmp_path):
+    """Catch schema drift between ExtractionResult (Pydantic) and eval (raw JSON).
+
+    Constructs an ExtractionResult via Pydantic, serializes to JSON, and runs
+    eval against known ground truth. If ExtractionResult field names drift from
+    what eval reads (e.g. risk_id renamed), F1 drops to zero.
+    """
+    result = ExtractionResult(
+        risks=[
+            RiskMatch(
+                risk_id="atlas-bias",
+                risk_name="Bias",
+                risk_description="",
+                taxonomy="ibm-risk-atlas",
+                confidence=0.9,
+                grounding_confidence="high",
+                accepted_by="threshold",
+                evidence=[],
+                scores=RetrievalScores(
+                    bm25_rank=1,
+                    embedding_distance=0.1,
+                    cross_encoder_score=0.9,
+                    rrf_score=0.5,
+                ),
+            ),
+            RiskMatch(
+                risk_id="atlas-privacy",
+                risk_name="Privacy",
+                risk_description="",
+                taxonomy="ibm-risk-atlas",
+                confidence=0.8,
+                grounding_confidence="high",
+                accepted_by="threshold",
+                evidence=[],
+                scores=RetrievalScores(
+                    bm25_rank=2,
+                    embedding_distance=0.2,
+                    cross_encoder_score=0.8,
+                    rrf_score=0.4,
+                ),
+            ),
+        ],
+        source_documents=["policy.md"],
+        retrieval_stats=RetrievalStats(
+            total_chunks=5,
+            total_candidates_retrieved=20,
+            auto_accepted=2,
+            llm_judged=0,
+            grounding_filtered=0,
+        ),
+    )
+
+    ext = tmp_path / "risk-extraction.json"
+    ext.write_text(result.model_dump_json())
+
+    gt = tmp_path / "gt.yaml"
+    gt.write_text("risk_ids:\n  - atlas-bias\n  - atlas-privacy\n")
+
+    metrics = evaluate_extraction(gt, ext)
+    assert metrics["f1"] == 1.0, (
+        f"Schema drift: ExtractionResult JSON no longer matches what eval reads. "
+        f"matched={metrics['matched']}, missing={metrics['missing']}, spurious={metrics['spurious']}"
+    )
