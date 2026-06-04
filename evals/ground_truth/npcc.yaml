@@ -319,3 +319,16 @@ risks:
   evidence:
   - text: All AI that affects the public will have responsible usage policies (i.e., intensions are defined before deployment so that outcomes and impact can be tracked)
   - text: All AI will have a human or automatic means of being stopped if it displays unintended or undesired outputs.
+- id: ai-risk-taxonomy-classification-of-individuals---race
+  name: Classification of individuals - Race
+  evidence:
+  - text: models have been built on data that led them to act disproportionately against a community or race.
+    section: 1.2 Policing 's Use of Artificial Intelligence
+- id: ai-risk-taxonomy-characterization-of-identity---race
+  name: Characterization of identity - Race
+  evidence:
+  - text: models have been built on data that led them to act disproportionately against a community or race.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---race
+  name: Discrimination in employment, benefits, or services - Race
+  evidence:
+  - text: models have been built on data that led them to act disproportionately against a community or race.

@@ -429,3 +429,69 @@ risks:
   - text: the speed and scale of AI-related innovations in the past few years, the emergence of new technological tools, their simplified accessibility, push-and-pull factors inside and outside the ICRC,
       and ongoing debates about the opportunities and risks they create - including for humanitarian action - have triggered a need to ensure that the organization is adequately equipped to explore and
       manage these developments in a timely, coherent and responsible manner.
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---biometric-data-(facial-recognition)
+  name: Unauthorized collection/gathering/stealing - Biometric data (facial recognition)
+  evidence:
+  - text: compile facial recognition databases by untargeted scraping of facial images from the internet or CCTV footage
+    section: 5.1. A humanitarian and principled approach
+- id: ai-risk-taxonomy-unauthorized-generation---biometric-data-(facial-recognition)
+  name: Unauthorized generation - Biometric data (facial recognition)
+  evidence:
+  - text: compile facial recognition databases by untargeted scraping of facial images from the internet or CCTV footage
+- id: ai-risk-taxonomy-characterization-of-identity---nationality
+  name: Characterization of identity - Nationality
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+- id: ai-risk-taxonomy-characterization-of-identity---beliefs
+  name: Characterization of identity - Beliefs
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+- id: ai-risk-taxonomy-characterization-of-identity---religion
+  name: Characterization of identity - Religion
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+- id: ai-risk-taxonomy-classification-of-individuals---race
+  name: Classification of individuals - Race
+  evidence:
+  - text: replicate or amplify systemic and societal discriminations, biases and stereotypes - in particular around gender and race.
+- id: ai-risk-taxonomy-unauthorized-disclosure---biometric-data-(facial-recognition)
+  name: Unauthorized disclosure - Biometric data (facial recognition)
+  evidence:
+  - text: compile facial recognition databases by untargeted scraping of facial images from the internet or CCTV footage
+- id: ai-risk-taxonomy-classification-of-individuals---religion
+  name: Classification of individuals - Religion
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+- id: ai-risk-taxonomy-classification-of-individuals---nationality
+  name: Classification of individuals - Nationality
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---race
+  name: Discrimination in employment, benefits, or services - Race
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+  - text: replicate or amplify systemic and societal discriminations, biases and stereotypes - in particular around gender and race.
+- id: ai-risk-taxonomy-classification-of-individuals---gender
+  name: Classification of individuals - Gender
+  evidence:
+  - text: without making any adverse distinctions on the basis of race, nationality, gender, religion, class, political opinion or other potential sources of discrimination.
+  - text: replicate or amplify systemic and societal discriminations, biases and stereotypes - in particular around gender and race.
+- id: ai-risk-taxonomy-characterization-of-identity---race
+  name: Characterization of identity - Race
+  evidence:
+  - text: replicate or amplify systemic and societal discriminations, biases and stereotypes - in particular around gender and race.
+- id: ai-risk-taxonomy-unauthorized-inference/synthesis---biometric-data-(facial-recognition)
+  name: Unauthorized inference/synthesis - Biometric data (facial recognition)
+  evidence:
+  - text: use biometric categorization systems that infer sensitive personal attributes, except for labelling or filtering lawfully acquired biometric datasets
+  - text: compile facial recognition databases by untargeted scraping of facial images from the internet or CCTV footage
+- id: ai-risk-taxonomy-unauthorized-processing---biometric-data-(facial-recognition)
+  name: Unauthorized processing - Biometric data (facial recognition)
+  evidence:
+  - text: use biometric categorization systems that infer sensitive personal attributes, except for labelling or filtering lawfully acquired biometric datasets
+  - text: compile facial recognition databases by untargeted scraping of facial images from the internet or CCTV footage
+- id: ai-risk-taxonomy-unauthorized-processing---demographic-data
+  name: Unauthorized processing - Demographic data
+  evidence:
+  - text: use biometric categorization systems that infer sensitive personal attributes
+  - text: replicate or amplify systemic and societal discriminations, biases and stereotypes - in particular around gender and race

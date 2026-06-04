@@ -630,3 +630,19 @@ risks:
   evidence:
   - text: To the extent that a 3rd Party AI system (e.g., 'T ensorFlow') is embedded in SAP solutions, the requirements laid down in this handbook shall apply to the overall SAP software solution. (Passage
       4)
+- id: ai-risk-taxonomy-characterization-of-identity---sexual-orientation
+  name: Characterization of identity - Sexual orientation
+  evidence:
+  - text: Is the use case including the processing of sensitive personal data like information on sexual orientation, religion, biometric data (including face imaging &/or voice recognition)?
+- id: ai-risk-taxonomy-characterization-of-identity---religion
+  name: Characterization of identity - Religion
+  evidence:
+  - text: Is the use case including the processing of sensitive personal data like information on sexual orientation, religion, biometric data (including face imaging &/or voice recognition)?
+- id: ai-risk-taxonomy-classification-of-individuals---religion
+  name: Classification of individuals - Religion
+  evidence:
+  - text: Is the use case including the processing of sensitive personal data like information on sexual orientation, religion, biometric data (including face imaging &/or voice recognition)?
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---sexual-orientation
+  name: Discrimination in employment, benefits, or services - Sexual orientation
+  evidence:
+  - text: Is the use case including the processing of sensitive personal data like information on sexual orientation, religion, biometric data (including face imaging &/or voice recognition)? (Passage 28)

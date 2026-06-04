@@ -5,7 +5,12 @@
 ### Added
 - **DSPy embedding instruction optimization** (`experiments/dspy_embedding/`): uses GEPA to optimize the query instruction prefix for instruction-aware embedding models (e.g. Qwen3-Embedding), maximizing risk-level retrieval recall
 - **`RiskIndex.set_query_instruction()`**: update the remote bi-encoder's query instruction without rebuilding the index
+- **Generative reranker support** (`--cross-encoder-type generative`): supports Qwen3-Reranker and similar models that use `/v1/chat/completions` with yes/no logprob scoring instead of `/v1/score`. Pass `--cross-encoder-type generative` with the model URL. Nemotron-rerank uses `/v1/score` and works with the default `--cross-encoder-type score`.
 - **`--grounding-passes N` flag**: runs per-chunk grounding N times and unions the results, reducing variance from LLM non-determinism. Stabilizes which base risks survive grounding, which in turn stabilizes expansion seeds.
+- **GT enrichment round 2**: +84 ai-risk-taxonomy risks across 15 policies (1435→1519 total, 206→290 AIR). All high-confidence keyword-matched expansion candidates from Qwen3-Reranker-4B run.
+
+### Changed
+- **New pipeline defaults**: `expand_siblings=True`, `grounding_passes=3`, `expansion_passes=3`. Multi-pass grounding reduces LLM non-determinism, stabilizing which risks survive grounding and expansion. Micro F1 0.717 on 27 policies (1519 GT risks).
 - **`--expansion-passes N` flag**: runs expansion grounding N times and unions the results, reducing variance from LLM non-determinism on borderline data-type variant risks.
 
 ### Fixed

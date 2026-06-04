@@ -39,7 +39,7 @@ from concorde_policy_mapper.tracking import (
 )
 
 PACKAGE_DIR = Path(__file__).parent
-ROOT = PACKAGE_DIR.parent
+ROOT = PACKAGE_DIR
 RUNS_DIR = PACKAGE_DIR / "extract-runs"
 NEXUS_BASE_DIR = os.environ.get("NEXUS_BASE_DIR", "/Users/hjrnunes/workspace/redhat/ibm/ai-atlas-nexus")
 GROUND_TRUTH_DIR = PACKAGE_DIR / "evals" / "ground_truth"
@@ -99,12 +99,15 @@ def run_one(
         bi_encoder_model: str = "all-mpnet-base-v2",
         query_instruction: str | None = None,
         cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-12-v2",
+        cross_encoder_type: str = "score",
         name_width: int = 20,
         bm25_rescue_rank: int = 0,
         no_cross_encoder: bool = False,
         rrf_min_score: float = 0.015,
         colbert_model: str | None = None,
-        expand_siblings: bool = False,
+        expand_siblings: bool = True,
+        grounding_passes: int = 3,
+        expansion_passes: int = 3,
         judge_prompt: str = "judge_risk",
         judge_context_tokens: int = 0,
         no_judge: bool = False,
@@ -129,6 +132,7 @@ def run_one(
         "--min-score-floor", str(min_score_floor),
         "--bi-encoder-model", bi_encoder_model,
         "--cross-encoder-model", cross_encoder_model,
+        "--cross-encoder-type", cross_encoder_type,
     ]
     if query_instruction:
         cmd.extend(["--query-instruction", query_instruction])
@@ -141,6 +145,10 @@ def run_one(
         cmd.extend(["--colbert-model", colbert_model])
     if expand_siblings:
         cmd.append("--expand-siblings")
+    if grounding_passes > 1:
+        cmd.extend(["--grounding-passes", str(grounding_passes)])
+    if expansion_passes > 1:
+        cmd.extend(["--expansion-passes", str(expansion_passes)])
     if judge_prompt != "judge_risk":
         cmd.extend(["--judge-prompt", judge_prompt])
     if judge_context_tokens > 0:
@@ -355,11 +363,14 @@ def main():
     parser.add_argument("--bi-encoder-model", default="all-mpnet-base-v2", help="Bi-encoder model (default: all-mpnet-base-v2)")
     parser.add_argument("--query-instruction", default=None, help="Instruction prefix for query encoding (default: built-in policy-risk instruction)")
     parser.add_argument("--cross-encoder-model", default="cross-encoder/ms-marco-MiniLM-L-12-v2", help="Cross-encoder model (default: cross-encoder/ms-marco-MiniLM-L-12-v2)")
+    parser.add_argument("--cross-encoder-type", default="score", choices=["score", "generative"], help="Cross-encoder API type: 'score' for /v1/score, 'generative' for logprob rerankers (default: score)")
     parser.add_argument("--bm25-rescue-rank", type=int, default=0, help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled, default: 0)")
     parser.add_argument("--no-cross-encoder", action="store_true", help="Skip cross-encoder reranking and LLM judge; use RRF score floor instead")
     parser.add_argument("--rrf-min-score", type=float, default=0.015, help="Minimum RRF score for candidates (only used with --no-cross-encoder)")
     parser.add_argument("--colbert-model", default=None, help="ColBERT model for late interaction retrieval (replaces bi-encoder + cross-encoder)")
-    parser.add_argument("--expand-siblings", action="store_true", help="Expand to sibling risks after merge and ground against relevant chunks")
+    parser.add_argument("--expand-siblings", action=argparse.BooleanOptionalAction, default=True, help="Expand to sibling risks after merge (default: enabled)")
+    parser.add_argument("--grounding-passes", type=int, default=3, help="Number of per-chunk grounding passes; union reduces variance (default: 3)")
+    parser.add_argument("--expansion-passes", type=int, default=3, help="Number of expansion grounding passes; union reduces variance (default: 3)")
     parser.add_argument("--judge-prompt", default="judge_risk", help="Judge prompt template name (default: judge_risk)")
     parser.add_argument("--judge-context-tokens", type=int, default=0, help="Max tokens for judge context window (0=default sentence padding)")
     parser.add_argument("--no-judge", action="store_true", help="Skip LLM judge; auto-promote borderline candidates")
@@ -478,11 +489,14 @@ def main():
                 bi_encoder_model=args.bi_encoder_model,
                 query_instruction=args.query_instruction,
                 cross_encoder_model=args.cross_encoder_model,
+                cross_encoder_type=args.cross_encoder_type,
                 bm25_rescue_rank=args.bm25_rescue_rank,
                 no_cross_encoder=args.no_cross_encoder,
                 rrf_min_score=args.rrf_min_score,
                 colbert_model=args.colbert_model,
                 expand_siblings=args.expand_siblings,
+                grounding_passes=args.grounding_passes,
+                expansion_passes=args.expansion_passes,
                 judge_prompt=args.judge_prompt,
                 judge_context_tokens=args.judge_context_tokens,
                 no_judge=args.no_judge, no_grounding=args.no_grounding,

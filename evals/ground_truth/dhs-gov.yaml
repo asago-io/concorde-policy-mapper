@@ -260,3 +260,125 @@ risks:
   evidence:
   - text: 'AI use at DHS must be: - **Lawful and mission-appropriate** — compliant with the Constitution, laws, and policies; protective of privacy, civil rights, and civil liberties'
   - text: 'DHS personnel are forbidden from: ... 6. **General legal violations** — Any other uses of AI or related data that are prohibited by applicable laws and policies'
+- id: ai-risk-taxonomy-classification-of-individuals---sexual-orientation
+  name: Classification of individuals - Sexual orientation
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+    section: Prohibited Uses
+- id: ai-risk-taxonomy-classification-of-individuals---age
+  name: Classification of individuals - Age
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+    section: Prohibited Uses
+- id: ai-risk-taxonomy-classification-of-individuals---ethnicity
+  name: Classification of individuals - Ethnicity
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+    section: Prohibited Uses
+- id: ai-risk-taxonomy-classification-of-individuals---nationality
+  name: Classification of individuals - Nationality
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+    section: Prohibited Uses
+- id: ai-risk-taxonomy-characterization-of-identity---sexual-orientation
+  name: Characterization of identity - Sexual orientation
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-classification-of-individuals---disability
+  name: Classification of individuals - Disability
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-characterization-of-identity---health-conditions
+  name: Characterization of identity - Health conditions
+  evidence:
+  - text: medical condition
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---sexual-orientation
+  name: Discrimination in employment, benefits, or services - Sexual orientation
+  evidence:
+  - text: sexual orientation
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---nationality
+  name: Discrimination in employment, benefits, or services - Nationality
+  evidence:
+  - text: nationality
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---gender
+  name: Discrimination in employment, benefits, or services - Gender
+  evidence:
+  - text: gender
+  - text: gender identity
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---disability
+  name: Discrimination in employment, benefits, or services - Disability
+  evidence:
+  - text: disability
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---race
+  name: Discrimination in employment, benefits, or services - Race
+  evidence:
+  - text: race
+- id: ai-risk-taxonomy-characterization-of-identity---ethnicity
+  name: Characterization of identity - Ethnicity
+  evidence:
+  - text: ethnicity
+- id: ai-risk-taxonomy-unauthorized-disclosure---biometric-data-(facial-recognition)
+  name: Unauthorized disclosure - Biometric data (facial recognition)
+  evidence:
+  - text: Face recognition misuse
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---religion
+  name: Discrimination in employment, benefits, or services - Religion
+  evidence:
+  - text: denial of government benefits
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-classification-of-individuals---race
+  name: Classification of individuals - Race
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-classification-of-individuals---gender
+  name: Classification of individuals - Gender
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-classification-of-individuals---religion
+  name: Classification of individuals - Religion
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-characterization-of-identity---religion
+  name: Characterization of identity - Religion
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-characterization-of-identity---age
+  name: Characterization of identity - Age
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---health-conditions
+  name: Discrimination in employment, benefits, or services - Health conditions
+  evidence:
+  - text: Relying on AI outputs as the sole basis for determining law enforcement actions (arrests, searches, seizures, citations), civil enforcement actions (fines, injunctions), or denial of government
+      benefits
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-classification-of-individuals---health-conditions
+  name: Classification of individuals - Health conditions
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---ethnicity
+  name: Discrimination in employment, benefits, or services - Ethnicity
+  evidence:
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---age
+  name: Discrimination in employment, benefits, or services - Age
+  evidence:
+  - text: Relying on AI outputs as the sole basis for determining law enforcement actions (arrests, searches, seizures, citations), civil enforcement actions (fines, injunctions), or denial of government
+      benefits
+  - text: Using AI to make or support decisions based on the unlawful or improper consideration of race, ethnicity, gender, national origin, religion, sexual orientation, gender identity, age, nationality,
+      medical condition, disability, emotional state, or future behavior predictions

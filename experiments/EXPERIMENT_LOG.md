@@ -1025,3 +1025,81 @@ After GT correction, expansion precision improved from 33% → 59%. The remainin
 are concentrated in broadly-applicable risks (governance, robustness, transparency) that
 the grounder over-matches.
 
+---
+
+## 2026-06-04: Multi-Pass Grounding & Reranker Evaluation
+
+**Description:** Investigated ai-risk-taxonomy recall regression (0.741→0.544) after
+switching from ms-marco to GTE-reranker. Root cause: GTE's rank-based selection (top-10+10)
+pushes ai-risk-taxonomy risks out of the candidate pool because their tautological
+descriptions rank lower than atlas/credo/mit risks. ms-marco's random scoring paradoxically
+gave ai-risk-taxonomy risks equal chance of passing.
+
+Further analysis showed 28% of ai-risk-taxonomy results varied between runs with identical
+config due to LLM non-determinism in the grounder. Losing one seed risk cascades into
+losing 10+ expansion siblings (guy-nhs: 1 seed loss → 11 risks lost).
+
+**Multi-pass grounding (union):** Run per-chunk grounding and expansion grounding N times,
+union the results. Each pass is an independent LLM call; a risk accepted in any pass
+survives. This stabilizes which base risks survive grounding (affecting expansion seeds)
+and which expansion candidates get accepted.
+
+**Results (Qwen3-4B + GTE reranker, 27 policies, updated GT with 1519 risks):**
+
+| Config                  | Macro P | Macro R | Macro F1 | Pass | AIR F1 |
+|-------------------------|---------|---------|----------|------|--------|
+| Baseline (1-pass)       | 0.694   | 0.720   | 0.698    | 7    | 0.502  |
+| gnd3+exp3 (3-pass)      | 0.679   | 0.742   | 0.700    | 10   | 0.514  |
+| gnd3+exp3 (3-pass, r2)  | 0.675   | 0.738   | 0.697    | 10   | 0.505  |
+
+Multi-pass stabilizes per-policy variance: leicestershire_police spread dropped from
+0.618 (across single-pass runs) to 0.059 (between two 3-pass runs). Pass rate improved
+7→10. Shipped as new default: expand_siblings=True, grounding_passes=3, expansion_passes=3.
+
+**Reranker comparison (IR-only, Qwen3-4B bi-encoder, 27 policies):**
+
+| Reranker                    | Macro P | Macro R | Macro F1 | AIR F1 |
+|-----------------------------|---------|---------|----------|--------|
+| GTE-reranker (149M, f=0.70) | 0.359   | 0.725   | 0.465    | 0.283  |
+| Nemotron-rerank-1B (f=0)    | 0.313   | 0.697   | 0.419    | 0.173  |
+| Qwen3-Reranker-4B (f=0)    | 0.384   | 0.741   | 0.492    | 0.254  |
+
+GTE-reranker-modernbert-base remains the best reranker for this task. Nemotron
+underperforms due to weaker discrimination on policy-risk pairs (trained on MS MARCO
+web search). Qwen3-Reranker-4B (generative, yes/no logprob scoring via /v1/completions)
+slightly beats GTE in IR-only but at much higher latency (one API call per candidate pair
+vs batched /v1/score).
+
+**Bi-encoder comparison (IR-only, GTE reranker):**
+
+| Bi-encoder          | Macro F1 | AIR F1 | Notes |
+|---------------------|----------|--------|-------|
+| Qwen3-Embedding-4B  | 0.465    | 0.283  | Current default |
+| Qwen3-Embedding-8B  | 0.491    | 0.258  | Better overall, worse AIR |
+
+Qwen3-8B improves overall micro F1 but regresses ai-risk-taxonomy. In the full pipeline
+(with judge+grounding+expansion), both converge to similar results (0.717 vs 0.712) —
+the LLM stages compensate for bi-encoder differences. 4B retained as default (cheaper,
+same end-to-end quality).
+
+**Full pipeline with Qwen3-Reranker-4B:**
+
+| Config                  | Micro P | Micro R | Micro F1 | AIR F1 |
+|-------------------------|---------|---------|----------|--------|
+| 4B+GTE gnd3+exp3        | 0.687   | 0.749   | 0.717    | 0.514  |
+| 4B+Qwen3-RR gnd3+exp3   | 0.615   | 0.804   | 0.697    | 0.571  |
+| 4B+Nemotron gnd3+exp3   | 0.620   | 0.706   | 0.660    | 0.461  |
+
+Qwen3-Reranker achieves best AIR F1 (0.571) by getting more ai-risk-taxonomy seeds
+through reranking, triggering broader expansion coverage. But overall micro F1 is lower
+(0.697 vs 0.717) due to expansion over-grounding of data-type variant siblings. Nemotron
+is worst overall (0.660).
+
+**GT enrichment round 2:** Review of 365 expansion candidates from the Qwen3-Reranker run
+identified 84 high-confidence keyword-matched candidates as genuine GT gaps. Added across
+15 policies (1435→1519 total risks, 206→290 ai-risk-taxonomy).
+
+**Conclusion:** GTE-reranker + 3-pass grounding/expansion is the best overall config.
+Shipped as new defaults. Qwen3-Reranker is promising for ai-risk-taxonomy specifically
+but the precision cost on other taxonomies makes it unsuitable as a drop-in replacement.
+

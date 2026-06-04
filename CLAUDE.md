@@ -28,10 +28,11 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
 # Evaluate against ground truth
 uv run concorde-policy-mapper eval output/ -g evals/ground_truth/policy-name.yaml
 
-# Run full battery (20 policies, parallel)
+# Run full battery (27 policies, parallel)
 just run-risk-extract-battery batteries/risk-selected.yaml <base-url> <model>
 # Or directly with more options:
 python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> -j 6
+# Default config: expand-siblings + 3-pass grounding + 3-pass expansion
 
 # Run battery with MLflow tracking disabled
 just no_mlflow="1" run-risk-extract-battery batteries/risk-selected.yaml <base-url> <model>
@@ -82,9 +83,10 @@ Documents → parse_document() → chunk_documents() → per-chunk retrieve → 
 4. **Index** (`index.py`) — `RiskIndex` builds BM25 + bi-encoder embeddings + optional cross-encoder over risk-level taxonomies only. RRF fusion is shared via `_rrf_fuse()` between bi-encoder and ColBERT paths. Score normalization uses a `_make_score_normalizer()` factory resolved at init time.
 5. **Retrieve** (`retrieve.py`) — Per-chunk: BM25 + semantic → RRF fusion → cross-encoder rerank → classify into accepted/borderline/discarded. Classification dispatches to `classify_by_rank()` or `classify_by_threshold()` based on `threshold_high`.
 6. **Judge** (`retrieve.py`) — LLM judges borderline candidates using padded text (adjacent chunk context). `--judge-context-tokens` controls the context window size (default: sentence-based padding; set to e.g. 512 to give the judge a wider window when using smaller chunks). Parallel via ThreadPoolExecutor
-7. **Ground** (`attribute.py`) — LLM extracts evidence quotes + confidence (high/medium/low) for accepted candidates; ungrounded ones filtered out. Parallel via ThreadPoolExecutor. Match construction uses `build_risk_match()` and `determine_accepted_by()` pure functions to avoid duplication across grounding/no-grounding/expansion paths.
+7. **Ground** (`attribute.py`) — LLM extracts evidence quotes + confidence (high/medium/low) for accepted candidates; ungrounded ones filtered out. Parallel via ThreadPoolExecutor. Multi-pass grounding (default 3 passes, `--grounding-passes`) unions results across passes to reduce LLM non-determinism. Match construction uses `build_risk_match()` and `determine_accepted_by()` pure functions to avoid duplication across grounding/no-grounding/expansion paths.
 8. **Merge** (`merge.py`) — Deduplicate matches across chunks, keep best confidence and top-3 evidence spans
-9. **Mitigations** (`mitigations.py`) — Post-processing: enrich each matched risk with recommended mitigation actions from a pre-built index (`data/atlas_risk_to_actions.yaml`)
+9. **Expand** (`expand.py`) — Sibling expansion (enabled by default): expands found risks to parent siblings + cross-taxonomy mappings, then grounds the expanded set against relevant document chunks. Multi-pass expansion grounding (default 3 passes, `--expansion-passes`) unions results to stabilize data-type variant recovery.
+10. **Mitigations** (`mitigations.py`) — Post-processing: enrich each matched risk with recommended mitigation actions from a pre-built index (`data/atlas_risk_to_actions.yaml`)
 
 With `--no-cross-encoder`, steps 5-6 are replaced by RRF score floor filtering (no LLM judging).
 
@@ -106,7 +108,7 @@ Two Jinja2 template pairs (`_system.j2` + `_user.j2`): `judge_risk`, `ground_evi
 ### Evaluation (`evals/eval.py`)
 
 Two-tier evaluation:
-- **Tier 1 (risk-level)**: Compares extracted risk IDs against ground truth YAML. Computes precision/recall/F1 overall and per-taxonomy. 20 ground truth files in `evals/ground_truth/` — risk-level only (no category-level entries).
+- **Tier 1 (risk-level)**: Compares extracted risk IDs against ground truth YAML. Computes precision/recall/F1 overall and per-taxonomy. 27 ground truth files in `evals/ground_truth/` (1519 risks) — risk-level only (no category-level entries).
 - **Tier 2 (category-level)**: Derives NIST/OWASP/AILuminate/ASI categories from risk IDs via `data/risk_to_category.sssom.tsv` (SSSOM mapping, 802 entries). Computes P/R/F1 per category taxonomy. Only uses strong predicates (exact/close/broadMatch), excludes relatedMatch.
 
 ### Cross-Taxonomy Mapping (`data/risk_to_category.sssom.tsv`)
@@ -145,6 +147,7 @@ Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YA
 
 - The cross-encoder (ms-marco-MiniLM) has AUC ~0.50 on pipeline-mined negatives — it does not discriminate semantically. It functions as a volume reduction filter: randomly rejecting ~70% of candidates, with the grounding stage catching the noise. See `experiments/EXPERIMENT_LOG.md` for details.
 - Candidate selection supports both rank-based (`--top-n-accept`, `--top-n-judge`) and legacy threshold-based (`--threshold-high`, `--threshold-low`) modes. Default is rank-based with top_n_accept=10, top_n_judge=10, min_score_floor=0.70, bm25_rescue_rank=0 (disabled), rrf_min_score=0.015. These defaults are tuned for recall with GTE-reranker-modernbert-base or no-cross-encoder mode.
+- Multi-pass grounding (default 3 passes) and expansion (default 3 passes) reduce LLM non-determinism by running each grounding call multiple times and taking the union. This stabilizes which base risks survive grounding (affecting expansion seeds) and which expansion candidates get accepted.
 - ColBERT late-interaction models are supported via `--colbert-model` (replaces bi-encoder + cross-encoder with a single model using MaxSim scoring)
 - Modern cross-encoders (GTE, BGE) output calibrated scores — the pipeline skips sigmoid normalisation for these (see `_SIGMOID_MODELS` in `index.py`). Score normalisation is resolved at index init time via `_make_score_normalizer()` which returns a callable (NLI softmax, sigmoid, or clip-to-[0,1]).
 - Embedding/reranking models can be served on GPU via vLLM's embedding/scoring API on the cluster. Pass a URL as `--bi-encoder-model` (uses `/v1/embeddings`) or `--cross-encoder-model` (uses `/v1/score`). ColBERT models (`--colbert-model`) are local-only — vLLM returns pooled embeddings, not token-level

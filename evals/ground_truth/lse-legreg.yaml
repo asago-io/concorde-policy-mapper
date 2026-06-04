@@ -762,3 +762,7 @@ risks:
   evidence:
   - text: AI tools are known to hallucinate, namely supplying information that has no basis in reality, or else reproducing information that is out of date or is misinformation.
   - text: Generative AI tools can produce believable content with human-like results. However, the information is based on large volumes of data, some of which can be inaccurate, biased, or discriminatory.
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: Personal data is defined in the UK GDPR as 'any information relating to an identified or identifiable natural person ('data subject')

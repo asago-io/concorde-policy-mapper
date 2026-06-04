@@ -323,3 +323,8 @@ risks:
   evidence:
   - text: Given the rapid development and adoption of generative AI, we hope this guide serves as a helpful tool for firms to upgrade their security and risk management policies to incorporate safe and
       responsible AI use into their security programs and beyond.
+- id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
+  name: Unauthorized generation - PII (Personal Identifiable Information)
+  evidence:
+  - text: Remove references to IP , NPI, PII
+    section: Responsibility

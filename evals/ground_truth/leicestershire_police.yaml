@@ -540,3 +540,19 @@ risks:
   name: Toxic output
   evidence:
   - text: Be alert to potential bias, stereotyping, or inappropriate content in AI outputs.
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: Protect our data - keep personal information secure, and out of the AI unless absolutely necessary.
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII (Personal Identifiable Information)
+  evidence:
+  - text: No policing data should ever be put into AI on a personal device or account.
+  - text: Such actions risk unauthorised data exposure and breach of Force policy.
+  - text: Protect our data - keep personal information secure, and out of the AI unless absolutely necessary.
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: No policing data should ever be put into AI on a personal device or account.
+  - text: Such actions risk unauthorised data exposure and breach of Force policy.
+  - text: keep personal information secure, and out of the AI unless absolutely necessary.

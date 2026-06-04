@@ -74,20 +74,25 @@ def _judge_one(i, cr, chunks, client, model, call_collector, judge_prompt="judge
     return i, judged
 
 
-def _ground_one(cr, chunks, client, model, call_collector):
+def _ground_one(cr, chunks, client, model, call_collector, passes=1):
     chunk = chunks[cr.chunk_index]
-    grounded = ground_and_extract_evidence(
-        chunk_text=chunk.text,
-        candidates=cr.accepted,
-        client=client,
-        model=model,
-        document=chunk.source,
-        chunk_index=cr.chunk_index,
-        page=chunk.page,
-        section=chunk.section,
-        call_collector=call_collector,
-    )
-    return cr, grounded
+    merged: dict[str, tuple[list, str]] = {}
+    for _ in range(passes):
+        grounded = ground_and_extract_evidence(
+            chunk_text=chunk.text,
+            candidates=cr.accepted,
+            client=client,
+            model=model,
+            document=chunk.source,
+            chunk_index=cr.chunk_index,
+            page=chunk.page,
+            section=chunk.section,
+            call_collector=call_collector,
+        )
+        for rid, val in grounded.items():
+            if rid not in merged:
+                merged[rid] = val
+    return cr, merged
 
 
 def determine_accepted_by(candidate, *, borderline_judged, use_cross_encoder, no_judge):
@@ -152,7 +157,7 @@ def _collect_ungrounded(chunk_results, index, retrieval):
     return matches
 
 
-def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call_collector):
+def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call_collector, grounding_passes=1):
     all_matches = []
     all_filtered = []
     total_candidates = 0
@@ -166,7 +171,7 @@ def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call
     if ground_tasks:
         with ThreadPoolExecutor(max_workers=max_workers) as pool:
             futures = {
-                pool.submit(_ground_one, cr, chunks, client, config.model, call_collector): cr
+                pool.submit(_ground_one, cr, chunks, client, config.model, call_collector, grounding_passes): cr
                 for cr in ground_tasks
             }
             for future in as_completed(futures):
@@ -248,6 +253,7 @@ def _build_chunk_risk_map(chunk_results, all_matches, no_grounding):
 def _run_expansion(
     risks, merged, chunk_results, chunks, documents,
     index, client, config, max_workers, call_collector,
+    expansion_passes: int = 1,
 ) -> tuple[list[RiskMatch], dict]:
     from concorde_policy_mapper.extract.expand import (
         build_expansion_graph,
@@ -296,9 +302,24 @@ def _run_expansion(
             call_collector=call_collector,
         )
 
+    def _ground_group_multi(group, passes):
+        merged_results: dict[str, tuple[list[EvidenceSpan], str]] = {}
+        for _ in range(passes):
+            grounded = _ground_group(group)
+            for rid, (evidence, confidence) in grounded.items():
+                if rid not in merged_results:
+                    merged_results[rid] = (evidence, confidence)
+        return merged_results
+
     expansion_matches: list[RiskMatch] = []
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
-        futures = {pool.submit(_ground_group, g): g for g in groups}
+        futures = {
+            pool.submit(
+                _ground_group_multi if expansion_passes > 1 else _ground_group,
+                g, *([expansion_passes] if expansion_passes > 1 else []),
+            ): g
+            for g in groups
+        }
         for future in as_completed(futures):
             grounded = future.result()
             stats["expanded_grounded"] += len(grounded)
@@ -371,6 +392,7 @@ def run_extraction(
             cross_encoder_model=retrieval.effective_cross_encoder_model,
             colbert_model=retrieval.colbert_model,
             query_instruction=retrieval.query_instruction,
+            cross_encoder_type=retrieval.cross_encoder_type,
         )
 
     with timed(timing, "retrieve_ms"):
@@ -421,6 +443,7 @@ def run_extraction(
         with timed(timing, "grounding_ms"):
             all_matches, all_filtered, grounding_filtered = _run_grounding(
                 chunk_results, chunks, client, config, retrieval, index, call_collector,
+                grounding_passes=retrieval.grounding_passes,
             )
 
     chunk_risk_ids = _build_chunk_risk_map(chunk_results, all_matches, retrieval.no_grounding)
@@ -436,6 +459,7 @@ def run_extraction(
             merged, expansion_stats = _run_expansion(
                 risks, merged, chunk_results, chunks, documents,
                 index, client, config, max_workers, call_collector,
+                expansion_passes=retrieval.expansion_passes,
             )
 
     total_stats = RetrievalStats(

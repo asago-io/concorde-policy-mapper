@@ -528,3 +528,8 @@ risks:
   name: Governance failure
   evidence:
   - text: The Generative AI Guideline requires that you meet all legislative, regulatory and administrative obligations when using Generative AI tools for official work purposes.
+- id: ai-risk-taxonomy-unauthorized-distribution---communication-records
+  name: Unauthorized distribution - Communication Records
+  evidence:
+  - text: You copy and paste the email chain into a Generative AI tool and ask it to draft a response for you.
+  - text: The information you provided to the Generative AI tool is sensitive and not publicly available. The tool may inappropriately share this information with other users.

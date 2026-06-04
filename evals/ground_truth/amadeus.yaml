@@ -489,3 +489,13 @@ risks:
   name: Insufficient upstream transparency (AI, 2023)
   evidence:
   - text: Register  and  keep  track  all  of  fine-tuning  and/or  modifying  of  third-party  models (including LLMs and other foundation models). (Passage 22)
+- id: ai-risk-taxonomy-classification-of-individuals---predicted-personality
+  name: Classification of individuals - Predicted Personality
+  evidence:
+  - text: Classification or scoring of people based on behavior or personality characteristics leading to detrimental treatment.
+    section: PROHIBITED PRACTICES
+- id: ai-risk-taxonomy-classification-of-individuals---race
+  name: Classification of individuals - Race
+  evidence:
+  - text: Biometric  categorization to  infer  sensitive  personal  traits.  For example,  using  AI  to  categorize passengers by their facial images to infer their race.
+    section: PROHIBITED PRACTICES

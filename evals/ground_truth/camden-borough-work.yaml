@@ -251,3 +251,15 @@ risks:
   name: Governance failure
   evidence:
   - text: We will continue to be creating policies and guidance about the use of Al tools across the council, and researching the growing tools available to us.
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: Therefore, personal and sensitive data should never be passed through them in their current form.
+  - text: Never give personal or sensitive information to AI bots.
+  - text: Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone.
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: OpenAl employees can see anything you put into ChatGPT, and conversations are reviewed by their Al trainers to help improve their systems. This means they are not secure.
+  - text: Never give personal or sensitive information to AI bots.
+  - text: Personal information (yours or anyone else's) such as names, addresses, or any information that could be used to identify someone.

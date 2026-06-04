@@ -406,3 +406,8 @@ risks:
   name: Spreading toxicity
   evidence:
   - text: Including the potential to produce biased, discriminatory, or harmful content
+- id: ai-risk-taxonomy-unauthorized-distribution---health-data
+  name: Unauthorized distribution - Health data
+  evidence:
+  - text: Ensure confidential patient information is processed legally, ethically and appropriately.
+  - text: ChatGPT (and other as per 5.4) must not be used to process patient-identifiable information, confidential or business sensitive data, or make clinical decisions.

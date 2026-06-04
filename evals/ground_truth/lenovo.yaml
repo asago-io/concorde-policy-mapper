@@ -547,3 +547,53 @@ risks:
   name: AI-generated security weaknesses (Slattery et al., 2024; IBM, 2024; AI, 2023)
   evidence:
   - text: Technical robustness and safety require that AI systems preemptively address risks including, but not limited to, the unpredictability of AI performance and cybersecurity.
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---biometric-data-(facial-recognition)
+  name: Unauthorized collection/gathering/stealing - Biometric data (facial recognition)
+  evidence:
+  - text: use or were trained on biometric data indiscriminately scraped from social media or publicly-available information
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+- id: ai-risk-taxonomy-unauthorized-processing---biometric-data-(facial-recognition)
+  name: Unauthorized processing - Biometric data (facial recognition)
+  evidence:
+  - text: use or were trained on biometric data indiscriminately scraped from social media or publicly-available information
+    section: 3.0 We will not use AI in ways that harm people or put them or their rights at risk.
+- id: ai-risk-taxonomy-classification-of-individuals---ethnicity
+  name: Classification of individuals - Ethnicity
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-characterization-of-identity---ethnicity
+  name: Characterization of identity - Ethnicity
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-characterization-of-identity---social-behaviors
+  name: Characterization of identity - Social behaviors
+  evidence:
+  - text: discriminatorily classify people based on their social behavior
+- id: ai-risk-taxonomy-characterization-of-identity---race
+  name: Characterization of identity - Race
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---social-behaviors
+  name: Discrimination in employment, benefits, or services - Social behaviors
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---race
+  name: Discrimination in employment, benefits, or services - Race
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-discrimination-in-employment,-benefits,-or-services---ethnicity
+  name: Discrimination in employment, benefits, or services - Ethnicity
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-classification-of-individuals---race
+  name: Classification of individuals - Race
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: involve the collection of sensitive personal data to enable profiling of individuals
+- id: ai-risk-taxonomy-unauthorized-processing---demographic-data
+  name: Unauthorized processing - Demographic data
+  evidence:
+  - text: discriminatorily classify people based on their social behavior, socioeconomic status, or sensitive personal information such as race or ethnicity

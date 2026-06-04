@@ -133,6 +133,69 @@ class _RemoteCrossEncoder:
         return np.array([d["score"] for d in scores_data], dtype=np.float64)
 
 
+_GENERATIVE_RERANKER_INSTRUCTION = (
+    "Given a text passage from an AI governance policy document, determine "
+    "whether the document is relevant to the AI risk description"
+)
+
+_GENERATIVE_RERANKER_SYSTEM = (
+    'Judge whether the Document meets the requirements based on the Query '
+    'and the Instruct provided. Note that the answer can only be "yes" or "no".'
+)
+
+
+class _RemoteGenerativeReranker:
+    """Wraps a generative reranker (e.g. Qwen3-Reranker) via /v1/completions with logprobs.
+
+    Uses raw completions with a manually constructed prompt to avoid vLLM
+    chat template issues with the Qwen3 reranker's enable_thinking parameter.
+    """
+
+    def __init__(self, url: str):
+        import httpx
+
+        base_url, self._model = _parse_remote_url(url)
+        self._completions_url = base_url + "/completions"
+        self._client = httpx.Client(timeout=120.0)
+
+    def predict(self, pairs: list[tuple[str, str]]) -> np.ndarray:
+        import math
+
+        if not pairs:
+            return np.array([])
+        scores = []
+        for risk_desc, chunk_text in pairs:
+            prompt = (
+                f"<|im_start|>system\n{_GENERATIVE_RERANKER_SYSTEM}<|im_end|>\n"
+                f"<|im_start|>user\n"
+                f"<Instruct>: {_GENERATIVE_RERANKER_INSTRUCTION}\n\n"
+                f"<Query>: {chunk_text}\n\n"
+                f"<Document>: {risk_desc}"
+                f"<|im_end|>\n"
+                f"<|im_start|>assistant\n<think>\n\n</think>\n\n"
+            )
+            response = self._client.post(
+                self._completions_url,
+                json={
+                    "model": self._model,
+                    "prompt": prompt,
+                    "max_tokens": 1,
+                    "temperature": 0.0,
+                    "logprobs": 5,
+                },
+            )
+            response.raise_for_status()
+            data = response.json()
+            top = data["choices"][0].get("logprobs", {}).get("top_logprobs", [{}])[0]
+            true_logprob = top.get("yes", -10.0)
+            false_logprob = top.get("no", -10.0)
+            true_score = math.exp(true_logprob)
+            false_score = math.exp(false_logprob)
+            score = true_score / (true_score + false_score) if (true_score + false_score) > 0 else 0.0
+            scores.append(score)
+        return np.array(scores, dtype=np.float64)
+
+
 def _maxsim(query_tokens: np.ndarray, doc_tokens: np.ndarray) -> float:
     """ColBERT MaxSim: for each query token, find max cosine similarity with any doc token, then sum."""
     sim = np.dot(query_tokens, doc_tokens.T)
@@ -224,8 +287,11 @@ def _load_bi_encoder(model_name, descriptions, query_instruction=""):
     return local, None, embeddings
 
 
-def _load_cross_encoder(model_name):
+def _load_cross_encoder(model_name, cross_encoder_type="score"):
     if _is_remote(model_name):
+        if cross_encoder_type == "generative":
+            logger.info("Remote generative reranker: %s", model_name)
+            return None, _RemoteGenerativeReranker(model_name), False, False
         logger.info("Remote cross-encoder: %s", model_name)
         return None, _RemoteCrossEncoder(model_name), False, False
     local = CrossEncoder(model_name)
@@ -270,6 +336,7 @@ class RiskIndex:
             cross_encoder_model: str | None = _DEFAULT_CROSS_ENCODER,
             colbert_model: str | None = None,
             query_instruction: str = "",
+            cross_encoder_type: str = "score",
     ):
         self._risk_ids: list[str] = []
         self._risk_meta: dict[str, dict] = {}
@@ -323,7 +390,7 @@ class RiskIndex:
 
             if cross_encoder_model:
                 self._cross_encoder, self._remote_cross_encoder, self._apply_sigmoid, self._is_nli = (
-                    _load_cross_encoder(cross_encoder_model)
+                    _load_cross_encoder(cross_encoder_model, cross_encoder_type)
                 )
             else:
                 self._cross_encoder = None

@@ -337,3 +337,34 @@ risks:
   - text: Our next task is to develop staff guidelines to address challenges including ethical dilemmas, legal ramifications, social implications, and concerns about trust, data privacy and security, and
       quality assurance.
   - text: The paper below, approved by Education Committee in November 2025, establishes clear principles for AI-assisted marking and feedback across all programmes at LSE
+- id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
+  name: Unauthorized generation - PII (Personal Identifiable Information)
+  evidence:
+  - text: Staff must not include student details or upload student work into GenAI tools without explicit permission.
+    section: 4. Guidelines for Implementation
+  - text: This prevents personal data from being collected, stored, accessed, and shared without consent.
+    section: 4. Guidelines for Implementation
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
+  name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
+  evidence:
+  - text: 'Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared
+
+      without consent.'
+- id: ai-risk-taxonomy-unauthorized-disclosure---pii-(personal-identifiable-information)
+  name: Unauthorized disclosure - PII (Personal Identifiable Information)
+  evidence:
+  - text: 'Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared
+
+      without consent.'
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: 'Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared
+
+      without consent.'
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: 'Staff must not include student details or upload student work into GenAI tools without explicit permission. This prevents personal data from being collected, stored, accessed, and shared
+
+      without consent.'

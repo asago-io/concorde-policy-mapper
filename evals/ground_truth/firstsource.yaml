@@ -760,3 +760,29 @@ risks:
   name: Lack of robustness (Slattery et al., 2024)
   evidence:
   - text: AI systems should reliably operate in accordance with their intended purpose .
+- id: ai-risk-taxonomy-unauthorized-inference/synthesis---biometric-data-(facial-recognition)
+  name: Unauthorized inference/synthesis - Biometric data (facial recognition)
+  evidence:
+  - text: facial recognition systems without explicit consent
+    section: 7. Prohibited AI Tools
+- id: ai-risk-taxonomy-unauthorized-generation---biometric-data-(facial-recognition)
+  name: Unauthorized generation - Biometric data (facial recognition)
+  evidence:
+  - text: facial recognition systems without explicit consent
+    section: 7. Prohibited AI Tools
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---biometric-data-(facial-recognition)
+  name: Unauthorized collection/gathering/stealing - Biometric data (facial recognition)
+  evidence:
+  - text: facial recognition systems without explicit consent
+- id: ai-risk-taxonomy-unauthorized-processing---biometric-data-(facial-recognition)
+  name: Unauthorized processing - Biometric data (facial recognition)
+  evidence:
+  - text: facial recognition systems without explicit consent
+- id: ai-risk-taxonomy-non-consensual-tracking/monitoring/stalking/spyware---biometric-data-(facial-recognition)
+  name: Non-consensual tracking/monitoring/stalking/spyware - Biometric data (facial recognition)
+  evidence:
+  - text: facial recognition systems without explicit consent
+- id: ai-risk-taxonomy-unauthorized-disclosure---biometric-data-(facial-recognition)
+  name: Unauthorized disclosure - Biometric data (facial recognition)
+  evidence:
+  - text: 'Examples of prohibited AI tools: facial recognition systems without explicit consent'

@@ -161,6 +161,7 @@ class RetrievalConfig:
         " discussed in the passage"
     )
     cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-12-v2"
+    cross_encoder_type: str = "score"
     colbert_model: str | None = None
     chunk_max_tokens: int = 512
     top_n_accept: int = 10
@@ -175,7 +176,9 @@ class RetrievalConfig:
     no_grounding: bool = False
     judge_prompt: str = "judge_risk"
     judge_context_tokens: int = 0
-    expand_siblings: bool = False
+    expand_siblings: bool = True
+    grounding_passes: int = 3
+    expansion_passes: int = 3
 
     @property
     def effective_cross_encoder_model(self) -> str | None:
@@ -191,6 +194,7 @@ class RetrievalConfig:
         return {
             "bi_encoder_model": self.bi_encoder_model,
             "cross_encoder_model": self.effective_cross_encoder_model,
+            "cross_encoder_type": self.cross_encoder_type,
             "use_cross_encoder": self.use_cross_encoder,
             "colbert_model": self.colbert_model,
             "chunk_max_tokens": self.chunk_max_tokens,
@@ -206,4 +210,6 @@ class RetrievalConfig:
             "no_grounding": self.no_grounding,
             "judge_context_tokens": self.judge_context_tokens,
             "expand_siblings": self.expand_siblings,
+            "grounding_passes": self.grounding_passes,
+            "expansion_passes": self.expansion_passes,
         }

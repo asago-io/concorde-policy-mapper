@@ -273,3 +273,27 @@ risks:
   name: Governance failure
   evidence:
   - text: the University recognizes that this is an emerging and rapidly changing field and that its policy is subject to change.
+- id: ai-risk-taxonomy-unauthorized-generation---pii-(personal-identifiable-information)
+  name: Unauthorized generation - PII (Personal Identifiable Information)
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John’s community into AI tools.
+    section: Policy
+- id: ai-risk-taxonomy-unauthorized-collection/gathering/stealing---pii-(personal-identifiable-information)
+  name: Unauthorized collection/gathering/stealing - PII (Personal Identifiable Information)
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John’s community into AI tools.
+- id: ai-risk-taxonomy-unauthorized-distribution---pii-(personal-identifiable-information)
+  name: Unauthorized distribution - PII (Personal Identifiable Information)
+  evidence:
+  - text: AI users are prohibited from inputting data specific to St. John’s University, including confidential or proprietary business information belonging to the University when using commercially, publicly
+      available AI tools.
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John’s community into AI tools.
+- id: ai-risk-taxonomy-unauthorized-processing---pii-(personal-identifiable-information)
+  name: Unauthorized processing - PII (Personal Identifiable Information)
+  evidence:
+  - text: This includes but is not limited to copying, pasting, typing, or in any way submitting personal information (e.g., names, contact information, dates of birth, social security numbers, etc.) about
+      employees, students, and other members of the St. John’s community into AI tools.
+  - text: Inputs into AI prompts via text, speech, images, or any other means must be anonymized to avoid disclosing confidential University information.
