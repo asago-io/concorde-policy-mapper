@@ -4,6 +4,7 @@
 
 ### Changed
 - **Trim mitigation sources to 3 frameworks**: dropped MIT AI Risk Repository (831 actions, 60% of index) and Credo UCF (41 controls) from the mitigation index. Kept NIST AI RMF 600-1, OWASP LLM Top 10 v2.0, and AIUC-1. Index reduced from 1,693 to 552 action-risk links across 80 risks (was 83). Max mitigations per risk drops from 162 to 26. MIT was dominated by governance questionnaires with ~24% sourced from NIST anyway; Credo overlapped heavily with NIST policy guidance.
+- **Filter TOC, page headers, and page footers from chunks**: the chunker's serializer now excludes `DOCUMENT_INDEX`, `PAGE_HEADER`, and `PAGE_FOOTER` labels, preventing table-of-contents entries and repetitive boilerplate from entering the retrieval pipeline
 
 ### Added
 - **In-context causal chain synthesis**: new post-merge pipeline stage that uses the LLM to synthesize domain-specific causal chains (`threat`, `threat_source`, `vulnerability`, `consequence`, `impact`) grounded in the actual policy document. Replaces static YAML-sourced chains with actionable, context-aware decompositions. Enabled by default when an LLM is available; disable with `--no-causal-synthesis`. Static YAML chains serve as fallback for risks where synthesis fails or is disabled.

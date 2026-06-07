@@ -101,7 +101,23 @@ def _get_serializer_provider():
         SerializationResult,
     )
     from docling_core.transforms.serializer.common import create_ser_result
-    from docling_core.types.doc.document import DoclingDocument, TableData, TableItem
+    from docling_core.transforms.serializer.markdown import (
+        ImageRefMode,
+        MarkdownParams,
+    )
+    from docling_core.types.doc.document import (
+        DOCUMENT_TOKENS_EXPORT_LABELS,
+        DoclingDocument,
+        TableData,
+        TableItem,
+    )
+    from docling_core.types.doc.labels import DocItemLabel
+
+    _CHUNKING_LABELS = DOCUMENT_TOKENS_EXPORT_LABELS - {
+        DocItemLabel.DOCUMENT_INDEX,
+        DocItemLabel.PAGE_HEADER,
+        DocItemLabel.PAGE_FOOTER,
+    }
 
     class KVTableSerializer(BaseTableSerializer):
         def serialize(
@@ -128,6 +144,13 @@ def _get_serializer_provider():
 
     class KVChunkingDocSerializer(ChunkingDocSerializer):
         table_serializer: BaseTableSerializer = KVTableSerializer()
+        params: MarkdownParams = MarkdownParams(
+            labels=_CHUNKING_LABELS,
+            image_mode=ImageRefMode.PLACEHOLDER,
+            image_placeholder="",
+            escape_underscores=False,
+            escape_html=False,
+        )
 
     class KVSerializerProvider(BaseSerializerProvider):
         def get_serializer(self, doc: DoclingDocument) -> BaseDocSerializer:
