@@ -50,6 +50,11 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus --no-grounding \
   --base-url <url> --model <model>
 
+# Skip causal synthesis (use static YAML chains)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-causal-synthesis \
+  --base-url <url> --model <model>
+
 # Smaller chunks with larger judge context window
 uv run concorde-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
@@ -71,7 +76,7 @@ python scripts/build_mitigation_index.py
 ### Extraction Pipeline (`extract/pipeline.py::run_extraction`)
 
 ```
-Documents → parse_document() → chunk_documents() → per-chunk retrieve → judge → ground → merge
+Documents → parse_document() → chunk_documents() → per-chunk retrieve → judge → ground → merge → causal synthesis
                                                                     ↑ ThreadPoolExecutor (steps 6-7)
 ```
 
@@ -86,7 +91,8 @@ Documents → parse_document() → chunk_documents() → per-chunk retrieve → 
 7. **Ground** (`attribute.py`) — LLM extracts evidence quotes + confidence (high/medium/low) for accepted candidates; ungrounded ones filtered out. Parallel via ThreadPoolExecutor. Multi-pass grounding (default 3 passes, `--grounding-passes`) unions results across passes to reduce LLM non-determinism. Match construction uses `build_risk_match()` and `determine_accepted_by()` pure functions to avoid duplication across grounding/no-grounding/expansion paths.
 8. **Merge** (`merge.py`) — Deduplicate matches across chunks, keep best confidence and top-3 evidence spans
 9. **Expand** (`expand.py`) — Sibling expansion (enabled by default): expands found risks to parent siblings + cross-taxonomy mappings, then grounds the expanded set against relevant document chunks. Multi-pass expansion grounding (default 3 passes, `--expansion-passes`) unions results to stabilize data-type variant recovery.
-10. **Mitigations** (`mitigations.py`) — Post-processing: enrich each matched risk with recommended mitigation actions from a pre-built index (`data/atlas_risk_to_actions.yaml`)
+10. **Causal synthesis** (`attribute.py`) — LLM synthesizes domain-specific causal chains (`threat`/`threat_source`/`vulnerability`/`consequence`/`impact`) for each matched risk, grounded in the evidence-anchored chunks. Parallel via ThreadPoolExecutor. Disabled with `--no-causal-synthesis`; static YAML chains from `data/atlas_risk_threats.yaml` and `data/atlas_risk_consequences.yaml` serve as fallback for any fields not populated.
+11. **Mitigations** (`mitigations.py`) — Post-processing: enrich each matched risk with recommended mitigation actions from a pre-built index (`data/atlas_risk_to_actions.yaml`)
 
 With `--no-cross-encoder`, steps 5-6 are replaced by RRF score floor filtering (no LLM judging).
 

@@ -7,6 +7,7 @@ from concorde_policy_mapper.extract.models import (
     RetrievalStats,
     RiskMatch,
     ScoredCandidate,
+    _CausalChain,
 )
 
 
@@ -242,3 +243,31 @@ def test_extraction_result_v03_serialization_roundtrip():
     assert restored.chunks == []
     assert restored.llm_calls == []
     assert restored.eval is None
+
+
+def test_causal_chain_model():
+    chain = _CausalChain(
+        threat="Automated profiling leads to discriminatory lending decisions",
+        threat_source="AI-driven credit scoring systems",
+        vulnerability="No human review of automated decisions",
+        consequence="Qualified applicants denied credit based on protected characteristics",
+        impact="Systemic financial exclusion of marginalized communities",
+    )
+    assert chain.threat.startswith("Automated")
+    assert chain.impact.startswith("Systemic")
+    data = chain.model_dump()
+    assert set(data.keys()) == {"threat", "threat_source", "vulnerability", "consequence", "impact"}
+
+
+def test_llm_call_record_causal_synthesis_stage():
+    record = LLMCallRecord(
+        call_id="causal-001",
+        stage="causal_synthesis",
+        chunk_index=3,
+        risk_ids=["atlas-bias"],
+        messages=[{"role": "user", "content": "test"}],
+        response={"threat": "test"},
+        duration_ms=100.0,
+        result_summary="synthesized",
+    )
+    assert record.stage == "causal_synthesis"

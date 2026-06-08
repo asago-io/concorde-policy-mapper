@@ -3,8 +3,18 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.models import ExtractionResult, RetrievalConfig, RetrievalScores, ScoredCandidate, _RiskEvidence
-from concorde_policy_mapper.extract.pipeline import build_risk_match, determine_accepted_by, run_extraction
+from concorde_policy_mapper.extract.models import (
+    _CausalChain,
+    EvidenceSpan,
+    ExtractionResult,
+    LLMCallRecord,
+    RetrievalConfig,
+    RetrievalScores,
+    RiskMatch,
+    ScoredCandidate,
+    _RiskEvidence,
+)
+from concorde_policy_mapper.extract.pipeline import _run_causal_synthesis, build_risk_match, determine_accepted_by, run_extraction
 
 
 def _make_risk(id, name, description, concern="", parent=""):
@@ -540,3 +550,85 @@ def test_run_extraction_judge_with_cross_encoder(mock_config, tmp_path):
     assert result.metadata["use_cross_encoder"] is True
     for risk in result.risks:
         assert risk.accepted_by in ("threshold", "llm_judge")
+
+
+# --- _run_causal_synthesis tests ---
+
+def test_run_causal_synthesis_populates_fields():
+    merged = [
+        RiskMatch(
+            risk_id="atlas-bias",
+            risk_name="AI Bias",
+            risk_description="Systematic bias.",
+            confidence=0.85,
+            grounding_confidence="high",
+            accepted_by="threshold",
+            evidence=[
+                EvidenceSpan(text="quote", document="doc.pdf", chunk_index=0),
+                EvidenceSpan(text="quote2", document="doc.pdf", chunk_index=2),
+            ],
+            scores=RetrievalScores(bm25_rank=1, embedding_distance=0.2, cross_encoder_score=0.85, rrf_score=0.03),
+        ),
+    ]
+    chunks = [
+        SimpleNamespace(text="Chunk zero about credit scoring fairness."),
+        SimpleNamespace(text="Chunk one irrelevant."),
+        SimpleNamespace(text="Chunk two about discrimination in lending."),
+    ]
+
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = [
+        _CausalChain(
+            threat="Credit scoring discriminates",
+            threat_source="Biased training data",
+            vulnerability="No fairness audit",
+            consequence="Applicants denied credit",
+            impact="Financial exclusion",
+        ),
+    ]
+
+    from concorde_policy_mapper.llm import LLMConfig
+    config = LLMConfig(base_url="http://localhost:8000/v1", model="test-model")
+    collector: list[LLMCallRecord] = []
+
+    result = _run_causal_synthesis(merged, chunks, mock_client, config, 4, collector)
+
+    assert len(result) == 1
+    assert result[0].threat == "Credit scoring discriminates"
+    assert result[0].threat_source == "Biased training data"
+    assert result[0].vulnerability == "No fairness audit"
+    assert result[0].consequence == "Applicants denied credit"
+    assert result[0].impact == "Financial exclusion"
+    assert len(collector) == 1
+    assert collector[0].stage == "causal_synthesis"
+
+
+def test_run_causal_synthesis_skips_empty_results():
+    merged = [
+        RiskMatch(
+            risk_id="atlas-bias",
+            risk_name="AI Bias",
+            risk_description="Bias.",
+            confidence=0.85,
+            grounding_confidence="high",
+            accepted_by="expansion",
+            evidence=[
+                EvidenceSpan(text="q", document="doc.pdf", chunk_index=0),
+            ],
+            scores=RetrievalScores(bm25_rank=1, embedding_distance=0.2, cross_encoder_score=0.85, rrf_score=0.03),
+        ),
+    ]
+    chunks = [SimpleNamespace(text="Unrelated text about data retention.")]
+
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = [
+        _CausalChain(threat="", threat_source="", vulnerability="", consequence="", impact=""),
+    ]
+
+    from concorde_policy_mapper.llm import LLMConfig
+    config = LLMConfig(base_url="http://localhost:8000/v1", model="test-model")
+
+    result = _run_causal_synthesis(merged, chunks, mock_client, config, 4, [])
+
+    assert result[0].threat is None
+    assert result[0].impact is None

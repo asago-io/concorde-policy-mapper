@@ -165,12 +165,17 @@ def enrich_with_mitigations(
         if risk_threats:
             threat_data = _resolve_via_crossmap(risk.risk_id, risk_threats, risk_crossmap)
             if threat_data:
-                risk.threat = threat_data.get("threat")
-                risk.threat_source = threat_data.get("threat_source")
-                risk.vulnerability = threat_data.get("vulnerability")
+                if risk.threat is None:
+                    risk.threat = threat_data.get("threat")
+                if risk.threat_source is None:
+                    risk.threat_source = threat_data.get("threat_source")
+                if risk.vulnerability is None:
+                    risk.vulnerability = threat_data.get("vulnerability")
 
         if risk_consequences:
             cons_data = _resolve_via_crossmap(risk.risk_id, risk_consequences, risk_crossmap)
             if cons_data:
-                risk.consequence = cons_data.get("consequence")
-                risk.impact = cons_data.get("impact")
+                if risk.consequence is None:
+                    risk.consequence = cons_data.get("consequence")
+                if risk.impact is None:
+                    risk.impact = cons_data.get("impact")

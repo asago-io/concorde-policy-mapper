@@ -1,8 +1,17 @@
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group
-from concorde_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _RiskEvidence
+from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group, synthesize_causal_chain
+from concorde_policy_mapper.extract.models import (
+    EvidenceSpan,
+    LLMCallRecord,
+    RetrievalScores,
+    RiskMatch,
+    ScoredCandidate,
+    _CausalChain,
+    _RiskEvidence,
+)
+from concorde_policy_mapper.prompts import render_prompt
 
 
 def test_ground_and_extract_evidence_returns_grounded():
@@ -405,3 +414,138 @@ def test_ground_risk_group_captures_call(mock_client):
     assert record.risk_ids == ["R-001", "R-002"]
     assert "1/2 grounded (expansion)" == record.result_summary
     assert record.duration_ms >= 0
+
+
+# ---------------------------------------------------------------------------
+# Tests for causal_synthesis prompt template
+# ---------------------------------------------------------------------------
+
+
+def test_causal_synthesis_prompt_renders():
+    messages = render_prompt(
+        "causal_synthesis",
+        {
+            "risk_id": "atlas-bias",
+            "risk_name": "AI Bias",
+            "risk_description": "Systematic bias in AI model outputs.",
+            "chunk_texts": "The regulation requires that AI systems used in credit scoring must not discriminate based on protected characteristics.",
+        },
+    )
+    assert len(messages) == 2
+    assert messages[0]["role"] == "system"
+    assert messages[1]["role"] == "user"
+    assert "atlas-bias" in messages[1]["content"]
+    assert "credit scoring" in messages[1]["content"]
+
+
+# ---------------------------------------------------------------------------
+# Tests for synthesize_causal_chain
+# ---------------------------------------------------------------------------
+
+
+def _make_risk_match(risk_id="atlas-bias", chunk_indices=None):
+    if chunk_indices is None:
+        chunk_indices = [0, 2]
+    return RiskMatch(
+        risk_id=risk_id,
+        risk_name="AI Bias",
+        risk_description="Systematic bias in AI outputs.",
+        taxonomy="ibm-risk-atlas",
+        confidence=0.85,
+        grounding_confidence="high",
+        accepted_by="threshold",
+        evidence=[
+            EvidenceSpan(
+                text="AI systems must not discriminate.",
+                document="policy.pdf",
+                chunk_index=idx,
+            )
+            for idx in chunk_indices
+        ],
+        scores=RetrievalScores(
+            bm25_rank=1,
+            embedding_distance=0.2,
+            cross_encoder_score=0.85,
+            rrf_score=0.03,
+        ),
+    )
+
+
+def test_synthesize_causal_chain_success(mock_client):
+    mock_client.chat.completions.create.return_value = [
+        _CausalChain(
+            threat="AI credit scoring discriminates against protected groups",
+            threat_source="Biased training data from historical lending decisions",
+            vulnerability="No fairness auditing of model outputs",
+            consequence="Qualified applicants denied credit",
+            impact="Financial exclusion",
+        ),
+    ]
+
+    risk = _make_risk_match(chunk_indices=[0, 2])
+    chunk_texts = {0: "AI in credit scoring must be fair.", 2: "Discrimination is prohibited."}
+
+    result = synthesize_causal_chain(
+        risk_match=risk,
+        chunk_texts=chunk_texts,
+        client=mock_client,
+        model="test-model",
+    )
+
+    assert result is not None
+    assert result.threat == "AI credit scoring discriminates against protected groups"
+    assert result.vulnerability == "No fairness auditing of model outputs"
+
+
+def test_synthesize_causal_chain_empty_strings_return_none(mock_client):
+    mock_client.chat.completions.create.return_value = [
+        _CausalChain(
+            threat="",
+            threat_source="",
+            vulnerability="",
+            consequence="",
+            impact="",
+        ),
+    ]
+
+    risk = _make_risk_match()
+    chunk_texts = {0: "Some text.", 2: "More text."}
+
+    result = synthesize_causal_chain(
+        risk_match=risk,
+        chunk_texts=chunk_texts,
+        client=mock_client,
+        model="test-model",
+    )
+
+    assert result is None
+
+
+def test_synthesize_causal_chain_records_call(mock_client):
+    mock_client.chat.completions.create.return_value = [
+        _CausalChain(
+            threat="Threat",
+            threat_source="Source",
+            vulnerability="Vuln",
+            consequence="Consequence",
+            impact="Impact",
+        ),
+    ]
+
+    risk = _make_risk_match()
+    chunk_texts = {0: "Text.", 2: "More."}
+    collector: list[LLMCallRecord] = []
+
+    synthesize_causal_chain(
+        risk_match=risk,
+        chunk_texts=chunk_texts,
+        client=mock_client,
+        model="test-model",
+        call_collector=collector,
+    )
+
+    assert len(collector) == 1
+    assert collector[0].stage == "causal_synthesis"
+    assert collector[0].call_id == "causal-001"
+    assert collector[0].risk_ids == ["atlas-bias"]
+    assert collector[0].duration_ms >= 0

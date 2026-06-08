@@ -57,6 +57,7 @@ def extract(
     expansion_passes: int = typer.Option(3, "--expansion-passes", help="Number of expansion grounding passes; union of results reduces variance (default: 3)"),
     no_judge: bool = typer.Option(False, "--no-judge", help="Skip LLM judge; auto-promote borderline candidates to accepted"),
     no_grounding: bool = typer.Option(False, "--no-grounding", help="Skip LLM grounding; accepted candidates become matches without evidence"),
+    no_causal_synthesis: bool = typer.Option(False, "--no-causal-synthesis", help="Skip LLM causal chain synthesis; populate from static YAML only"),
 ):
     """Extract risks from policy documents using hybrid retrieval."""
     for pf in policy_files:
@@ -121,6 +122,7 @@ def extract(
         expand_siblings=expand_siblings,
         grounding_passes=grounding_passes,
         expansion_passes=expansion_passes,
+        no_causal_synthesis=no_causal_synthesis,
     )
 
     typer.echo(f"Extracting risks from {len(policy_files)} document(s) ({len(all_risks)} Nexus risks loaded)...")

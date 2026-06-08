@@ -147,10 +147,6 @@ uv sync
 
 You need a local clone of [ai-atlas-nexus](https://github.com/IBM/ai-atlas-nexus) — set its path via `NEXUS_BASE_DIR` env var or `--nexus-base-dir` flag.
 
-### LLM endpoint requirements
-
-The pipeline uses `instructor` in JSON mode, which requires the LLM endpoint to support `response_format: {"type": "json_object"}`. Most OpenAI-compatible servers support this, but check before choosing a serving tool.
-
 ## Usage
 
 ### Extract risks from a policy document

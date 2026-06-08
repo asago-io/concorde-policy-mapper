@@ -7,10 +7,11 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group
+from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group, synthesize_causal_chain
 from concorde_policy_mapper.extract.index import RiskIndex
 from concorde_policy_mapper.extract.merge import merge_matches
 from concorde_policy_mapper.extract.models import (
+    _CausalChain,
     ChunkSummary,
     ExtractionResult,
     FilteredCandidate,
@@ -347,6 +348,37 @@ def _run_expansion(
     return merged, stats
 
 
+def _run_causal_synthesis(merged, chunks, client, config, max_workers, call_collector):
+    chunk_texts = {i: chunks[i].text for i in range(len(chunks))}
+
+    def _synthesize_one(risk_match):
+        return risk_match.risk_id, synthesize_causal_chain(
+            risk_match=risk_match,
+            chunk_texts=chunk_texts,
+            client=client,
+            model=config.model,
+            call_collector=call_collector,
+        )
+
+    results: dict[str, _CausalChain | None] = {}
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {pool.submit(_synthesize_one, m): m for m in merged}
+        for future in as_completed(futures):
+            risk_id, chain = future.result()
+            results[risk_id] = chain
+
+    for m in merged:
+        chain = results.get(m.risk_id)
+        if chain:
+            m.threat = chain.threat or None
+            m.threat_source = chain.threat_source or None
+            m.vulnerability = chain.vulnerability or None
+            m.consequence = chain.consequence or None
+            m.impact = chain.impact or None
+
+    return merged
+
+
 def run_extraction(
     documents: list[Path],
     client,
@@ -460,6 +492,12 @@ def run_extraction(
                 risks, merged, chunk_results, chunks, documents,
                 index, client, config, max_workers, call_collector,
                 expansion_passes=retrieval.expansion_passes,
+            )
+
+    if not retrieval.no_causal_synthesis and client is not None:
+        with timed(timing, "causal_synthesis_ms"):
+            merged = _run_causal_synthesis(
+                merged, chunks, client, config, max_workers, call_collector,
             )
 
     total_stats = RetrievalStats(

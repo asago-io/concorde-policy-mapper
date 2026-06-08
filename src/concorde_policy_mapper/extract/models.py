@@ -100,7 +100,7 @@ class ChunkSummary(BaseModel):
 
 class LLMCallRecord(BaseModel):
     call_id: str
-    stage: Literal["judge", "grounding"]
+    stage: Literal["judge", "grounding", "causal_synthesis"]
     chunk_index: int = -1
     risk_ids: list[str]
     messages: list[dict]
@@ -152,6 +152,14 @@ class _RiskEvidence(BaseModel):
     quotes: list[str]
 
 
+class _CausalChain(BaseModel):
+    threat: str
+    threat_source: str
+    vulnerability: str
+    consequence: str
+    impact: str
+
+
 @dataclass
 class RetrievalConfig:
     bi_encoder_model: str = "all-mpnet-base-v2"
@@ -179,6 +187,7 @@ class RetrievalConfig:
     expand_siblings: bool = True
     grounding_passes: int = 3
     expansion_passes: int = 3
+    no_causal_synthesis: bool = False
 
     @property
     def effective_cross_encoder_model(self) -> str | None:
@@ -212,4 +221,5 @@ class RetrievalConfig:
             "expand_siblings": self.expand_siblings,
             "grounding_passes": self.grounding_passes,
             "expansion_passes": self.expansion_passes,
+            "no_causal_synthesis": self.no_causal_synthesis,
         }

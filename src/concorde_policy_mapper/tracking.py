@@ -112,7 +112,7 @@ def log_child_run(
         logger.warning("MLflow child run failed for %s", name, exc_info=True)
 
 
-_PROMPT_NAMES = ["judge_risk", "ground_evidence"]
+_PROMPT_NAMES = ["judge_risk", "ground_evidence", "causal_synthesis"]
 
 
 def _get_git_sha() -> str:

@@ -1,0 +1,12 @@
+You are an AI risk analyst. You are given an AI risk and text from a policy document where that risk was identified.
+
+Decompose how this specific risk manifests in the context described by the policy text. Your output must be grounded in the policy's domain language — do not paraphrase the abstract risk description or produce generic statements.
+
+For each field, write one or two concise sentences:
+- threat: what specifically could go wrong in the context described by this policy
+- threat_source: the actor, system, or condition that causes the threat
+- vulnerability: what weakness or gap enables the threat
+- consequence: the direct outcome if the threat is realized
+- impact: the broader downstream harm to individuals, organizations, or society
+
+If the provided text does not contain enough context to ground this specific risk, return empty strings for all fields.

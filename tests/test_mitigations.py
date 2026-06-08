@@ -333,3 +333,68 @@ def test_build_risk_crossmap_multiple_predicates_merge(tmp_path):
     crossmap = build_risk_crossmap(str(tmp_path))
 
     assert crossmap["mit-risk-001"] == {"atlas-hallucination", "atlas-data-poisoning"}
+
+
+# ---------------------------------------------------------------------------
+# Tests for fallback-aware causal field enrichment
+# ---------------------------------------------------------------------------
+
+
+def test_enrich_preserves_existing_causal_fields(sample_index_path):
+    """When causal fields are already set (by LLM synthesis), YAML data does not overwrite them."""
+    index = load_mitigation_index(sample_index_path)
+    threats = {
+        "atlas-hallucination": {
+            "threat": "YAML threat",
+            "threat_source": "YAML source",
+            "vulnerability": "YAML vulnerability",
+        }
+    }
+    consequences = {
+        "atlas-hallucination": {
+            "consequence": "YAML consequence",
+            "impact": "YAML impact",
+        }
+    }
+
+    risk = _make_risk("atlas-hallucination")
+    risk.threat = "LLM-synthesized threat"
+    risk.threat_source = "LLM-synthesized source"
+    risk.vulnerability = "LLM-synthesized vulnerability"
+    risk.consequence = "LLM-synthesized consequence"
+    risk.impact = "LLM-synthesized impact"
+
+    enrich_with_mitigations(
+        [risk], index,
+        risk_threats=threats,
+        risk_consequences=consequences,
+    )
+
+    assert risk.threat == "LLM-synthesized threat"
+    assert risk.threat_source == "LLM-synthesized source"
+    assert risk.vulnerability == "LLM-synthesized vulnerability"
+    assert risk.consequence == "LLM-synthesized consequence"
+    assert risk.impact == "LLM-synthesized impact"
+
+
+def test_enrich_fills_none_causal_fields_from_yaml(sample_index_path):
+    """When some causal fields are None (synthesis failed), YAML fills them."""
+    index = load_mitigation_index(sample_index_path)
+    threats = {
+        "atlas-hallucination": {
+            "threat": "YAML threat",
+            "threat_source": "YAML source",
+            "vulnerability": "YAML vulnerability",
+        }
+    }
+
+    risk = _make_risk("atlas-hallucination")
+    risk.threat = "LLM threat"
+    risk.threat_source = None  # Synthesis didn't populate this
+    risk.vulnerability = None  # Synthesis didn't populate this
+
+    enrich_with_mitigations([risk], index, risk_threats=threats)
+
+    assert risk.threat == "LLM threat"
+    assert risk.threat_source == "YAML source"
+    assert risk.vulnerability == "YAML vulnerability"
