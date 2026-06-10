@@ -14,7 +14,11 @@ _DEFAULT_BI_ENCODER = "all-mpnet-base-v2"
 _DEFAULT_CROSS_ENCODER = "cross-encoder/ms-marco-MiniLM-L-12-v2"
 
 _SIGMOID_MODELS = {"cross-encoder/ms-marco-MiniLM-L-12-v2", "cross-encoder/ms-marco-electra-base"}
-_NLI_MODELS = {"cross-encoder/nli-deberta-v3-base", "cross-encoder/nli-deberta-v3-large", "cross-encoder/nli-deberta-v3-small"}
+_NLI_MODELS = {
+    "cross-encoder/nli-deberta-v3-base",
+    "cross-encoder/nli-deberta-v3-large",
+    "cross-encoder/nli-deberta-v3-small",
+}
 
 
 def _is_remote(model: str) -> bool:
@@ -74,7 +78,7 @@ class _RemoteBiEncoder:
     def encode(self, texts: list[str], normalize: bool = True) -> np.ndarray:
         all_embeddings = []
         for start in range(0, len(texts), self._batch_size):
-            batch = texts[start: start + self._batch_size]
+            batch = texts[start : start + self._batch_size]
             response = self._client.embeddings.create(
                 model=self._model,
                 input=batch,
@@ -139,7 +143,7 @@ _GENERATIVE_RERANKER_INSTRUCTION = (
 )
 
 _GENERATIVE_RERANKER_SYSTEM = (
-    'Judge whether the Document meets the requirements based on the Query '
+    "Judge whether the Document meets the requirements based on the Query "
     'and the Instruct provided. Note that the answer can only be "yes" or "no".'
 )
 
@@ -203,9 +207,9 @@ def _maxsim(query_tokens: np.ndarray, doc_tokens: np.ndarray) -> float:
 
 
 def _rrf_fuse(
-        results_a: list[ScoredCandidate],
-        results_b: list[ScoredCandidate],
-        rrf_k: int = 60,
+    results_a: list[ScoredCandidate],
+    results_b: list[ScoredCandidate],
+    rrf_k: int = 60,
 ) -> tuple[dict[str, float], dict[str, ScoredCandidate], dict[str, int]]:
     rrf_scores: dict[str, float] = {}
     candidate_data: dict[str, ScoredCandidate] = {}
@@ -226,6 +230,7 @@ def _rrf_fuse(
 
 def _make_score_normalizer(*, is_nli=False, apply_sigmoid=False):
     if is_nli:
+
         def normalize(raw):
             if raw.ndim == 2:
                 exp_scores = np.exp(raw - np.max(raw, axis=1, keepdims=True))
@@ -235,11 +240,13 @@ def _make_score_normalizer(*, is_nli=False, apply_sigmoid=False):
 
         return normalize
     elif apply_sigmoid:
+
         def normalize(raw):
             return 1.0 / (1.0 + np.exp(-raw))
 
         return normalize
     else:
+
         def normalize(raw):
             return np.clip(raw.astype(np.float64), 0.0, 1.0)
 
@@ -254,13 +261,16 @@ def _load_colbert(model_name, descriptions):
             "embedding models."
         )
     import torch
+
     colbert = SentenceTransformer(
         model_name,
         model_kwargs={"torch_dtype": torch.bfloat16},
     )
     raw = colbert.encode(
-        descriptions, output_value="token_embeddings",
-        show_progress_bar=False, batch_size=32,
+        descriptions,
+        output_value="token_embeddings",
+        show_progress_bar=False,
+        batch_size=32,
     )
     doc_embeddings = []
     for emb in raw:
@@ -277,9 +287,7 @@ def _load_bi_encoder(model_name, descriptions, query_instruction=""):
         try:
             embeddings = remote.encode(descriptions, normalize=True)
         except Exception as e:
-            raise RuntimeError(
-                f"Failed to encode corpus via remote bi-encoder at {model_name}: {e}"
-            ) from e
+            raise RuntimeError(f"Failed to encode corpus via remote bi-encoder at {model_name}: {e}") from e
         logger.info("Remote bi-encoder index built: %d risks, %s", len(descriptions), model_name)
         return None, remote, embeddings
     local = SentenceTransformer(model_name)
@@ -303,10 +311,7 @@ def _rescue_and_merge_scores(reranked, rrf_candidates, bm25_rescue_rank):
     if bm25_rescue_rank > 0:
         reranked_ids = {c.risk_id for c in reranked}
         for c in rrf_candidates:
-            if (
-                    c.risk_id not in reranked_ids
-                    and 0 < c.bm25_rank <= bm25_rescue_rank
-            ):
+            if c.risk_id not in reranked_ids and 0 < c.bm25_rank <= bm25_rescue_rank:
                 reranked.append(c)
 
     rrf_lookup = {c.risk_id: c for c in rrf_candidates}
@@ -330,13 +335,13 @@ def _rescue_and_merge_scores(reranked, rrf_candidates, bm25_rescue_rank):
 
 class RiskIndex:
     def __init__(
-            self,
-            risks: list,
-            bi_encoder_model: str = _DEFAULT_BI_ENCODER,
-            cross_encoder_model: str | None = _DEFAULT_CROSS_ENCODER,
-            colbert_model: str | None = None,
-            query_instruction: str = "",
-            cross_encoder_type: str = "score",
+        self,
+        risks: list,
+        bi_encoder_model: str = _DEFAULT_BI_ENCODER,
+        cross_encoder_model: str | None = _DEFAULT_CROSS_ENCODER,
+        colbert_model: str | None = None,
+        query_instruction: str = "",
+        cross_encoder_type: str = "score",
     ):
         self._risk_ids: list[str] = []
         self._risk_meta: dict[str, dict] = {}
@@ -385,7 +390,9 @@ class RiskIndex:
         else:
             self._colbert = None
             self._bi_encoder, self._remote_bi_encoder, self._embeddings = _load_bi_encoder(
-                bi_encoder_model, descriptions, query_instruction,
+                bi_encoder_model,
+                descriptions,
+                query_instruction,
             )
 
             if cross_encoder_model:
@@ -398,7 +405,8 @@ class RiskIndex:
                 self._is_nli = False
 
             self._score_normalizer = _make_score_normalizer(
-                is_nli=self._is_nli, apply_sigmoid=self._apply_sigmoid,
+                is_nli=self._is_nli,
+                apply_sigmoid=self._apply_sigmoid,
             )
 
     @property
@@ -422,10 +430,7 @@ class RiskIndex:
         Only query encoding is affected — corpus embeddings are unchanged.
         """
         if self._remote_bi_encoder is None:
-            raise ValueError(
-                "set_query_instruction requires a remote bi-encoder. "
-                "Use a URL as --bi-encoder-model."
-            )
+            raise ValueError("set_query_instruction requires a remote bi-encoder. Use a URL as --bi-encoder-model.")
         self._remote_bi_encoder._query_instruction = instruction
 
     def search_bm25(self, text: str, top_k: int = 100) -> list[ScoredCandidate]:
@@ -479,14 +484,13 @@ class RiskIndex:
         if self._colbert is None or self._colbert_doc_embeddings is None:
             return []
         query_emb = self._colbert.encode(text, output_value="token_embeddings")
-        query_arr = query_emb.cpu().float().numpy() if hasattr(query_emb, "cpu") else np.array(query_emb, dtype=np.float32)
+        query_arr = (
+            query_emb.cpu().float().numpy() if hasattr(query_emb, "cpu") else np.array(query_emb, dtype=np.float32)
+        )
         query_arr = query_arr / np.linalg.norm(query_arr, axis=1, keepdims=True)
         n_query_tokens = query_arr.shape[0]
 
-        scores = np.array([
-            _maxsim(query_arr, doc_emb) / n_query_tokens
-            for doc_emb in self._colbert_doc_embeddings
-        ])
+        scores = np.array([_maxsim(query_arr, doc_emb) / n_query_tokens for doc_emb in self._colbert_doc_embeddings])
         top_indices = np.argsort(scores)[::-1][:top_k]
         results = []
         for idx in top_indices:
@@ -505,9 +509,7 @@ class RiskIndex:
             )
         return results
 
-    def rerank(
-            self, text: str, candidates: list[ScoredCandidate], top_k: int = 50
-    ) -> list[ScoredCandidate]:
+    def rerank(self, text: str, candidates: list[ScoredCandidate], top_k: int = 50) -> list[ScoredCandidate]:
         if not candidates or (not self._cross_encoder and not self._remote_cross_encoder):
             return []
         if self._is_nli:
@@ -520,9 +522,7 @@ class RiskIndex:
             raw_scores = self._cross_encoder.predict(pairs)
         raw_scores = np.array(raw_scores)
         scores = self._score_normalizer(raw_scores)
-        scored = sorted(
-            zip(candidates, scores), key=lambda x: x[1], reverse=True
-        )
+        scored = sorted(zip(candidates, scores), key=lambda x: x[1], reverse=True)
         results = []
         for c, score in scored[:top_k]:
             s = float(score)
@@ -533,14 +533,14 @@ class RiskIndex:
         return results
 
     def hybrid_search(
-            self,
-            text: str,
-            top_k: int = 50,
-            bm25_top_k: int = 100,
-            semantic_top_k: int = 100,
-            rrf_k: int = 60,
-            bm25_rescue_rank: int = 0,
-            rrf_min_score: float = 0.0,
+        self,
+        text: str,
+        top_k: int = 50,
+        bm25_top_k: int = 100,
+        semantic_top_k: int = 100,
+        rrf_k: int = 60,
+        bm25_rescue_rank: int = 0,
+        rrf_min_score: float = 0.0,
     ) -> list[ScoredCandidate]:
         if self._colbert is not None:
             return self._hybrid_search_colbert(text, top_k, bm25_top_k, rrf_k, bm25_rescue_rank)
@@ -552,7 +552,9 @@ class RiskIndex:
             return []
 
         rrf_scores, candidate_data, bm25_ranks = _rrf_fuse(
-            bm25_results, semantic_results, rrf_k=rrf_k,
+            bm25_results,
+            semantic_results,
+            rrf_k=rrf_k,
         )
         semantic_distances = {c.risk_id: c.embedding_distance for c in semantic_results}
 
@@ -565,29 +567,24 @@ class RiskIndex:
                     update={
                         "rrf_score": rrf_scores[rid],
                         "bm25_rank": bm25_ranks.get(rid, 0),
-                        "embedding_distance": semantic_distances.get(
-                            rid, c.embedding_distance
-                        ),
+                        "embedding_distance": semantic_distances.get(rid, c.embedding_distance),
                     }
                 )
             )
 
         if rrf_min_score > 0:
-            return [
-                c for c in rrf_candidates
-                if c.rrf_score >= rrf_min_score
-            ][:top_k]
+            return [c for c in rrf_candidates if c.rrf_score >= rrf_min_score][:top_k]
 
         reranked = self.rerank(text, rrf_candidates, top_k=top_k)
         return _rescue_and_merge_scores(reranked, rrf_candidates, bm25_rescue_rank)
 
     def _hybrid_search_colbert(
-            self,
-            text: str,
-            top_k: int = 50,
-            bm25_top_k: int = 100,
-            rrf_k: int = 60,
-            bm25_rescue_rank: int = 0,
+        self,
+        text: str,
+        top_k: int = 50,
+        bm25_top_k: int = 100,
+        rrf_k: int = 60,
+        bm25_rescue_rank: int = 0,
     ) -> list[ScoredCandidate]:
         """Hybrid search using ColBERT MaxSim + BM25 with RRF fusion.
 
@@ -601,7 +598,9 @@ class RiskIndex:
             return []
 
         rrf_scores, candidate_data, bm25_ranks = _rrf_fuse(
-            bm25_results, colbert_results, rrf_k=rrf_k,
+            bm25_results,
+            colbert_results,
+            rrf_k=rrf_k,
         )
         colbert_scores = {c.risk_id: c.cross_encoder_score for c in colbert_results}
 

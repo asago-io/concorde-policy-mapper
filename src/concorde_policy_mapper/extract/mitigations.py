@@ -9,15 +9,9 @@ from concorde_policy_mapper.extract.models import MitigationRef, RiskMatch
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_INDEX_PATH = (
-    Path(__file__).resolve().parents[3] / "data" / "atlas_risk_to_actions.yaml"
-)
-_DEFAULT_THREATS_PATH = (
-    Path(__file__).resolve().parents[3] / "data" / "atlas_risk_threats.yaml"
-)
-_DEFAULT_CONSEQUENCES_PATH = (
-    Path(__file__).resolve().parents[3] / "data" / "atlas_risk_consequences.yaml"
-)
+_DEFAULT_INDEX_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_to_actions.yaml"
+_DEFAULT_THREATS_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_threats.yaml"
+_DEFAULT_CONSEQUENCES_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_consequences.yaml"
 
 
 def load_mitigation_index(

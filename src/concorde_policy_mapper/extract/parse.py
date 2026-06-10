@@ -7,7 +7,13 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 _DOCLING_EXTENSIONS = {
-    ".pdf", ".docx", ".html", ".htm", ".pptx", ".xlsx", ".md",
+    ".pdf",
+    ".docx",
+    ".html",
+    ".htm",
+    ".pptx",
+    ".xlsx",
+    ".md",
 }
 
 _converter_cache: dict[bool, object] = {}
@@ -42,11 +48,7 @@ def _get_converter(ocr: bool = False):
 
             pipeline_options = PdfPipelineOptions(do_ocr=False)
             _converter_cache[ocr] = DocumentConverter(
-                format_options={
-                    InputFormat.PDF: PdfFormatOption(
-                        pipeline_options=pipeline_options
-                    )
-                }
+                format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)}
             )
     return _converter_cache[ocr]
 
@@ -108,7 +110,6 @@ def _get_serializer_provider():
     from docling_core.types.doc.document import (
         DOCUMENT_TOKENS_EXPORT_LABELS,
         DoclingDocument,
-        TableData,
         TableItem,
     )
     from docling_core.types.doc.labels import DocItemLabel
@@ -211,9 +212,7 @@ def chunk_documents(
             from transformers import AutoTokenizer
 
             tokenizer = HuggingFaceTokenizer(
-                tokenizer=AutoTokenizer.from_pretrained(
-                    "sentence-transformers/all-MiniLM-L6-v2"
-                ),
+                tokenizer=AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2"),
                 max_tokens=max_tokens,
             )
             chunker = HybridChunker(

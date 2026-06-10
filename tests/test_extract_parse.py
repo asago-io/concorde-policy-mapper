@@ -1,13 +1,13 @@
-from pathlib import Path
 import tempfile
 import types
+from pathlib import Path
 
 from concorde_policy_mapper.extract.parse import (
-    ParsedDocument,
     Chunk,
-    parse_document,
-    chunk_documents,
+    ParsedDocument,
     _serialize_table,
+    chunk_documents,
+    parse_document,
 )
 
 
@@ -36,7 +36,10 @@ def test_parse_plain_text():
 
 def test_parse_markdown():
     with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False) as f:
-        f.write("# Policy\n\nThis is a markdown policy with enough words to pass the minimum threshold for docling conversion output.")
+        f.write(
+            "# Policy\n\nThis is a markdown policy with enough words to pass"
+            " the minimum threshold for docling conversion output."
+        )
         f.flush()
         result = parse_document(Path(f.name))
     assert "Policy" in result.content

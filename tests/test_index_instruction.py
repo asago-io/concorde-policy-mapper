@@ -1,4 +1,5 @@
 """Tests for RiskIndex.set_query_instruction()."""
+
 from unittest.mock import MagicMock
 
 import pytest

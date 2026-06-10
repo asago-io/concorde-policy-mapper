@@ -1,4 +1,5 @@
 """Tests for embedding optimization dataset loader."""
+
 from pathlib import Path
 
 import pytest

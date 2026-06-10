@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import csv
 import json
 from collections import defaultdict
 from pathlib import Path
 
 import yaml
-
 
 _TAXONOMY_PREFIXES = [
     ("ai-risk-taxonomy-", "ai-risk-taxonomy"),
@@ -105,10 +103,15 @@ def _compute_prf(matched: int, expected: int, extracted: int) -> tuple[float, fl
 
 
 def _per_taxonomy_breakdown(
-    expected: set[str], extracted: set[str], matched: set[str], taxonomy_map: dict[str, str],
+    expected: set[str],
+    extracted: set[str],
+    matched: set[str],
+    taxonomy_map: dict[str, str],
 ) -> dict[str, dict]:
     all_ids = expected | extracted
-    by_tax: dict[str, dict[str, set[str]]] = defaultdict(lambda: {"expected": set(), "extracted": set(), "matched": set()})
+    by_tax: dict[str, dict[str, set[str]]] = defaultdict(
+        lambda: {"expected": set(), "extracted": set(), "matched": set()}
+    )
 
     for rid in all_ids:
         tax = taxonomy_map.get(rid) or _infer_taxonomy(rid)

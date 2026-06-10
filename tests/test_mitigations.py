@@ -1,16 +1,15 @@
-import yaml
 from pathlib import Path
 
 import pytest
+import yaml
 
 from concorde_policy_mapper.extract.mitigations import (
+    build_action_descriptions,
     build_risk_crossmap,
     enrich_with_mitigations,
     load_mitigation_index,
-    build_action_descriptions,
 )
 from concorde_policy_mapper.extract.models import (
-    EvidenceSpan,
     MitigationRef,
     RetrievalScores,
     RiskMatch,
@@ -92,7 +91,14 @@ def test_risk_match_serializes_mitigations():
     ]
     data = risk.model_dump()
     assert data["mitigations"] == [
-        {"action_id": "act-1", "action_name": "Do X", "description": None, "source": "nist-ai-rmf", "category": None, "risk_control": None},
+        {
+            "action_id": "act-1",
+            "action_name": "Do X",
+            "description": None,
+            "source": "nist-ai-rmf",
+            "category": None,
+            "risk_control": None,
+        },
     ]
 
 
@@ -198,24 +204,36 @@ def test_build_action_descriptions_from_mock_nexus(tmp_path):
 
     # NIST actions
     (kg / "nist_ai_rmf_actions_data.yaml").write_text(
-        yaml.dump({"actions": [
-            {"id": "GV-1.2-003", "description": "Establish AI governance"},
-        ]})
+        yaml.dump(
+            {
+                "actions": [
+                    {"id": "GV-1.2-003", "description": "Establish AI governance"},
+                ]
+            }
+        )
     )
     # AIUC-1 rules
     (kg / "aiuc1_data.yaml").write_text(
-        yaml.dump({"rules": [
-            {"id": "aiuc1-req-a1", "description": "Ensure transparency"},
-        ]})
+        yaml.dump(
+            {
+                "rules": [
+                    {"id": "aiuc1-req-a1", "description": "Ensure transparency"},
+                ]
+            }
+        )
     )
 
     # Local OWASP data
     data_dir = tmp_path / "local_data"
     data_dir.mkdir()
     (data_dir / "owasp_llm_2.0_actions_data.yaml").write_text(
-        yaml.dump({"actions": [
-            {"id": "owasp-act-01-01", "description": "Constrain model inputs"},
-        ]})
+        yaml.dump(
+            {
+                "actions": [
+                    {"id": "owasp-act-01-01", "description": "Constrain model inputs"},
+                ]
+            }
+        )
     )
 
     descs = build_action_descriptions(str(tmp_path), data_dir=data_dir)
@@ -235,18 +253,21 @@ def test_build_action_descriptions_missing_files(tmp_path):
     assert descs == {}
 
 
-
 def test_build_action_descriptions_skips_entries_without_id_or_description(tmp_path):
     """Entries missing id or description are silently skipped."""
     kg = _make_nexus_kg(tmp_path)
 
     (kg / "nist_ai_rmf_actions_data.yaml").write_text(
-        yaml.dump({"actions": [
-            {"id": "GV-1.1-001", "description": "Valid entry"},
-            {"id": "", "description": "Empty id"},
-            {"id": "GV-1.1-002"},  # missing description
-            {"description": "No id key"},
-        ]})
+        yaml.dump(
+            {
+                "actions": [
+                    {"id": "GV-1.1-001", "description": "Valid entry"},
+                    {"id": "", "description": "Empty id"},
+                    {"id": "GV-1.1-002"},  # missing description
+                    {"description": "No id key"},
+                ]
+            }
+        )
     )
 
     empty_data_dir = tmp_path / "empty_data"
@@ -267,13 +288,17 @@ def test_build_risk_crossmap_basic(tmp_path):
     mappings_dir.mkdir()
 
     (mappings_dir / "mit-ai-risk-repository_ibm-risk-atlas_from_tsv_data.yaml").write_text(
-        yaml.dump({"entries": [
+        yaml.dump(
             {
-                "id": "mit-risk-042",
-                "close_mappings": ["atlas-hallucination"],
-                "exact_mappings": ["atlas-prompt-injection"],
-            },
-        ]})
+                "entries": [
+                    {
+                        "id": "mit-risk-042",
+                        "close_mappings": ["atlas-hallucination"],
+                        "exact_mappings": ["atlas-prompt-injection"],
+                    },
+                ]
+            }
+        )
     )
 
     crossmap = build_risk_crossmap(str(tmp_path))
@@ -288,18 +313,22 @@ def test_build_risk_crossmap_bidirectional(tmp_path):
     mappings_dir.mkdir()
 
     (mappings_dir / "mit-ai-risk-repository_ibm-risk-atlas_from_tsv_data.yaml").write_text(
-        yaml.dump({"entries": [
-            # atlas in target (non-atlas id)
+        yaml.dump(
             {
-                "id": "mit-risk-042",
-                "broad_mappings": ["atlas-data-poisoning"],
-            },
-            # atlas in id (non-atlas target)
-            {
-                "id": "atlas-model-theft",
-                "related_mappings": ["mit-risk-099"],
-            },
-        ]})
+                "entries": [
+                    # atlas in target (non-atlas id)
+                    {
+                        "id": "mit-risk-042",
+                        "broad_mappings": ["atlas-data-poisoning"],
+                    },
+                    # atlas in id (non-atlas target)
+                    {
+                        "id": "atlas-model-theft",
+                        "related_mappings": ["mit-risk-099"],
+                    },
+                ]
+            }
+        )
     )
 
     crossmap = build_risk_crossmap(str(tmp_path))
@@ -320,14 +349,18 @@ def test_build_risk_crossmap_multiple_predicates_merge(tmp_path):
     mappings_dir.mkdir()
 
     (mappings_dir / "mit-ai-risk-repository_ibm-risk-atlas_from_tsv_data.yaml").write_text(
-        yaml.dump({"entries": [
+        yaml.dump(
             {
-                "id": "mit-risk-001",
-                "close_mappings": ["atlas-hallucination"],
-                "broad_mappings": ["atlas-data-poisoning"],
-                "exact_mappings": ["atlas-hallucination"],  # duplicate, should deduplicate
-            },
-        ]})
+                "entries": [
+                    {
+                        "id": "mit-risk-001",
+                        "close_mappings": ["atlas-hallucination"],
+                        "broad_mappings": ["atlas-data-poisoning"],
+                        "exact_mappings": ["atlas-hallucination"],  # duplicate, should deduplicate
+                    },
+                ]
+            }
+        )
     )
 
     crossmap = build_risk_crossmap(str(tmp_path))
@@ -365,7 +398,8 @@ def test_enrich_preserves_existing_causal_fields(sample_index_path):
     risk.impact = "LLM-synthesized impact"
 
     enrich_with_mitigations(
-        [risk], index,
+        [risk],
+        index,
         risk_threats=threats,
         risk_consequences=consequences,
     )

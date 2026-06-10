@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 from typer.testing import CliRunner
 
@@ -10,11 +9,35 @@ runner = CliRunner()
 SAMPLE_EXTRACTION = {
     "version": "0.2",
     "risks": [
-        {"risk_id": "atlas-bias", "risk_name": "Bias", "risk_description": "", "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5}},
-        {"risk_id": "atlas-privacy", "risk_name": "Privacy", "risk_description": "", "confidence": 0.8, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4}},
+        {
+            "risk_id": "atlas-bias",
+            "risk_name": "Bias",
+            "risk_description": "",
+            "confidence": 0.9,
+            "grounding_confidence": "high",
+            "accepted_by": "threshold",
+            "evidence": [],
+            "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+        },
+        {
+            "risk_id": "atlas-privacy",
+            "risk_name": "Privacy",
+            "risk_description": "",
+            "confidence": 0.8,
+            "grounding_confidence": "high",
+            "accepted_by": "threshold",
+            "evidence": [],
+            "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4},
+        },
     ],
     "source_documents": ["policy.md"],
-    "retrieval_stats": {"total_chunks": 10, "total_candidates_retrieved": 50, "auto_accepted": 2, "llm_judged": 0, "grounding_filtered": 0},
+    "retrieval_stats": {
+        "total_chunks": 10,
+        "total_candidates_retrieved": 50,
+        "auto_accepted": 2,
+        "llm_judged": 0,
+        "grounding_filtered": 0,
+    },
 }
 
 

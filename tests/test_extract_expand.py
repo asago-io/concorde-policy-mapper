@@ -276,8 +276,11 @@ def test_group_for_grounding_truncates_chunks():
     risk_to_parent = {"R-002": "parent-A"}
 
     groups = group_for_grounding(
-        expanded, found_risk_chunks, risk_to_parent,
-        total_chunks=100, max_chunks_per_group=5,
+        expanded,
+        found_risk_chunks,
+        risk_to_parent,
+        total_chunks=100,
+        max_chunks_per_group=5,
     )
 
     assert len(groups) == 1
@@ -296,8 +299,11 @@ def test_group_for_grounding_splits_large_groups():
     risk_to_parent = {f"R-{i:03d}": "parent-A" for i in range(26)}
 
     groups = group_for_grounding(
-        expanded, found_risk_chunks, risk_to_parent,
-        total_chunks=10, max_risks_per_group=10,
+        expanded,
+        found_risk_chunks,
+        risk_to_parent,
+        total_chunks=10,
+        max_risks_per_group=10,
     )
 
     # 25 risks / 10 per group = 3 batches

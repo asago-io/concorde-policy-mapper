@@ -7,12 +7,16 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group, synthesize_causal_chain
+from concorde_policy_mapper.extract.attribute import (
+    ground_and_extract_evidence,
+    ground_risk_group,
+    synthesize_causal_chain,
+)
 from concorde_policy_mapper.extract.index import RiskIndex
 from concorde_policy_mapper.extract.merge import merge_matches
 from concorde_policy_mapper.extract.models import (
-    _CausalChain,
     ChunkSummary,
+    EvidenceSpan,
     ExtractionResult,
     FilteredCandidate,
     LLMCallRecord,
@@ -21,6 +25,7 @@ from concorde_policy_mapper.extract.models import (
     RetrievalStats,
     RiskMatch,
     ScoredCandidate,
+    _CausalChain,
 )
 from concorde_policy_mapper.extract.parse import chunk_documents, parse_document
 from concorde_policy_mapper.extract.retrieve import (
@@ -68,8 +73,12 @@ def _document_discusses_agents(texts: list[str]) -> bool:
 def _judge_one(i, cr, chunks, client, model, call_collector, judge_prompt="judge_risk", max_context_tokens=0):
     padded = build_padded_text(chunks, i, max_context_tokens=max_context_tokens)
     judged = judge_borderline(
-        cr.borderline, padded, client, model,
-        call_collector=call_collector, chunk_index=i,
+        cr.borderline,
+        padded,
+        client,
+        model,
+        call_collector=call_collector,
+        chunk_index=i,
         prompt_name=judge_prompt,
     )
     return i, judged
@@ -142,8 +151,10 @@ def _collect_ungrounded(chunk_results, index, retrieval):
     for cr in chunk_results:
         for candidate in cr.accepted:
             accepted_by = determine_accepted_by(
-                candidate, borderline_judged=cr.borderline_judged,
-                use_cross_encoder=retrieval.use_cross_encoder, no_judge=retrieval.no_judge,
+                candidate,
+                borderline_judged=cr.borderline_judged,
+                use_cross_encoder=retrieval.use_cross_encoder,
+                no_judge=retrieval.no_judge,
             )
             matches.append(
                 build_risk_match(
@@ -181,8 +192,10 @@ def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call
                 grounded_ids = set(grounded.keys())
                 for candidate in cr.accepted:
                     accepted_by = determine_accepted_by(
-                        candidate, borderline_judged=cr.borderline_judged,
-                        use_cross_encoder=retrieval.use_cross_encoder, no_judge=retrieval.no_judge,
+                        candidate,
+                        borderline_judged=cr.borderline_judged,
+                        use_cross_encoder=retrieval.use_cross_encoder,
+                        no_judge=retrieval.no_judge,
                     )
                     rid = candidate.risk_id
                     if rid in grounded_ids:
@@ -223,13 +236,21 @@ def _run_judge(chunk_results, chunks, client, config, retrieval, call_collector)
                 cr.borderline_judged = list(cr.borderline)
                 cr.accepted.extend(cr.borderline)
     elif retrieval.use_cross_encoder:
-        judge_tasks = [
-            (i, cr) for i, cr in enumerate(chunk_results) if cr.borderline
-        ]
+        judge_tasks = [(i, cr) for i, cr in enumerate(chunk_results) if cr.borderline]
         if judge_tasks:
             with ThreadPoolExecutor(max_workers=max_workers) as pool:
                 futures = {
-                    pool.submit(_judge_one, i, cr, chunks, client, config.model, call_collector, retrieval.judge_prompt, retrieval.judge_context_tokens): i
+                    pool.submit(
+                        _judge_one,
+                        i,
+                        cr,
+                        chunks,
+                        client,
+                        config.model,
+                        call_collector,
+                        retrieval.judge_prompt,
+                        retrieval.judge_context_tokens,
+                    ): i
                     for i, cr in judge_tasks
                 }
                 for future in as_completed(futures):
@@ -252,8 +273,16 @@ def _build_chunk_risk_map(chunk_results, all_matches, no_grounding):
 
 
 def _run_expansion(
-    risks, merged, chunk_results, chunks, documents,
-    index, client, config, max_workers, call_collector,
+    risks,
+    merged,
+    chunk_results,
+    chunks,
+    documents,
+    index,
+    client,
+    config,
+    max_workers,
+    call_collector,
     expansion_passes: int = 1,
 ) -> tuple[list[RiskMatch], dict]:
     from concorde_policy_mapper.extract.expand import (
@@ -264,10 +293,7 @@ def _run_expansion(
 
     stats = {"expanded_candidates": 0, "expanded_grounded": 0, "expansion_groups": 0}
     expansion_graph = build_expansion_graph(risks)
-    risk_lookup = {
-        r.id: {"name": r.name or "", "description": r.description or ""}
-        for r in risks
-    }
+    risk_lookup = {r.id: {"name": r.name or "", "description": r.description or ""} for r in risks}
     risk_to_parent = {}
     for r in risks:
         parent = getattr(r, "isPartOf", "") or ""
@@ -288,7 +314,10 @@ def _run_expansion(
             found_risk_chunks.setdefault(cid, set()).add(cr.chunk_index)
 
     groups = group_for_grounding(
-        expanded, found_risk_chunks, risk_to_parent, len(chunks),
+        expanded,
+        found_risk_chunks,
+        risk_to_parent,
+        len(chunks),
     )
     stats["expansion_groups"] = len(groups)
 
@@ -317,7 +346,8 @@ def _run_expansion(
         futures = {
             pool.submit(
                 _ground_group_multi if expansion_passes > 1 else _ground_group,
-                g, *([expansion_passes] if expansion_passes > 1 else []),
+                g,
+                *([expansion_passes] if expansion_passes > 1 else []),
             ): g
             for g in groups
         }
@@ -474,7 +504,13 @@ def run_extraction(
     else:
         with timed(timing, "grounding_ms"):
             all_matches, all_filtered, grounding_filtered = _run_grounding(
-                chunk_results, chunks, client, config, retrieval, index, call_collector,
+                chunk_results,
+                chunks,
+                client,
+                config,
+                retrieval,
+                index,
+                call_collector,
                 grounding_passes=retrieval.grounding_passes,
             )
 
@@ -489,25 +525,34 @@ def run_extraction(
     if retrieval.expand_siblings and not retrieval.no_grounding and client is not None:
         with timed(timing, "expansion_ms"):
             merged, expansion_stats = _run_expansion(
-                risks, merged, chunk_results, chunks, documents,
-                index, client, config, max_workers, call_collector,
+                risks,
+                merged,
+                chunk_results,
+                chunks,
+                documents,
+                index,
+                client,
+                config,
+                max_workers,
+                call_collector,
                 expansion_passes=retrieval.expansion_passes,
             )
 
     if not retrieval.no_causal_synthesis and client is not None:
         with timed(timing, "causal_synthesis_ms"):
             merged = _run_causal_synthesis(
-                merged, chunks, client, config, max_workers, call_collector,
+                merged,
+                chunks,
+                client,
+                config,
+                max_workers,
+                call_collector,
             )
 
     total_stats = RetrievalStats(
         total_chunks=len(chunks),
-        total_candidates_retrieved=sum(
-            cr.stats.get("candidates_retrieved", 0) for cr in chunk_results
-        ),
-        auto_accepted=sum(
-            cr.stats.get("auto_accepted", 0) for cr in chunk_results
-        ),
+        total_candidates_retrieved=sum(cr.stats.get("candidates_retrieved", 0) for cr in chunk_results),
+        auto_accepted=sum(cr.stats.get("auto_accepted", 0) for cr in chunk_results),
         llm_judged=sum(len(cr.borderline_judged) for cr in chunk_results),
         grounding_filtered=grounding_filtered,
         timing_ms=timing,

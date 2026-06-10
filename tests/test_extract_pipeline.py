@@ -1,10 +1,9 @@
-import tempfile
-from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
+import pytest
+
 from concorde_policy_mapper.extract.models import (
-    _CausalChain,
     EvidenceSpan,
     ExtractionResult,
     LLMCallRecord,
@@ -12,9 +11,15 @@ from concorde_policy_mapper.extract.models import (
     RetrievalScores,
     RiskMatch,
     ScoredCandidate,
+    _CausalChain,
     _RiskEvidence,
 )
-from concorde_policy_mapper.extract.pipeline import _run_causal_synthesis, build_risk_match, determine_accepted_by, run_extraction
+from concorde_policy_mapper.extract.pipeline import (
+    _run_causal_synthesis,
+    build_risk_match,
+    determine_accepted_by,
+    run_extraction,
+)
 
 
 def _make_risk(id, name, description, concern="", parent=""):
@@ -41,6 +46,7 @@ MOCK_RISKS = [
 ]
 
 
+@pytest.mark.slow
 def test_run_extraction_returns_extraction_result(mock_config, tmp_path):
     doc = tmp_path / "test.md"
     doc.write_text("AI systems must avoid bias and protect personal data. Training data integrity is critical.")
@@ -99,6 +105,7 @@ def test_run_extraction_no_risks(mock_config, tmp_path):
     assert result.retrieval_stats.total_chunks == 0
 
 
+@pytest.mark.slow
 def test_run_extraction_multiple_documents(mock_config, tmp_path):
     docs = []
     for i in range(3):
@@ -121,6 +128,7 @@ def test_run_extraction_multiple_documents(mock_config, tmp_path):
     assert result.retrieval_stats.total_chunks >= 3
 
 
+@pytest.mark.slow
 def test_run_extraction_metadata(mock_config, tmp_path):
     doc = tmp_path / "test.txt"
     doc.write_text("AI risk document.")
@@ -141,6 +149,7 @@ def test_run_extraction_metadata(mock_config, tmp_path):
     assert result.metadata["top_n_judge"] == 10
 
 
+@pytest.mark.slow
 def test_run_extraction_populates_chunks(mock_config, tmp_path):
     doc = tmp_path / "test.md"
     doc.write_text("AI systems must avoid bias and protect personal data. Training data integrity is critical.")
@@ -165,6 +174,7 @@ def test_run_extraction_populates_chunks(mock_config, tmp_path):
     assert chunk.candidates_retrieved >= 0
 
 
+@pytest.mark.slow
 def test_run_extraction_populates_llm_calls(mock_config, tmp_path):
     """LLM calls list is present (may be empty if no borderline candidates)."""
     doc = tmp_path / "test.md"
@@ -188,6 +198,7 @@ def test_run_extraction_populates_llm_calls(mock_config, tmp_path):
     assert isinstance(result.llm_calls, list)
 
 
+@pytest.mark.slow
 def test_run_extraction_no_judge_no_grounding(mock_config, tmp_path):
     """With no_judge+no_grounding, no LLM calls are made and all candidates become RiskMatch with empty evidence."""
     doc = tmp_path / "test.md"
@@ -219,6 +230,7 @@ def test_run_extraction_no_judge_no_grounding(mock_config, tmp_path):
     assert result.retrieval_stats.grounding_filtered == 0
 
 
+@pytest.mark.slow
 def test_run_extraction_no_grounding_with_judge(mock_config, tmp_path):
     """With no_grounding only, judge runs but grounding is skipped."""
     doc = tmp_path / "test.md"
@@ -249,6 +261,7 @@ def test_run_extraction_no_grounding_with_judge(mock_config, tmp_path):
     assert result.retrieval_stats.grounding_filtered == 0
 
 
+@pytest.mark.slow
 def test_run_extraction_no_judge_no_grounding_no_cross_encoder(mock_config, tmp_path):
     """With no_judge+no_grounding and no cross-encoder, pure BM25+semantic output."""
     doc = tmp_path / "test.md"
@@ -266,8 +279,10 @@ def test_run_extraction_no_judge_no_grounding_no_cross_encoder(mock_config, tmp_
         config=mock_config,
         risks=MOCK_RISKS,
         retrieval=RetrievalConfig(
-            no_judge=True, no_grounding=True,
-            use_cross_encoder=False, rrf_min_score=0.001,
+            no_judge=True,
+            no_grounding=True,
+            use_cross_encoder=False,
+            rrf_min_score=0.001,
         ),
         ocr=False,
     )
@@ -278,6 +293,7 @@ def test_run_extraction_no_judge_no_grounding_no_cross_encoder(mock_config, tmp_
         assert risk.accepted_by in ("rrf", "auto_promoted")
 
 
+@pytest.mark.slow
 def test_run_extraction_no_cross_encoder(mock_config, tmp_path):
     """With use_cross_encoder=False, no judge calls are made and metadata reflects the mode."""
     doc = tmp_path / "test.md"
@@ -309,17 +325,24 @@ def test_run_extraction_no_cross_encoder(mock_config, tmp_path):
 
 # --- determine_accepted_by unit tests ---
 
+
 def _candidate(risk_id="R-001"):
     return ScoredCandidate(
-        risk_id=risk_id, risk_name="Test", risk_description="desc",
-        cross_encoder_score=0.8, rrf_score=0.5,
+        risk_id=risk_id,
+        risk_name="Test",
+        risk_description="desc",
+        cross_encoder_score=0.8,
+        rrf_score=0.5,
     )
 
 
 def test_determine_accepted_by_llm_judge():
     c = _candidate()
     result = determine_accepted_by(
-        c, borderline_judged=[c], use_cross_encoder=True, no_judge=False,
+        c,
+        borderline_judged=[c],
+        use_cross_encoder=True,
+        no_judge=False,
     )
     assert result == "llm_judge"
 
@@ -327,7 +350,10 @@ def test_determine_accepted_by_llm_judge():
 def test_determine_accepted_by_auto_promoted():
     c = _candidate()
     result = determine_accepted_by(
-        c, borderline_judged=[c], use_cross_encoder=True, no_judge=True,
+        c,
+        borderline_judged=[c],
+        use_cross_encoder=True,
+        no_judge=True,
     )
     assert result == "auto_promoted"
 
@@ -335,7 +361,10 @@ def test_determine_accepted_by_auto_promoted():
 def test_determine_accepted_by_threshold():
     c = _candidate()
     result = determine_accepted_by(
-        c, borderline_judged=[], use_cross_encoder=True, no_judge=False,
+        c,
+        borderline_judged=[],
+        use_cross_encoder=True,
+        no_judge=False,
     )
     assert result == "threshold"
 
@@ -343,11 +372,15 @@ def test_determine_accepted_by_threshold():
 def test_determine_accepted_by_rrf():
     c = _candidate()
     result = determine_accepted_by(
-        c, borderline_judged=[], use_cross_encoder=False, no_judge=False,
+        c,
+        borderline_judged=[],
+        use_cross_encoder=False,
+        no_judge=False,
     )
     assert result == "rrf"
 
 
+@pytest.mark.slow
 def test_run_extraction_no_judge_with_grounding_accepted_by(mock_config, tmp_path):
     """Regression: no_judge=True with grounding should tag as 'auto_promoted', not 'llm_judge'."""
     doc = tmp_path / "test.md"
@@ -377,11 +410,16 @@ def test_run_extraction_no_judge_with_grounding_accepted_by(mock_config, tmp_pat
 
 # --- build_risk_match unit tests ---
 
+
 def test_build_risk_match_cross_encoder():
     c = _candidate()
     m = build_risk_match(
-        c, taxonomy="test-tax", accepted_by="threshold",
-        grounding_confidence="high", evidence=[], use_cross_encoder=True,
+        c,
+        taxonomy="test-tax",
+        accepted_by="threshold",
+        grounding_confidence="high",
+        evidence=[],
+        use_cross_encoder=True,
     )
     assert m.confidence == c.cross_encoder_score
     assert m.scores.rrf_score == c.rrf_score
@@ -392,8 +430,12 @@ def test_build_risk_match_cross_encoder():
 def test_build_risk_match_rrf_mode():
     c = _candidate()
     m = build_risk_match(
-        c, taxonomy="test-tax", accepted_by="rrf",
-        grounding_confidence="ungrounded", evidence=[], use_cross_encoder=False,
+        c,
+        taxonomy="test-tax",
+        accepted_by="rrf",
+        grounding_confidence="ungrounded",
+        evidence=[],
+        use_cross_encoder=False,
     )
     assert m.confidence == c.rrf_score
 
@@ -401,8 +443,12 @@ def test_build_risk_match_rrf_mode():
 def test_build_risk_match_confidence_override():
     c = _candidate()
     m = build_risk_match(
-        c, taxonomy="test-tax", accepted_by="expansion",
-        grounding_confidence="high", evidence=[], confidence_override=0.0,
+        c,
+        taxonomy="test-tax",
+        accepted_by="expansion",
+        grounding_confidence="high",
+        evidence=[],
+        confidence_override=0.0,
     )
     assert m.confidence == 0.0
 
@@ -410,13 +456,19 @@ def test_build_risk_match_confidence_override():
 def test_build_risk_match_scores_override():
     c = _candidate()
     zero_scores = RetrievalScores(
-        bm25_rank=0, embedding_distance=0.0,
-        cross_encoder_score=0.0, rrf_score=0.0,
+        bm25_rank=0,
+        embedding_distance=0.0,
+        cross_encoder_score=0.0,
+        rrf_score=0.0,
     )
     m = build_risk_match(
-        c, taxonomy="test-tax", accepted_by="expansion",
-        grounding_confidence="high", evidence=[],
-        confidence_override=0.0, scores_override=zero_scores,
+        c,
+        taxonomy="test-tax",
+        accepted_by="expansion",
+        grounding_confidence="high",
+        evidence=[],
+        confidence_override=0.0,
+        scores_override=zero_scores,
     )
     assert m.scores.bm25_rank == 0
     assert m.scores.cross_encoder_score == 0.0
@@ -431,6 +483,7 @@ EXPANSION_RISKS = [
 ]
 
 
+@pytest.mark.slow
 def test_run_extraction_expand_siblings(mock_config, tmp_path):
     """With expand_siblings, sibling risks of found risks are grounded and included."""
     doc = tmp_path / "test.md"
@@ -449,7 +502,7 @@ def test_run_extraction_expand_siblings(mock_config, tmp_path):
         if response_model and hasattr(response_model, "__args__"):
             inner = response_model.__args__[0]
             if inner == _RiskEvidence:
-                risk_ids = [r.get("risk_id", "") for r in kwargs["messages"][-1].get("content", "").split("risk_id") if r]
+                _ = [r.get("risk_id", "") for r in kwargs["messages"][-1].get("content", "").split("risk_id") if r]
                 return [
                     _RiskEvidence(
                         risk_id=rid,
@@ -462,16 +515,23 @@ def test_run_extraction_expand_siblings(mock_config, tmp_path):
         return []
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.side_effect = lambda **kwargs: [
-        _RiskEvidence(
-            risk_id=r["risk_id"],
-            grounded=True,
-            confidence="medium",
-            quotes=["bias detection and mitigation"],
-        )
-        for r in (kwargs.get("messages", [{}])[-1].get("risks", [])
-                  if isinstance(kwargs.get("messages", [{}])[-1], dict) else [])
-    ] if kwargs.get("response_model") else []
+    mock_client.chat.completions.create.side_effect = lambda **kwargs: (
+        [
+            _RiskEvidence(
+                risk_id=r["risk_id"],
+                grounded=True,
+                confidence="medium",
+                quotes=["bias detection and mitigation"],
+            )
+            for r in (
+                kwargs.get("messages", [{}])[-1].get("risks", [])
+                if isinstance(kwargs.get("messages", [{}])[-1], dict)
+                else []
+            )
+        ]
+        if kwargs.get("response_model")
+        else []
+    )
 
     mock_client.chat.completions.create.return_value = [
         _RiskEvidence(
@@ -493,11 +553,12 @@ def test_run_extraction_expand_siblings(mock_config, tmp_path):
 
     assert isinstance(result, ExtractionResult)
     assert result.metadata["expand_siblings"] is True
-    expansion_risks = [r for r in result.risks if r.accepted_by == "expansion"]
+    _ = [r for r in result.risks if r.accepted_by == "expansion"]
     expansion_stats = result.metadata.get("expansion_stats", {})
     assert expansion_stats.get("expanded_candidates", 0) >= 0
 
 
+@pytest.mark.slow
 def test_run_extraction_expand_no_siblings_when_no_grounding(mock_config, tmp_path):
     """Expansion requires grounding — skipped when no_grounding=True."""
     doc = tmp_path / "test.md"
@@ -524,6 +585,8 @@ def test_run_extraction_expand_no_siblings_when_no_grounding(mock_config, tmp_pa
 
 # --- _run_judge integration test ---
 
+
+@pytest.mark.slow
 def test_run_extraction_judge_with_cross_encoder(mock_config, tmp_path):
     """With use_cross_encoder and judge enabled, borderline candidates go through judge."""
     doc = tmp_path / "test.md"
@@ -553,6 +616,7 @@ def test_run_extraction_judge_with_cross_encoder(mock_config, tmp_path):
 
 
 # --- _run_causal_synthesis tests ---
+
 
 def test_run_causal_synthesis_populates_fields():
     merged = [
@@ -588,6 +652,7 @@ def test_run_causal_synthesis_populates_fields():
     ]
 
     from concorde_policy_mapper.llm import LLMConfig
+
     config = LLMConfig(base_url="http://localhost:8000/v1", model="test-model")
     collector: list[LLMCallRecord] = []
 
@@ -626,6 +691,7 @@ def test_run_causal_synthesis_skips_empty_results():
     ]
 
     from concorde_policy_mapper.llm import LLMConfig
+
     config = LLMConfig(base_url="http://localhost:8000/v1", model="test-model")
 
     result = _run_causal_synthesis(merged, chunks, mock_client, config, 4, [])

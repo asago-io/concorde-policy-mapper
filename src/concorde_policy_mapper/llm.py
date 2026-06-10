@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import instructor
-from instructor.core import InstructorRetryException, IncompleteOutputException
+from instructor.core import IncompleteOutputException, InstructorRetryException
 from openai import OpenAI
 from pydantic import BaseModel
 
@@ -31,6 +31,8 @@ class SlimModel(BaseModel):
     def model_json_schema(cls, *args: Any, **kwargs: Any) -> dict[str, Any]:
         schema = super().model_json_schema(*args, **kwargs)
         return _strip_titles(schema)
+
+
 _SAFETY_MARGIN = 64
 _MIN_OUTPUT_TOKENS = 256
 
@@ -82,7 +84,9 @@ class TokenTracker:
             self.total_tokens += tt
             self.calls += 1
             if stage:
-                s = self.per_stage.setdefault(stage, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "calls": 0})
+                s = self.per_stage.setdefault(
+                    stage, {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0, "calls": 0}
+                )
                 s["prompt_tokens"] += pt
                 s["completion_tokens"] += ct
                 s["total_tokens"] += tt
@@ -139,9 +143,11 @@ def budget_max_tokens(
 
     if available < _MIN_OUTPUT_TOKENS:
         logger.warning(
-            "Token budget critically low: estimated_input=%d, max_context=%d, "
-            "available_for_output=%d (min=%d)",
-            estimated_input, max_context, available, _MIN_OUTPUT_TOKENS,
+            "Token budget critically low: estimated_input=%d, max_context=%d, available_for_output=%d (min=%d)",
+            estimated_input,
+            max_context,
+            available,
+            _MIN_OUTPUT_TOKENS,
         )
         return _MIN_OUTPUT_TOKENS
 
@@ -149,7 +155,10 @@ def budget_max_tokens(
     if capped < requested_max_tokens:
         logger.debug(
             "Budget: max_tokens %d -> %d (input~%d, context=%d)",
-            requested_max_tokens, capped, estimated_input, max_context,
+            requested_max_tokens,
+            capped,
+            estimated_input,
+            max_context,
         )
     return capped
 
@@ -218,12 +227,15 @@ def _apply_budget(kwargs: dict, config: LLMConfig) -> None:
         messages = kwargs.get("messages", [])
         requested = kwargs.get("max_tokens", config.max_tokens)
         kwargs["max_tokens"] = budget_max_tokens(
-            messages, config.max_context, requested,
+            messages,
+            config.max_context,
+            requested,
         )
 
 
 class _IncompleteOutput(Exception):
     """Signals that validation succeeded but output was truncated."""
+
     def __init__(self, cause):
         self.cause = cause
 
@@ -240,13 +252,19 @@ def _retry_with_validation(do_call, kwargs, config, tracker, original_messages, 
                 old_max = kwargs.get("max_tokens", 8192)
                 logger.info("Context overflow, reducing max_tokens %d -> %d and retrying", old_max, new_max)
                 if tracker:
-                    tracker.record_incident("context_overflow", f"Context overflow, reducing max_tokens {old_max} -> {new_max}")
+                    tracker.record_incident(
+                        "context_overflow", f"Context overflow, reducing max_tokens {old_max} -> {new_max}"
+                    )
                 kwargs["messages"] = copy.deepcopy(original_messages)
                 kwargs["max_tokens"] = new_max
                 _apply_budget(kwargs, config)
                 continue
             if val_attempt < max_retries:
-                logger.info("Validation error (attempt %d/%d), retrying with fresh messages + error hint", val_attempt + 1, max_retries)
+                logger.info(
+                    "Validation error (attempt %d/%d), retrying with fresh messages + error hint",
+                    val_attempt + 1,
+                    max_retries,
+                )
                 retry_messages = copy.deepcopy(current_messages)
                 last_attempt = e.failed_attempts[-1] if e.failed_attempts else None
                 if last_attempt and last_attempt.completion:
@@ -254,10 +272,12 @@ def _retry_with_validation(do_call, kwargs, config, tracker, original_messages, 
                     if failed_content:
                         retry_messages.append({"role": "assistant", "content": failed_content})
                 error_text = str(last_attempt.exception) if last_attempt else str(e)
-                retry_messages.append({
-                    "role": "user",
-                    "content": f"Validation error: {error_text}\nCorrect your JSON response, fix the errors.",
-                })
+                retry_messages.append(
+                    {
+                        "role": "user",
+                        "content": f"Validation error: {error_text}\nCorrect your JSON response, fix the errors.",
+                    }
+                )
                 kwargs["messages"] = retry_messages
                 _apply_budget(kwargs, config)
                 continue
@@ -281,18 +301,30 @@ def _call_with_retry(
     for attempt in range(_MAX_TRUNCATION_RETRIES + 1):
         try:
             return _retry_with_validation(
-                do_call, kwargs, config, tracker,
-                original_messages, current_messages, max_validation_retries,
+                do_call,
+                kwargs,
+                config,
+                tracker,
+                original_messages,
+                current_messages,
+                max_validation_retries,
             )
         except _IncompleteOutput as e:
             shorter = _truncate_messages(current_messages)
             if shorter is None:
                 if tracker:
-                    tracker.record_incident("output_truncated", "Output truncated and prompt cannot be shortened further")
+                    tracker.record_incident(
+                        "output_truncated", "Output truncated and prompt cannot be shortened further"
+                    )
                 raise e.cause
-            logger.info("Output truncated (attempt %d/%d), retrying with shorter prompt", attempt + 1, _MAX_TRUNCATION_RETRIES)
+            logger.info(
+                "Output truncated (attempt %d/%d), retrying with shorter prompt", attempt + 1, _MAX_TRUNCATION_RETRIES
+            )
             if tracker:
-                tracker.record_incident("output_truncated", f"Output truncated (attempt {attempt + 1}/{_MAX_TRUNCATION_RETRIES}), retrying with shorter prompt")
+                tracker.record_incident(
+                    "output_truncated",
+                    f"Output truncated (attempt {attempt + 1}/{_MAX_TRUNCATION_RETRIES}), retrying with shorter prompt",
+                )
             current_messages = shorter
             kwargs["messages"] = shorter
             _apply_budget(kwargs, config)

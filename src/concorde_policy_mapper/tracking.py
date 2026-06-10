@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 try:
     import mlflow
     import mlflow.genai
+
     _MLFLOW_AVAILABLE = True
 except ImportError:
     mlflow = None  # type: ignore[assignment]
@@ -119,7 +120,9 @@ def _get_git_sha() -> str:
     try:
         result = subprocess.run(
             ["git", "rev-parse", "--short", "HEAD"],
-            capture_output=True, text=True, timeout=5,
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         return result.stdout.strip() if result.returncode == 0 else "unknown"
     except Exception:

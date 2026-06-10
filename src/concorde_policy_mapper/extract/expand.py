@@ -50,8 +50,7 @@ def build_expansion_graph(risks: list) -> dict[str, set[str]]:
             parent_to_children[parent].add(rid)
             risk_to_parent[rid] = parent
 
-        for mtype in ("exact_mappings", "close_mappings", "broad_mappings",
-                       "narrow_mappings", "related_mappings"):
+        for mtype in ("exact_mappings", "close_mappings", "broad_mappings", "narrow_mappings", "related_mappings"):
             mappings = getattr(r, mtype, None) or []
             if isinstance(mappings, str):
                 mappings = [mappings]
@@ -102,16 +101,19 @@ def expand_with_siblings(
         info = risk_lookup.get(rid)
         if not info:
             continue
-        result.append(ExpandedRisk(
-            risk_id=rid,
-            risk_name=info.get("name", ""),
-            risk_description=info.get("description", ""),
-            source_risk_id=source,
-        ))
+        result.append(
+            ExpandedRisk(
+                risk_id=rid,
+                risk_name=info.get("name", ""),
+                risk_description=info.get("description", ""),
+                source_risk_id=source,
+            )
+        )
 
     logger.info(
         "Expanded %d found risks → %d new sibling candidates",
-        len(already_found), len(result),
+        len(already_found),
+        len(result),
     )
     return result
 
@@ -150,8 +152,7 @@ def group_for_grounding(
 
         risk_list = risks
         if len(risk_list) > max_risks_per_group:
-            batches = [risk_list[i:i + max_risks_per_group]
-                       for i in range(0, len(risk_list), max_risks_per_group)]
+            batches = [risk_list[i : i + max_risks_per_group] for i in range(0, len(risk_list), max_risks_per_group)]
         else:
             batches = [risk_list]
 
@@ -164,15 +165,18 @@ def group_for_grounding(
                 }
                 for er in batch
             }
-            result.append(GroundingGroup(
-                parent=parent,
-                risk_ids=[er.risk_id for er in batch],
-                risk_lookup=lookup,
-                chunk_indices=chunk_list,
-            ))
+            result.append(
+                GroundingGroup(
+                    parent=parent,
+                    risk_ids=[er.risk_id for er in batch],
+                    risk_lookup=lookup,
+                    chunk_indices=chunk_list,
+                )
+            )
 
     logger.info(
         "Grouped %d expanded risks into %d grounding groups",
-        len(expanded), len(result),
+        len(expanded),
+        len(result),
     )
     return result

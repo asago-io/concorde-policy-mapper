@@ -16,9 +16,26 @@ uv sync
 uv run pytest
 just test
 
+# Run fast tests only (skip slow embedding-model tests)
+uv run pytest -m "not slow"
+
 # Run a single test file or specific test
 uv run pytest tests/test_extract_pipeline.py
 uv run pytest tests/test_extract_retrieve.py::test_classify_candidates -v
+
+# Lint
+uv run ruff check src/ tests/
+just lint
+
+# Lint single file (with auto-fix)
+uv run ruff check --fix path/to/file.py
+
+# Format
+uv run ruff format src/ tests/
+just format
+
+# Format single file
+uv run ruff format path/to/file.py
 
 # Extract risks from a document
 uv run concorde-policy-mapper extract policy.pdf -o output/ \

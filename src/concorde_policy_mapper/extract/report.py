@@ -27,8 +27,10 @@ def _get_dark_snippet() -> str:
 
 
 def build_risk_extraction_report(data: dict, output_path: Path) -> Path:
-    html = (TEMPLATE_DIR / "risk_extraction_report_template.html").read_text().replace(
-        "__REPORT_DATA__", json.dumps(data, default=str)
+    html = (
+        (TEMPLATE_DIR / "risk_extraction_report_template.html")
+        .read_text()
+        .replace("__REPORT_DATA__", json.dumps(data, default=str))
     )
     html = html.replace("</head>", _get_dark_snippet() + "\n</head>", 1)
     html = html.replace("</body>", _DARK_TOGGLE + "\n</body>", 1)

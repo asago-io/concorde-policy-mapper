@@ -1,18 +1,16 @@
 from types import SimpleNamespace
-
-import pytest
+from unittest.mock import MagicMock, patch
 
 import numpy as np
-
-from unittest.mock import MagicMock, patch
+import pytest
 
 from concorde_policy_mapper.extract.index import (
     RiskIndex,
-    _RemoteBiEncoder,
-    _RemoteCrossEncoder,
     _is_remote,
     _make_score_normalizer,
     _parse_remote_url,
+    _RemoteBiEncoder,
+    _RemoteCrossEncoder,
     _rrf_fuse,
 )
 from concorde_policy_mapper.extract.models import ScoredCandidate
@@ -44,6 +42,7 @@ def index():
     return RiskIndex(RISKS)
 
 
+@pytest.mark.slow
 def test_search_bm25_exact_term(index):
     results = index.search_bm25("model bias", top_k=3)
     assert len(results) > 0
@@ -51,16 +50,19 @@ def test_search_bm25_exact_term(index):
     assert results[0].bm25_rank == 1
 
 
+@pytest.mark.slow
 def test_search_bm25_no_match(index):
     results = index.search_bm25("quantum computing hardware", top_k=3)
     assert len(results) == 0 or results[0].bm25_rank > 0
 
 
+@pytest.mark.slow
 def test_search_bm25_respects_top_k(index):
     results = index.search_bm25("AI system", top_k=2)
     assert len(results) <= 2
 
 
+@pytest.mark.slow
 def test_search_semantic(index):
     results = index.search_semantic("biased AI predictions discriminating against minorities", top_k=3)
     assert len(results) > 0
@@ -68,12 +70,14 @@ def test_search_semantic(index):
     assert "R-001" in risk_ids
 
 
+@pytest.mark.slow
 def test_search_semantic_returns_distance(index):
     results = index.search_semantic("data privacy", top_k=1)
     assert len(results) == 1
     assert 0.0 <= results[0].embedding_distance <= 2.0
 
 
+@pytest.mark.slow
 def test_rerank(index):
     candidates = index.search_semantic("personal data collection without consent", top_k=5)
     reranked = index.rerank("personal data collection without consent", candidates, top_k=3)
@@ -83,6 +87,7 @@ def test_rerank(index):
     assert scores == sorted(scores, reverse=True)
 
 
+@pytest.mark.slow
 def test_hybrid_search(index):
     results = index.hybrid_search("training data manipulation attack", top_k=3)
     assert len(results) > 0
@@ -92,6 +97,7 @@ def test_hybrid_search(index):
     assert "R-002" in risk_ids
 
 
+@pytest.mark.slow
 def test_hybrid_search_populates_all_scores(index):
     results = index.hybrid_search("bias in AI", top_k=3)
     for c in results:
@@ -106,20 +112,24 @@ def test_empty_risks():
     assert index.hybrid_search("anything", top_k=5) == []
 
 
+@pytest.mark.slow
 def test_risk_count(index):
     assert index.risk_count == 5
 
 
+@pytest.mark.slow
 def test_cross_encoder_property(index):
     assert index.cross_encoder is not None
 
 
+@pytest.mark.slow
 def test_no_cross_encoder():
     idx = RiskIndex(RISKS, cross_encoder_model=None)
     assert idx.cross_encoder is None
     assert idx.rerank("test", [], top_k=3) == []
 
 
+@pytest.mark.slow
 def test_hybrid_search_rrf_only(index):
     results = index.hybrid_search("training data manipulation attack", top_k=3, rrf_min_score=0.005)
     assert len(results) > 0
@@ -127,6 +137,7 @@ def test_hybrid_search_rrf_only(index):
     assert all(c.cross_encoder_score == 0.0 for c in results)
 
 
+@pytest.mark.slow
 def test_hybrid_search_rrf_only_filters_low_scores(index):
     all_results = index.hybrid_search("bias", top_k=50, rrf_min_score=0.001)
     high_results = index.hybrid_search("bias", top_k=50, rrf_min_score=0.02)
@@ -142,9 +153,7 @@ def test_is_remote():
 
 
 def test_parse_remote_url():
-    base, model = _parse_remote_url(
-        "https://bge-m3-model-serving.apps.example.com/v1/embeddings"
-    )
+    base, model = _parse_remote_url("https://bge-m3-model-serving.apps.example.com/v1/embeddings")
     assert base == "https://bge-m3-model-serving.apps.example.com/v1"
     assert model == "bge-m3"
 
@@ -169,10 +178,14 @@ def test_colbert_remote_rejected():
 
 # --- _rrf_fuse tests ---
 
+
 def _sc(risk_id, ce_score=0.0, embed_dist=0.0, bm25_rank=0):
     return ScoredCandidate(
-        risk_id=risk_id, risk_name=risk_id, risk_description="",
-        cross_encoder_score=ce_score, embedding_distance=embed_dist,
+        risk_id=risk_id,
+        risk_name=risk_id,
+        risk_description="",
+        cross_encoder_score=ce_score,
+        embedding_distance=embed_dist,
         bm25_rank=bm25_rank,
     )
 
@@ -199,6 +212,7 @@ def test_rrf_fuse_first_occurrence_wins():
 
 
 # --- _make_score_normalizer tests ---
+
 
 def test_score_normalizer_clip():
     norm = _make_score_normalizer(is_nli=False, apply_sigmoid=False)
@@ -229,10 +243,12 @@ def test_score_normalizer_nli_2d():
 def test_remote_bi_encoder_encode(mock_openai_cls):
     mock_client = MagicMock()
     mock_openai_cls.return_value = mock_client
-    mock_client.embeddings.create.return_value = SimpleNamespace(data=[
-        SimpleNamespace(index=0, embedding=[0.1, 0.2, 0.3]),
-        SimpleNamespace(index=1, embedding=[0.4, 0.5, 0.6]),
-    ])
+    mock_client.embeddings.create.return_value = SimpleNamespace(
+        data=[
+            SimpleNamespace(index=0, embedding=[0.1, 0.2, 0.3]),
+            SimpleNamespace(index=1, embedding=[0.4, 0.5, 0.6]),
+        ]
+    )
 
     encoder = _RemoteBiEncoder("https://bge-m3-model-serving.apps.example.com/v1/embeddings")
     result = encoder.encode(["hello", "world"], normalize=True)
@@ -250,14 +266,18 @@ def test_remote_bi_encoder_encode_batches(mock_openai_cls):
     mock_openai_cls.return_value = mock_client
 
     # First batch: 2 texts
-    batch1_response = SimpleNamespace(data=[
-        SimpleNamespace(index=0, embedding=[1.0, 0.0]),
-        SimpleNamespace(index=1, embedding=[0.0, 1.0]),
-    ])
+    batch1_response = SimpleNamespace(
+        data=[
+            SimpleNamespace(index=0, embedding=[1.0, 0.0]),
+            SimpleNamespace(index=1, embedding=[0.0, 1.0]),
+        ]
+    )
     # Second batch: 1 text
-    batch2_response = SimpleNamespace(data=[
-        SimpleNamespace(index=0, embedding=[1.0, 1.0]),
-    ])
+    batch2_response = SimpleNamespace(
+        data=[
+            SimpleNamespace(index=0, embedding=[1.0, 1.0]),
+        ]
+    )
     mock_client.embeddings.create.side_effect = [batch1_response, batch2_response]
 
     encoder = _RemoteBiEncoder(

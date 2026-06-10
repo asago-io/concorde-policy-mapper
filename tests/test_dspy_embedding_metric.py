@@ -1,4 +1,5 @@
 """Tests for embedding retrieval recall metric."""
+
 import dspy
 
 from experiments.dspy_embedding.metric import retrieval_recall_metric

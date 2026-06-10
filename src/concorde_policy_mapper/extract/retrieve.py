@@ -117,11 +117,7 @@ def classify_by_threshold(
             accepted.append(c)
         elif c.cross_encoder_score >= threshold_low:
             borderline.append(c)
-        elif (
-            bm25_rescue_rank > 0
-            and c.bm25_rank > 0
-            and c.bm25_rank <= bm25_rescue_rank
-        ):
+        elif bm25_rescue_rank > 0 and c.bm25_rank > 0 and c.bm25_rank <= bm25_rescue_rank:
             borderline.append(c)
         else:
             discarded.append(c)
@@ -268,7 +264,9 @@ def retrieve_chunk(
     chunk = chunks[chunk_index]
     padded = build_padded_text(chunks, chunk_index, context_sentences)
     candidates = index.hybrid_search(
-        padded, top_k=top_k, bm25_rescue_rank=bm25_rescue_rank,
+        padded,
+        top_k=top_k,
+        bm25_rescue_rank=bm25_rescue_rank,
         rrf_min_score=rrf_min_score,
     )
 
@@ -301,10 +299,7 @@ def retrieve_chunk(
     )
     floor = threshold_low if threshold_low is not None else min_score_floor
     bm25_rescued = sum(
-        1 for c in borderline
-        if c.cross_encoder_score < floor
-        and c.bm25_rank > 0
-        and c.bm25_rank <= bm25_rescue_rank
+        1 for c in borderline if c.cross_encoder_score < floor and c.bm25_rank > 0 and c.bm25_rank <= bm25_rescue_rank
     )
     return ChunkResult(
         chunk_index=chunk_index,

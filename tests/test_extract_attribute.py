@@ -1,7 +1,11 @@
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.attribute import ground_and_extract_evidence, ground_risk_group, synthesize_causal_chain
+from concorde_policy_mapper.extract.attribute import (
+    ground_and_extract_evidence,
+    ground_risk_group,
+    synthesize_causal_chain,
+)
 from concorde_policy_mapper.extract.models import (
     EvidenceSpan,
     LLMCallRecord,
@@ -214,6 +218,7 @@ def test_ground_and_extract_evidence_no_collector(mock_client):
 # ---------------------------------------------------------------------------
 # Tests for ground_risk_group
 # ---------------------------------------------------------------------------
+
 
 def _make_chunks(texts: list[str]):
     """Create a list of chunk-like objects with a .text attribute."""
@@ -428,7 +433,8 @@ def test_causal_synthesis_prompt_renders():
             "risk_id": "atlas-bias",
             "risk_name": "AI Bias",
             "risk_description": "Systematic bias in AI model outputs.",
-            "chunk_texts": "The regulation requires that AI systems used in credit scoring must not discriminate based on protected characteristics.",
+            "chunk_texts": "The regulation requires that AI systems used in credit scoring"
+            " must not discriminate based on protected characteristics.",
         },
     )
     assert len(messages) == 2

@@ -1,32 +1,26 @@
 import json
+
 import pytest
-from pathlib import Path
 
 from concorde_policy_mapper.evals.eval import (
-    evaluate_extraction,
-    _infer_taxonomy,
-    _sanitise_risk_id,
-    _load_risk_to_category_map,
     _derive_categories,
+    _infer_taxonomy,
+    _load_risk_to_category_map,
+    _sanitise_risk_id,
+    evaluate_extraction,
 )
 from concorde_policy_mapper.extract.models import (
     ExtractionResult,
-    RiskMatch,
     RetrievalScores,
     RetrievalStats,
+    RiskMatch,
 )
 
 
 @pytest.fixture
 def tmp_ground_truth(tmp_path):
     gt = tmp_path / "test-policy.yaml"
-    gt.write_text(
-        "risk_ids:\n"
-        "  - atlas-bias\n"
-        "  - atlas-privacy\n"
-        "  - atlas-transparency\n"
-        "  - atlas-accountability\n"
-    )
+    gt.write_text("risk_ids:\n  - atlas-bias\n  - atlas-privacy\n  - atlas-transparency\n  - atlas-accountability\n")
     return gt
 
 
@@ -35,12 +29,45 @@ def tmp_extraction(tmp_path):
     data = {
         "version": "0.2",
         "risks": [
-            {"risk_id": "atlas-bias", "risk_name": "Bias", "risk_description": "", "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5}},
-            {"risk_id": "atlas-privacy", "risk_name": "Privacy", "risk_description": "", "confidence": 0.8, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4}},
-            {"risk_id": "atlas-hallucination", "risk_name": "Hallucination", "risk_description": "", "confidence": 0.7, "grounding_confidence": "medium", "accepted_by": "llm_judge", "evidence": [], "scores": {"bm25_rank": 3, "embedding_distance": 0.3, "cross_encoder_score": 0.7, "rrf_score": 0.3}},
+            {
+                "risk_id": "atlas-bias",
+                "risk_name": "Bias",
+                "risk_description": "",
+                "confidence": 0.9,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+            },
+            {
+                "risk_id": "atlas-privacy",
+                "risk_name": "Privacy",
+                "risk_description": "",
+                "confidence": 0.8,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4},
+            },
+            {
+                "risk_id": "atlas-hallucination",
+                "risk_name": "Hallucination",
+                "risk_description": "",
+                "confidence": 0.7,
+                "grounding_confidence": "medium",
+                "accepted_by": "llm_judge",
+                "evidence": [],
+                "scores": {"bm25_rank": 3, "embedding_distance": 0.3, "cross_encoder_score": 0.7, "rrf_score": 0.3},
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 10, "total_candidates_retrieved": 50, "auto_accepted": 2, "llm_judged": 1, "grounding_filtered": 0},
+        "retrieval_stats": {
+            "total_chunks": 10,
+            "total_candidates_retrieved": 50,
+            "auto_accepted": 2,
+            "llm_judged": 1,
+            "grounding_filtered": 0,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))
@@ -73,11 +100,35 @@ def test_evaluate_extraction_perfect_match(tmp_path):
     data = {
         "version": "0.2",
         "risks": [
-            {"risk_id": "atlas-bias", "risk_name": "Bias", "risk_description": "", "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5}},
-            {"risk_id": "atlas-privacy", "risk_name": "Privacy", "risk_description": "", "confidence": 0.8, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4}},
+            {
+                "risk_id": "atlas-bias",
+                "risk_name": "Bias",
+                "risk_description": "",
+                "confidence": 0.9,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+            },
+            {
+                "risk_id": "atlas-privacy",
+                "risk_name": "Privacy",
+                "risk_description": "",
+                "confidence": 0.8,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4},
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 10, "total_candidates_retrieved": 50, "auto_accepted": 2, "llm_judged": 0, "grounding_filtered": 0},
+        "retrieval_stats": {
+            "total_chunks": 10,
+            "total_candidates_retrieved": 50,
+            "auto_accepted": 2,
+            "llm_judged": 0,
+            "grounding_filtered": 0,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))
@@ -97,10 +148,25 @@ def test_evaluate_extraction_strips_whitespace(tmp_path):
     data = {
         "version": "0.2",
         "risks": [
-            {"risk_id": "atlas-bias ", "risk_name": "Bias", "risk_description": "", "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5}},
+            {
+                "risk_id": "atlas-bias ",
+                "risk_name": "Bias",
+                "risk_description": "",
+                "confidence": 0.9,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 10, "total_candidates_retrieved": 50, "auto_accepted": 1, "llm_judged": 0, "grounding_filtered": 0},
+        "retrieval_stats": {
+            "total_chunks": 10,
+            "total_candidates_retrieved": 50,
+            "auto_accepted": 1,
+            "llm_judged": 0,
+            "grounding_filtered": 0,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))
@@ -113,8 +179,10 @@ def test_evaluate_extraction_strips_whitespace(tmp_path):
 def test_evaluate_extraction_custom_thresholds(tmp_ground_truth, tmp_extraction):
     # recall=0.5, precision=0.667 — passes with relaxed thresholds
     result = evaluate_extraction(
-        tmp_ground_truth, tmp_extraction,
-        min_recall=0.4, min_precision=0.5,
+        tmp_ground_truth,
+        tmp_extraction,
+        min_recall=0.4,
+        min_precision=0.5,
     )
     assert result["pass"] is True
 
@@ -122,9 +190,10 @@ def test_evaluate_extraction_custom_thresholds(tmp_ground_truth, tmp_extraction)
 def test_sanitise_risk_id():
     assert _sanitise_risk_id("atlas-bias") == "atlas-bias"
     assert _sanitise_risk_id("atlas-bias ") == "atlas-bias"
-    assert _sanitise_risk_id(
-        "ai-risk-taxonomy-not-labeling-content-as-ai-generated Not labeling content as AI-generated"
-    ) == "ai-risk-taxonomy-not-labeling-content-as-ai-generated"
+    assert (
+        _sanitise_risk_id("ai-risk-taxonomy-not-labeling-content-as-ai-generated Not labeling content as AI-generated")
+        == "ai-risk-taxonomy-not-labeling-content-as-ai-generated"
+    )
 
 
 def test_infer_taxonomy():
@@ -144,23 +213,63 @@ def test_infer_taxonomy():
 
 def test_evaluate_extraction_per_taxonomy(tmp_path):
     gt = tmp_path / "multi-tax.yaml"
-    gt.write_text(
-        "risk_ids:\n"
-        "  - atlas-bias\n"
-        "  - atlas-privacy\n"
-        "  - nist-data-privacy\n"
-        "  - credo-risk-021\n"
-    )
+    gt.write_text("risk_ids:\n  - atlas-bias\n  - atlas-privacy\n  - nist-data-privacy\n  - credo-risk-021\n")
     data = {
         "version": "0.3",
         "risks": [
-            {"risk_id": "atlas-bias", "taxonomy": "ibm-risk-atlas", "risk_name": "Bias", "risk_description": "", "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5}},
-            {"risk_id": "atlas-privacy", "taxonomy": "ibm-risk-atlas", "risk_name": "Privacy", "risk_description": "", "confidence": 0.8, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4}},
-            {"risk_id": "atlas-hallucination", "taxonomy": "ibm-risk-atlas", "risk_name": "Hallucination", "risk_description": "", "confidence": 0.7, "grounding_confidence": "medium", "accepted_by": "llm_judge", "evidence": [], "scores": {"bm25_rank": 3, "embedding_distance": 0.3, "cross_encoder_score": 0.7, "rrf_score": 0.3}},
-            {"risk_id": "nist-data-privacy", "taxonomy": "nist-ai-rmf", "risk_name": "Data Privacy", "risk_description": "", "confidence": 0.85, "grounding_confidence": "high", "accepted_by": "threshold", "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.85, "rrf_score": 0.5}},
+            {
+                "risk_id": "atlas-bias",
+                "taxonomy": "ibm-risk-atlas",
+                "risk_name": "Bias",
+                "risk_description": "",
+                "confidence": 0.9,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+            },
+            {
+                "risk_id": "atlas-privacy",
+                "taxonomy": "ibm-risk-atlas",
+                "risk_name": "Privacy",
+                "risk_description": "",
+                "confidence": 0.8,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 2, "embedding_distance": 0.2, "cross_encoder_score": 0.8, "rrf_score": 0.4},
+            },
+            {
+                "risk_id": "atlas-hallucination",
+                "taxonomy": "ibm-risk-atlas",
+                "risk_name": "Hallucination",
+                "risk_description": "",
+                "confidence": 0.7,
+                "grounding_confidence": "medium",
+                "accepted_by": "llm_judge",
+                "evidence": [],
+                "scores": {"bm25_rank": 3, "embedding_distance": 0.3, "cross_encoder_score": 0.7, "rrf_score": 0.3},
+            },
+            {
+                "risk_id": "nist-data-privacy",
+                "taxonomy": "nist-ai-rmf",
+                "risk_name": "Data Privacy",
+                "risk_description": "",
+                "confidence": 0.85,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.85, "rrf_score": 0.5},
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 10, "total_candidates_retrieved": 50, "auto_accepted": 3, "llm_judged": 1, "grounding_filtered": 0},
+        "retrieval_stats": {
+            "total_chunks": 10,
+            "total_candidates_retrieved": 50,
+            "auto_accepted": 3,
+            "llm_judged": 1,
+            "grounding_filtered": 0,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))
@@ -199,10 +308,23 @@ def test_evaluate_extraction_per_taxonomy_from_filtered(tmp_path):
         "version": "0.3",
         "risks": [],
         "grounding_filtered_candidates": [
-            {"risk_id": "atlas-bias", "taxonomy": "ibm-risk-atlas", "risk_name": "Bias", "cross_encoder_score": 0.5, "accepted_by": "threshold", "chunk_index": 0},
+            {
+                "risk_id": "atlas-bias",
+                "taxonomy": "ibm-risk-atlas",
+                "risk_name": "Bias",
+                "cross_encoder_score": 0.5,
+                "accepted_by": "threshold",
+                "chunk_index": 0,
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 1, "total_candidates_retrieved": 1, "auto_accepted": 1, "llm_judged": 0, "grounding_filtered": 1},
+        "retrieval_stats": {
+            "total_chunks": 1,
+            "total_candidates_retrieved": 1,
+            "auto_accepted": 1,
+            "llm_judged": 0,
+            "grounding_filtered": 1,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))
@@ -297,27 +419,39 @@ def test_derive_categories(tmp_sssom):
 
 def test_category_eval_in_evaluate_extraction(tmp_path, tmp_sssom):
     gt = tmp_path / "cat-eval.yaml"
-    gt.write_text(
-        "risk_ids:\n"
-        "  - atlas-bias\n"
-        "  - atlas-privacy\n"
-        "  - credo-risk-021\n"
-    )
+    gt.write_text("risk_ids:\n  - atlas-bias\n  - atlas-privacy\n  - credo-risk-021\n")
     data = {
         "version": "0.3",
         "risks": [
-            {"risk_id": "atlas-bias", "risk_name": "Bias", "risk_description": "",
-             "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold",
-             "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1,
-             "cross_encoder_score": 0.9, "rrf_score": 0.5}},
-            {"risk_id": "atlas-hallucination", "risk_name": "Hallucination", "risk_description": "",
-             "confidence": 0.7, "grounding_confidence": "medium", "accepted_by": "llm_judge",
-             "evidence": [], "scores": {"bm25_rank": 3, "embedding_distance": 0.3,
-             "cross_encoder_score": 0.7, "rrf_score": 0.3}},
+            {
+                "risk_id": "atlas-bias",
+                "risk_name": "Bias",
+                "risk_description": "",
+                "confidence": 0.9,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+            },
+            {
+                "risk_id": "atlas-hallucination",
+                "risk_name": "Hallucination",
+                "risk_description": "",
+                "confidence": 0.7,
+                "grounding_confidence": "medium",
+                "accepted_by": "llm_judge",
+                "evidence": [],
+                "scores": {"bm25_rank": 3, "embedding_distance": 0.3, "cross_encoder_score": 0.7, "rrf_score": 0.3},
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 10, "total_candidates_retrieved": 50,
-                            "auto_accepted": 1, "llm_judged": 1, "grounding_filtered": 0},
+        "retrieval_stats": {
+            "total_chunks": 10,
+            "total_candidates_retrieved": 50,
+            "auto_accepted": 1,
+            "llm_judged": 1,
+            "grounding_filtered": 0,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))
@@ -349,14 +483,25 @@ def test_category_eval_missing_sssom(tmp_path):
     data = {
         "version": "0.3",
         "risks": [
-            {"risk_id": "atlas-bias", "risk_name": "Bias", "risk_description": "",
-             "confidence": 0.9, "grounding_confidence": "high", "accepted_by": "threshold",
-             "evidence": [], "scores": {"bm25_rank": 1, "embedding_distance": 0.1,
-             "cross_encoder_score": 0.9, "rrf_score": 0.5}},
+            {
+                "risk_id": "atlas-bias",
+                "risk_name": "Bias",
+                "risk_description": "",
+                "confidence": 0.9,
+                "grounding_confidence": "high",
+                "accepted_by": "threshold",
+                "evidence": [],
+                "scores": {"bm25_rank": 1, "embedding_distance": 0.1, "cross_encoder_score": 0.9, "rrf_score": 0.5},
+            },
         ],
         "source_documents": ["policy.md"],
-        "retrieval_stats": {"total_chunks": 1, "total_candidates_retrieved": 1,
-                            "auto_accepted": 1, "llm_judged": 0, "grounding_filtered": 0},
+        "retrieval_stats": {
+            "total_chunks": 1,
+            "total_candidates_retrieved": 1,
+            "auto_accepted": 1,
+            "llm_judged": 0,
+            "grounding_filtered": 0,
+        },
     }
     ext = tmp_path / "risk-extraction.json"
     ext.write_text(json.dumps(data))

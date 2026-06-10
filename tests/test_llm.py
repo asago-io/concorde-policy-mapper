@@ -9,15 +9,14 @@ from instructor.core import IncompleteOutputException, InstructorRetryException
 from concorde_policy_mapper.llm import (
     LLMConfig,
     TokenTracker,
-    _IncompleteOutput,
     _call_with_retry,
     _extract_response_content,
+    _IncompleteOutput,
     _retry_with_validation,
     _strip_titles,
     _track_completion,
     _truncate_messages,
 )
-
 
 # ---------------------------------------------------------------------------
 # _strip_titles
@@ -448,7 +447,9 @@ class TestRetryWithValidation:
         config = self._make_config()
 
         result = _retry_with_validation(
-            do_call, kwargs, config,
+            do_call,
+            kwargs,
+            config,
             tracker=None,
             original_messages=copy.deepcopy(messages),
             current_messages=messages,
@@ -466,7 +467,9 @@ class TestRetryWithValidation:
 
         with pytest.raises(_IncompleteOutput) as exc_info:
             _retry_with_validation(
-                do_call, kwargs, config,
+                do_call,
+                kwargs,
+                config,
                 tracker=None,
                 original_messages=copy.deepcopy(messages),
                 current_messages=messages,
@@ -477,9 +480,7 @@ class TestRetryWithValidation:
     def test_context_overflow_reduces_max_tokens(self):
         """Context overflow with a valid reduction retries with lower max_tokens."""
         overflow_msg = (
-            "maximum context length is 8192 tokens. "
-            "However, you requested 4096 output tokens "
-            "and 4000 input tokens"
+            "maximum context length is 8192 tokens. However, you requested 4096 output tokens and 4000 input tokens"
         )
         exc = _make_retry_exc(overflow_msg)
         do_call = MagicMock(side_effect=[exc, ("ok", "comp")])
@@ -489,7 +490,9 @@ class TestRetryWithValidation:
         config = self._make_config()
 
         result = _retry_with_validation(
-            do_call, kwargs, config,
+            do_call,
+            kwargs,
+            config,
             tracker=None,
             original_messages=original,
             current_messages=messages,
@@ -502,9 +505,7 @@ class TestRetryWithValidation:
 
     def test_context_overflow_records_incident(self):
         overflow_msg = (
-            "maximum context length is 8192 tokens. "
-            "However, you requested 4096 output tokens "
-            "and 4000 input tokens"
+            "maximum context length is 8192 tokens. However, you requested 4096 output tokens and 4000 input tokens"
         )
         exc = _make_retry_exc(overflow_msg)
         do_call = MagicMock(side_effect=[exc, ("ok", "comp")])
@@ -515,7 +516,9 @@ class TestRetryWithValidation:
         tracker = TokenTracker()
 
         _retry_with_validation(
-            do_call, kwargs, config,
+            do_call,
+            kwargs,
+            config,
             tracker=tracker,
             original_messages=original,
             current_messages=messages,
@@ -532,7 +535,9 @@ class TestRetryWithValidation:
         config = self._make_config()
 
         result = _retry_with_validation(
-            do_call, kwargs, config,
+            do_call,
+            kwargs,
+            config,
             tracker=None,
             original_messages=original,
             current_messages=messages,
@@ -542,10 +547,7 @@ class TestRetryWithValidation:
         assert do_call.call_count == 2
         # On retry, messages should have an appended user message with the error hint
         retry_messages = kwargs["messages"]
-        assert any(
-            msg["role"] == "user" and "Validation error:" in msg["content"]
-            for msg in retry_messages
-        )
+        assert any(msg["role"] == "user" and "Validation error:" in msg["content"] for msg in retry_messages)
 
     def test_validation_exhausted_raises(self):
         exc = _make_retry_exc("persistent validation error")
@@ -558,7 +560,9 @@ class TestRetryWithValidation:
 
         with pytest.raises(InstructorRetryException):
             _retry_with_validation(
-                do_call, kwargs, config,
+                do_call,
+                kwargs,
+                config,
                 tracker=tracker,
                 original_messages=original,
                 current_messages=messages,
@@ -587,7 +591,9 @@ class TestRetryWithValidation:
         config = self._make_config()
 
         result = _retry_with_validation(
-            do_call, kwargs, config,
+            do_call,
+            kwargs,
+            config,
             tracker=None,
             original_messages=original,
             current_messages=messages,

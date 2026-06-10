@@ -40,6 +40,7 @@ allow-direct-references = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["slow: tests that load embedding models (~11-14s each)"]
 
 [dependency-groups]
 dev = [
@@ -47,4 +48,12 @@ dev = [
     "dspy>=2.6",
     "pytest-crap>=0.3.0",
     "pytest-cov>=7.1.0",
+    "ruff>=0.11",
 ]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

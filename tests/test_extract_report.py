@@ -1,5 +1,3 @@
-import json
-
 from concorde_policy_mapper.extract.report import build_risk_extraction_report
 
 
@@ -14,7 +12,15 @@ def test_build_risk_extraction_report_creates_html(tmp_path):
                 "confidence": 0.95,
                 "grounding_confidence": "high",
                 "accepted_by": "threshold",
-                "evidence": [{"text": "bias in outputs", "document": "policy.pdf", "chunk_index": 0, "sentence_index": 0, "cross_encoder_score": 0.0}],
+                "evidence": [
+                    {
+                        "text": "bias in outputs",
+                        "document": "policy.pdf",
+                        "chunk_index": 0,
+                        "sentence_index": 0,
+                        "cross_encoder_score": 0.0,
+                    }
+                ],
                 "scores": {"bm25_rank": 3, "embedding_distance": 0.2, "cross_encoder_score": 0.95, "rrf_score": 0.05},
             }
         ],
@@ -82,7 +88,18 @@ def test_build_risk_extraction_report_with_eval(tmp_path):
         "token_usage": {},
         "chunks": [],
         "llm_calls": [],
-        "eval": {"precision": 0.9, "recall": 0.8, "f1": 0.85, "pass": True, "matched": 15, "missing": ["R-X"], "spurious": [], "matched_ids": [], "total_expected": 16, "total_extracted": 15},
+        "eval": {
+            "precision": 0.9,
+            "recall": 0.8,
+            "f1": 0.85,
+            "pass": True,
+            "matched": 15,
+            "missing": ["R-X"],
+            "spurious": [],
+            "matched_ids": [],
+            "total_expected": 16,
+            "total_extracted": 15,
+        },
     }
 
     output = tmp_path / "report.html"

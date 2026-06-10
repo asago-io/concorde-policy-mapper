@@ -69,7 +69,9 @@ def test_classify_candidates_rank_based():
         ScoredCandidate(risk_id="R-005", risk_name="E", risk_description="e", cross_encoder_score=0.10),
     ]
     accepted, borderline, discarded = classify_candidates(
-        candidates, top_n_accept=2, top_n_judge=2,
+        candidates,
+        top_n_accept=2,
+        top_n_judge=2,
     )
     assert [c.risk_id for c in accepted] == ["R-001", "R-002"]
     assert [c.risk_id for c in borderline] == ["R-003", "R-004"]
@@ -84,7 +86,10 @@ def test_classify_candidates_rank_based_floor():
         ScoredCandidate(risk_id="R-003", risk_name="C", risk_description="c", cross_encoder_score=0.10),
     ]
     accepted, borderline, discarded = classify_candidates(
-        candidates, top_n_accept=2, top_n_judge=2, min_score_floor=0.3,
+        candidates,
+        top_n_accept=2,
+        top_n_judge=2,
+        min_score_floor=0.3,
     )
     assert [c.risk_id for c in accepted] == ["R-001", "R-002"]
     assert len(borderline) == 0
@@ -99,7 +104,9 @@ def test_classify_candidates_legacy_threshold():
         ScoredCandidate(risk_id="R-003", risk_name="C", risk_description="c", cross_encoder_score=0.15),
     ]
     accepted, borderline, discarded = classify_candidates(
-        candidates, threshold_high=0.7, threshold_low=0.3,
+        candidates,
+        threshold_high=0.7,
+        threshold_low=0.3,
     )
     assert [c.risk_id for c in accepted] == ["R-001"]
     assert [c.risk_id for c in borderline] == ["R-002"]
@@ -115,7 +122,10 @@ def test_classify_candidates_bm25_rescue():
         ScoredCandidate(risk_id="R-004", risk_name="D", risk_description="d", cross_encoder_score=0.001, bm25_rank=0),
     ]
     accepted, borderline, discarded = classify_candidates(
-        candidates, threshold_high=0.7, threshold_low=0.15, bm25_rescue_rank=10,
+        candidates,
+        threshold_high=0.7,
+        threshold_low=0.15,
+        bm25_rescue_rank=10,
     )
     assert [c.risk_id for c in accepted] == ["R-001"]
     assert [c.risk_id for c in borderline] == ["R-002"]
@@ -128,7 +138,10 @@ def test_classify_candidates_bm25_rescue_disabled():
         ScoredCandidate(risk_id="R-001", risk_name="A", risk_description="a", cross_encoder_score=0.001, bm25_rank=5),
     ]
     accepted, borderline, discarded = classify_candidates(
-        candidates, threshold_high=0.7, threshold_low=0.15, bm25_rescue_rank=0,
+        candidates,
+        threshold_high=0.7,
+        threshold_low=0.15,
+        bm25_rescue_rank=0,
     )
     assert len(accepted) == 0
     assert len(borderline) == 0
@@ -142,7 +155,10 @@ def test_classify_candidates_bm25_rescue_rank_based():
         ScoredCandidate(risk_id="R-002", risk_name="B", risk_description="b", cross_encoder_score=0.001, bm25_rank=5),
     ]
     accepted, borderline, discarded = classify_candidates(
-        candidates, top_n_accept=1, top_n_judge=0, bm25_rescue_rank=10,
+        candidates,
+        top_n_accept=1,
+        top_n_judge=0,
+        bm25_rescue_rank=10,
     )
     assert [c.risk_id for c in accepted] == ["R-001"]
     assert [c.risk_id for c in borderline] == ["R-002"]
@@ -156,14 +172,17 @@ def test_judge_borderline_accepts_relevant():
     ]
     candidates = [
         ScoredCandidate(
-            risk_id="R-001", risk_name="Model Bias",
+            risk_id="R-001",
+            risk_name="Model Bias",
             risk_description="Systematic errors favoring certain groups.",
             cross_encoder_score=0.5,
         ),
     ]
     accepted = judge_borderline(
-        candidates, chunk_text="The AI system may produce biased outcomes.",
-        client=mock_client, model="test-model",
+        candidates,
+        chunk_text="The AI system may produce biased outcomes.",
+        client=mock_client,
+        model="test-model",
     )
     assert len(accepted) == 1
     assert accepted[0].risk_id == "R-001"
@@ -176,14 +195,17 @@ def test_judge_borderline_rejects_irrelevant():
     ]
     candidates = [
         ScoredCandidate(
-            risk_id="R-005", risk_name="Workforce Displacement",
+            risk_id="R-005",
+            risk_name="Workforce Displacement",
             risk_description="Automation leading to unemployment.",
             cross_encoder_score=0.4,
         ),
     ]
     accepted = judge_borderline(
-        candidates, chunk_text="The AI system must be transparent.",
-        client=mock_client, model="test-model",
+        candidates,
+        chunk_text="The AI system must be transparent.",
+        client=mock_client,
+        model="test-model",
     )
     assert len(accepted) == 0
 
@@ -217,8 +239,12 @@ def test_judge_borderline_captures_call():
 
     collector: list[LLMCallRecord] = []
     result = judge_borderline(
-        candidates, "Some chunk text about AI bias.", mock_client, "test-model",
-        call_collector=collector, chunk_index=3,
+        candidates,
+        "Some chunk text about AI bias.",
+        mock_client,
+        "test-model",
+        call_collector=collector,
+        chunk_index=3,
     )
 
     assert len(result) == 1
@@ -272,6 +298,7 @@ def test_retrieve_chunk_no_cross_encoder():
 
 # --- classify_by_rank / classify_by_threshold direct tests ---
 
+
 def test_classify_by_rank_accepts_top_n():
     candidates = [
         ScoredCandidate(risk_id="R-001", risk_name="A", risk_description="a", cross_encoder_score=0.90),
@@ -279,7 +306,9 @@ def test_classify_by_rank_accepts_top_n():
         ScoredCandidate(risk_id="R-003", risk_name="C", risk_description="c", cross_encoder_score=0.50),
     ]
     accepted, borderline, discarded = classify_by_rank(
-        candidates, top_n_accept=1, top_n_judge=1,
+        candidates,
+        top_n_accept=1,
+        top_n_judge=1,
     )
     assert [c.risk_id for c in accepted] == ["R-001"]
     assert [c.risk_id for c in borderline] == ["R-002"]
@@ -292,7 +321,10 @@ def test_classify_by_rank_floor_discards():
         ScoredCandidate(risk_id="R-002", risk_name="B", risk_description="b", cross_encoder_score=0.30),
     ]
     accepted, borderline, discarded = classify_by_rank(
-        candidates, top_n_accept=5, top_n_judge=5, min_score_floor=0.50,
+        candidates,
+        top_n_accept=5,
+        top_n_judge=5,
+        min_score_floor=0.50,
     )
     assert [c.risk_id for c in accepted] == ["R-001"]
     assert len(borderline) == 0
@@ -306,7 +338,9 @@ def test_classify_by_threshold_accepts_above_high():
         ScoredCandidate(risk_id="R-003", risk_name="C", risk_description="c", cross_encoder_score=0.05),
     ]
     accepted, borderline, discarded = classify_by_threshold(
-        candidates, threshold_high=0.80, threshold_low=0.20,
+        candidates,
+        threshold_high=0.80,
+        threshold_low=0.20,
     )
     assert [c.risk_id for c in accepted] == ["R-001"]
     assert [c.risk_id for c in borderline] == ["R-002"]
@@ -315,11 +349,13 @@ def test_classify_by_threshold_accepts_above_high():
 
 def test_classify_by_threshold_bm25_rescue():
     candidates = [
-        ScoredCandidate(risk_id="R-001", risk_name="A", risk_description="a",
-                        cross_encoder_score=0.05, bm25_rank=2),
+        ScoredCandidate(risk_id="R-001", risk_name="A", risk_description="a", cross_encoder_score=0.05, bm25_rank=2),
     ]
     accepted, borderline, discarded = classify_by_threshold(
-        candidates, threshold_high=0.80, threshold_low=0.20, bm25_rescue_rank=5,
+        candidates,
+        threshold_high=0.80,
+        threshold_low=0.20,
+        bm25_rescue_rank=5,
     )
     assert len(accepted) == 0
     assert [c.risk_id for c in borderline] == ["R-001"]
@@ -327,6 +363,7 @@ def test_classify_by_threshold_bm25_rescue():
 
 
 # --- _pad_with_budget tests ---
+
 
 def test_pad_with_budget_includes_full_prev_and_next():
     """Budget large enough for both neighbors: output includes all three chunks."""
