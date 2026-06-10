@@ -1,6 +1,14 @@
+from unittest.mock import MagicMock
+
 from concorde_policy_mapper.extract.models import RetrievalConfig
 from concorde_policy_mapper.extract.parse import Chunk
-from concorde_policy_mapper.extract.querygen import ChunkGroup, group_chunks
+from concorde_policy_mapper.extract.querygen import (
+    ChunkGroup,
+    GeneratedQueries,
+    QueryResult,
+    generate_queries,
+    group_chunks,
+)
 
 
 def test_retrieval_config_query_gen_default_false():
@@ -123,3 +131,109 @@ def test_group_chunks_none_merges_respects_size_cap():
     # Section "A" splits into [0,1,2] and [3]. None merges into [3] -> [3,4]
     assert groups[0].chunk_indices == [0, 1, 2]
     assert groups[1].chunk_indices == [3, 4]
+
+
+def _make_mock_client(queries_per_call):
+    """Build a mock instructor client that returns GeneratedQueries."""
+    client = MagicMock()
+
+    def fake_create(**kwargs):
+        return GeneratedQueries(queries=queries_per_call.pop(0))
+
+    client.chat.completions.create = MagicMock(side_effect=fake_create)
+    return client
+
+
+def test_generate_queries_basic():
+    chunks = [
+        Chunk(text="AI systems must not discriminate.", source="doc.pdf", index=0, section="Bias"),
+        Chunk(text="Protected groups need equal treatment.", source="doc.pdf", index=1, section="Bias"),
+    ]
+    groups = [ChunkGroup(chunk_indices=[0, 1], section="Bias")]
+    client = _make_mock_client([
+        ["Unfair treatment in AI decisions based on protected characteristics"],
+    ])
+
+    results = generate_queries(chunks, groups, client, "test-model")
+
+    assert len(results) == 1
+    assert results[0].query == "Unfair treatment in AI decisions based on protected characteristics"
+    assert results[0].chunk_indices == [0, 1]
+    assert results[0].section == "Bias"
+
+
+def test_generate_queries_empty_list_skips_group():
+    chunks = [
+        Chunk(text="Table of contents page 1", source="doc.pdf", index=0, section="TOC"),
+    ]
+    groups = [ChunkGroup(chunk_indices=[0], section="TOC")]
+    client = _make_mock_client([[]])
+
+    results = generate_queries(chunks, groups, client, "test-model")
+
+    assert results == []
+
+
+def test_generate_queries_multiple_groups():
+    chunks = [
+        Chunk(text="privacy concern", source="doc.pdf", index=0, section="A"),
+        Chunk(text="security concern", source="doc.pdf", index=1, section="B"),
+    ]
+    groups = [
+        ChunkGroup(chunk_indices=[0], section="A"),
+        ChunkGroup(chunk_indices=[1], section="B"),
+    ]
+    client = _make_mock_client([
+        ["data privacy in AI training"],
+        ["adversarial attacks on AI systems"],
+    ])
+
+    results = generate_queries(chunks, groups, client, "test-model")
+
+    assert len(results) == 2
+    assert results[0].chunk_indices == [0]
+    assert results[1].chunk_indices == [1]
+
+
+def test_generate_queries_records_llm_calls():
+    chunks = [
+        Chunk(text="AI bias text", source="doc.pdf", index=0, section="Bias"),
+    ]
+    groups = [ChunkGroup(chunk_indices=[0], section="Bias")]
+    client = _make_mock_client([["bias query"]])
+    call_collector = []
+
+    generate_queries(chunks, groups, client, "test-model", call_collector=call_collector)
+
+    assert len(call_collector) == 1
+    assert call_collector[0].stage == "query_gen"
+
+
+def test_generate_queries_fallback_on_failure():
+    chunks = [
+        Chunk(text="AI text", source="doc.pdf", index=0, section="A"),
+        Chunk(text="More AI text", source="doc.pdf", index=1, section="B"),
+    ]
+    groups = [
+        ChunkGroup(chunk_indices=[0], section="A"),
+        ChunkGroup(chunk_indices=[1], section="B"),
+    ]
+
+    call_count = [0]
+
+    def failing_then_ok(**kwargs):
+        call_count[0] += 1
+        if call_count[0] == 1:
+            raise Exception("LLM timeout")
+        return GeneratedQueries(queries=["query for B"])
+
+    client = MagicMock()
+    client.chat.completions.create = MagicMock(side_effect=failing_then_ok)
+
+    results, fallback_indices = generate_queries(
+        chunks, groups, client, "test-model", return_fallbacks=True
+    )
+
+    assert len(results) == 1
+    assert results[0].chunk_indices == [1]
+    assert fallback_indices == [0]
