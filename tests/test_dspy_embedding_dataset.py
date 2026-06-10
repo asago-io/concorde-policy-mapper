@@ -12,6 +12,7 @@ _POLICY_DIR = Path(__file__).resolve().parent.parent / "policy_examples"
     not (_GT_DIR / "sap.yaml").exists() or not any(_POLICY_DIR.glob("sap.*")),
     reason="Ground truth or policy file for 'sap' not available",
 )
+@pytest.mark.slow
 def test_build_example_sap():
     from experiments.dspy_embedding.dataset import _build_example
 
