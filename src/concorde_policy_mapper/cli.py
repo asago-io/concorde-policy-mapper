@@ -110,6 +110,9 @@ def extract(
     no_causal_synthesis: bool = typer.Option(
         False, "--no-causal-synthesis", help="Skip LLM causal chain synthesis; populate from static YAML only"
     ),
+    query_gen: bool = typer.Option(
+        False, "--query-gen/--no-query-gen", help="Use LLM to generate risk-vocabulary queries from chunk groups"
+    ),
     temperature: float = typer.Option(0.0, "--temperature", help="LLM sampling temperature (default: 0.0)"),
     top_p: float = typer.Option(None, "--top-p", help="LLM nucleus sampling top-p (omitted if not set)"),
     top_k: int = typer.Option(
@@ -122,7 +125,7 @@ def extract(
             typer.echo(f"Error: {pf} does not exist", err=True)
             raise typer.Exit(1)
 
-    needs_llm = not (no_judge and no_grounding and not expand_siblings)
+    needs_llm = not (no_judge and no_grounding and not expand_siblings) or query_gen
     if needs_llm and (not base_url or not model):
         typer.echo(
             "Error: --base-url and --model are required (unless both --no-judge and --no-grounding are set)", err=True
@@ -192,6 +195,7 @@ def extract(
         grounding_passes=grounding_passes,
         expansion_passes=expansion_passes,
         no_causal_synthesis=no_causal_synthesis,
+        query_gen=query_gen,
     )
 
     typer.echo(f"Extracting risks from {len(policy_files)} document(s) ({len(all_risks)} Nexus risks loaded)...")
