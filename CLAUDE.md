@@ -165,4 +165,4 @@ Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YA
 ## Development
 
 - DO NOT skip updating the changelog with any changes made
-- DO NOT skip updating AGENTS.md/CLAUDE.md and the README.md when changes require it
+- DO NOT skip updating AGENTS.md and the README.md when changes require it
