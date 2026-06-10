@@ -733,18 +733,10 @@ def run_extraction(
     ]
 
     with timed(timing, "judge_ms"):
-        if retrieval.query_gen:
-            fallback_results = [chunk_results[i] for i in sorted(fallback_chunk_indices)]
-            if fallback_results:
-                _run_judge(
-                    fallback_results, chunks, client, config, retrieval, call_collector,
-                    chunk_contexts=chunk_contexts,
-                )
-        else:
-            _run_judge(
-                chunk_results, chunks, client, config, retrieval, call_collector,
-                chunk_contexts=chunk_contexts,
-            )
+        _run_judge(
+            chunk_results, chunks, client, config, retrieval, call_collector,
+            chunk_contexts=chunk_contexts,
+        )
 
     if retrieval.no_grounding:
         all_matches = _collect_ungrounded(chunk_results, index, retrieval)
