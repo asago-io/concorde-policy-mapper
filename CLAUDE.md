@@ -116,7 +116,8 @@ Category-level taxonomy mapping (NIST, OWASP, AILuminate) is handled at eval tim
 - `create_client()` wraps OpenAI with `instructor` (JSON mode) for structured Pydantic outputs
 - `TokenTracker` accumulates usage across stages; `LLMConfig` holds connection details
 - Automatic retry on validation errors (appends error hint), context overflow detection (reduces max_tokens), and prompt truncation on incomplete output
-- All LLM calls use `response_model=list[PydanticModel]` with `temperature=0.0`
+- Sampling parameters (`temperature`, `top_p`, `top_k`) are injected by the tracking wrapper from `LLMConfig` defaults — call sites don't set them directly. `top_k` is passed via `extra_body` for vLLM compatibility.
+- All LLM calls default to `temperature=0.0`; override with `--temperature`, `--top-p`, `--top-k` CLI flags (e.g. `--temperature 1.0 --top-p 0.95 --top-k 64` for Gemma 4)
 
 ### Prompt Templates (`templates/prompts/`)
 
@@ -169,7 +170,7 @@ Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YA
 
 ## Dependency Pins
 
-- `ai-atlas-nexus` is pinned to a specific commit (v1.2.1) — `@main` may have breaking Pydantic schema changes
+- `ai-atlas-nexus` is pinned to `@main`
 - `torch<2.12` and `transformers<5.6` — newer versions introduce an MPS-incompatible `rt_detr_v2` layout model in docling's PDF pipeline on Apple Silicon
 
 ## Experiments

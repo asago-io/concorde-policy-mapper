@@ -42,7 +42,9 @@ class LLMConfig:
     base_url: str
     model: str
     api_key: str = "none"
-    temperature: float = 0.3
+    temperature: float = 0.0
+    top_p: float | None = None
+    top_k: int | None = None
     max_retries: int = 3
     max_tokens: int = 8192
     max_concurrent: int = 32
@@ -344,6 +346,12 @@ def _wrap_with_tracking(client: instructor.Instructor, tracker: TokenTracker, co
         return client.chat.completions.create_with_completion(**kwargs)
 
     def tracked_create(**kwargs):
+        kwargs.setdefault("temperature", config.temperature)
+        if config.top_p is not None:
+            kwargs.setdefault("top_p", config.top_p)
+        if config.top_k is not None:
+            extra = kwargs.setdefault("extra_body", {})
+            extra.setdefault("top_k", config.top_k)
         _apply_budget(kwargs, config)
         tracker._thread_local.current_messages = kwargs.get("messages")
         try:

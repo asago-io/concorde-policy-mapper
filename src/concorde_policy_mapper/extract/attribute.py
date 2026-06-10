@@ -51,7 +51,6 @@ def ground_and_extract_evidence(
         model=model,
         response_model=list[_RiskEvidence],
         messages=messages,
-        temperature=0.0,
     )
     duration_ms = (time.time() - t0) * 1000
 
@@ -128,7 +127,6 @@ def ground_risk_group(
         model=model,
         response_model=list[_RiskEvidence],
         messages=messages,
-        temperature=0.0,
     )
     duration_ms = (time.time() - t0) * 1000
 
@@ -201,7 +199,6 @@ def synthesize_causal_chain(
         model=model,
         response_model=list[_CausalChain],
         messages=messages,
-        temperature=0.0,
     )
     duration_ms = (time.time() - t0) * 1000
 

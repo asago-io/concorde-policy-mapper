@@ -208,7 +208,6 @@ def judge_borderline(
         model=model,
         response_model=list[_JudgeVerdict],
         messages=messages,
-        temperature=0.0,
     )
     duration_ms = (time.time() - t0) * 1000
 

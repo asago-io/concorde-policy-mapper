@@ -110,6 +110,11 @@ def extract(
     no_causal_synthesis: bool = typer.Option(
         False, "--no-causal-synthesis", help="Skip LLM causal chain synthesis; populate from static YAML only"
     ),
+    temperature: float = typer.Option(0.0, "--temperature", help="LLM sampling temperature (default: 0.0)"),
+    top_p: float = typer.Option(None, "--top-p", help="LLM nucleus sampling top-p (omitted if not set)"),
+    top_k: int = typer.Option(
+        None, "--top-k", help="LLM top-k sampling (passed via extra_body for vLLM; omitted if not set)"
+    ),
 ):
     """Extract risks from policy documents using hybrid retrieval."""
     for pf in policy_files:
@@ -130,12 +135,26 @@ def extract(
 
     if not needs_llm:
         config = LLMConfig(
-            base_url=base_url or "unused", model=model or "unused", api_key=api_key, max_concurrent=max_concurrent
+            base_url=base_url or "unused",
+            model=model or "unused",
+            api_key=api_key,
+            max_concurrent=max_concurrent,
+            temperature=temperature,
+            top_p=top_p,
+            top_k=top_k,
         )
         tracker = TokenTracker()
         client = None
     else:
-        config = LLMConfig(base_url=base_url, model=model, api_key=api_key, max_concurrent=max_concurrent)
+        config = LLMConfig(
+            base_url=base_url,
+            model=model,
+            api_key=api_key,
+            max_concurrent=max_concurrent,
+            temperature=temperature,
+            top_p=top_p,
+            top_k=top_k,
+        )
         tracker = TokenTracker()
         client = create_client(config, tracker=tracker)
     debug.configure(debug_dir)

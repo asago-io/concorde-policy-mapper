@@ -28,13 +28,13 @@ import yaml
 
 from concorde_policy_mapper.evals.eval import evaluate_extraction
 from concorde_policy_mapper.tracking import (
-    init_tracking,
     end_tracking,
+    init_tracking,
     is_tracking_enabled,
-    log_params,
-    log_metrics,
     log_artifact,
     log_child_run,
+    log_metrics,
+    log_params,
     sync_prompts,
 )
 
@@ -85,33 +85,36 @@ def _pad_name(name: str, width: int = 20) -> str:
 
 
 def run_one(
-        policies: list[Path],
-        name: str,
-        base_url: str,
-        model: str,
-        runs_dir: Path,
-        chunk_max_tokens: int = 512,
-        top_n_accept: int = 10,
-        top_n_judge: int = 10,
-        min_score_floor: float = 0.70,
-        threshold_high: float | None = None,
-        threshold_low: float | None = None,
-        bi_encoder_model: str = "all-mpnet-base-v2",
-        query_instruction: str | None = None,
-        cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-12-v2",
-        cross_encoder_type: str = "score",
-        name_width: int = 20,
-        bm25_rescue_rank: int = 0,
-        no_cross_encoder: bool = False,
-        rrf_min_score: float = 0.015,
-        colbert_model: str | None = None,
-        expand_siblings: bool = True,
-        grounding_passes: int = 3,
-        expansion_passes: int = 3,
-        judge_prompt: str = "judge_risk",
-        judge_context_tokens: int = 0,
-        no_judge: bool = False,
-        no_grounding: bool = False,
+    policies: list[Path],
+    name: str,
+    base_url: str,
+    model: str,
+    runs_dir: Path,
+    chunk_max_tokens: int = 512,
+    top_n_accept: int = 10,
+    top_n_judge: int = 10,
+    min_score_floor: float = 0.70,
+    threshold_high: float | None = None,
+    threshold_low: float | None = None,
+    bi_encoder_model: str = "all-mpnet-base-v2",
+    query_instruction: str | None = None,
+    cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-12-v2",
+    cross_encoder_type: str = "score",
+    name_width: int = 20,
+    bm25_rescue_rank: int = 0,
+    no_cross_encoder: bool = False,
+    rrf_min_score: float = 0.015,
+    colbert_model: str | None = None,
+    expand_siblings: bool = True,
+    grounding_passes: int = 3,
+    expansion_passes: int = 3,
+    judge_prompt: str = "judge_risk",
+    judge_context_tokens: int = 0,
+    no_judge: bool = False,
+    no_grounding: bool = False,
+    temperature: float = 0.0,
+    top_p: float | None = None,
+    top_k: int | None = None,
 ) -> tuple[str, bool, str, int, float]:
     out = runs_dir / name
     tag = _pad_name(name, name_width)
@@ -120,24 +123,39 @@ def run_one(
     _locked_print(f"  [{tag}] starting ({files_desc})")
 
     cmd = [
-        "uv", "run", "concorde-policy-mapper", "extract",
+        "uv",
+        "run",
+        "concorde-policy-mapper",
+        "extract",
         *[str(p) for p in policies],
-        "-o", str(out),
-        "--base-url", base_url,
-        "--model", model,
-        "--nexus-base-dir", NEXUS_BASE_DIR,
-        "--chunk-max-tokens", str(chunk_max_tokens),
-        "--top-n-accept", str(top_n_accept),
-        "--top-n-judge", str(top_n_judge),
-        "--min-score-floor", str(min_score_floor),
-        "--bi-encoder-model", bi_encoder_model,
-        "--cross-encoder-model", cross_encoder_model,
-        "--cross-encoder-type", cross_encoder_type,
+        "-o",
+        str(out),
+        "--base-url",
+        base_url,
+        "--model",
+        model,
+        "--nexus-base-dir",
+        NEXUS_BASE_DIR,
+        "--chunk-max-tokens",
+        str(chunk_max_tokens),
+        "--top-n-accept",
+        str(top_n_accept),
+        "--top-n-judge",
+        str(top_n_judge),
+        "--min-score-floor",
+        str(min_score_floor),
+        "--bi-encoder-model",
+        bi_encoder_model,
+        "--cross-encoder-model",
+        cross_encoder_model,
+        "--cross-encoder-type",
+        cross_encoder_type,
     ]
     if query_instruction:
         cmd.extend(["--query-instruction", query_instruction])
     cmd += [
-        "--bm25-rescue-rank", str(bm25_rescue_rank),
+        "--bm25-rescue-rank",
+        str(bm25_rescue_rank),
     ]
     if no_cross_encoder:
         cmd.extend(["--no-cross-encoder", "--rrf-min-score", str(rrf_min_score)])
@@ -161,6 +179,12 @@ def run_one(
         cmd.extend(["--threshold-high", str(threshold_high)])
     if threshold_low is not None:
         cmd.extend(["--threshold-low", str(threshold_low)])
+    if temperature != 0.0:
+        cmd.extend(["--temperature", str(temperature)])
+    if top_p is not None:
+        cmd.extend(["--top-p", str(top_p)])
+    if top_k is not None:
+        cmd.extend(["--top-k", str(top_k)])
 
     t0 = time.monotonic()
     proc = subprocess.Popen(
@@ -207,7 +231,9 @@ def run_eval(name: str, runs_dir: Path, min_recall: float = 0.80, min_precision:
     extracted_path = runs_dir / name / "risk-extraction.json"
     if not extracted_path.exists():
         return None
-    result = evaluate_extraction(gt_path, extracted_path, policy_name=name, min_recall=min_recall, min_precision=min_precision)
+    result = evaluate_extraction(
+        gt_path, extracted_path, policy_name=name, min_recall=min_recall, min_precision=min_precision
+    )
     eval_path = runs_dir / name / "eval.json"
     eval_path.write_text(json.dumps(result, indent=2))
 
@@ -217,6 +243,7 @@ def run_eval(name: str, runs_dir: Path, min_recall: float = 0.80, min_precision:
 
     try:
         from concorde_policy_mapper.extract.report import build_risk_extraction_report
+
         build_risk_extraction_report(extraction_data, runs_dir / name / "risk-extraction.html")
     except Exception as e:
         _locked_print(f"  [{name}] Warning: could not generate HTML report: {e}")
@@ -258,9 +285,13 @@ def _build_battery_report(summary: dict, output_path: Path) -> None:
                 if td and td["expected"] > 0:
                     val = td[metric]
                     style = _cell_color(val)
-                    cells.append(f'<td style="{style} text-align:center; padding:4px 8px; font-size:13px;">{val:.2f}</td>')
+                    cells.append(
+                        f'<td style="{style} text-align:center; padding:4px 8px; font-size:13px;">{val:.2f}</td>'
+                    )
                 else:
-                    cells.append(f'<td style="{_cell_color(None)} text-align:center; padding:4px 8px; font-size:13px;">—</td>')
+                    cells.append(
+                        f'<td style="{_cell_color(None)} text-align:center; padding:4px 8px; font-size:13px;">—</td>'
+                    )
             agg_val = ev.get(metric, 0)
             style = _cell_color(agg_val)
             rows.append(
@@ -302,7 +333,7 @@ def _build_battery_report(summary: dict, output_path: Path) -> None:
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Battery Report — {summary.get('battery', '')} ({summary.get('timestamp', '')})</title>
+<title>Battery Report — {summary.get("battery", "")} ({summary.get("timestamp", "")})</title>
 <style>
   body {{ font-family: system-ui, -apple-system, sans-serif; margin: 24px; background: #f9fafb; color: #111; }}
   h1 {{ font-size: 20px; margin-bottom: 4px; }}
@@ -317,8 +348,8 @@ def _build_battery_report(summary: dict, output_path: Path) -> None:
 </style>
 </head>
 <body>
-<h1>Battery Report: {summary.get('battery', '')}</h1>
-<p style="color:#6b7280; font-size:13px;">Model: {summary.get('model', '')} &middot; {summary.get('timestamp', '')}</p>
+<h1>Battery Report: {summary.get("battery", "")}</h1>
+<p style="color:#6b7280; font-size:13px;">Model: {summary.get("model", "")} &middot; {summary.get("timestamp", "")}</p>
 
 <div class="summary">
   <div class="stat"><div class="label">Evals</div><div class="value">{n_pass}/{len(eval_results)} pass</div></div>
@@ -351,31 +382,108 @@ def _build_battery_report(summary: dict, output_path: Path) -> None:
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("battery", type=Path, help="Battery config YAML file (e.g. ../batteries/simple.yaml)")
-    parser.add_argument("--base-url", default=os.environ.get("POLICY_MAPPER_BASE_URL"), help="LLM API base URL (default: $POLICY_MAPPER_BASE_URL)")
-    parser.add_argument("--model", default=None, help="Override model from battery config (default: $POLICY_MAPPER_MODEL)")
+    parser.add_argument(
+        "--base-url",
+        default=os.environ.get("POLICY_MAPPER_BASE_URL"),
+        help="LLM API base URL (default: $POLICY_MAPPER_BASE_URL)",
+    )
+    parser.add_argument(
+        "--model", default=None, help="Override model from battery config (default: $POLICY_MAPPER_MODEL)"
+    )
     parser.add_argument("-j", "--jobs", type=int, default=6, help="Max parallel jobs (default: 6)")
     parser.add_argument("--chunk-max-tokens", type=int, default=512, help="Max tokens per chunk (default: 512)")
-    parser.add_argument("--top-n-accept", type=int, default=10, help="Auto-accept top N candidates per chunk (default: 10)")
+    parser.add_argument(
+        "--top-n-accept", type=int, default=10, help="Auto-accept top N candidates per chunk (default: 10)"
+    )
     parser.add_argument("--top-n-judge", type=int, default=10, help="Send next N candidates to LLM judge (default: 10)")
-    parser.add_argument("--min-score-floor", type=float, default=0.70, help="Reject candidates below this score (default: 0.70)")
-    parser.add_argument("--threshold-high", type=float, default=None, help="Legacy: absolute auto-accept threshold (overrides rank-based)")
+    parser.add_argument(
+        "--min-score-floor", type=float, default=0.70, help="Reject candidates below this score (default: 0.70)"
+    )
+    parser.add_argument(
+        "--threshold-high",
+        type=float,
+        default=None,
+        help="Legacy: absolute auto-accept threshold (overrides rank-based)",
+    )
     parser.add_argument("--threshold-low", type=float, default=None, help="Legacy: absolute discard threshold")
-    parser.add_argument("--bi-encoder-model", default="all-mpnet-base-v2", help="Bi-encoder model (default: all-mpnet-base-v2)")
-    parser.add_argument("--query-instruction", default=None, help="Instruction prefix for query encoding (default: built-in policy-risk instruction)")
-    parser.add_argument("--cross-encoder-model", default="cross-encoder/ms-marco-MiniLM-L-12-v2", help="Cross-encoder model (default: cross-encoder/ms-marco-MiniLM-L-12-v2)")
-    parser.add_argument("--cross-encoder-type", default="score", choices=["score", "generative"], help="Cross-encoder API type: 'score' for /v1/score, 'generative' for logprob rerankers (default: score)")
-    parser.add_argument("--bm25-rescue-rank", type=int, default=0, help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled, default: 0)")
-    parser.add_argument("--no-cross-encoder", action="store_true", help="Skip cross-encoder reranking and LLM judge; use RRF score floor instead")
-    parser.add_argument("--rrf-min-score", type=float, default=0.015, help="Minimum RRF score for candidates (only used with --no-cross-encoder)")
-    parser.add_argument("--colbert-model", default=None, help="ColBERT model for late interaction retrieval (replaces bi-encoder + cross-encoder)")
-    parser.add_argument("--expand-siblings", action=argparse.BooleanOptionalAction, default=True, help="Expand to sibling risks after merge (default: enabled)")
-    parser.add_argument("--grounding-passes", type=int, default=3, help="Number of per-chunk grounding passes; union reduces variance (default: 3)")
-    parser.add_argument("--expansion-passes", type=int, default=3, help="Number of expansion grounding passes; union reduces variance (default: 3)")
+    parser.add_argument(
+        "--bi-encoder-model", default="all-mpnet-base-v2", help="Bi-encoder model (default: all-mpnet-base-v2)"
+    )
+    parser.add_argument(
+        "--query-instruction",
+        default=None,
+        help="Instruction prefix for query encoding (default: built-in policy-risk instruction)",
+    )
+    parser.add_argument(
+        "--cross-encoder-model",
+        default="cross-encoder/ms-marco-MiniLM-L-12-v2",
+        help="Cross-encoder model (default: cross-encoder/ms-marco-MiniLM-L-12-v2)",
+    )
+    parser.add_argument(
+        "--cross-encoder-type",
+        default="score",
+        choices=["score", "generative"],
+        help="Cross-encoder API type: 'score' for /v1/score, 'generative' for logprob rerankers (default: score)",
+    )
+    parser.add_argument(
+        "--bm25-rescue-rank",
+        type=int,
+        default=0,
+        help="BM25 rank cutoff for rescuing candidates past cross-encoder (0=disabled, default: 0)",
+    )
+    parser.add_argument(
+        "--no-cross-encoder",
+        action="store_true",
+        help="Skip cross-encoder reranking and LLM judge; use RRF score floor instead",
+    )
+    parser.add_argument(
+        "--rrf-min-score",
+        type=float,
+        default=0.015,
+        help="Minimum RRF score for candidates (only used with --no-cross-encoder)",
+    )
+    parser.add_argument(
+        "--colbert-model",
+        default=None,
+        help="ColBERT model for late interaction retrieval (replaces bi-encoder + cross-encoder)",
+    )
+    parser.add_argument(
+        "--expand-siblings",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Expand to sibling risks after merge (default: enabled)",
+    )
+    parser.add_argument(
+        "--grounding-passes",
+        type=int,
+        default=3,
+        help="Number of per-chunk grounding passes; union reduces variance (default: 3)",
+    )
+    parser.add_argument(
+        "--expansion-passes",
+        type=int,
+        default=3,
+        help="Number of expansion grounding passes; union reduces variance (default: 3)",
+    )
     parser.add_argument("--judge-prompt", default="judge_risk", help="Judge prompt template name (default: judge_risk)")
-    parser.add_argument("--judge-context-tokens", type=int, default=0, help="Max tokens for judge context window (0=default sentence padding)")
+    parser.add_argument(
+        "--judge-context-tokens",
+        type=int,
+        default=0,
+        help="Max tokens for judge context window (0=default sentence padding)",
+    )
     parser.add_argument("--no-judge", action="store_true", help="Skip LLM judge; auto-promote borderline candidates")
-    parser.add_argument("--no-grounding", action="store_true", help="Skip LLM grounding; accepted candidates become matches without evidence")
-    parser.add_argument("--mlflow-experiment", default="risk-extraction", help="MLflow experiment name (default: risk-extraction)")
+    parser.add_argument(
+        "--no-grounding",
+        action="store_true",
+        help="Skip LLM grounding; accepted candidates become matches without evidence",
+    )
+    parser.add_argument("--temperature", type=float, default=0.0, help="LLM sampling temperature (default: 0.0)")
+    parser.add_argument("--top-p", type=float, default=None, help="LLM nucleus sampling top-p (omitted if not set)")
+    parser.add_argument("--top-k", type=int, default=None, help="LLM top-k sampling (omitted if not set)")
+    parser.add_argument(
+        "--mlflow-experiment", default="risk-extraction", help="MLflow experiment name (default: risk-extraction)"
+    )
     parser.add_argument("--no-mlflow", action="store_true", help="Disable MLflow tracking")
     args = parser.parse_args()
 
@@ -422,9 +530,9 @@ def main():
     print(f"  chunk_tokens:   {args.chunk_max_tokens}")
     print(f"  cross_encoder:  {'DISABLED' if args.no_cross_encoder else args.cross_encoder_model}")
     if args.no_judge:
-        print(f"  no_judge:       True (borderline auto-promoted)")
+        print("  no_judge:       True (borderline auto-promoted)")
     if args.no_grounding:
-        print(f"  no_grounding:   True (skip evidence grounding)")
+        print("  no_grounding:   True (skip evidence grounding)")
     if args.no_cross_encoder:
         print(f"  rrf_min_score:  {args.rrf_min_score}")
     if args.threshold_high is not None:
@@ -446,23 +554,26 @@ def main():
         run_name=f"{battery_name}_{timestamp}",
     )
     if is_tracking_enabled(tracking_ctx):
-        log_params(tracking_ctx, {
-            "model": model,
-            "bi_encoder_model": args.bi_encoder_model,
-            "cross_encoder_model": args.cross_encoder_model,
-            "top_n_accept": str(args.top_n_accept),
-            "top_n_judge": str(args.top_n_judge),
-            "min_score_floor": str(args.min_score_floor),
-            "threshold_high": str(args.threshold_high),
-            "threshold_low": str(args.threshold_low),
-            "rrf_min_score": str(args.rrf_min_score),
-            "no_cross_encoder": str(args.no_cross_encoder),
-            "chunk_max_tokens": str(args.chunk_max_tokens),
-            "no_judge": str(args.no_judge),
-            "no_grounding": str(args.no_grounding),
-            "jobs": str(args.jobs),
-            "battery_config": battery_path.name,
-        })
+        log_params(
+            tracking_ctx,
+            {
+                "model": model,
+                "bi_encoder_model": args.bi_encoder_model,
+                "cross_encoder_model": args.cross_encoder_model,
+                "top_n_accept": str(args.top_n_accept),
+                "top_n_judge": str(args.top_n_judge),
+                "min_score_floor": str(args.min_score_floor),
+                "threshold_high": str(args.threshold_high),
+                "threshold_low": str(args.threshold_low),
+                "rrf_min_score": str(args.rrf_min_score),
+                "no_cross_encoder": str(args.no_cross_encoder),
+                "chunk_max_tokens": str(args.chunk_max_tokens),
+                "no_judge": str(args.no_judge),
+                "no_grounding": str(args.no_grounding),
+                "jobs": str(args.jobs),
+                "battery_config": battery_path.name,
+            },
+        )
         templates_dir = PACKAGE_DIR / "src" / "concorde_policy_mapper" / "templates"
         prompt_versions = sync_prompts(tracking_ctx, templates_dir)
         for pname, pversion in prompt_versions.items():
@@ -470,7 +581,7 @@ def main():
         print(f"  mlflow:         {args.mlflow_experiment} (tracking enabled)")
     else:
         if not args.no_mlflow:
-            print(f"  mlflow:         disabled (initialization failed)")
+            print("  mlflow:         disabled (initialization failed)")
 
     t_battery = time.monotonic()
     failed = []
@@ -480,12 +591,18 @@ def main():
         futures = {
             pool.submit(
                 run_one,
-                policies=files, name=name, base_url=base_url, model=model,
-                runs_dir=runs_dir, name_width=name_width,
+                policies=files,
+                name=name,
+                base_url=base_url,
+                model=model,
+                runs_dir=runs_dir,
+                name_width=name_width,
                 chunk_max_tokens=args.chunk_max_tokens,
-                top_n_accept=args.top_n_accept, top_n_judge=args.top_n_judge,
+                top_n_accept=args.top_n_accept,
+                top_n_judge=args.top_n_judge,
                 min_score_floor=args.min_score_floor,
-                threshold_high=args.threshold_high, threshold_low=args.threshold_low,
+                threshold_high=args.threshold_high,
+                threshold_low=args.threshold_low,
                 bi_encoder_model=args.bi_encoder_model,
                 query_instruction=args.query_instruction,
                 cross_encoder_model=args.cross_encoder_model,
@@ -499,7 +616,11 @@ def main():
                 expansion_passes=args.expansion_passes,
                 judge_prompt=args.judge_prompt,
                 judge_context_tokens=args.judge_context_tokens,
-                no_judge=args.no_judge, no_grounding=args.no_grounding,
+                no_judge=args.no_judge,
+                no_grounding=args.no_grounding,
+                temperature=args.temperature,
+                top_p=args.top_p,
+                top_k=args.top_k,
             ): name
             for name, files in runs
         }
@@ -526,6 +647,7 @@ def main():
             if extraction_path.exists():
                 try:
                     from concorde_policy_mapper.extract.report import build_risk_extraction_report
+
                     data = json.loads(extraction_path.read_text())
                     build_risk_extraction_report(data, runs_dir / name / "risk-extraction.html")
                 except Exception as e:
@@ -654,7 +776,12 @@ def main():
             "taxonomy_aggregate": {
                 tax: {
                     **a,
-                    "precision": round(a["matched"] / (a["matched"] + a["extracted"] - a["matched"]) if a["matched"] + a["extracted"] - a["matched"] > 0 else 0.0, 3),
+                    "precision": round(
+                        a["matched"] / (a["matched"] + a["extracted"] - a["matched"])
+                        if a["matched"] + a["extracted"] - a["matched"] > 0
+                        else 0.0,
+                        3,
+                    ),
                     "recall": round(a["matched"] / a["expected"] if a["expected"] > 0 else 0.0, 3),
                 }
                 for tax, a in tax_agg.items()
