@@ -335,6 +335,82 @@ def _rescue_and_merge_scores(
     return results
 
 
+def _collapse_variants(risks: list) -> tuple[list, dict[str, list[dict]]]:
+    """Collapse ``---`` variant risks into parent-level entries for indexing.
+
+    Returns (index_risks, variant_map) where index_risks replaces each variant
+    group with a single synthetic parent entry, and variant_map maps each
+    parent ID to the metadata of its individual variants.
+    """
+    from collections import defaultdict
+
+    groups: dict[str, list] = defaultdict(list)
+    non_variant = []
+
+    for r in risks:
+        if "---" in r.id:
+            parent_id = r.id.rsplit("---", 1)[0]
+            groups[parent_id].append(r)
+        else:
+            non_variant.append(r)
+
+    if not groups:
+        return risks, {}
+
+    variant_map: dict[str, list[dict]] = {}
+
+    class _SyntheticRisk:
+        """Minimal stand-in with the same attributes RiskIndex reads."""
+
+        def __init__(self, *, id, name, description, concern, isPartOf, isDefinedByTaxonomy):
+            self.id = id
+            self.name = name
+            self.description = description
+            self.concern = concern
+            self.isPartOf = isPartOf
+            self.isDefinedByTaxonomy = isDefinedByTaxonomy
+
+    for parent_id, variants in groups.items():
+        first = variants[0]
+        parent_name = (first.name or "").rsplit(" - ", 1)[0] if " - " in (first.name or "") else first.name or ""
+        variant_labels = sorted(
+            (v.name or "").rsplit(" - ", 1)[-1] if " - " in (v.name or "") else v.id.rsplit("---", 1)[-1]
+            for v in variants
+        )
+        description = (
+            f"{parent_name}: risk of AI systems involving "
+            f"{parent_name.lower()} across categories including "
+            f"{', '.join(variant_labels)}."
+        )
+        synthetic = _SyntheticRisk(
+            id=parent_id,
+            name=f"{parent_name} ({len(variants)} variants)",
+            description=description,
+            concern=getattr(first, "concern", "") or "",
+            isPartOf=getattr(first, "isPartOf", "") or "",
+            isDefinedByTaxonomy=getattr(first, "isDefinedByTaxonomy", "") or "",
+        )
+        non_variant.append(synthetic)
+
+        variant_map[parent_id] = [
+            {
+                "risk_id": v.id,
+                "name": v.name or "",
+                "description": v.description or "",
+                "taxonomy": getattr(v, "isDefinedByTaxonomy", "") or "",
+            }
+            for v in variants
+        ]
+
+    logger.info(
+        "Collapsed %d variant risks into %d parent groups (%d index entries)",
+        sum(len(v) for v in variant_map.values()),
+        len(variant_map),
+        len(non_variant),
+    )
+    return non_variant, variant_map
+
+
 class RiskIndex:
     def __init__(
         self,
@@ -350,6 +426,7 @@ class RiskIndex:
         self._bm25: BM25Okapi | None = None
         self._embeddings: np.ndarray | None = None
         self._colbert_doc_embeddings: list[np.ndarray] | None = None
+        self._variant_map: dict[str, list[dict]] = {}
 
         self._remote_bi_encoder: _RemoteBiEncoder | None = None
         self._remote_cross_encoder: _RemoteCrossEncoder | None = None
@@ -360,7 +437,9 @@ class RiskIndex:
             self._colbert = None
             return
 
-        for r in risks:
+        index_risks, self._variant_map = _collapse_variants(risks)
+
+        for r in index_risks:
             rid = r.id
             self._risk_ids.append(rid)
             self._risk_meta[rid] = {
@@ -371,17 +450,12 @@ class RiskIndex:
             }
 
         bm25_corpus = []
-        for r in risks:
-            parts = [
-                r.name or "",
-                r.description or "",
-                getattr(r, "concern", "") or "",
-                getattr(r, "isPartOf", "") or "",
-            ]
-            bm25_corpus.append(" ".join(parts).lower().split())
+        descriptions = []
+        for r in index_risks:
+            text = f"{r.name or ''}: {r.description or ''}"
+            bm25_corpus.append(text.lower().split())
+            descriptions.append(text)
         self._bm25 = BM25Okapi(bm25_corpus)
-
-        descriptions = [f"{r.name or ''}: {r.description or ''}" for r in risks]
 
         if colbert_model:
             self._colbert, self._colbert_doc_embeddings = _load_colbert(colbert_model, descriptions)
@@ -414,6 +488,30 @@ class RiskIndex:
     @property
     def risk_count(self) -> int:
         return len(self._risk_ids)
+
+    @property
+    def variant_map(self) -> dict[str, list[dict]]:
+        return self._variant_map
+
+    def expand_variants(self, candidates: list[ScoredCandidate]) -> list[ScoredCandidate]:
+        """Expand parent-level candidates back to individual variant risks."""
+        expanded = []
+        for c in candidates:
+            variants = self._variant_map.get(c.risk_id)
+            if variants:
+                for v in variants:
+                    expanded.append(
+                        c.model_copy(
+                            update={
+                                "risk_id": v["risk_id"],
+                                "risk_name": v["name"],
+                                "risk_description": v["description"],
+                            }
+                        )
+                    )
+            else:
+                expanded.append(c)
+        return expanded
 
     @property
     def cross_encoder(self):
@@ -551,9 +649,6 @@ class RiskIndex:
 
         bm25_results = self.search_bm25(text, top_k=bm25_top_k)
         semantic_results = self.search_semantic(text, top_k=semantic_top_k)
-
-        if not bm25_results and not semantic_results:
-            return []
 
         rrf_scores, candidate_data, bm25_ranks = _rrf_fuse(
             bm25_results,

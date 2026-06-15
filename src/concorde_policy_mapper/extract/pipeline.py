@@ -10,6 +10,7 @@ from pathlib import Path
 from concorde_policy_mapper.extract.attribute import (
     ground_and_extract_evidence,
     ground_risk_group,
+    ground_variants,
     synthesize_causal_chain,
 )
 from concorde_policy_mapper.extract.index import RiskIndex
@@ -29,7 +30,8 @@ from concorde_policy_mapper.extract.models import (
 )
 from concorde_policy_mapper.extract.parse import chunk_documents, parse_document
 from concorde_policy_mapper.extract.retrieve import (
-    build_padded_text,
+    ChunkResult,
+    build_chunk_contexts,
     judge_borderline,
     retrieve_chunk,
 )
@@ -70,26 +72,45 @@ def _document_discusses_agents(texts: list[str]) -> bool:
     return any(phrase in combined for phrase in _AGENTIC_PHRASES)
 
 
-def _judge_one(i, cr, chunks, client, model, call_collector, judge_prompt="judge_risk", max_context_tokens=0):
-    padded = build_padded_text(chunks, i, max_context_tokens=max_context_tokens)
+def _judge_one(
+    i,
+    cr,
+    client,
+    model,
+    call_collector,
+    judge_prompt="judge_risk",
+    max_batch_size=0,
+    context_text="",
+):
     judged = judge_borderline(
         cr.borderline,
-        padded,
+        context_text,
         client,
         model,
         call_collector=call_collector,
         chunk_index=i,
         prompt_name=judge_prompt,
+        max_batch_size=max_batch_size,
     )
     return i, judged
 
 
-def _ground_one(cr, chunks, client, model, call_collector, passes=1):
+def _ground_one(
+    cr,
+    chunks,
+    client,
+    model,
+    call_collector,
+    passes=1,
+    max_batch_size=0,
+    context_text="",
+):
     chunk = chunks[cr.chunk_index]
+    text = context_text if context_text else chunk.text
     merged: dict[str, tuple[list, str]] = {}
     for _ in range(passes):
         grounded = ground_and_extract_evidence(
-            chunk_text=chunk.text,
+            chunk_text=text,
             candidates=cr.accepted,
             client=client,
             model=model,
@@ -98,6 +119,7 @@ def _ground_one(cr, chunks, client, model, call_collector, passes=1):
             page=chunk.page,
             section=chunk.section,
             call_collector=call_collector,
+            max_batch_size=max_batch_size,
         )
         for rid, val in grounded.items():
             if rid not in merged:
@@ -169,7 +191,18 @@ def _collect_ungrounded(chunk_results, index, retrieval):
     return matches
 
 
-def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call_collector, grounding_passes=1):
+def _run_grounding(
+    chunk_results,
+    chunks,
+    client,
+    config,
+    retrieval,
+    index,
+    call_collector,
+    grounding_passes=1,
+    grounding_batch_size=0,
+    chunk_contexts=None,
+):
     all_matches = []
     all_filtered = []
     total_candidates = 0
@@ -183,7 +216,17 @@ def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call
     if ground_tasks:
         with ThreadPoolExecutor(max_workers=max_workers) as pool:
             futures = {
-                pool.submit(_ground_one, cr, chunks, client, config.model, call_collector, grounding_passes): cr
+                pool.submit(
+                    _ground_one,
+                    cr,
+                    chunks,
+                    client,
+                    config.model,
+                    call_collector,
+                    grounding_passes,
+                    grounding_batch_size,
+                    chunk_contexts[cr.chunk_index] if chunk_contexts else "",
+                ): cr
                 for cr in ground_tasks
             }
             for future in as_completed(futures):
@@ -228,7 +271,123 @@ def _run_grounding(chunk_results, chunks, client, config, retrieval, index, call
     return all_matches, all_filtered, grounding_filtered
 
 
-def _run_judge(chunk_results, chunks, client, config, retrieval, call_collector):
+def _ground_variants_one(
+    parent_match,
+    chunks,
+    variant_map,
+    client,
+    model,
+    call_collector,
+    chunk_contexts=None,
+):
+    """Run variant-selective grounding for a single parent-level match."""
+    parent_id = parent_match.risk_id
+    variants = variant_map.get(parent_id, [])
+    if not variants:
+        return parent_match, {}
+
+    evidence = parent_match.evidence
+    if not evidence:
+        return parent_match, {}
+
+    best_ev = max(evidence, key=lambda e: e.cross_encoder_score, default=evidence[0])
+    ci = best_ev.chunk_index
+    text = chunk_contexts[ci] if chunk_contexts and ci < len(chunk_contexts) else chunks[ci].text
+    chunk = chunks[ci]
+
+    grounded = ground_variants(
+        chunk_text=text,
+        parent_id=parent_id,
+        parent_name=parent_match.risk_name,
+        parent_description=parent_match.risk_description,
+        variants=variants,
+        client=client,
+        model=model,
+        document=best_ev.document,
+        chunk_index=ci,
+        page=chunk.page if hasattr(chunk, "page") else None,
+        section=chunk.section if hasattr(chunk, "section") else None,
+        call_collector=call_collector,
+    )
+    return parent_match, grounded
+
+
+def _run_variant_grounding(
+    grounded_matches,
+    chunks,
+    variant_map,
+    client,
+    config,
+    call_collector,
+    chunk_contexts=None,
+    max_workers=4,
+):
+    parent_matches = []
+    non_parent_matches = []
+    for m in grounded_matches:
+        if m.risk_id in variant_map:
+            parent_matches.append(m)
+        else:
+            non_parent_matches.append(m)
+
+    if not parent_matches:
+        return grounded_matches
+
+    variant_matches: list[RiskMatch] = []
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        futures = {
+            pool.submit(
+                _ground_variants_one,
+                pm,
+                chunks,
+                variant_map,
+                client,
+                config.model,
+                call_collector,
+                chunk_contexts,
+            ): pm
+            for pm in parent_matches
+        }
+        for future in as_completed(futures):
+            parent_match, grounded = future.result()
+            for vid, (evidence, confidence) in grounded.items():
+                vinfo = next(
+                    (v for v in variant_map[parent_match.risk_id] if v["risk_id"] == vid),
+                    None,
+                )
+                if not vinfo:
+                    continue
+                stub = ScoredCandidate(
+                    risk_id=vid,
+                    risk_name=vinfo["name"],
+                    risk_description=vinfo["description"],
+                    bm25_rank=parent_match.scores.bm25_rank,
+                    embedding_distance=parent_match.scores.embedding_distance,
+                    cross_encoder_score=parent_match.scores.cross_encoder_score,
+                    rrf_score=parent_match.scores.rrf_score,
+                )
+                variant_matches.append(
+                    build_risk_match(
+                        stub,
+                        taxonomy=vinfo.get("taxonomy", ""),
+                        accepted_by=parent_match.accepted_by,
+                        grounding_confidence=confidence,
+                        evidence=evidence,
+                    )
+                )
+
+    return non_parent_matches + variant_matches
+
+
+def _run_judge(
+    chunk_results,
+    chunks,
+    client,
+    config,
+    retrieval,
+    call_collector,
+    chunk_contexts=None,
+):
     max_workers = config.max_concurrent
     if retrieval.no_judge:
         for cr in chunk_results:
@@ -244,12 +403,12 @@ def _run_judge(chunk_results, chunks, client, config, retrieval, call_collector)
                         _judge_one,
                         i,
                         cr,
-                        chunks,
                         client,
                         config.model,
                         call_collector,
                         retrieval.judge_prompt,
-                        retrieval.judge_context_tokens,
+                        retrieval.grounding_batch_size,
+                        chunk_contexts[i] if chunk_contexts else "",
                     ): i
                     for i, cr in judge_tasks
                 }
@@ -429,6 +588,7 @@ def run_extraction(
         chunks = chunk_documents(parsed, max_tokens=retrieval.chunk_max_tokens)
         if not chunks:
             return _empty_result(documents)
+        chunk_contexts = build_chunk_contexts(chunks)
 
     if not _document_discusses_agents([p.content for p in parsed]):
         original_count = len(risks)
@@ -453,8 +613,10 @@ def run_extraction(
             cross_encoder_type=retrieval.cross_encoder_type,
         )
 
+    call_collector: list[LLMCallRecord] = []
+
     with timed(timing, "retrieve_ms"):
-        chunk_results = []
+        chunk_results: list[ChunkResult] = []
         for i in range(len(chunks)):
             cr = retrieve_chunk(
                 chunks,
@@ -471,7 +633,10 @@ def run_extraction(
             )
             chunk_results.append(cr)
 
-    call_collector: list[LLMCallRecord] = []
+    if index.variant_map and retrieval.no_grounding:
+        for cr in chunk_results:
+            cr.accepted = index.expand_variants(cr.accepted)
+            cr.borderline = index.expand_variants(cr.borderline)
 
     chunk_summaries = [
         ChunkSummary(
@@ -490,7 +655,15 @@ def run_extraction(
     ]
 
     with timed(timing, "judge_ms"):
-        _run_judge(chunk_results, chunks, client, config, retrieval, call_collector)
+        _run_judge(
+            chunk_results,
+            chunks,
+            client,
+            config,
+            retrieval,
+            call_collector,
+            chunk_contexts=chunk_contexts,
+        )
 
     if retrieval.no_grounding:
         all_matches = _collect_ungrounded(chunk_results, index, retrieval)
@@ -508,6 +681,21 @@ def run_extraction(
                 index,
                 call_collector,
                 grounding_passes=retrieval.grounding_passes,
+                grounding_batch_size=retrieval.grounding_batch_size,
+                chunk_contexts=chunk_contexts,
+            )
+
+    if index.variant_map and not retrieval.no_grounding and client is not None:
+        with timed(timing, "variant_grounding_ms"):
+            all_matches = _run_variant_grounding(
+                all_matches,
+                chunks,
+                index.variant_map,
+                client,
+                config,
+                call_collector,
+                chunk_contexts=chunk_contexts,
+                max_workers=max_workers,
             )
 
     chunk_risk_ids = _build_chunk_risk_map(chunk_results, all_matches, retrieval.no_grounding)

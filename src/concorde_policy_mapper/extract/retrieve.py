@@ -22,48 +22,69 @@ def _sent_tokenize(text: str) -> list[str]:
         return [text] if text.strip() else []
 
 
-def _pad_with_budget(chunks: list[Chunk], chunk_index: int, max_tokens: int) -> str:
-    chunk = chunks[chunk_index]
-    source = chunk.source
-    core_tokens = len(chunk.text.split())
-    budget = max_tokens - core_tokens
-    before = []
-    after = []
+def build_chunk_contexts(
+    chunks: list[Chunk],
+    max_context_tokens: int = 1024,
+) -> list[str]:
+    """Build enriched context text for each chunk by expanding to neighbors.
 
-    if budget > 0 and chunk_index > 0:
-        prev = chunks[chunk_index - 1]
-        if prev.source == source:
-            prev_tokens = len(prev.text.split())
-            if prev_tokens <= budget // 2:
-                before.append(prev.text)
-                budget -= prev_tokens
-            else:
-                prev_sents = _sent_tokenize(prev.text)
-                for s in reversed(prev_sents):
-                    s_tokens = len(s.split())
-                    if s_tokens <= budget // 2:
-                        before.insert(0, s)
-                        budget -= s_tokens
+    Expands symmetrically (alternating before/after) with adjacent chunks
+    from the same source document until the token budget is reached. Inserts
+    section headings at section transitions between included chunks.
+
+    Returns a list parallel to chunks — one context string per chunk.
+    """
+    contexts: list[str] = []
+    for i, chunk in enumerate(chunks):
+        core_tokens = len(chunk.text.split())
+        budget = max_context_tokens - core_tokens
+
+        before_indices: list[int] = []
+        after_indices: list[int] = []
+        before_idx = i - 1
+        after_idx = i + 1
+        expand_before = True
+
+        while budget > 0 and (before_idx >= 0 or after_idx < len(chunks)):
+            if expand_before and before_idx >= 0:
+                prev = chunks[before_idx]
+                if prev.source != chunk.source:
+                    before_idx = -1
+                else:
+                    t = len(prev.text.split())
+                    if t <= budget:
+                        before_indices.insert(0, before_idx)
+                        budget -= t
+                        before_idx -= 1
                     else:
-                        break
-
-    if budget > 0 and chunk_index < len(chunks) - 1:
-        nxt = chunks[chunk_index + 1]
-        if nxt.source == source:
-            nxt_tokens = len(nxt.text.split())
-            if nxt_tokens <= budget:
-                after.append(nxt.text)
-            else:
-                next_sents = _sent_tokenize(nxt.text)
-                for s in next_sents:
-                    s_tokens = len(s.split())
-                    if s_tokens <= budget:
-                        after.append(s)
-                        budget -= s_tokens
+                        before_idx = -1
+            elif not expand_before and after_idx < len(chunks):
+                nxt = chunks[after_idx]
+                if nxt.source != chunk.source:
+                    after_idx = len(chunks)
+                else:
+                    t = len(nxt.text.split())
+                    if t <= budget:
+                        after_indices.append(after_idx)
+                        budget -= t
+                        after_idx += 1
                     else:
-                        break
+                        after_idx = len(chunks)
+            expand_before = not expand_before
 
-    return " ".join(before + [chunk.text] + after)
+        ordered = before_indices + [i] + after_indices
+        parts: list[str] = []
+        for pos, idx in enumerate(ordered):
+            c = chunks[idx]
+            if pos > 0:
+                prev_c = chunks[ordered[pos - 1]]
+                if c.section and c.section != prev_c.section:
+                    parts.append(f"## {c.section}")
+            parts.append(c.text)
+
+        contexts.append("\n\n".join(parts))
+
+    return contexts
 
 
 def build_padded_text(
@@ -74,12 +95,12 @@ def build_padded_text(
 ) -> str:
     """Build padded text from a chunk and its neighbors.
 
-    When max_context_tokens > 0, concatenates full adjacent chunks up to
-    the token budget (useful for small chunks that need more LLM context).
-    Otherwise falls back to appending context_sentences from each neighbor.
+    Deprecated: use build_chunk_contexts() instead for consistent context
+    across judge and grounding stages.
     """
     if max_context_tokens > 0:
-        return _pad_with_budget(chunks, chunk_index, max_context_tokens)
+        contexts = build_chunk_contexts(chunks, max_context_tokens)
+        return contexts[chunk_index]
 
     chunk = chunks[chunk_index]
     source = chunk.source
@@ -188,46 +209,57 @@ def judge_borderline(
     call_collector: list[LLMCallRecord] | None = None,
     chunk_index: int = 0,
     prompt_name: str = "judge_risk",
+    max_batch_size: int = 0,
 ) -> list[ScoredCandidate]:
     if not candidates:
         return []
 
-    messages = render_prompt(
-        prompt_name,
-        {
-            "chunk_text": chunk_text,
-            "risks": [
-                {"risk_id": c.risk_id, "risk_name": c.risk_name, "risk_description": c.risk_description}
-                for c in candidates
-            ],
-        },
-    )
+    if max_batch_size > 0 and len(candidates) > max_batch_size:
+        batches = [candidates[i : i + max_batch_size] for i in range(0, len(candidates), max_batch_size)]
+    else:
+        batches = [candidates]
 
-    t0 = time.time()
-    verdicts: list[_JudgeVerdict] = client.chat.completions.create(
-        model=model,
-        response_model=list[_JudgeVerdict],
-        messages=messages,
-    )
-    duration_ms = (time.time() - t0) * 1000
+    result: list[ScoredCandidate] = []
 
-    accepted_ids = {v.risk_id for v in verdicts if v.relevant}
-    result = [c for c in candidates if c.risk_id in accepted_ids]
-
-    if call_collector is not None:
-        call_id = f"judge-{len([c for c in call_collector if c.stage == 'judge']) + 1:03d}"
-        call_collector.append(
-            LLMCallRecord(
-                call_id=call_id,
-                stage="judge",
-                chunk_index=chunk_index,
-                risk_ids=[c.risk_id for c in candidates],
-                messages=messages,
-                response=[v.model_dump() for v in verdicts],
-                duration_ms=duration_ms,
-                result_summary=f"{len(result)}/{len(candidates)} accepted",
-            )
+    for batch in batches:
+        messages = render_prompt(
+            prompt_name,
+            {
+                "chunk_text": chunk_text,
+                "risks": [
+                    {"risk_id": c.risk_id, "risk_name": c.risk_name, "risk_description": c.risk_description}
+                    for c in batch
+                ],
+            },
         )
+
+        t0 = time.time()
+        verdicts: list[_JudgeVerdict] = client.chat.completions.create(
+            model=model,
+            response_model=list[_JudgeVerdict],
+            messages=messages,
+        )
+        duration_ms = (time.time() - t0) * 1000
+
+        batch_ids = {c.risk_id for c in batch}
+        accepted_ids = {v.risk_id for v in verdicts if v.relevant and v.risk_id in batch_ids}
+        result.extend(c for c in batch if c.risk_id in accepted_ids)
+
+        if call_collector is not None:
+            call_id = f"judge-{len([c for c in call_collector if c.stage == 'judge']) + 1:03d}"
+            batch_accepted = sum(1 for c in batch if c.risk_id in accepted_ids)
+            call_collector.append(
+                LLMCallRecord(
+                    call_id=call_id,
+                    stage="judge",
+                    chunk_index=chunk_index,
+                    risk_ids=[c.risk_id for c in batch],
+                    messages=messages,
+                    response=[v.model_dump() for v in verdicts],
+                    duration_ms=duration_ms,
+                    result_summary=f"{batch_accepted}/{len(batch)} accepted",
+                )
+            )
 
     return result
 
