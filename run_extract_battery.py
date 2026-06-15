@@ -112,7 +112,7 @@ def run_one(
     judge_context_tokens: int = 0,
     no_judge: bool = False,
     no_grounding: bool = False,
-    query_gen: bool = False,
+    query_gen: bool = True,
     temperature: float = 0.0,
     top_p: float | None = None,
     top_k: int | None = None,
@@ -176,8 +176,8 @@ def run_one(
         cmd.append("--no-judge")
     if no_grounding:
         cmd.append("--no-grounding")
-    if query_gen:
-        cmd.append("--query-gen")
+    if not query_gen:
+        cmd.append("--no-query-gen")
     if threshold_high is not None:
         cmd.extend(["--threshold-high", str(threshold_high)])
     if threshold_low is not None:
@@ -482,9 +482,9 @@ def main():
         help="Skip LLM grounding; accepted candidates become matches without evidence",
     )
     parser.add_argument(
-        "--query-gen",
+        "--no-query-gen",
         action="store_true",
-        help="Use LLM-generated queries for retrieval instead of raw chunk text",
+        help="Disable LLM query generation; use raw chunk text for retrieval",
     )
     parser.add_argument("--temperature", type=float, default=0.0, help="LLM sampling temperature (default: 0.0)")
     parser.add_argument("--top-p", type=float, default=None, help="LLM nucleus sampling top-p (omitted if not set)")
@@ -501,7 +501,7 @@ def main():
         sys.exit(1)
 
     config = yaml.safe_load(battery_path.read_text())
-    if args.no_judge and args.no_grounding and not args.query_gen:
+    if args.no_judge and args.no_grounding and args.no_query_gen:
         base_url = args.base_url or "unused"
         model = args.model or config.get("model") or os.environ.get("POLICY_MAPPER_MODEL") or "unused"
     else:
@@ -537,7 +537,7 @@ def main():
     print(f"  bi_encoder:     {args.bi_encoder_model}")
     print(f"  chunk_tokens:   {args.chunk_max_tokens}")
     print(f"  cross_encoder:  {'DISABLED' if args.no_cross_encoder else args.cross_encoder_model}")
-    if args.query_gen:
+    if not args.no_query_gen:
         print("  query_gen:      True (LLM-generated queries for retrieval)")
     if args.no_judge:
         print("  no_judge:       True (borderline auto-promoted)")
@@ -580,7 +580,7 @@ def main():
                 "chunk_max_tokens": str(args.chunk_max_tokens),
                 "no_judge": str(args.no_judge),
                 "no_grounding": str(args.no_grounding),
-                "query_gen": str(args.query_gen),
+                "query_gen": str(not args.no_query_gen),
                 "jobs": str(args.jobs),
                 "battery_config": battery_path.name,
             },
@@ -629,7 +629,7 @@ def main():
                 judge_context_tokens=args.judge_context_tokens,
                 no_judge=args.no_judge,
                 no_grounding=args.no_grounding,
-                query_gen=args.query_gen,
+                query_gen=not args.no_query_gen,
                 temperature=args.temperature,
                 top_p=args.top_p,
                 top_k=args.top_k,

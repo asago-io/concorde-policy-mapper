@@ -33,7 +33,6 @@ from concorde_policy_mapper.extract.querygen import generate_queries, group_chun
 from concorde_policy_mapper.extract.retrieve import (
     ChunkResult,
     build_chunk_contexts,
-    classify_candidates,
     judge_borderline,
     retrieve_chunk,
 )
@@ -445,6 +444,8 @@ def _run_expansion(
     max_workers,
     call_collector,
     expansion_passes: int = 1,
+    variant_map: dict | None = None,
+    chunk_contexts=None,
 ) -> tuple[list[RiskMatch], dict]:
     from concorde_policy_mapper.extract.expand import (
         build_expansion_graph,
@@ -473,6 +474,9 @@ def _run_expansion(
         for candidate in cr.accepted:
             cid = candidate.risk_id.split(" ")[0].strip()
             found_risk_chunks.setdefault(cid, set()).add(cr.chunk_index)
+    for m in merged:
+        for ev in m.evidence:
+            found_risk_chunks.setdefault(m.risk_id, set()).add(ev.chunk_index)
 
     groups = group_for_grounding(
         expanded,
@@ -528,6 +532,18 @@ def _run_expansion(
                         confidence_override=0.0,
                     )
                 )
+
+    if expansion_matches and variant_map:
+        expansion_matches = _run_variant_grounding(
+            expansion_matches,
+            chunks,
+            variant_map,
+            client,
+            config,
+            call_collector,
+            chunk_contexts=chunk_contexts,
+            max_workers=max_workers,
+        )
 
     if expansion_matches:
         merged = merge_matches(merged + expansion_matches)
@@ -617,12 +633,12 @@ def run_extraction(
 
     call_collector: list[LLMCallRecord] = []
     fallback_chunk_indices: set[int] = set()
-    query_results = []
+    query_results: list = []
 
     if retrieval.query_gen:
         with timed(timing, "query_gen_ms"):
             groups = group_chunks(chunks)
-            query_results, fallback_list = generate_queries(
+            qg_result = generate_queries(
                 chunks,
                 groups,
                 client,
@@ -631,6 +647,8 @@ def run_extraction(
                 max_workers=max_workers,
                 return_fallbacks=True,
             )
+            assert isinstance(qg_result, tuple)
+            query_results, fallback_list = qg_result
             fallback_chunk_indices = set(fallback_list)
             logger.info(
                 "Query generation: %d queries from %d groups, %d fallback chunks",
@@ -676,9 +694,7 @@ def run_extraction(
                             },
                         )
 
-            retrieval_indices = fallback_chunk_indices | {
-                i for i in range(len(chunks)) if chunk_results[i] is None
-            }
+            retrieval_indices = fallback_chunk_indices | {i for i in range(len(chunks)) if chunk_results[i] is None}
             for i in sorted(retrieval_indices):
                 cr = retrieve_chunk(
                     chunks,
@@ -734,7 +750,12 @@ def run_extraction(
 
     with timed(timing, "judge_ms"):
         _run_judge(
-            chunk_results, chunks, client, config, retrieval, call_collector,
+            chunk_results,
+            chunks,
+            client,
+            config,
+            retrieval,
+            call_collector,
             chunk_contexts=chunk_contexts,
         )
 
@@ -793,6 +814,8 @@ def run_extraction(
                 max_workers,
                 call_collector,
                 expansion_passes=retrieval.expansion_passes,
+                variant_map=index.variant_map if index.variant_map else None,
+                chunk_contexts=chunk_contexts,
             )
 
     if not retrieval.no_causal_synthesis and client is not None:

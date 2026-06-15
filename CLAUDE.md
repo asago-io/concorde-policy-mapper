@@ -88,14 +88,9 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ --no-judge --no-grou
   --bi-encoder-model https://bge-m3-model-serving.apps.example.com/v1/embeddings \
   --cross-encoder-model https://gte-reranker-model-serving.apps.example.com/v1/score
 
-# LLM-generated queries for retrieval (A/B test)
+# Disable LLM query generation (use raw chunk text for retrieval)
 uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus --query-gen \
-  --base-url <url> --model <model>
-
-# Query-gen IR-only (isolate retrieval quality, no judge/grounding)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus --query-gen --no-judge --no-grounding \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-query-gen \
   --base-url <url> --model <model>
 
 # Rebuild mitigation index (after data file changes)
@@ -126,7 +121,7 @@ Documents → parse_document() → chunk_documents() → per-chunk retrieve → 
 10. **Causal synthesis** (`attribute.py`) — LLM synthesizes domain-specific causal chains (`threat`/`threat_source`/`vulnerability`/`consequence`/`impact`) for each matched risk, grounded in the evidence-anchored chunks. Parallel via ThreadPoolExecutor. Disabled with `--no-causal-synthesis`; static YAML chains from `data/atlas_risk_threats.yaml` and `data/atlas_risk_consequences.yaml` serve as fallback for any fields not populated.
 11. **Mitigations** (`mitigations.py`) — Post-processing: enrich each matched risk with recommended mitigation actions from a pre-built index (`data/atlas_risk_to_actions.yaml`)
 
-With `--query-gen`, steps 5-6 are replaced by LLM query generation (`querygen.py`): chunks are grouped by section (up to 5 per group), each group is sent to the LLM to generate 1-3 search queries in risk-taxonomy vocabulary, and those queries are used for `hybrid_search`. All candidates are treated as accepted (no cross-encoder, no judge). Failed groups fall back to standard `retrieve_chunk`. Grounding (step 7) naturally filters irrelevant candidates per-chunk.
+By default (query-gen on), steps 5-6 are replaced by LLM query generation (`querygen.py`): chunks are grouped by section (up to 5 per group), each group is sent to the LLM to generate 1-3 search queries in risk-taxonomy vocabulary, and those queries are used for `hybrid_search`. All candidates are treated as accepted (no cross-encoder, no judge). Failed groups fall back to standard `retrieve_chunk`. Grounding (step 7) naturally filters irrelevant candidates per-chunk. Disable with `--no-query-gen`.
 
 With `--no-cross-encoder`, steps 5-6 are replaced by RRF score floor filtering (no LLM judging).
 

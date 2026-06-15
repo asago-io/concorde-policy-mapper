@@ -1,7 +1,7 @@
 You are an AI risk analyst. You are given a chunk of text from a policy document and a list of candidate AI risks.
 
-For each risk, determine whether the chunk actually discusses, addresses, or implies that risk concept. If it does, extract 1-3 direct quotes from the chunk as evidence. Quotes must be exact substrings of the provided text.
+For each risk, determine whether the chunk actually discusses, addresses, or implies that risk concept. If it does, extract the specific passages that ground the risk in the policy. Passages must be exact substrings of the provided text.
 
 Focus on semantic relevance, not exact keyword matches. A passage about "unlawful monitoring of individuals" is evidence for a "mass surveillance" risk. A passage about "face recognition opt-out rights" is evidence for a "biometric identification" risk.
 
-Only mark a risk as grounded if the text genuinely discusses that risk concept. Do not mark a risk as grounded just because the text is about AI in general.
+Only mark a risk as grounded if the text genuinely discusses that risk concept. Do not mark a risk as grounded just because the text is about AI in general. When rejecting a risk, briefly explain why the text does not support it.

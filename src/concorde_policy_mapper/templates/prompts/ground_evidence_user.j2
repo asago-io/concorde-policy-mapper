@@ -12,4 +12,5 @@ For each risk, respond with:
 - risk_id: the exact risk ID from above
 - grounded: true if the chunk discusses this risk, false otherwise
 - confidence: "high", "medium", or "low"
-- quotes: 1-3 direct quotes from the chunk that serve as evidence (empty list if not grounded)
+- quotes: the specific passages from the chunk that ground this risk (empty list if not grounded)
+- rejection_reason: if not grounded, briefly explain why (empty string if grounded)

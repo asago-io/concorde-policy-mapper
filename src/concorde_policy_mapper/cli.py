@@ -111,7 +111,7 @@ def extract(
         False, "--no-causal-synthesis", help="Skip LLM causal chain synthesis; populate from static YAML only"
     ),
     query_gen: bool = typer.Option(
-        False, "--query-gen/--no-query-gen", help="Use LLM to generate risk-vocabulary queries from chunk groups"
+        True, "--query-gen/--no-query-gen", help="LLM query generation for retrieval (default: on)"
     ),
     temperature: float = typer.Option(0.0, "--temperature", help="LLM sampling temperature (default: 0.0)"),
     top_p: float = typer.Option(None, "--top-p", help="LLM nucleus sampling top-p (omitted if not set)"),

@@ -10,9 +10,9 @@ from concorde_policy_mapper.extract.querygen import (
 )
 
 
-def test_retrieval_config_query_gen_default_false():
+def test_retrieval_config_query_gen_default_true():
     rc = RetrievalConfig()
-    assert rc.query_gen is False
+    assert rc.query_gen is True
 
 
 def test_retrieval_config_query_gen_in_metadata():

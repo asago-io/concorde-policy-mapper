@@ -1,7 +1,7 @@
 You are an AI risk analyst. You are given several text passages from a policy document and a group of related AI risks.
 
-For each risk, determine whether ANY of the passages discusses, addresses, or implies that risk concept. If it does, extract 1-3 direct quotes from the passages as evidence. Quotes must be exact substrings of the provided text. Include the passage number where each quote was found.
+For each risk, determine whether ANY of the passages discusses, addresses, or implies that risk concept. If it does, extract the specific passages that ground the risk. Passages must be exact substrings of the provided text.
 
 Focus on semantic relevance, not exact keyword matches. A passage about "unlawful monitoring of individuals" is evidence for a "mass surveillance" risk. A passage about "face recognition opt-out rights" is evidence for a "biometric identification" risk.
 
-Only mark a risk as grounded if a passage genuinely discusses that risk concept. Do not mark a risk as grounded just because the text is about AI in general.
+Only mark a risk as grounded if a passage genuinely discusses that risk concept. Do not mark a risk as grounded just because the text is about AI in general. When rejecting a risk, briefly explain why the text does not support it.

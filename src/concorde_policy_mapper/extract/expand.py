@@ -92,7 +92,10 @@ def expand_with_siblings(
     expanded_ids: dict[str, str] = {}
 
     for rid in already_found:
-        for sibling in expansion_graph.get(rid, set()):
+        siblings = expansion_graph.get(rid, set())
+        if not siblings and "---" in rid:
+            siblings = expansion_graph.get(rid.rsplit("---", 1)[0], set())
+        for sibling in siblings:
             if sibling not in already_found and sibling not in expanded_ids:
                 expanded_ids[sibling] = rid
 

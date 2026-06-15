@@ -39,14 +39,14 @@ risk_extraction:
 
 ## Pipeline
 
-The service parses and chunks input documents, then uses hybrid retrieval (keyword and semantic search) against the Nexus risk catalogue to identify candidate risks directly from the policy text. An LLM judges borderline candidates and extracts grounded evidence spans.
+The service parses and chunks input documents, then uses hybrid retrieval (keyword and semantic search) against the Nexus risk catalogue to identify candidate risks directly from the policy text. By default, an LLM generates search queries from chunk groups in risk-taxonomy vocabulary (disable with `--no-query-gen` to use raw chunk text). An LLM then grounds accepted candidates with evidence spans.
 
 1. **Parse** — Docling converts PDF/DOCX/HTML to markdown
 2. **Chunk** — Split into ~512-token chunks with page/section metadata
 3. **Index** — Build BM25 + bi-encoder + cross-encoder index over Nexus risks. Variant risks (IDs containing `---`) are collapsed into synthetic parent entries for indexing.
-4. **Retrieve** — Per-chunk hybrid search with RRF fusion and cross-encoder reranking
-5. **Judge** — LLM judges borderline candidates (parallel)
-6. **Ground** — LLM extracts evidence quotes and confidence (parallel, multi-pass)
+4. **Retrieve** — By default, LLM query generation groups chunks by section and generates 1-3 search queries per group for hybrid search. With `--no-query-gen`: per-chunk hybrid search with RRF fusion and cross-encoder reranking.
+5. **Judge** — LLM judges borderline candidates (parallel; skipped in query-gen mode)
+6. **Ground** — LLM extracts evidence passages and confidence (parallel, multi-pass)
 7. **Variant ground** — For collapsed parent risks that survived grounding, a specialized LLM call selects only the specifically evidenced variant sub-types
 8. **Merge** — Deduplicate across chunks, keep top-3 evidence spans
 9. **Expand** — Sibling expansion: found risks are expanded to parent siblings + cross-taxonomy mappings, then grounded against relevant document chunks
