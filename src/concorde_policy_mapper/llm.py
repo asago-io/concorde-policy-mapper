@@ -30,7 +30,8 @@ class SlimModel(BaseModel):
     @classmethod
     def model_json_schema(cls, *args: Any, **kwargs: Any) -> dict[str, Any]:
         schema = super().model_json_schema(*args, **kwargs)
-        return _strip_titles(schema)  # type: ignore[no-any-return]
+        _strip_titles(schema)  # mutates in-place, and avoids no-any-return
+        return schema
 
 
 _SAFETY_MARGIN = 64
@@ -197,7 +198,8 @@ def _extract_reduced_max_tokens(exc: Exception) -> int | None:
 
 def _extract_response_content(completion: Any) -> str | None:
     try:
-        return completion.choices[0].message.content  # type: ignore[no-any-return]
+        content = completion.choices[0].message.content
+        return content if isinstance(content, str) else None  # narrow from Any
     except (AttributeError, IndexError):
         return None
 
