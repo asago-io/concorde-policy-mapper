@@ -365,10 +365,19 @@ def test_build_risk_crossmap_credo(tmp_path):
     assert crossmap["credo-risk-003"] == {"atlas-harmful-output"}
 
 
+def test_build_risk_crossmap_air_local_file():
+    """Local AIR crossmap file loads AIR→Atlas entries without Nexus."""
+    crossmap = build_risk_crossmap("/nonexistent")
+    air_keys = [k for k in crossmap if k.startswith("ai-risk-taxonomy-")]
+    assert len(air_keys) > 0
+    for k in air_keys:
+        assert all(v.startswith("atlas-") for v in crossmap[k])
+
+
 def test_build_risk_crossmap_missing_files(tmp_path):
-    """Non-existent mappings dir returns empty dict."""
+    """Non-existent mappings dir still loads local AIR file."""
     crossmap = build_risk_crossmap(str(tmp_path / "nonexistent"))
-    assert crossmap == {}
+    assert "atlas-" not in crossmap
 
 
 def test_build_risk_crossmap_multiple_predicates_merge(tmp_path):

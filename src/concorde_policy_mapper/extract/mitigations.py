@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 _DEFAULT_INDEX_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_to_actions.yaml"
 _DEFAULT_THREATS_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_threats.yaml"
 _DEFAULT_CONSEQUENCES_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_consequences.yaml"
+_DEFAULT_AIR_CROSSMAP_PATH = Path(__file__).resolve().parents[3] / "data" / "air_2024_to_atlas_mappings.yaml"
 
 
 def load_mitigation_index(
@@ -72,18 +73,20 @@ def build_action_descriptions(
 
 
 def build_risk_crossmap(nexus_base_dir: str) -> dict[str, set[str]]:
-    """Build non-atlas-risk-id → set[atlas-risk-id] from Nexus mapping files."""
+    """Build non-atlas-risk-id → set[atlas-risk-id] from Nexus + local mapping files."""
     kg = Path(nexus_base_dir) / "src" / "ai_atlas_nexus" / "data" / "knowledge_graph" / "mappings"
     crossmap: dict[str, set[str]] = {}
 
-    mapping_files = [
+    nexus_files = [
         "mit-ai-risk-repository_ibm-risk-atlas_from_tsv_data.yaml",
         "credo-ucf.sssom_from_tsv_data.yaml",
     ]
+    local_files: list[Path] = [
+        _DEFAULT_AIR_CROSSMAP_PATH,
+    ]
     predicates = ("close_mappings", "related_mappings", "broad_mappings", "exact_mappings")
 
-    for filename in mapping_files:
-        path = kg / filename
+    for path in [kg / f for f in nexus_files] + local_files:
         if not path.exists():
             continue
         with open(path) as f:
