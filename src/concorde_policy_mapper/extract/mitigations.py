@@ -78,6 +78,7 @@ def build_risk_crossmap(nexus_base_dir: str) -> dict[str, set[str]]:
 
     mapping_files = [
         "mit-ai-risk-repository_ibm-risk-atlas_from_tsv_data.yaml",
+        "credo-ucf.sssom_from_tsv_data.yaml",
     ]
     predicates = ("close_mappings", "related_mappings", "broad_mappings", "exact_mappings")
 

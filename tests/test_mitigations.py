@@ -337,6 +337,34 @@ def test_build_risk_crossmap_bidirectional(tmp_path):
     assert crossmap["mit-risk-099"] == {"atlas-model-theft"}
 
 
+def test_build_risk_crossmap_credo(tmp_path):
+    """Credo SSSOM file produces credo → atlas entries."""
+    mappings_dir = _make_nexus_kg(tmp_path) / "mappings"
+    mappings_dir.mkdir()
+
+    (mappings_dir / "credo-ucf.sssom_from_tsv_data.yaml").write_text(
+        yaml.dump(
+            {
+                "entries": [
+                    {
+                        "id": "credo-risk-005",
+                        "close_mappings": ["atlas-data-transparency"],
+                    },
+                    {
+                        "id": "atlas-harmful-output",
+                        "related_mappings": ["credo-risk-003"],
+                    },
+                ]
+            }
+        )
+    )
+
+    crossmap = build_risk_crossmap(str(tmp_path))
+
+    assert crossmap["credo-risk-005"] == {"atlas-data-transparency"}
+    assert crossmap["credo-risk-003"] == {"atlas-harmful-output"}
+
+
 def test_build_risk_crossmap_missing_files(tmp_path):
     """Non-existent mappings dir returns empty dict."""
     crossmap = build_risk_crossmap(str(tmp_path / "nonexistent"))
