@@ -160,7 +160,7 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus
 ```
 
-Outputs `risk-extraction.json` and `risk-extraction.html` report.
+Outputs `risk-extraction.json` and `risk-extraction.html` report. Use `--output-format yaml` to get `risk-extraction.yaml` instead, or `--output-format both` for both.
 
 ### Evaluate against ground truth
 

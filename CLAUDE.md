@@ -46,6 +46,12 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
   --base-url http://localhost:8000/v1 --model my-model \
   --nexus-base-dir /path/to/ai-atlas-nexus
 
+# Output as YAML instead of JSON (or both)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --base-url http://localhost:8000/v1 --model my-model \
+  --nexus-base-dir /path/to/ai-atlas-nexus --output-format yaml
+# --output-format: json (default), yaml, or both
+
 # Evaluate against ground truth
 uv run concorde-policy-mapper eval output/ -g evals/ground_truth/policy-name.yaml
 

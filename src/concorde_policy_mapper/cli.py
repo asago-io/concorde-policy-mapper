@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import typer
+import yaml
 
 from concorde_policy_mapper import debug
 from concorde_policy_mapper.llm import LLMConfig, TokenTracker, create_client
@@ -113,6 +114,9 @@ def extract(
     query_gen: bool = typer.Option(
         True, "--query-gen/--no-query-gen", help="LLM query generation for retrieval (default: on)"
     ),
+    output_format: str = typer.Option(
+        "json", "--output-format", "-f", help="Output format: json, yaml, or both (default: json)"
+    ),
     temperature: float = typer.Option(0.0, "--temperature", help="LLM sampling temperature (default: 0.0)"),
     top_p: float = typer.Option(None, "--top-p", help="LLM nucleus sampling top-p (omitted if not set)"),
     top_k: int = typer.Option(
@@ -120,6 +124,11 @@ def extract(
     ),
 ):
     """Extract risks from policy documents using hybrid retrieval."""
+    valid_formats = {"json", "yaml", "both"}
+    if output_format not in valid_formats:
+        typer.echo(f"Error: --output-format must be one of: {', '.join(sorted(valid_formats))}", err=True)
+        raise typer.Exit(1)
+
     for pf in policy_files:
         if not pf.exists():
             typer.echo(f"Error: {pf} does not exist", err=True)
@@ -232,9 +241,18 @@ def extract(
         typer.echo(f"  Mitigations attached from {len(mitigation_index)} risk entries")
 
     result_data = result.model_dump()
-    result_path = output / "risk-extraction.json"
-    result_path.write_text(json.dumps(result_data, indent=2))
-    typer.echo(f"Risk extraction written to {result_path}")
+
+    write_json = output_format in ("json", "both")
+    write_yaml = output_format in ("yaml", "both")
+
+    if write_json:
+        json_path = output / "risk-extraction.json"
+        json_path.write_text(json.dumps(result_data, indent=2))
+        typer.echo(f"Risk extraction written to {json_path}")
+    if write_yaml:
+        yaml_path = output / "risk-extraction.yaml"
+        yaml_path.write_text(yaml.dump(result_data, default_flow_style=False, sort_keys=False, allow_unicode=True))
+        typer.echo(f"Risk extraction written to {yaml_path}")
     typer.echo(f"  {len(result.risks)} risks matched")
     stats = result.retrieval_stats
     if no_judge and no_grounding:
@@ -272,9 +290,14 @@ def eval_cmd(
     min_precision: float = typer.Option(0.60, "--min-precision", help="Minimum precision threshold"),
 ):
     """Evaluate a risk extraction run against ground truth."""
-    extracted_path = run_dir / "risk-extraction.json"
-    if not extracted_path.exists():
-        typer.echo(f"Error: {extracted_path} not found", err=True)
+    json_path = run_dir / "risk-extraction.json"
+    yaml_path = run_dir / "risk-extraction.yaml"
+    if json_path.exists():
+        extracted_path = json_path
+    elif yaml_path.exists():
+        extracted_path = yaml_path
+    else:
+        typer.echo(f"Error: no risk-extraction.json or .yaml found in {run_dir}", err=True)
         raise typer.Exit(1)
 
     if ground_truth is None:
@@ -298,9 +321,17 @@ def eval_cmd(
     eval_path = run_dir / "eval.json"
     eval_path.write_text(json.dumps(result, indent=2))
 
-    extraction_data = json.loads(extracted_path.read_text())
+    raw = extracted_path.read_text()
+    if extracted_path.suffix == ".yaml":
+        extraction_data = yaml.safe_load(raw)
+    else:
+        extraction_data = json.loads(raw)
     extraction_data["eval"] = result
-    extracted_path.write_text(json.dumps(extraction_data, indent=2))
+
+    if json_path.exists():
+        json_path.write_text(json.dumps(extraction_data, indent=2))
+    if yaml_path.exists():
+        yaml_path.write_text(yaml.dump(extraction_data, default_flow_style=False, sort_keys=False, allow_unicode=True))
 
     from concorde_policy_mapper.extract.report import build_risk_extraction_report
 
