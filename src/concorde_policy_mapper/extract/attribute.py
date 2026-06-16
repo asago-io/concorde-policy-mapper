@@ -27,22 +27,107 @@ def ground_and_extract_evidence(
     section: str | None = None,
     *,
     call_collector: list[LLMCallRecord] | None = None,
+    max_batch_size: int = 0,
 ) -> dict[str, tuple[list[EvidenceSpan], str]]:
     if not candidates:
         return {}
 
+    if max_batch_size > 0 and len(candidates) > max_batch_size:
+        batches = [candidates[i : i + max_batch_size] for i in range(0, len(candidates), max_batch_size)]
+    else:
+        batches = [candidates]
+
+    result: dict[str, tuple[list[EvidenceSpan], str]] = {}
+
+    for batch in batches:
+        messages = render_prompt(
+            "ground_evidence",
+            {
+                "chunk_text": chunk_text,
+                "risks": [
+                    {
+                        "risk_id": c.risk_id,
+                        "risk_name": c.risk_name,
+                        "risk_description": c.risk_description,
+                    }
+                    for c in batch
+                ],
+            },
+        )
+
+        t0 = time.time()
+        verdicts: list[_RiskEvidence] = client.chat.completions.create(
+            model=model,
+            response_model=list[_RiskEvidence],
+            messages=messages,
+        )
+        duration_ms = (time.time() - t0) * 1000
+
+        batch_ids = {c.risk_id for c in batch}
+        for v in verdicts:
+            if not v.grounded or v.risk_id not in batch_ids:
+                continue
+            spans = [
+                EvidenceSpan(
+                    text=quote,
+                    document=document,
+                    page=page,
+                    section=section,
+                    chunk_index=chunk_index,
+                )
+                for quote in v.quotes
+                if quote.strip()
+            ]
+            if spans:
+                result[v.risk_id] = (spans, v.confidence)
+
+        if call_collector is not None:
+            call_id = f"ground-{len([c for c in call_collector if c.stage == 'grounding']) + 1:03d}"
+            call_collector.append(
+                LLMCallRecord(
+                    call_id=call_id,
+                    stage="grounding",
+                    chunk_index=chunk_index,
+                    risk_ids=[c.risk_id for c in batch],
+                    messages=messages,
+                    response=[v.model_dump() for v in verdicts],
+                    duration_ms=duration_ms,
+                    result_summary=(
+                        f"{sum(v.grounded and v.risk_id in batch_ids for v in verdicts)}/{len(batch)} grounded"
+                    ),
+                )
+            )
+
+    return result
+
+
+def ground_variants(
+    chunk_text: str,
+    parent_id: str,
+    parent_name: str,
+    parent_description: str,
+    variants: list[dict],
+    client,
+    model: str,
+    document: str,
+    chunk_index: int,
+    page: int | None = None,
+    section: str | None = None,
+    *,
+    call_collector: list[LLMCallRecord] | None = None,
+) -> dict[str, tuple[list[EvidenceSpan], str]]:
+    """Ground individual variants after parent-level grounding confirms relevance."""
+    if not variants:
+        return {}
+
     messages = render_prompt(
-        "ground_evidence",
+        "ground_variants",
         {
             "chunk_text": chunk_text,
-            "risks": [
-                {
-                    "risk_id": c.risk_id,
-                    "risk_name": c.risk_name,
-                    "risk_description": c.risk_description,
-                }
-                for c in candidates
-            ],
+            "parent_id": parent_id,
+            "parent_name": parent_name,
+            "parent_description": parent_description,
+            "variants": variants,
         },
     )
 
@@ -54,11 +139,11 @@ def ground_and_extract_evidence(
     )
     duration_ms = (time.time() - t0) * 1000
 
-    candidate_ids = {c.risk_id for c in candidates}
+    variant_ids = {v["risk_id"] for v in variants}
     result: dict[str, tuple[list[EvidenceSpan], str]] = {}
 
     for v in verdicts:
-        if not v.grounded or v.risk_id not in candidate_ids:
+        if not v.grounded or v.risk_id not in variant_ids:
             continue
         spans = [
             EvidenceSpan(
@@ -75,17 +160,17 @@ def ground_and_extract_evidence(
             result[v.risk_id] = (spans, v.confidence)
 
     if call_collector is not None:
-        call_id = f"ground-{len([c for c in call_collector if c.stage == 'grounding']) + 1:03d}"
+        call_id = f"ground-variant-{len([c for c in call_collector if c.stage == 'variant_grounding']) + 1:03d}"
         call_collector.append(
             LLMCallRecord(
                 call_id=call_id,
-                stage="grounding",
+                stage="variant_grounding",
                 chunk_index=chunk_index,
-                risk_ids=[c.risk_id for c in candidates],
+                risk_ids=[v["risk_id"] for v in variants],
                 messages=messages,
                 response=[v.model_dump() for v in verdicts],
                 duration_ms=duration_ms,
-                result_summary=f"{len(result)}/{len(candidates)} grounded",
+                result_summary=(f"{len(result)}/{len(variants)} variants grounded (parent: {parent_id})"),
             )
         )
 
@@ -133,6 +218,14 @@ def ground_risk_group(
     risk_ids = {r["risk_id"] for r in risks}
     result: dict[str, tuple[list[EvidenceSpan], str]] = {}
 
+    passage_texts = {idx: chunks[idx].text for idx in chunk_indices if idx < len(chunks)}
+
+    def _find_chunk_for_quote(quote: str) -> int:
+        for idx, text in passage_texts.items():
+            if quote in text:
+                return idx
+        return chunk_indices[0] if chunk_indices else 0
+
     for v in verdicts:
         if not v.grounded or v.risk_id not in risk_ids:
             continue
@@ -140,7 +233,7 @@ def ground_risk_group(
             EvidenceSpan(
                 text=quote,
                 document=document,
-                chunk_index=chunk_indices[0] if chunk_indices else 0,
+                chunk_index=_find_chunk_for_quote(quote),
             )
             for quote in v.quotes
             if quote.strip()

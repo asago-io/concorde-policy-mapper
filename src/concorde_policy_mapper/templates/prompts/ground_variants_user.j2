@@ -1,0 +1,20 @@
+## Document chunk
+
+{{ chunk_text }}
+
+## Parent risk (confirmed relevant)
+
+**{{ parent_id }}** ({{ parent_name }}): {{ parent_description }}
+
+## Variant sub-types to evaluate
+
+{% for variant in variants %}
+- **{{ variant.risk_id }}** ({{ variant.name }}): {{ variant.description }}
+{% endfor %}
+
+For each variant, respond with:
+- risk_id: the exact variant risk ID from above
+- grounded: true ONLY if the text specifically discusses this variant's distinguishing sub-type, false otherwise
+- confidence: "high", "medium", or "low"
+- quotes: the specific passages from the chunk that evidence this PARTICULAR sub-type (empty list if not grounded)
+- rejection_reason: if not grounded, explain what specific evidence would be needed (empty string if grounded)

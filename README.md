@@ -43,11 +43,13 @@ The service parses and chunks input documents, then uses hybrid retrieval (keywo
 
 1. **Parse** — Docling converts PDF/DOCX/HTML to markdown
 2. **Chunk** — Split into ~512-token chunks with page/section metadata
-3. **Index** — Build BM25 + bi-encoder + cross-encoder index over Nexus risks
+3. **Index** — Build BM25 + bi-encoder + cross-encoder index over Nexus risks. Variant risks (IDs containing `---`) are collapsed into synthetic parent entries for indexing.
 4. **Retrieve** — Per-chunk hybrid search with RRF fusion and cross-encoder reranking
 5. **Judge** — LLM judges borderline candidates (parallel)
-6. **Ground** — LLM extracts evidence quotes and confidence (parallel)
-7. **Merge** — Deduplicate across chunks, keep top-3 evidence spans
+6. **Ground** — LLM extracts evidence quotes and confidence (parallel, multi-pass)
+7. **Variant ground** — For collapsed parent risks that survived grounding, a specialized LLM call selects only the specifically evidenced variant sub-types
+8. **Merge** — Deduplicate across chunks, keep top-3 evidence spans
+9. **Expand** — Sibling expansion: found risks are expanded to parent siblings + cross-taxonomy mappings, then grounded against relevant document chunks
 
 ### Two-Tier Evaluation
 

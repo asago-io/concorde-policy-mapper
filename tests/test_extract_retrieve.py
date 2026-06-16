@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 from concorde_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
 from concorde_policy_mapper.extract.parse import Chunk
 from concorde_policy_mapper.extract.retrieve import (
-    _pad_with_budget,
+    build_chunk_contexts,
     build_padded_text,
     classify_by_rank,
     classify_by_threshold,
@@ -362,100 +362,95 @@ def test_classify_by_threshold_bm25_rescue():
     assert len(discarded) == 0
 
 
-# --- _pad_with_budget tests ---
+# --- build_chunk_contexts tests ---
 
 
-def test_pad_with_budget_includes_full_prev_and_next():
-    """Budget large enough for both neighbors: output includes all three chunks."""
+def test_build_chunk_contexts_expands_both_neighbors():
     chunks = [
         Chunk(text="previous chunk text", source="a.pdf", index=0),
         Chunk(text="core chunk text", source="a.pdf", index=1),
         Chunk(text="next chunk text", source="a.pdf", index=2),
     ]
-    # core=3 words, prev=3, next=3 → need max_tokens >= 9
-    result = _pad_with_budget(chunks, chunk_index=1, max_tokens=100)
-    assert "previous chunk text" in result
-    assert "core chunk text" in result
-    assert "next chunk text" in result
+    contexts = build_chunk_contexts(chunks, max_context_tokens=100)
+    assert "previous chunk text" in contexts[1]
+    assert "core chunk text" in contexts[1]
+    assert "next chunk text" in contexts[1]
 
 
-def test_pad_with_budget_no_budget():
-    """max_tokens equals core chunk word count: no room for neighbors."""
+def test_build_chunk_contexts_no_budget():
     chunks = [
         Chunk(text="previous text", source="a.pdf", index=0),
         Chunk(text="core chunk text", source="a.pdf", index=1),
         Chunk(text="next text", source="a.pdf", index=2),
     ]
-    # core is 3 words, budget = 3 - 3 = 0
-    result = _pad_with_budget(chunks, chunk_index=1, max_tokens=3)
-    assert result == "core chunk text"
+    contexts = build_chunk_contexts(chunks, max_context_tokens=3)
+    assert contexts[1] == "core chunk text"
 
 
-def test_pad_with_budget_prev_exceeds_half_budget():
-    """Prev chunk too large for half budget: takes sentences in reverse order."""
-    chunks = [
-        Chunk(text="First sentence of prev. Second sentence of prev. Third sentence of prev.", source="a.pdf", index=0),
-        Chunk(text="core", source="a.pdf", index=1),
-        Chunk(text="next", source="a.pdf", index=2),
-    ]
-    # core=1 word, budget=6-1=5, half=2
-    # prev has 3 sentences (4, 4, 4 words each) — all exceed half budget (2)
-    # next=1 word, fits remaining budget
-    result = _pad_with_budget(chunks, chunk_index=1, max_tokens=6)
-    assert "First sentence of prev." not in result
-    assert "core" in result
-    assert "next" in result
-
-
-def test_pad_with_budget_next_exceeds_budget():
-    """Next chunk too large for remaining budget: takes sentences in forward order."""
-    chunks = [
-        Chunk(text="core", source="a.pdf", index=0),
-        Chunk(text="Short next. A much longer sentence that will not fit in the budget.", source="a.pdf", index=1),
-    ]
-    # core=1 word, budget=4-1=3
-    # No prev (index 0). Next sentences: "Short next."=2 words (fits), long=11 words (won't fit)
-    result = _pad_with_budget(chunks, chunk_index=0, max_tokens=4)
-    assert "core" in result
-    assert "Short next." in result
-    assert "A much longer sentence" not in result
-
-
-def test_pad_with_budget_different_source_skipped():
-    """Prev and next from different source: only core chunk returned."""
+def test_build_chunk_contexts_different_source_skipped():
     chunks = [
         Chunk(text="prev from other doc", source="b.pdf", index=0),
         Chunk(text="core chunk text", source="a.pdf", index=1),
         Chunk(text="next from other doc", source="c.pdf", index=2),
     ]
-    result = _pad_with_budget(chunks, chunk_index=1, max_tokens=100)
-    assert result == "core chunk text"
+    contexts = build_chunk_contexts(chunks, max_context_tokens=100)
+    assert contexts[1] == "core chunk text"
 
 
-def test_pad_with_budget_first_chunk():
-    """chunk_index=0: no prev available, only core + next."""
+def test_build_chunk_contexts_first_chunk():
     chunks = [
         Chunk(text="core chunk", source="a.pdf", index=0),
         Chunk(text="next chunk", source="a.pdf", index=1),
     ]
-    result = _pad_with_budget(chunks, chunk_index=0, max_tokens=100)
-    assert "core chunk" in result
-    assert "next chunk" in result
+    contexts = build_chunk_contexts(chunks, max_context_tokens=100)
+    assert "core chunk" in contexts[0]
+    assert "next chunk" in contexts[0]
 
 
-def test_pad_with_budget_last_chunk():
-    """Last chunk: no next available, only prev + core."""
+def test_build_chunk_contexts_last_chunk():
     chunks = [
         Chunk(text="prev chunk", source="a.pdf", index=0),
         Chunk(text="core chunk", source="a.pdf", index=1),
     ]
-    result = _pad_with_budget(chunks, chunk_index=1, max_tokens=100)
-    assert "prev chunk" in result
-    assert "core chunk" in result
+    contexts = build_chunk_contexts(chunks, max_context_tokens=100)
+    assert "prev chunk" in contexts[1]
+    assert "core chunk" in contexts[1]
 
 
-def test_pad_with_budget_single_chunk():
-    """Only one chunk in list: returns just core text."""
+def test_build_chunk_contexts_single_chunk():
     chunks = [Chunk(text="only chunk here", source="a.pdf", index=0)]
-    result = _pad_with_budget(chunks, chunk_index=0, max_tokens=100)
-    assert result == "only chunk here"
+    contexts = build_chunk_contexts(chunks, max_context_tokens=100)
+    assert contexts[0] == "only chunk here"
+
+
+def test_build_chunk_contexts_section_headings():
+    """Section headings are inserted at section transitions."""
+    chunks = [
+        Chunk(text="intro text", source="a.pdf", index=0, section="Introduction"),
+        Chunk(text="method text", source="a.pdf", index=1, section="Methods"),
+        Chunk(text="more methods", source="a.pdf", index=2, section="Methods"),
+    ]
+    contexts = build_chunk_contexts(chunks, max_context_tokens=100)
+    # Context for chunk 1 should have heading when transitioning from Introduction
+    assert "intro text" in contexts[1]
+    assert "## Methods" in contexts[1]
+    # Context for chunk 2 should not repeat section heading (same section as chunk 1)
+    assert "method text" in contexts[2]
+    assert contexts[2].count("## Methods") <= 1
+
+
+def test_build_chunk_contexts_symmetric_expansion():
+    """Expansion alternates between before and after."""
+    chunks = [
+        Chunk(text="chunk zero with some words", source="a.pdf", index=0),
+        Chunk(text="chunk one with some words", source="a.pdf", index=1),
+        Chunk(text="core chunk", source="a.pdf", index=2),
+        Chunk(text="chunk three with some words", source="a.pdf", index=3),
+        Chunk(text="chunk four with some words", source="a.pdf", index=4),
+    ]
+    # Budget for 3 neighbors (core=2 words, each neighbor=5 words, budget=17 words)
+    contexts = build_chunk_contexts(chunks, max_context_tokens=17)
+    ctx = contexts[2]
+    assert "core chunk" in ctx
+    assert "chunk one with some words" in ctx
+    assert "chunk three with some words" in ctx

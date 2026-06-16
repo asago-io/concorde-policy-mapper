@@ -97,8 +97,8 @@ python scripts/build_mitigation_index.py
 ### Extraction Pipeline (`extract/pipeline.py::run_extraction`)
 
 ```
-Documents → parse_document() → chunk_documents() → per-chunk retrieve → judge → ground → merge → causal synthesis
-                                                                    ↑ ThreadPoolExecutor (steps 6-7)
+Documents → parse_document() → chunk_documents() → per-chunk retrieve → judge → ground → variant_ground → merge → causal synthesis
+                                                                    ↑ ThreadPoolExecutor (steps 6-7b)
 ```
 
 `run_extraction(documents, client, config, risks, retrieval, *, ocr)` accepts a `RetrievalConfig` dataclass (defined in `models.py`) that bundles all retrieval/IR parameters with pre-resolved properties (`effective_cross_encoder_model`, `effective_rrf_min_score`) and a `to_metadata()` method for the output JSON.
@@ -106,12 +106,13 @@ Documents → parse_document() → chunk_documents() → per-chunk retrieve → 
 1. **Parse** (`parse.py`) — Docling converts PDF/DOCX/HTML to markdown; plain text passes through
 2. **Chunk** (`parse.py`) — HybridChunker splits into ~512-token chunks preserving page/section metadata
 3. **Agentic filter** — If document lacks agent-related terminology, agentic risks are excluded from the catalog
-4. **Index** (`index.py`) — `RiskIndex` builds BM25 + bi-encoder embeddings + optional cross-encoder over risk-level taxonomies only. RRF fusion is shared via `_rrf_fuse()` between bi-encoder and ColBERT paths. Score normalization uses a `_make_score_normalizer()` factory resolved at init time.
+4. **Index** (`index.py`) — `RiskIndex` builds BM25 + bi-encoder embeddings + optional cross-encoder over risk-level taxonomies only. RRF fusion is shared via `_rrf_fuse()` between bi-encoder and ColBERT paths. Score normalization uses a `_make_score_normalizer()` factory resolved at init time. Variant risks (IDs containing `---`) are collapsed into synthetic parent entries via `_collapse_variants()` for indexing; `expand_variants()` and `variant_map` property expose the mapping for post-retrieval expansion.
 5. **Retrieve** (`retrieve.py`) — Per-chunk: BM25 + semantic → RRF fusion → cross-encoder rerank → classify into accepted/borderline/discarded. Classification dispatches to `classify_by_rank()` or `classify_by_threshold()` based on `threshold_high`.
 6. **Judge** (`retrieve.py`) — LLM judges borderline candidates using padded text (adjacent chunk context). `--judge-context-tokens` controls the context window size (default: sentence-based padding; set to e.g. 512 to give the judge a wider window when using smaller chunks). Parallel via ThreadPoolExecutor
 7. **Ground** (`attribute.py`) — LLM extracts evidence quotes + confidence (high/medium/low) for accepted candidates; ungrounded ones filtered out. Parallel via ThreadPoolExecutor. Multi-pass grounding (default 3 passes, `--grounding-passes`) unions results across passes to reduce LLM non-determinism. Match construction uses `build_risk_match()` and `determine_accepted_by()` pure functions to avoid duplication across grounding/no-grounding/expansion paths.
+7b. **Variant grounding** (`attribute.py::ground_variants()`) — For collapsed parent risks (e.g. `unauthorized-processing`) that survived grounding, a specialized LLM call determines which specific variant sub-types (e.g. `---biometric-data`, `---health-data`) have evidence in the chunk. Parent matches are replaced by only the grounded variant matches. In `--no-grounding` mode, blind expansion is used instead (all variants emitted for IR-only eval).
 8. **Merge** (`merge.py`) — Deduplicate matches across chunks, keep best confidence and top-3 evidence spans
-9. **Expand** (`expand.py`) — Sibling expansion (enabled by default): expands found risks to parent siblings + cross-taxonomy mappings, then grounds the expanded set against relevant document chunks. Multi-pass expansion grounding (default 3 passes, `--expansion-passes`) unions results to stabilize data-type variant recovery.
+9. **Expand** (`expand.py`) — Sibling expansion (enabled by default): expands found risks to parent siblings + cross-taxonomy mappings, then grounds the expanded set against relevant document chunks. Variant IDs (e.g. `---race`) resolve to their collapsed parent for expansion graph lookup, so finding `discrimination-in-employment---race` bridges to siblings like `classification-of-individuals`. Expanded parent risks go through variant grounding (step 7b) before merging. Multi-pass expansion grounding (default 3 passes, `--expansion-passes`) unions results to stabilize data-type variant recovery.
 10. **Causal synthesis** (`attribute.py`) — LLM synthesizes domain-specific causal chains (`threat`/`threat_source`/`vulnerability`/`consequence`/`impact`) for each matched risk, grounded in the evidence-anchored chunks. Parallel via ThreadPoolExecutor. Disabled with `--no-causal-synthesis`; static YAML chains from `data/atlas_risk_threats.yaml` and `data/atlas_risk_consequences.yaml` serve as fallback for any fields not populated.
 11. **Mitigations** (`mitigations.py`) — Post-processing: enrich each matched risk with recommended mitigation actions from a pre-built index (`data/atlas_risk_to_actions.yaml`)
 
@@ -131,7 +132,7 @@ Category-level taxonomy mapping (NIST, OWASP, AILuminate) is handled at eval tim
 
 ### Prompt Templates (`templates/prompts/`)
 
-Two Jinja2 template pairs (`_system.j2` + `_user.j2`): `judge_risk`, `ground_evidence`. Loaded by `prompts.py::render_prompt()`.
+Jinja2 template pairs (`_system.j2` + `_user.j2`): `judge_risk`, `ground_evidence`, `ground_variants`. Loaded by `prompts.py::render_prompt()`.
 
 ### Evaluation (`evals/eval.py`)
 

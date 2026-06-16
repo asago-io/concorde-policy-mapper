@@ -169,12 +169,9 @@ def extract(
     from concorde_policy_mapper.extract.models import RetrievalConfig
     from concorde_policy_mapper.extract.pipeline import run_extraction
 
-    rc_kwargs = {}
-    if query_instruction is not None:
-        rc_kwargs["query_instruction"] = query_instruction
     retrieval = RetrievalConfig(
         bi_encoder_model=bi_encoder_model,
-        **rc_kwargs,
+        query_instruction=query_instruction if query_instruction is not None else RetrievalConfig.query_instruction,
         cross_encoder_model=cross_encoder_model,
         cross_encoder_type=cross_encoder_type,
         colbert_model=colbert_model or None,
