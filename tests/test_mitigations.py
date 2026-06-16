@@ -343,16 +343,20 @@ def test_build_risk_crossmap_credo(tmp_path):
     mappings_dir.mkdir()
 
     (mappings_dir / "credo-ucf.sssom_from_tsv_data.yaml").write_text(
-        yaml.dump({"entries": [
+        yaml.dump(
             {
-                "id": "credo-risk-005",
-                "close_mappings": ["atlas-data-transparency"],
-            },
-            {
-                "id": "atlas-harmful-output",
-                "related_mappings": ["credo-risk-003"],
-            },
-        ]})
+                "entries": [
+                    {
+                        "id": "credo-risk-005",
+                        "close_mappings": ["atlas-data-transparency"],
+                    },
+                    {
+                        "id": "atlas-harmful-output",
+                        "related_mappings": ["credo-risk-003"],
+                    },
+                ]
+            }
+        )
     )
 
     crossmap = build_risk_crossmap(str(tmp_path))
