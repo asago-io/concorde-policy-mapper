@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.models import (
     EvidenceSpan,
     ExtractionResult,
     LLMCallRecord,
@@ -14,7 +14,7 @@ from concorde_policy_mapper.extract.models import (
     _CausalChain,
     _RiskEvidence,
 )
-from concorde_policy_mapper.extract.pipeline import (
+from asago_policy_mapper.extract.pipeline import (
     _run_causal_synthesis,
     build_risk_match,
     determine_accepted_by,
@@ -657,7 +657,7 @@ def test_run_causal_synthesis_populates_fields():
         ),
     ]
 
-    from concorde_policy_mapper.llm import LLMConfig
+    from asago_policy_mapper.llm import LLMConfig
 
     config = LLMConfig(base_url="http://localhost:8000/v1", model="test-model")
     collector: list[LLMCallRecord] = []
@@ -696,7 +696,7 @@ def test_run_causal_synthesis_skips_empty_results():
         _CausalChain(threat="", threat_source="", vulnerability="", consequence="", impact=""),
     ]
 
-    from concorde_policy_mapper.llm import LLMConfig
+    from asago_policy_mapper.llm import LLMConfig
 
     config = LLMConfig(base_url="http://localhost:8000/v1", model="test-model")
 
@@ -719,7 +719,7 @@ def test_run_extraction_query_gen_no_judge_no_grounding(mock_config, tmp_path):
         "Training data integrity is critical for model reliability."
     )
 
-    from concorde_policy_mapper.extract.querygen import GeneratedQueries
+    from asago_policy_mapper.extract.querygen import GeneratedQueries
 
     mock_client = MagicMock()
     mock_client.chat.completions.create.return_value = GeneratedQueries(

@@ -4,7 +4,7 @@
 
 **Goal:** Add MLflow experiment tracking to the battery runner so battery runs can be compared over time, and sync prompt templates to the MLflow Prompt Registry for versioning.
 
-**Architecture:** All MLflow integration lives in `run_extract_battery.py`. A new helper module `src/concorde_policy_mapper/tracking.py` encapsulates MLflow interactions behind a thin wrapper that gracefully degrades when MLflow is unavailable. The extraction pipeline and eval module are untouched.
+**Architecture:** All MLflow integration lives in `run_extract_battery.py`. A new helper module `src/asago_policy_mapper/tracking.py` encapsulates MLflow interactions behind a thin wrapper that gracefully degrades when MLflow is unavailable. The extraction pipeline and eval module are untouched.
 
 **Tech Stack:** mlflow>=2.17, existing Python stdlib (hashlib, subprocess for git SHA)
 
@@ -12,7 +12,7 @@
 
 ### File Map
 
-- **Create:** `src/concorde_policy_mapper/tracking.py` — MLflow wrapper (experiment setup, run logging, prompt sync)
+- **Create:** `src/asago_policy_mapper/tracking.py` — MLflow wrapper (experiment setup, run logging, prompt sync)
 - **Create:** `tests/test_tracking.py` — tests for the tracking module
 - **Modify:** `run_extract_battery.py` — add CLI flags and call tracking functions
 - **Modify:** `pyproject.toml` — add mlflow dependency
@@ -56,7 +56,7 @@ git commit -m "deps: add mlflow>=2.17 for experiment tracking"
 ### Task 2: Create tracking module — graceful import and experiment setup
 
 **Files:**
-- Create: `src/concorde_policy_mapper/tracking.py`
+- Create: `src/asago_policy_mapper/tracking.py`
 - Create: `tests/test_tracking.py`
 
 - [ ] **Step 1: Write failing tests for graceful import and experiment setup**
@@ -67,7 +67,7 @@ Create `tests/test_tracking.py`:
 from unittest.mock import patch, MagicMock
 import pytest
 
-from concorde_policy_mapper.tracking import (
+from asago_policy_mapper.tracking import (
     is_tracking_enabled,
     init_tracking,
     end_tracking,
@@ -80,7 +80,7 @@ def test_tracking_disabled_by_flag():
     end_tracking(ctx)
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_tracking_enabled_sets_experiment_and_starts_run(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -93,7 +93,7 @@ def test_tracking_enabled_sets_experiment_and_starts_run(mock_mlflow):
     mock_mlflow.start_run.assert_called_once_with(run_name="run-1")
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_tracking_survives_mlflow_failure(mock_mlflow):
     mock_mlflow.set_experiment.side_effect = Exception("connection refused")
 
@@ -101,7 +101,7 @@ def test_tracking_survives_mlflow_failure(mock_mlflow):
     assert not is_tracking_enabled(ctx)
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_end_tracking_calls_end_run(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -119,7 +119,7 @@ Expected: FAIL — `ModuleNotFoundError` or `ImportError` because `tracking.py` 
 
 - [ ] **Step 3: Implement the tracking module**
 
-Create `src/concorde_policy_mapper/tracking.py`:
+Create `src/asago_policy_mapper/tracking.py`:
 
 ```python
 from __future__ import annotations
@@ -188,7 +188,7 @@ Expected: all 4 tests PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/concorde_policy_mapper/tracking.py tests/test_tracking.py
+git add src/asago_policy_mapper/tracking.py tests/test_tracking.py
 git commit -m "feat: add tracking module with graceful MLflow init/teardown"
 ```
 
@@ -197,7 +197,7 @@ git commit -m "feat: add tracking module with graceful MLflow init/teardown"
 ### Task 3: Add param and metric logging to tracking module
 
 **Files:**
-- Modify: `src/concorde_policy_mapper/tracking.py`
+- Modify: `src/asago_policy_mapper/tracking.py`
 - Modify: `tests/test_tracking.py`
 
 - [ ] **Step 1: Write failing tests for param/metric/artifact logging**
@@ -205,7 +205,7 @@ git commit -m "feat: add tracking module with graceful MLflow init/teardown"
 Append to `tests/test_tracking.py`:
 
 ```python
-from concorde_policy_mapper.tracking import (
+from asago_policy_mapper.tracking import (
     log_params,
     log_metrics,
     log_artifact,
@@ -213,7 +213,7 @@ from concorde_policy_mapper.tracking import (
 )
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_params(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -224,14 +224,14 @@ def test_log_params(mock_mlflow):
     mock_mlflow.log_params.assert_called_once_with({"model": "gemma", "threshold": "0.7"})
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_params_skipped_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     log_params(ctx, {"model": "gemma"})
     mock_mlflow.log_params.assert_not_called()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_metrics(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -242,7 +242,7 @@ def test_log_metrics(mock_mlflow):
     mock_mlflow.log_metrics.assert_called_once_with({"recall": 0.85, "precision": 0.9})
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_artifact(mock_mlflow, tmp_path):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -256,7 +256,7 @@ def test_log_artifact(mock_mlflow, tmp_path):
     mock_mlflow.log_artifact.assert_called_once_with(str(artifact))
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_child_run(mock_mlflow):
     parent_run = MagicMock()
     parent_run.info.run_id = "parent123"
@@ -283,7 +283,7 @@ def test_log_child_run(mock_mlflow):
     assert calls[1].kwargs["nested"] is True
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_child_run_skipped_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     log_child_run(ctx, name="policy", params={}, metrics={}, tags={}, artifacts=[])
@@ -293,7 +293,7 @@ def test_log_child_run_skipped_when_disabled(mock_mlflow):
 Also add this import at the top of the test file:
 
 ```python
-from concorde_policy_mapper.tracking import TrackingContext
+from asago_policy_mapper.tracking import TrackingContext
 ```
 
 - [ ] **Step 2: Run tests to verify the new ones fail**
@@ -303,7 +303,7 @@ Expected: new tests FAIL — `log_params`, `log_metrics`, `log_artifact`, `log_c
 
 - [ ] **Step 3: Implement logging functions**
 
-Add to `src/concorde_policy_mapper/tracking.py`:
+Add to `src/asago_policy_mapper/tracking.py`:
 
 ```python
 def log_params(ctx: TrackingContext, params: dict[str, str]) -> None:
@@ -368,7 +368,7 @@ Expected: all tests PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/concorde_policy_mapper/tracking.py tests/test_tracking.py
+git add src/asago_policy_mapper/tracking.py tests/test_tracking.py
 git commit -m "feat: add param, metric, artifact, and child run logging to tracking module"
 ```
 
@@ -377,7 +377,7 @@ git commit -m "feat: add param, metric, artifact, and child run logging to track
 ### Task 4: Add prompt registry sync to tracking module
 
 **Files:**
-- Modify: `src/concorde_policy_mapper/tracking.py`
+- Modify: `src/asago_policy_mapper/tracking.py`
 - Modify: `tests/test_tracking.py`
 
 - [ ] **Step 1: Write failing tests for prompt sync**
@@ -387,10 +387,10 @@ Append to `tests/test_tracking.py`:
 ```python
 import hashlib
 
-from concorde_policy_mapper.tracking import sync_prompts
+from asago_policy_mapper.tracking import sync_prompts
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_sync_prompts_registers_new_prompt(mock_mlflow, tmp_path):
     prompts_dir = tmp_path / "templates" / "prompts"
     prompts_dir.mkdir(parents=True)
@@ -410,7 +410,7 @@ def test_sync_prompts_registers_new_prompt(mock_mlflow, tmp_path):
     mock_mlflow.genai.register_prompt.assert_called_once()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_sync_prompts_skips_unchanged(mock_mlflow, tmp_path):
     prompts_dir = tmp_path / "templates" / "prompts"
     prompts_dir.mkdir(parents=True)
@@ -432,7 +432,7 @@ def test_sync_prompts_skips_unchanged(mock_mlflow, tmp_path):
     mock_mlflow.genai.register_prompt.assert_not_called()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_sync_prompts_returns_empty_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     versions = sync_prompts(ctx, Path("/nonexistent"))
@@ -447,7 +447,7 @@ Expected: FAIL — `sync_prompts` not yet defined.
 
 - [ ] **Step 3: Implement prompt sync**
 
-Add to `src/concorde_policy_mapper/tracking.py`, adding `import hashlib` and `import subprocess` at the top:
+Add to `src/asago_policy_mapper/tracking.py`, adding `import hashlib` and `import subprocess` at the top:
 
 ```python
 import hashlib
@@ -521,7 +521,7 @@ Expected: all tests PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add src/concorde_policy_mapper/tracking.py tests/test_tracking.py
+git add src/asago_policy_mapper/tracking.py tests/test_tracking.py
 git commit -m "feat: add prompt registry sync to tracking module"
 ```
 
@@ -543,10 +543,10 @@ In `main()`, add two new arguments after the existing `--classify-taxonomies` ar
 
 - [ ] **Step 2: Add tracking import at the top of `run_extract_battery.py`**
 
-Add after the existing `from concorde_policy_mapper.evals.eval import evaluate_extraction` import:
+Add after the existing `from asago_policy_mapper.evals.eval import evaluate_extraction` import:
 
 ```python
-from concorde_policy_mapper.tracking import (
+from asago_policy_mapper.tracking import (
     init_tracking,
     end_tracking,
     is_tracking_enabled,
@@ -582,7 +582,7 @@ After the line `print()` (line 356 in current file, after the config summary pri
             "jobs": str(args.jobs),
             "battery_config": battery_path.name,
         })
-        templates_dir = PACKAGE_DIR / "src" / "concorde_policy_mapper" / "templates"
+        templates_dir = PACKAGE_DIR / "src" / "asago_policy_mapper" / "templates"
         prompt_versions = sync_prompts(tracking_ctx, templates_dir)
         for pname, pversion in prompt_versions.items():
             log_params(tracking_ctx, {f"prompt/{pname}_version": str(pversion)})

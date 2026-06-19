@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from concorde_policy_mapper.extract.models import EvidenceSpan, RiskMatch
+from asago_policy_mapper.extract.models import EvidenceSpan, RiskMatch
 
 
 def merge_matches(

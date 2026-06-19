@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import time
 
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.models import (
     EvidenceSpan,
     LLMCallRecord,
     RiskMatch,
@@ -11,7 +11,7 @@ from concorde_policy_mapper.extract.models import (
     _CausalChain,
     _RiskEvidence,
 )
-from concorde_policy_mapper.prompts import render_prompt
+from asago_policy_mapper.prompts import render_prompt
 
 logger = logging.getLogger(__name__)
 

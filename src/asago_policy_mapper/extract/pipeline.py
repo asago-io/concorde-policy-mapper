@@ -7,15 +7,15 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from concorde_policy_mapper.extract.attribute import (
+from asago_policy_mapper.extract.attribute import (
     ground_and_extract_evidence,
     ground_risk_group,
     ground_variants,
     synthesize_causal_chain,
 )
-from concorde_policy_mapper.extract.index import RiskIndex
-from concorde_policy_mapper.extract.merge import merge_matches
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.index import RiskIndex
+from asago_policy_mapper.extract.merge import merge_matches
+from asago_policy_mapper.extract.models import (
     ChunkSummary,
     EvidenceSpan,
     ExtractionResult,
@@ -28,15 +28,15 @@ from concorde_policy_mapper.extract.models import (
     ScoredCandidate,
     _CausalChain,
 )
-from concorde_policy_mapper.extract.parse import chunk_documents, parse_document
-from concorde_policy_mapper.extract.querygen import generate_queries, group_chunks
-from concorde_policy_mapper.extract.retrieve import (
+from asago_policy_mapper.extract.parse import chunk_documents, parse_document
+from asago_policy_mapper.extract.querygen import generate_queries, group_chunks
+from asago_policy_mapper.extract.retrieve import (
     ChunkResult,
     build_chunk_contexts,
     judge_borderline,
     retrieve_chunk,
 )
-from concorde_policy_mapper.llm import LLMConfig
+from asago_policy_mapper.llm import LLMConfig
 
 logger = logging.getLogger(__name__)
 
@@ -447,7 +447,7 @@ def _run_expansion(
     variant_map: dict | None = None,
     chunk_contexts=None,
 ) -> tuple[list[RiskMatch], dict]:
-    from concorde_policy_mapper.extract.expand import (
+    from asago_policy_mapper.extract.expand import (
         build_expansion_graph,
         expand_with_siblings,
         group_for_grounding,

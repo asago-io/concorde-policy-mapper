@@ -4,15 +4,15 @@ from pathlib import Path
 import typer
 import yaml
 
-from concorde_policy_mapper import debug
-from concorde_policy_mapper.llm import LLMConfig, TokenTracker, create_client
+from asago_policy_mapper import debug
+from asago_policy_mapper.llm import LLMConfig, TokenTracker, create_client
 
 app = typer.Typer()
 
 
 @app.callback()
 def main():
-    """Concorde Policy Mapper — policy risk extraction using AI Atlas Nexus."""
+    """Asago Policy Mapper — policy risk extraction using AI Atlas Nexus."""
 
 
 EXCLUDED_TAXONOMIES = {
@@ -178,8 +178,8 @@ def extract(
     nexus = AIAtlasNexus(base_dir=nexus_base_dir)
     all_risks = [r for r in nexus.get_all_risks() if getattr(r, "isDefinedByTaxonomy", "") not in EXCLUDED_TAXONOMIES]
 
-    from concorde_policy_mapper.extract.models import RetrievalConfig
-    from concorde_policy_mapper.extract.pipeline import run_extraction
+    from asago_policy_mapper.extract.models import RetrievalConfig
+    from asago_policy_mapper.extract.pipeline import run_extraction
 
     retrieval = RetrievalConfig(
         bi_encoder_model=bi_encoder_model,
@@ -220,7 +220,7 @@ def extract(
 
     result.token_usage = tracker.to_dict()
 
-    from concorde_policy_mapper.extract.mitigations import (
+    from asago_policy_mapper.extract.mitigations import (
         build_action_descriptions,
         build_risk_crossmap,
         enrich_with_mitigations,
@@ -274,7 +274,7 @@ def extract(
             f" = {tracker.total_tokens:,} total ({tracker.calls} calls)"
         )
 
-    from concorde_policy_mapper.extract.report import build_risk_extraction_report
+    from asago_policy_mapper.extract.report import build_risk_extraction_report
 
     report_path = build_risk_extraction_report(result_data, output / "risk-extraction.html")
     typer.echo(f"Report written to {report_path}")
@@ -308,7 +308,7 @@ def eval_cmd(
         typer.echo(f"Error: ground truth not found at {ground_truth}", err=True)
         raise typer.Exit(1)
 
-    from concorde_policy_mapper.evals.eval import evaluate_extraction
+    from asago_policy_mapper.evals.eval import evaluate_extraction
 
     result = evaluate_extraction(
         ground_truth,
@@ -333,7 +333,7 @@ def eval_cmd(
     if yaml_path.exists():
         yaml_path.write_text(yaml.dump(extraction_data, default_flow_style=False, sort_keys=False, allow_unicode=True))
 
-    from concorde_policy_mapper.extract.report import build_risk_extraction_report
+    from asago_policy_mapper.extract.report import build_risk_extraction_report
 
     report_path = build_risk_extraction_report(extraction_data, run_dir / "risk-extraction.html")
 

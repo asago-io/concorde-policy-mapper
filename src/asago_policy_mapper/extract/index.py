@@ -6,7 +6,7 @@ import numpy as np
 from rank_bm25 import BM25Okapi
 from sentence_transformers import CrossEncoder, SentenceTransformer
 
-from concorde_policy_mapper.extract.models import ScoredCandidate
+from asago_policy_mapper.extract.models import ScoredCandidate
 
 logger = logging.getLogger(__name__)
 

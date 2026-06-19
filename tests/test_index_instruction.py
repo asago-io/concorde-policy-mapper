@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from concorde_policy_mapper.extract.index import RiskIndex, _RemoteBiEncoder
+from asago_policy_mapper.extract.index import RiskIndex, _RemoteBiEncoder
 
 
 def test_set_query_instruction_updates_remote_bi_encoder():

@@ -2,7 +2,7 @@ import json
 
 from typer.testing import CliRunner
 
-from concorde_policy_mapper.cli import app
+from asago_policy_mapper.cli import app
 
 runner = CliRunner()
 

@@ -9,7 +9,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from concorde_policy_mapper.llm import LLMConfig
+from asago_policy_mapper.llm import LLMConfig
 
 
 @pytest.fixture

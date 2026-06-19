@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 import numpy as np
 import pytest
 
-from concorde_policy_mapper.extract.index import (
+from asago_policy_mapper.extract.index import (
     RiskIndex,
     _is_remote,
     _make_score_normalizer,
@@ -13,7 +13,7 @@ from concorde_policy_mapper.extract.index import (
     _RemoteCrossEncoder,
     _rrf_fuse,
 )
-from concorde_policy_mapper.extract.models import ScoredCandidate
+from asago_policy_mapper.extract.models import ScoredCandidate
 
 
 def _make_risk(id, name, description, concern=""):

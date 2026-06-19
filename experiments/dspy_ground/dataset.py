@@ -162,7 +162,7 @@ def _build_examples_for_policy(
         logger.warning("No policy file for %s", policy)
         return []
 
-    from concorde_policy_mapper.extract.parse import parse_document, chunk_documents
+    from asago_policy_mapper.extract.parse import parse_document, chunk_documents
 
     try:
         parsed = parse_document(policy_file)

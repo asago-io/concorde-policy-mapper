@@ -12,8 +12,8 @@ from pathlib import Path
 import dspy
 import yaml
 
-from concorde_policy_mapper.extract.parse import chunk_documents, parse_document
-from concorde_policy_mapper.extract.retrieve import build_padded_text
+from asago_policy_mapper.extract.parse import chunk_documents, parse_document
+from asago_policy_mapper.extract.retrieve import build_padded_text
 
 logger = logging.getLogger(__name__)
 

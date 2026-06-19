@@ -48,7 +48,7 @@ uv run python -m experiments.dspy_judge \
 
 **Output:** Results and optimized program saved to `experiments/dspy_judge/runs/`.
 
-**Applying results:** Extract the `optimized_instructions` from the run JSON and update `src/concorde_policy_mapper/templates/prompts/judge_risk_system.j2`.
+**Applying results:** Extract the `optimized_instructions` from the run JSON and update `src/asago_policy_mapper/templates/prompts/judge_risk_system.j2`.
 
 **Time:** ~30–60 min depending on endpoint speed.
 
@@ -134,7 +134,7 @@ uv run python -m experiments.dspy_embedding \
 
 **Output:** Results and optimized program saved to `experiments/dspy_embedding/runs/`.
 
-**Applying results:** Update `RetrievalConfig.query_instruction` in `src/concorde_policy_mapper/extract/models.py` with the optimized instruction, or pass it via `--query-instruction` at extraction time.
+**Applying results:** Update `RetrievalConfig.query_instruction` in `src/asago_policy_mapper/extract/models.py` with the optimized instruction, or pass it via `--query-instruction` at extraction time.
 
 ---
 

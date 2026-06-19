@@ -2,7 +2,7 @@ import tempfile
 import types
 from pathlib import Path
 
-from concorde_policy_mapper.extract.parse import (
+from asago_policy_mapper.extract.parse import (
     Chunk,
     ParsedDocument,
     _serialize_table,

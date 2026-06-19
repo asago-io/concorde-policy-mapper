@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 import pytest
 from instructor.core import IncompleteOutputException, InstructorRetryException
 
-from concorde_policy_mapper.llm import (
+from asago_policy_mapper.llm import (
     LLMConfig,
     TokenTracker,
     _call_with_retry,

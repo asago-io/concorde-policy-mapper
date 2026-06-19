@@ -5,10 +5,10 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 
-from concorde_policy_mapper.extract.models import LLMCallRecord
-from concorde_policy_mapper.extract.parse import Chunk
-from concorde_policy_mapper.llm import SlimModel
-from concorde_policy_mapper.prompts import render_prompt
+from asago_policy_mapper.extract.models import LLMCallRecord
+from asago_policy_mapper.extract.parse import Chunk
+from asago_policy_mapper.llm import SlimModel
+from asago_policy_mapper.prompts import render_prompt
 
 logger = logging.getLogger(__name__)
 

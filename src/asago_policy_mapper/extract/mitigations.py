@@ -5,7 +5,7 @@ from pathlib import Path
 
 import yaml
 
-from concorde_policy_mapper.extract.models import MitigationRef, RiskMatch
+from asago_policy_mapper.extract.models import MitigationRef, RiskMatch
 
 logger = logging.getLogger(__name__)
 

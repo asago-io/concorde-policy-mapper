@@ -65,7 +65,7 @@ def _find_policy_file(policy: str) -> Path | None:
 
 def _parse_chunks(policy: str, chunk_max_tokens: int = 512) -> list | None:
     """Parse and chunk a policy document. Returns list of Chunk objects or None."""
-    from concorde_policy_mapper.extract.parse import chunk_documents, parse_document
+    from asago_policy_mapper.extract.parse import chunk_documents, parse_document
 
     policy_file = _find_policy_file(policy)
     if not policy_file:
@@ -285,7 +285,7 @@ def _load_dataset_legacy(
     import numpy as np
     from sentence_transformers import CrossEncoder
 
-    from concorde_policy_mapper.extract.parse import chunk_documents, parse_document
+    from asago_policy_mapper.extract.parse import chunk_documents, parse_document
 
     all_risks = [
         {"risk_id": rid, "risk_name": info["name"], "risk_description": info["description"]}

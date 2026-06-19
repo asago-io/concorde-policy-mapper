@@ -1,4 +1,4 @@
-# Concorde Policy Mapper
+# Asago Policy Mapper
 
 Unstructured policy-to-risk mapping via [AI Risk Atlas Nexus](https://github.com/IBM/ai-atlas-nexus).
 
@@ -95,7 +95,7 @@ Pass a **model name** to run locally (downloaded on first use), or a **URL** to 
 **Best quality** (Qwen3 + GTE, both on GPU cluster):
 
 ```bash
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --base-url http://localhost:8000/v1 --model my-model \
   --bi-encoder-model https://qwen3-embedding-serving.example.com/v1/embeddings \
@@ -107,7 +107,7 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
 **Good quality** (EmbeddingGemma + GTE, remote):
 
 ```bash
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --base-url http://localhost:8000/v1 --model my-model \
   --bi-encoder-model https://embeddinggemma-serving.example.com/v1/embeddings \
@@ -117,7 +117,7 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
 **Local with GTE reranker** (bi-encoder local, cross-encoder local — needs GPU for GTE):
 
 ```bash
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --base-url http://localhost:8000/v1 --model my-model \
   --cross-encoder-model Alibaba-NLP/gte-reranker-modernbert-base
@@ -126,7 +126,7 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
 **Local defaults** (no GPU needed, models downloaded automatically):
 
 ```bash
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --base-url http://localhost:8000/v1 --model my-model
 ```
@@ -134,7 +134,7 @@ uv run concorde-policy-mapper extract policy.pdf -o output/ \
 **IR-only** (no LLM needed — useful for quick evaluation):
 
 ```bash
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --no-judge --no-grounding
 ```
@@ -154,7 +154,7 @@ You need a local clone of [ai-atlas-nexus](https://github.com/IBM/ai-atlas-nexus
 ### Extract risks from a policy document
 
 ```bash
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --base-url http://localhost:8000/v1 \
   --model my-model \
   --nexus-base-dir /path/to/ai-atlas-nexus
@@ -165,7 +165,7 @@ Outputs `risk-extraction.json` and `risk-extraction.html` report. Use `--output-
 ### Evaluate against ground truth
 
 ```bash
-uv run concorde-policy-mapper eval output/ -g evals/ground_truth/policy-name.yaml
+uv run asago-policy-mapper eval output/ -g evals/ground_truth/policy-name.yaml
 ```
 
 ### Run a battery of extractions
@@ -189,28 +189,28 @@ just no_mlflow="1" run-risk-extract-battery batteries/risk-selected.yaml <base-u
 python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> --mlflow-experiment my-experiment
 
 # IR-only mode (no LLM judge/grounding, no --base-url/--model needed)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus --no-judge --no-grounding
 just no_judge="1" no_grounding="1" run-risk-extract-battery batteries/risk-selected.yaml
 
 # Judge only, no grounding (test judge contribution in isolation)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus --no-grounding \
   --base-url <url> --model <model>
 
 # Skip causal synthesis (use static YAML chains)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus --no-causal-synthesis \
   --base-url <url> --model <model>
 
 # Smaller chunks with larger judge context window
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus \
   --chunk-max-tokens 256 --judge-context-tokens 512 \
   --base-url <url> --model <model>
 
 # Disable LLM query generation (use raw chunk text for retrieval)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
+uv run asago-policy-mapper extract policy.pdf -o output/ \
   --nexus-base-dir /path/to/ai-atlas-nexus --no-query-gen \
   --base-url <url> --model <model>
 

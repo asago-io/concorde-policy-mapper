@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from concorde_policy_mapper.debug import (
+from asago_policy_mapper.debug import (
     _extract_response,
     _slug_from_context,
     configure,
@@ -13,7 +13,7 @@ from concorde_policy_mapper.debug import (
 
 @pytest.fixture(autouse=True)
 def _reset_debug():
-    from concorde_policy_mapper import debug
+    from asago_policy_mapper import debug
 
     debug.configure(None)
     yield

@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 
-from concorde_policy_mapper.extract.expand import (
+from asago_policy_mapper.extract.expand import (
     ExpandedRisk,
     build_expansion_graph,
     expand_with_siblings,
