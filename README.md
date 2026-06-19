@@ -176,6 +176,48 @@ just run-risk-extract-battery batteries/risk-selected.yaml <base-url> <model>
 
 Runs extraction + eval across all policies in the battery config, generates per-run reports and a summary with per-taxonomy heatmaps.
 
+### Advanced Usage
+
+```bash
+# Battery with more options (direct invocation)
+python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> -j 6
+
+# Battery with MLflow tracking disabled
+just no_mlflow="1" run-risk-extract-battery batteries/risk-selected.yaml <base-url> <model>
+
+# Battery with custom MLflow experiment name
+python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> --mlflow-experiment my-experiment
+
+# IR-only mode (no LLM judge/grounding, no --base-url/--model needed)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-judge --no-grounding
+just no_judge="1" no_grounding="1" run-risk-extract-battery batteries/risk-selected.yaml
+
+# Judge only, no grounding (test judge contribution in isolation)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-grounding \
+  --base-url <url> --model <model>
+
+# Skip causal synthesis (use static YAML chains)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-causal-synthesis \
+  --base-url <url> --model <model>
+
+# Smaller chunks with larger judge context window
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus \
+  --chunk-max-tokens 256 --judge-context-tokens 512 \
+  --base-url <url> --model <model>
+
+# Disable LLM query generation (use raw chunk text for retrieval)
+uv run concorde-policy-mapper extract policy.pdf -o output/ \
+  --nexus-base-dir /path/to/ai-atlas-nexus --no-query-gen \
+  --base-url <url> --model <model>
+
+# Rebuild mitigation index (after data file changes)
+python scripts/build_mitigation_index.py
+```
+
 ## Tests
 
 ```bash

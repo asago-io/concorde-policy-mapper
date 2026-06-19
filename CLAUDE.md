@@ -41,66 +41,7 @@ just type-check
 # Type check single file
 uv run mypy path/to/file.py
 
-# Extract risks from a document
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --base-url http://localhost:8000/v1 --model my-model \
-  --nexus-base-dir /path/to/ai-atlas-nexus
-
-# Output as YAML instead of JSON (or both)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --base-url http://localhost:8000/v1 --model my-model \
-  --nexus-base-dir /path/to/ai-atlas-nexus --output-format yaml
-# --output-format: json (default), yaml, or both
-
-# Evaluate against ground truth
-uv run concorde-policy-mapper eval output/ -g evals/ground_truth/policy-name.yaml
-
-# Run full battery (27 policies, parallel)
-just run-risk-extract-battery batteries/risk-selected.yaml <base-url> <model>
-# Or directly with more options:
-python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> -j 6
-# Default config: expand-siblings + 3-pass grounding + 3-pass expansion
-
-# Run battery with MLflow tracking disabled
-just no_mlflow="1" run-risk-extract-battery batteries/risk-selected.yaml <base-url> <model>
-
-# Run battery with custom MLflow experiment name
-python run_extract_battery.py batteries/risk-selected.yaml --base-url <url> --model <model> --mlflow-experiment my-experiment
-
-# IR-only mode (no LLM judge/grounding, no --base-url/--model needed)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus --no-judge --no-grounding
-just no_judge="1" no_grounding="1" run-risk-extract-battery batteries/risk-selected.yaml
-
-# Judge only, no grounding (test judge contribution in isolation)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus --no-grounding \
-  --base-url <url> --model <model>
-
-# Skip causal synthesis (use static YAML chains)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus --no-causal-synthesis \
-  --base-url <url> --model <model>
-
-# Smaller chunks with larger judge context window
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus \
-  --chunk-max-tokens 256 --judge-context-tokens 512 \
-  --base-url <url> --model <model>
-
-# Use remote embedding models on GPU cluster
-uv run concorde-policy-mapper extract policy.pdf -o output/ --no-judge --no-grounding \
-  --nexus-base-dir /path/to/ai-atlas-nexus \
-  --bi-encoder-model https://bge-m3-model-serving.apps.example.com/v1/embeddings \
-  --cross-encoder-model https://gte-reranker-model-serving.apps.example.com/v1/score
-
-# Disable LLM query generation (use raw chunk text for retrieval)
-uv run concorde-policy-mapper extract policy.pdf -o output/ \
-  --nexus-base-dir /path/to/ai-atlas-nexus --no-query-gen \
-  --base-url <url> --model <model>
-
-# Rebuild mitigation index (after data file changes)
-python scripts/build_mitigation_index.py
+# See README.md for full CLI usage examples (extract, eval, battery, remote models)
 ```
 
 ## Architecture
@@ -206,5 +147,6 @@ Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YA
 
 ## Development
 
+- `AGENTS.md` is a symlink to `CLAUDE.md` — they are the same file. Do not treat them as separate files or suggest deduplication.
 - DO NOT skip updating the changelog with any changes made
-- DO NOT skip updating AGENTS.md and the README.md when changes require it
+- DO NOT skip updating `CLAUDE.md`/`AGENTS.md` and `README.md` when changes require it
