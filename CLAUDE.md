@@ -147,6 +147,6 @@ Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YA
 
 ## Development
 
-- `AGENTS.md` is a symlink to `CLAUDE.md` — they are the same file, not two copies. Do not treat them as separate files or suggest deduplication.
+- `AGENTS.md` is a symlink to `CLAUDE.md` — they are the same file. Do not treat them as separate files or suggest deduplication.
 - DO NOT skip updating the changelog with any changes made
-- DO NOT skip updating AGENTS.md and the README.md when changes require it
+- DO NOT skip updating `CLAUDE.md`/`AGENTS.md` and `README.md` when changes require it
