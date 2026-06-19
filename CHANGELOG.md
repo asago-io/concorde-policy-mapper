@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- **Project renamed** from `concorde-policy-mapper` to `asago-policy-mapper`. Python module is now `asago_policy_mapper`. CLI command is now `asago-policy-mapper`.
+
 ### Added
 - **YAML output format**: `--output-format yaml` (or `both`) writes `risk-extraction.yaml` alongside or instead of JSON. The `eval` command auto-detects whichever format is present and writes eval results back into all existing output files. Default remains JSON for backward compatibility.
 - **mypy type checking**: added mypy with Pydantic plugin to dev dependencies and CI pipeline. Configured in `pyproject.toml` with `check_untyped_defs`, `warn_return_any`, and per-module import overrides for untyped deps (rank_bm25, nltk, ai_atlas_nexus). Fixed all existing type errors across `llm.py`, `index.py`, `pipeline.py`, `debug.py`, `parse.py`, and `retrieve.py`. Added `just type-check` target and wired mypy into the `tidy` CI job.

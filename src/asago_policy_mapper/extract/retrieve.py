@@ -6,9 +6,9 @@ from dataclasses import dataclass
 
 import spacy
 
-from concorde_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
-from concorde_policy_mapper.extract.parse import Chunk
-from concorde_policy_mapper.prompts import render_prompt
+from asago_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
+from asago_policy_mapper.extract.parse import Chunk
+from asago_policy_mapper.prompts import render_prompt
 
 logger = logging.getLogger(__name__)
 

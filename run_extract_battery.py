@@ -26,8 +26,8 @@ from pathlib import Path
 
 import yaml
 
-from concorde_policy_mapper.evals.eval import evaluate_extraction
-from concorde_policy_mapper.tracking import (
+from asago_policy_mapper.evals.eval import evaluate_extraction
+from asago_policy_mapper.tracking import (
     end_tracking,
     init_tracking,
     is_tracking_enabled,
@@ -126,7 +126,7 @@ def run_one(
     cmd = [
         "uv",
         "run",
-        "concorde-policy-mapper",
+        "asago-policy-mapper",
         "extract",
         *[str(p) for p in policies],
         "-o",
@@ -245,7 +245,7 @@ def run_eval(name: str, runs_dir: Path, min_recall: float = 0.80, min_precision:
     extracted_path.write_text(json.dumps(extraction_data, indent=2))
 
     try:
-        from concorde_policy_mapper.extract.report import build_risk_extraction_report
+        from asago_policy_mapper.extract.report import build_risk_extraction_report
 
         build_risk_extraction_report(extraction_data, runs_dir / name / "risk-extraction.html")
     except Exception as e:
@@ -585,7 +585,7 @@ def main():
                 "battery_config": battery_path.name,
             },
         )
-        templates_dir = PACKAGE_DIR / "src" / "concorde_policy_mapper" / "templates"
+        templates_dir = PACKAGE_DIR / "src" / "asago_policy_mapper" / "templates"
         prompt_versions = sync_prompts(tracking_ctx, templates_dir)
         for pname, pversion in prompt_versions.items():
             log_params(tracking_ctx, {f"prompt/{pname}_version": str(pversion)})
@@ -658,7 +658,7 @@ def main():
             extraction_path = runs_dir / name / "risk-extraction.json"
             if extraction_path.exists():
                 try:
-                    from concorde_policy_mapper.extract.report import build_risk_extraction_report
+                    from asago_policy_mapper.extract.report import build_risk_extraction_report
 
                     data = json.loads(extraction_path.read_text())
                     build_risk_extraction_report(data, runs_dir / name / "risk-extraction.html")

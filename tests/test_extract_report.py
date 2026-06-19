@@ -1,4 +1,4 @@
-from concorde_policy_mapper.extract.report import build_risk_extraction_report
+from asago_policy_mapper.extract.report import build_risk_extraction_report
 
 
 def test_build_risk_extraction_report_creates_html(tmp_path):

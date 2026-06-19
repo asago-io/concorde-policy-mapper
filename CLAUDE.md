@@ -1,4 +1,4 @@
-Concorde Policy Mapper extracts AI risks from policy documents using the IBM AI Atlas Nexus risk taxonomy (~524 risks). It uses hybrid retrieval (BM25 + semantic embeddings + cross-encoder reranking) to match document chunks against Nexus risks, then LLM-judges borderline candidates and grounds accepted ones with evidence quotes.
+Asago Policy Mapper extracts AI risks from policy documents using the IBM AI Atlas Nexus risk taxonomy (~524 risks). It uses hybrid retrieval (BM25 + semantic embeddings + cross-encoder reranking) to match document chunks against Nexus risks, then LLM-judges borderline candidates and grounds accepted ones with evidence quotes.
 
 ## Commands
 
@@ -35,7 +35,7 @@ just format
 uv run ruff format path/to/file.py
 
 # Type check
-uv run mypy src/concorde_policy_mapper/
+uv run mypy src/asago_policy_mapper/
 just type-check
 
 # Type check single file
@@ -112,7 +112,7 @@ Regenerate after data file changes: `python scripts/build_mitigation_index.py`
 
 ### Battery Runner (`run_extract_battery.py`)
 
-Runs `concorde-policy-mapper extract` as a subprocess per policy in a battery YAML config, with parallel execution (default 6 workers). Auto-evaluates against ground truth, generates per-run HTML reports, and a battery summary with per-taxonomy heatmaps.
+Runs `asago-policy-mapper extract` as a subprocess per policy in a battery YAML config, with parallel execution (default 6 workers). Auto-evaluates against ground truth, generates per-run HTML reports, and a battery summary with per-taxonomy heatmaps.
 
 ## Key Conventions
 

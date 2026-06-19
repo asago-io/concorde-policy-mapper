@@ -1,4 +1,4 @@
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.models import (
     ChunkSummary,
     EvidenceSpan,
     ExtractionResult,

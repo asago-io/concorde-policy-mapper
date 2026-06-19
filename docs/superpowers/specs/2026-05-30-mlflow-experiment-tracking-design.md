@@ -13,7 +13,7 @@ Add MLflow experiment tracking to the battery runner so battery runs over time c
 - Graceful degradation when MLflow is unavailable
 
 **Out of scope:**
-- Tracking standalone `concorde-policy-mapper eval` CLI invocations (battery runner only)
+- Tracking standalone `asago-policy-mapper eval` CLI invocations (battery runner only)
 - MLflow tracing/observability for individual LLM calls
 - Loading prompts from MLflow at extraction runtime (prompts stay on disk)
 
@@ -80,7 +80,7 @@ At the start of each battery run, before launching extractions, the runner syncs
 Three prompts are managed: `judge_risk`, `ground_evidence`, `classify_risks`. Each is a chat-style prompt with system and user message templates.
 
 **Sync logic:**
-1. Read `_system.j2` and `_user.j2` from `src/concorde_policy_mapper/templates/prompts/`
+1. Read `_system.j2` and `_user.j2` from `src/asago_policy_mapper/templates/prompts/`
 2. Combine into a chat template (list of `{"role": "system", "content": ...}, {"role": "user", "content": ...}`)
 3. Compute SHA-256 hash of the combined content
 4. Load the latest version from the registry and compare its `content_hash` tag

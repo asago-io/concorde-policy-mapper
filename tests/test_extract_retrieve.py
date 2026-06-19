@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
-from concorde_policy_mapper.extract.parse import Chunk
-from concorde_policy_mapper.extract.retrieve import (
+from asago_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
+from asago_policy_mapper.extract.parse import Chunk
+from asago_policy_mapper.extract.retrieve import (
     build_chunk_contexts,
     build_padded_text,
     classify_by_rank,
@@ -277,7 +277,7 @@ def test_judge_borderline_no_collector():
 
 def test_retrieve_chunk_no_cross_encoder():
     """With use_cross_encoder=False, all candidates go to accepted, no borderline."""
-    from concorde_policy_mapper.extract.retrieve import retrieve_chunk
+    from asago_policy_mapper.extract.retrieve import retrieve_chunk
 
     mock_index = MagicMock()
     mock_index.hybrid_search.return_value = [

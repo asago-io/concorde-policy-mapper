@@ -3,13 +3,13 @@ from pathlib import Path
 import pytest
 import yaml
 
-from concorde_policy_mapper.extract.mitigations import (
+from asago_policy_mapper.extract.mitigations import (
     build_action_descriptions,
     build_risk_crossmap,
     enrich_with_mitigations,
     load_mitigation_index,
 )
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.models import (
     MitigationRef,
     RetrievalScores,
     RiskMatch,

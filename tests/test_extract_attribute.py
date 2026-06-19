@@ -1,12 +1,12 @@
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.attribute import (
+from asago_policy_mapper.extract.attribute import (
     ground_and_extract_evidence,
     ground_risk_group,
     synthesize_causal_chain,
 )
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.models import (
     EvidenceSpan,
     LLMCallRecord,
     RetrievalScores,
@@ -15,7 +15,7 @@ from concorde_policy_mapper.extract.models import (
     _CausalChain,
     _RiskEvidence,
 )
-from concorde_policy_mapper.prompts import render_prompt
+from asago_policy_mapper.prompts import render_prompt
 
 
 def test_ground_and_extract_evidence_returns_grounded():

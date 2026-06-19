@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.models import RetrievalConfig
-from concorde_policy_mapper.extract.parse import Chunk
-from concorde_policy_mapper.extract.querygen import (
+from asago_policy_mapper.extract.models import RetrievalConfig
+from asago_policy_mapper.extract.parse import Chunk
+from asago_policy_mapper.extract.querygen import (
     ChunkGroup,
     GeneratedQueries,
     generate_queries,

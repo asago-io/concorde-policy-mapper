@@ -2,14 +2,14 @@ import json
 
 import pytest
 
-from concorde_policy_mapper.evals.eval import (
+from asago_policy_mapper.evals.eval import (
     _derive_categories,
     _infer_taxonomy,
     _load_risk_to_category_map,
     _sanitise_risk_id,
     evaluate_extraction,
 )
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.models import (
     ExtractionResult,
     RetrievalScores,
     RetrievalStats,

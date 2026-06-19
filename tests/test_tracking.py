@@ -2,7 +2,7 @@ import hashlib
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from concorde_policy_mapper.tracking import (
+from asago_policy_mapper.tracking import (
     TrackingContext,
     end_tracking,
     init_tracking,
@@ -21,7 +21,7 @@ def test_tracking_disabled_by_flag():
     end_tracking(ctx)
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_tracking_enabled_sets_experiment_and_starts_run(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -34,7 +34,7 @@ def test_tracking_enabled_sets_experiment_and_starts_run(mock_mlflow):
     mock_mlflow.start_run.assert_called_once_with(run_name="run-1")
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_tracking_survives_mlflow_failure(mock_mlflow):
     mock_mlflow.set_experiment.side_effect = Exception("connection refused")
 
@@ -42,7 +42,7 @@ def test_tracking_survives_mlflow_failure(mock_mlflow):
     assert not is_tracking_enabled(ctx)
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_end_tracking_calls_end_run(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -53,7 +53,7 @@ def test_end_tracking_calls_end_run(mock_mlflow):
     mock_mlflow.end_run.assert_called_once()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_params(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -64,14 +64,14 @@ def test_log_params(mock_mlflow):
     mock_mlflow.log_params.assert_called_once_with({"model": "gemma", "threshold": "0.7"})
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_params_skipped_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     log_params(ctx, {"model": "gemma"})
     mock_mlflow.log_params.assert_not_called()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_metrics(mock_mlflow):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -82,7 +82,7 @@ def test_log_metrics(mock_mlflow):
     mock_mlflow.log_metrics.assert_called_once_with({"recall": 0.85, "precision": 0.9})
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_artifact(mock_mlflow, tmp_path):
     mock_run = MagicMock()
     mock_run.info.run_id = "abc123"
@@ -96,7 +96,7 @@ def test_log_artifact(mock_mlflow, tmp_path):
     mock_mlflow.log_artifact.assert_called_once_with(str(artifact))
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_child_run(mock_mlflow):
     parent_run = MagicMock()
     parent_run.info.run_id = "parent123"
@@ -123,14 +123,14 @@ def test_log_child_run(mock_mlflow):
     assert calls[1].kwargs["nested"] is True
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_log_child_run_skipped_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     log_child_run(ctx, name="policy", params={}, metrics={}, tags={}, artifacts=[])
     mock_mlflow.start_run.assert_not_called()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_sync_prompts_registers_new_prompt(mock_mlflow, tmp_path):
     prompts_dir = tmp_path / "templates" / "prompts"
     prompts_dir.mkdir(parents=True)
@@ -150,7 +150,7 @@ def test_sync_prompts_registers_new_prompt(mock_mlflow, tmp_path):
     mock_mlflow.genai.register_prompt.assert_called_once()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_sync_prompts_skips_unchanged(mock_mlflow, tmp_path):
     prompts_dir = tmp_path / "templates" / "prompts"
     prompts_dir.mkdir(parents=True)
@@ -172,7 +172,7 @@ def test_sync_prompts_skips_unchanged(mock_mlflow, tmp_path):
     mock_mlflow.genai.register_prompt.assert_not_called()
 
 
-@patch("concorde_policy_mapper.tracking.mlflow")
+@patch("asago_policy_mapper.tracking.mlflow")
 def test_sync_prompts_returns_empty_when_disabled(mock_mlflow):
     ctx = TrackingContext(enabled=False)
     versions = sync_prompts(ctx, Path("/nonexistent"))

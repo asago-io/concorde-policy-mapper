@@ -138,7 +138,7 @@ def process_policy(
         print(f"  {policy}: no policy file found", file=sys.stderr)
         return []
 
-    from concorde_policy_mapper.extract.parse import parse_document, chunk_documents
+    from asago_policy_mapper.extract.parse import parse_document, chunk_documents
     try:
         parsed = parse_document(policy_file)
     except Exception as e:

@@ -5,7 +5,7 @@ import logging
 
 import dspy
 
-from concorde_policy_mapper.extract.index import RiskIndex
+from asago_policy_mapper.extract.index import RiskIndex
 from experiments.dspy_embedding.signature import RetrieveRisks
 
 logger = logging.getLogger(__name__)

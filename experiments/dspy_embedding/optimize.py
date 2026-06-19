@@ -23,7 +23,7 @@ from pathlib import Path
 
 import dspy
 
-from concorde_policy_mapper.extract.index import RiskIndex
+from asago_policy_mapper.extract.index import RiskIndex
 from experiments.dspy_embedding.dataset import (
     EVAL_POLICIES,
     TRAIN_POLICIES,
@@ -168,7 +168,7 @@ def main():
     # Load risks and build index
     risks = _load_risks(args.nexus_base_dir)
     # Use default instruction from RetrievalConfig for initial index
-    from concorde_policy_mapper.extract.models import RetrievalConfig
+    from asago_policy_mapper.extract.models import RetrievalConfig
     default_instruction = RetrievalConfig.query_instruction
     index = _build_index(risks, args.bi_encoder_model, default_instruction)
 

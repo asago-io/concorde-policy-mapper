@@ -3,19 +3,19 @@
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 
-from concorde_policy_mapper.extract.attribute import ground_variants
-from concorde_policy_mapper.extract.models import (
+from asago_policy_mapper.extract.attribute import ground_variants
+from asago_policy_mapper.extract.models import (
     EvidenceSpan,
     LLMCallRecord,
     RetrievalScores,
     RiskMatch,
     _RiskEvidence,
 )
-from concorde_policy_mapper.extract.pipeline import (
+from asago_policy_mapper.extract.pipeline import (
     _ground_variants_one,
     _run_variant_grounding,
 )
-from concorde_policy_mapper.prompts import render_prompt
+from asago_policy_mapper.prompts import render_prompt
 
 # ---------------------------------------------------------------------------
 # Fixtures
