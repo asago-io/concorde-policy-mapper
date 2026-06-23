@@ -9,7 +9,8 @@ from asago_policy_mapper.extract.models import (
     RiskMatch,
     ScoredCandidate,
     _CausalChain,
-    _RiskEvidence,
+    _CausalChains,
+    _RiskEvidenceList,
 )
 from asago_policy_mapper.prompts import render_prompt
 
@@ -56,11 +57,12 @@ def ground_and_extract_evidence(
         )
 
         t0 = time.time()
-        verdicts: list[_RiskEvidence] = client.chat.completions.create(
+        verdicts_resp = client.chat.completions.create(
             model=model,
-            response_model=list[_RiskEvidence],
+            response_model=_RiskEvidenceList,
             messages=messages,
         )
+        verdicts = verdicts_resp.items
         duration_ms = (time.time() - t0) * 1000
 
         batch_ids = {c.risk_id for c in batch}
@@ -132,11 +134,12 @@ def ground_variants(
     )
 
     t0 = time.time()
-    verdicts: list[_RiskEvidence] = client.chat.completions.create(
+    verdicts_resp = client.chat.completions.create(
         model=model,
-        response_model=list[_RiskEvidence],
+        response_model=_RiskEvidenceList,
         messages=messages,
     )
+    verdicts = verdicts_resp.items
     duration_ms = (time.time() - t0) * 1000
 
     variant_ids = {v["risk_id"] for v in variants}
@@ -208,11 +211,12 @@ def ground_risk_group(
     )
 
     t0 = time.time()
-    verdicts: list[_RiskEvidence] = client.chat.completions.create(
+    verdicts_resp = client.chat.completions.create(
         model=model,
-        response_model=list[_RiskEvidence],
+        response_model=_RiskEvidenceList,
         messages=messages,
     )
+    verdicts = verdicts_resp.items
     duration_ms = (time.time() - t0) * 1000
 
     risk_ids = {r["risk_id"] for r in risks}
@@ -288,11 +292,12 @@ def synthesize_causal_chain(
     )
 
     t0 = time.time()
-    results: list[_CausalChain] = client.chat.completions.create(
+    results_resp = client.chat.completions.create(
         model=model,
-        response_model=list[_CausalChain],
+        response_model=_CausalChains,
         messages=messages,
     )
+    results = results_resp.items
     duration_ms = (time.time() - t0) * 1000
 
     chain = results[0] if results else None

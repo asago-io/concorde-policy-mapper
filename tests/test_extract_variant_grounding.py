@@ -10,6 +10,7 @@ from asago_policy_mapper.extract.models import (
     RetrievalScores,
     RiskMatch,
     _RiskEvidence,
+    _RiskEvidenceList,
 )
 from asago_policy_mapper.extract.pipeline import (
     _ground_variants_one,
@@ -131,46 +132,48 @@ class TestGroundVariants:
     def test_selective_grounding(self):
         """LLM grounds 2 of 6 variants; only those 2 are returned."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[0]["risk_id"],
-                grounded=True,
-                confidence="high",
-                quotes=["facial recognition data was collected without consent"],
-            ),
-            _RiskEvidence(
-                risk_id=VARIANTS[1]["risk_id"],
-                grounded=False,
-                confidence="low",
-                quotes=[],
-                rejection_reason="No health data mentioned.",
-            ),
-            _RiskEvidence(
-                risk_id=VARIANTS[2]["risk_id"],
-                grounded=False,
-                confidence="low",
-                quotes=[],
-                rejection_reason="No financial data mentioned.",
-            ),
-            _RiskEvidence(
-                risk_id=VARIANTS[3]["risk_id"],
-                grounded=True,
-                confidence="medium",
-                quotes=["GPS tracking without user awareness"],
-            ),
-            _RiskEvidence(
-                risk_id=VARIANTS[4]["risk_id"],
-                grounded=False,
-                confidence="low",
-                quotes=[],
-            ),
-            _RiskEvidence(
-                risk_id=VARIANTS[5]["risk_id"],
-                grounded=False,
-                confidence="low",
-                quotes=[],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[0]["risk_id"],
+                    grounded=True,
+                    confidence="high",
+                    quotes=["facial recognition data was collected without consent"],
+                ),
+                _RiskEvidence(
+                    risk_id=VARIANTS[1]["risk_id"],
+                    grounded=False,
+                    confidence="low",
+                    quotes=[],
+                    rejection_reason="No health data mentioned.",
+                ),
+                _RiskEvidence(
+                    risk_id=VARIANTS[2]["risk_id"],
+                    grounded=False,
+                    confidence="low",
+                    quotes=[],
+                    rejection_reason="No financial data mentioned.",
+                ),
+                _RiskEvidence(
+                    risk_id=VARIANTS[3]["risk_id"],
+                    grounded=True,
+                    confidence="medium",
+                    quotes=["GPS tracking without user awareness"],
+                ),
+                _RiskEvidence(
+                    risk_id=VARIANTS[4]["risk_id"],
+                    grounded=False,
+                    confidence="low",
+                    quotes=[],
+                ),
+                _RiskEvidence(
+                    risk_id=VARIANTS[5]["risk_id"],
+                    grounded=False,
+                    confidence="low",
+                    quotes=[],
+                ),
+            ]
+        )
 
         result = ground_variants(
             chunk_text="facial recognition data was collected without consent. GPS tracking without user awareness.",
@@ -206,15 +209,17 @@ class TestGroundVariants:
     def test_none_grounded(self):
         """LLM grounds 0 variants; empty result."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=v["risk_id"],
-                grounded=False,
-                confidence="low",
-                quotes=[],
-            )
-            for v in VARIANTS
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=v["risk_id"],
+                    grounded=False,
+                    confidence="low",
+                    quotes=[],
+                )
+                for v in VARIANTS
+            ]
+        )
 
         result = ground_variants(
             chunk_text="Generic personal data processing without specifics.",
@@ -252,14 +257,16 @@ class TestGroundVariants:
     def test_ignores_unknown_variant_ids(self):
         """Verdicts for IDs not in the variant list are ignored."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id="some-unknown-id",
-                grounded=True,
-                confidence="high",
-                quotes=["Some evidence."],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id="some-unknown-id",
+                    grounded=True,
+                    confidence="high",
+                    quotes=["Some evidence."],
+                ),
+            ]
+        )
 
         result = ground_variants(
             chunk_text="Some text.",
@@ -278,14 +285,16 @@ class TestGroundVariants:
     def test_skips_empty_quotes(self):
         """Grounded verdict with only empty quotes → not included."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[0]["risk_id"],
-                grounded=True,
-                confidence="high",
-                quotes=["", "  ", ""],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[0]["risk_id"],
+                    grounded=True,
+                    confidence="high",
+                    quotes=["", "  ", ""],
+                ),
+            ]
+        )
 
         result = ground_variants(
             chunk_text="Some text.",
@@ -303,14 +312,16 @@ class TestGroundVariants:
 
     def test_captures_call_record(self, mock_client):
         """Call collector records a variant_grounding stage entry."""
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[0]["risk_id"],
-                grounded=True,
-                confidence="high",
-                quotes=["Biometric data collected."],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[0]["risk_id"],
+                    grounded=True,
+                    confidence="high",
+                    quotes=["Biometric data collected."],
+                ),
+            ]
+        )
 
         collector: list[LLMCallRecord] = []
         ground_variants(
@@ -372,14 +383,16 @@ class TestGroundVariantsOne:
     def test_returns_grounded_variants(self):
         """_ground_variants_one calls ground_variants and returns results."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[0]["risk_id"],
-                grounded=True,
-                confidence="high",
-                quotes=["biometric data"],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[0]["risk_id"],
+                    grounded=True,
+                    confidence="high",
+                    quotes=["biometric data"],
+                ),
+            ]
+        )
 
         parent = _make_parent_match(chunk_index=0)
         chunks = _make_chunks(["biometric data processing without consent."])
@@ -446,14 +459,16 @@ class TestRunVariantGrounding:
     def test_partitions_parent_and_non_parent(self):
         """Parent matches get variant grounding; non-parent pass through."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[0]["risk_id"],
-                grounded=True,
-                confidence="high",
-                quotes=["biometric data"],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[0]["risk_id"],
+                    grounded=True,
+                    confidence="high",
+                    quotes=["biometric data"],
+                ),
+            ]
+        )
 
         parent = _make_parent_match(chunk_index=0)
         non_parent = _make_non_parent_match()
@@ -476,14 +491,16 @@ class TestRunVariantGrounding:
     def test_variant_inherits_parent_scores(self):
         """Variant matches inherit the parent's retrieval scores."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[1]["risk_id"],
-                grounded=True,
-                confidence="medium",
-                quotes=["health records"],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[1]["risk_id"],
+                    grounded=True,
+                    confidence="medium",
+                    quotes=["health records"],
+                ),
+            ]
+        )
 
         parent = _make_parent_match(chunk_index=0)
         chunks = _make_chunks(["health records were accessed."])
@@ -528,15 +545,17 @@ class TestRunVariantGrounding:
     def test_zero_variants_grounded_drops_parent(self):
         """If LLM grounds zero variants, parent is dropped entirely."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=v["risk_id"],
-                grounded=False,
-                confidence="low",
-                quotes=[],
-            )
-            for v in VARIANTS
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=v["risk_id"],
+                    grounded=False,
+                    confidence="low",
+                    quotes=[],
+                )
+                for v in VARIANTS
+            ]
+        )
 
         parent = _make_parent_match(chunk_index=0)
         chunks = _make_chunks(["Generic data processing discussion."])
@@ -555,14 +574,16 @@ class TestRunVariantGrounding:
     def test_uses_chunk_contexts_when_provided(self):
         """When chunk_contexts is provided, uses padded text instead of raw chunk."""
         mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = [
-            _RiskEvidence(
-                risk_id=VARIANTS[0]["risk_id"],
-                grounded=True,
-                confidence="high",
-                quotes=["biometric data from padded context"],
-            ),
-        ]
+        mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=VARIANTS[0]["risk_id"],
+                    grounded=True,
+                    confidence="high",
+                    quotes=["biometric data from padded context"],
+                ),
+            ]
+        )
 
         parent = _make_parent_match(chunk_index=0)
         chunks = _make_chunks(["short chunk"])
