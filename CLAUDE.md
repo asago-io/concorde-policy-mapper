@@ -48,7 +48,7 @@ uv run mypy path/to/file.py
 
 ### Extraction Pipeline
 
-The pipeline in `extract/pipeline.py` has several alternative modes controlled by CLI flags — when modifying one path, be aware the others exist:
+The pipeline in `src/asago_policy_mapper/extract/pipeline.py` has several alternative modes controlled by CLI flags — when modifying one path, be aware the others exist:
 
 - **Default (query-gen on):** LLM generates search queries per section group, all candidates go to grounding. Disable with `--no-query-gen` to use per-chunk BM25+semantic retrieval with cross-encoder reranking and LLM judging.
 - `--no-cross-encoder`: RRF score floor filtering replaces cross-encoder reranking (no LLM judging)
