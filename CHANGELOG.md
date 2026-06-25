@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Docs
+- **Pipeline diagram & description accuracy**: fixed mermaid diagram to show correct data flow (query gen depends on chunks, not index), added missing `--no-judge` and `--no-grounding` bypass edges, added missing agentic risk filtering step, corrected Judge description (not fully skipped in query-gen mode — fallback chunks still go through judging), and completed causal synthesis chain description (added `threat_source` and `impact` fields)
+
 ### Fixed
 - **Instructor compatibility**: wrap bare `list[Model]` response models (`_JudgeVerdict`, `_RiskEvidence`, `_CausalChain`) in Pydantic wrapper classes (`_JudgeVerdicts`, `_RiskEvidenceList`, `_CausalChains`). Instructor 1.15.3+ calls `.model_json_schema()` on the response model, which fails on `list[...]`. Fixes 5 call sites across `retrieve.py` and `attribute.py`.
 

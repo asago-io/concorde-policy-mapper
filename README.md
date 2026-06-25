@@ -41,20 +41,41 @@ risk_extraction:
 
 The service parses and chunks input documents, then uses hybrid retrieval (keyword and semantic search) against the Nexus risk catalogue to identify candidate risks directly from the policy text. By default, an LLM generates search queries from chunk groups in risk-taxonomy vocabulary (disable with `--no-query-gen` to use raw chunk text). An LLM then grounds accepted candidates with evidence spans.
 
-```
-Documents → parse → chunk → retrieve → judge → ground → variant_ground → merge → expand → causal synthesis → mitigations
-                                                     ↑ ThreadPoolExecutor (parallel)
+```mermaid
+flowchart LR
+    docs[Documents] --> parse[Parse]
+    parse --> chunk[Chunk]
+    chunk --> filter[Filter\nagentic]
+    filter --> index[Index]
+    chunk --> qgen@{ shape: st-rect, label: "Query gen" }
+    qgen --> retrieve[Retrieve]
+    index --> retrieve
+    chunk -.->|--no-query-gen| retrieve
+    retrieve --> judge@{ shape: st-rect, label: "Judge" }
+    retrieve -.->|--no-judge| ground
+    judge --> ground@{ shape: st-rect, label: "Ground" }
+    ground --> vg@{ shape: st-rect, label: "Variant\nground" }
+    retrieve -.->|--no-grounding| merge
+    vg --> merge[Merge]
+    merge --> expand@{ shape: st-rect, label: "Expand" }
+    expand --> causal@{ shape: st-rect, label: "Causal\nsynthesis" }
+    expand -.->|--no-causal-synthesis| miti
+    causal -.->|CLI post‑processing| miti[Mitigations]
 ```
 
 1. **Parse** — Docling converts PDF/DOCX/HTML to markdown
 2. **Chunk** — Split into ~512-token chunks with page/section metadata
-3. **Index** — Build BM25 + bi-encoder + cross-encoder index over Nexus risks. Variant risks (IDs containing `---`) are collapsed into synthetic parent entries for indexing.
-4. **Retrieve** — By default, LLM query generation groups chunks by section and generates 1-3 search queries per group for hybrid search. With `--no-query-gen`: per-chunk hybrid search with RRF fusion and cross-encoder reranking.
-5. **Judge** — LLM judges borderline candidates (parallel; skipped in query-gen mode)
-6. **Ground** — LLM extracts evidence passages and confidence (parallel, multi-pass)
-7. **Variant ground** — For collapsed parent risks that survived grounding, a specialized LLM call selects only the specifically evidenced variant sub-types
-8. **Merge** — Deduplicate across chunks, keep top-3 evidence spans
-9. **Expand** — Sibling expansion: found risks are expanded to parent siblings + cross-taxonomy mappings, then grounded against relevant document chunks
+3. **Filter agentic risks** — If the document does not contain agent-related terminology, agentic risks are removed from the catalogue before indexing
+4. **Index** — Build BM25 + bi-encoder + cross-encoder index over Nexus risks. Variant risks (IDs containing `---`) are collapsed into synthetic parent entries for indexing.
+5. **Query gen** *(optional, on by default)* — LLM generates 1-3 search queries per section group in risk-taxonomy vocabulary (parallel; disable with `--no-query-gen`)
+6. **Retrieve** — Hybrid search using generated queries (or, with `--no-query-gen`, per-chunk BM25 + semantic search with RRF fusion and cross-encoder reranking)
+7. **Judge** — LLM judges borderline candidates (parallel; only applies to fallback chunks in query-gen mode, since query-gen chunks bypass borderline classification)
+8. **Ground** — LLM extracts evidence passages and confidence (parallel, multi-pass)
+9. **Variant ground** — For collapsed parent risks that survived grounding, a specialized LLM call selects only the specifically evidenced variant sub-types
+10. **Merge** — Deduplicate across chunks, keep top-3 evidence spans
+11. **Expand** — Sibling expansion: found risks are expanded to parent siblings + cross-taxonomy mappings, then grounded against relevant document chunks (parallel)
+12. **Causal synthesis** — LLM synthesizes threat-source → threat → vulnerability → consequence → impact chains per matched risk (parallel; disable with `--no-causal-synthesis`)
+13. **Mitigations** — CLI post-processing: enriches results with mitigation actions and risk cross-maps from Nexus (not part of the extraction pipeline)
 
 ### Two-Tier Evaluation
 
