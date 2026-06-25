@@ -19,7 +19,7 @@ test-slow:
 tidy: format lint type-check
 
 type-check:
-    uv run mypy src/concorde_policy_mapper/
+    uv run mypy src/asago_policy_mapper/
 
 lint:
     uv run ruff check src/ tests/
