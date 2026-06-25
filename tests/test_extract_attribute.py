@@ -13,27 +13,31 @@ from asago_policy_mapper.extract.models import (
     RiskMatch,
     ScoredCandidate,
     _CausalChain,
+    _CausalChains,
     _RiskEvidence,
+    _RiskEvidenceList,
 )
 from asago_policy_mapper.prompts import render_prompt
 
 
 def test_ground_and_extract_evidence_returns_grounded():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        MagicMock(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["AI bias was detected in the outputs.", "The model shows systematic bias."],
-        ),
-        MagicMock(
-            risk_id="R-002",
-            grounded=False,
-            confidence="low",
-            quotes=[],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = MagicMock(
+        items=[
+            MagicMock(
+                risk_id="R-001",
+                grounded=True,
+                confidence="high",
+                quotes=["AI bias was detected in the outputs.", "The model shows systematic bias."],
+            ),
+            MagicMock(
+                risk_id="R-002",
+                grounded=False,
+                confidence="low",
+                quotes=[],
+            ),
+        ]
+    )
 
     candidates = [
         ScoredCandidate(
@@ -89,14 +93,16 @@ def test_ground_and_extract_evidence_empty_candidates():
 
 def test_ground_and_extract_evidence_ignores_unknown_risk_ids():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        MagicMock(
-            risk_id="R-UNKNOWN",
-            grounded=True,
-            confidence="medium",
-            quotes=["Some quote."],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = MagicMock(
+        items=[
+            MagicMock(
+                risk_id="R-UNKNOWN",
+                grounded=True,
+                confidence="medium",
+                quotes=["Some quote."],
+            ),
+        ]
+    )
 
     candidates = [
         ScoredCandidate(
@@ -120,14 +126,16 @@ def test_ground_and_extract_evidence_ignores_unknown_risk_ids():
 
 def test_ground_and_extract_evidence_skips_empty_quotes():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        MagicMock(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["Valid quote.", "", "  "],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = MagicMock(
+        items=[
+            MagicMock(
+                risk_id="R-001",
+                grounded=True,
+                confidence="high",
+                quotes=["Valid quote.", "", "  "],
+            ),
+        ]
+    )
 
     candidates = [
         ScoredCandidate(
@@ -161,14 +169,16 @@ def test_ground_and_extract_evidence_captures_call(mock_client):
             cross_encoder_score=0.9,
         ),
     ]
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["AI systems must avoid bias"],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+        items=[
+            _RiskEvidence(
+                risk_id="R-001",
+                grounded=True,
+                confidence="high",
+                quotes=["AI systems must avoid bias"],
+            ),
+        ]
+    )
 
     collector: list[LLMCallRecord] = []
     result = ground_and_extract_evidence(
@@ -200,9 +210,9 @@ def test_ground_and_extract_evidence_no_collector(mock_client):
             cross_encoder_score=0.9,
         ),
     ]
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(risk_id="R-001", grounded=True, confidence="high", quotes=["text"]),
-    ]
+    mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+        items=[_RiskEvidence(risk_id="R-001", grounded=True, confidence="high", quotes=["text"])]
+    )
 
     result = ground_and_extract_evidence(
         chunk_text="text",
@@ -227,20 +237,22 @@ def _make_chunks(texts: list[str]):
 
 def test_ground_risk_group_returns_grounded():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["AI bias was detected."],
-        ),
-        _RiskEvidence(
-            risk_id="R-002",
-            grounded=False,
-            confidence="low",
-            quotes=[],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+        items=[
+            _RiskEvidence(
+                risk_id="R-001",
+                grounded=True,
+                confidence="high",
+                quotes=["AI bias was detected."],
+            ),
+            _RiskEvidence(
+                risk_id="R-002",
+                grounded=False,
+                confidence="low",
+                quotes=[],
+            ),
+        ]
+    )
 
     chunks = _make_chunks(["Chunk zero text.", "AI bias was detected. Data is clean."])
     risks = [
@@ -324,14 +336,16 @@ def test_ground_risk_group_out_of_range_chunks():
 
 def test_ground_risk_group_ignores_unknown_risk_ids():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(
-            risk_id="R-UNKNOWN",
-            grounded=True,
-            confidence="medium",
-            quotes=["Some evidence."],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+        items=[
+            _RiskEvidence(
+                risk_id="R-UNKNOWN",
+                grounded=True,
+                confidence="medium",
+                quotes=["Some evidence."],
+            ),
+        ]
+    )
 
     chunks = _make_chunks(["Some text with evidence."])
     risks = [
@@ -352,14 +366,16 @@ def test_ground_risk_group_ignores_unknown_risk_ids():
 
 def test_ground_risk_group_skips_empty_quotes():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["", "  ", ""],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+        items=[
+            _RiskEvidence(
+                risk_id="R-001",
+                grounded=True,
+                confidence="high",
+                quotes=["", "  ", ""],
+            ),
+        ]
+    )
 
     chunks = _make_chunks(["Chunk text here."])
     risks = [
@@ -384,20 +400,22 @@ def test_ground_risk_group_captures_call(mock_client):
         {"risk_id": "R-001", "risk_name": "Bias", "risk_description": "Model bias risk."},
         {"risk_id": "R-002", "risk_name": "Privacy", "risk_description": "Data privacy risk."},
     ]
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["Chunk one with bias evidence."],
-        ),
-        _RiskEvidence(
-            risk_id="R-002",
-            grounded=False,
-            confidence="low",
-            quotes=[],
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _RiskEvidenceList(
+        items=[
+            _RiskEvidence(
+                risk_id="R-001",
+                grounded=True,
+                confidence="high",
+                quotes=["Chunk one with bias evidence."],
+            ),
+            _RiskEvidence(
+                risk_id="R-002",
+                grounded=False,
+                confidence="low",
+                quotes=[],
+            ),
+        ]
+    )
 
     collector: list[LLMCallRecord] = []
     result = ground_risk_group(
@@ -478,15 +496,17 @@ def _make_risk_match(risk_id="atlas-bias", chunk_indices=None):
 
 
 def test_synthesize_causal_chain_success(mock_client):
-    mock_client.chat.completions.create.return_value = [
-        _CausalChain(
-            threat="AI credit scoring discriminates against protected groups",
-            threat_source="Biased training data from historical lending decisions",
-            vulnerability="No fairness auditing of model outputs",
-            consequence="Qualified applicants denied credit",
-            impact="Financial exclusion",
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _CausalChains(
+        items=[
+            _CausalChain(
+                threat="AI credit scoring discriminates against protected groups",
+                threat_source="Biased training data from historical lending decisions",
+                vulnerability="No fairness auditing of model outputs",
+                consequence="Qualified applicants denied credit",
+                impact="Financial exclusion",
+            ),
+        ]
+    )
 
     risk = _make_risk_match(chunk_indices=[0, 2])
     chunk_texts = {0: "AI in credit scoring must be fair.", 2: "Discrimination is prohibited."}
@@ -504,15 +524,17 @@ def test_synthesize_causal_chain_success(mock_client):
 
 
 def test_synthesize_causal_chain_empty_strings_return_none(mock_client):
-    mock_client.chat.completions.create.return_value = [
-        _CausalChain(
-            threat="",
-            threat_source="",
-            vulnerability="",
-            consequence="",
-            impact="",
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _CausalChains(
+        items=[
+            _CausalChain(
+                threat="",
+                threat_source="",
+                vulnerability="",
+                consequence="",
+                impact="",
+            ),
+        ]
+    )
 
     risk = _make_risk_match()
     chunk_texts = {0: "Some text.", 2: "More text."}
@@ -528,15 +550,17 @@ def test_synthesize_causal_chain_empty_strings_return_none(mock_client):
 
 
 def test_synthesize_causal_chain_records_call(mock_client):
-    mock_client.chat.completions.create.return_value = [
-        _CausalChain(
-            threat="Threat",
-            threat_source="Source",
-            vulnerability="Vuln",
-            consequence="Consequence",
-            impact="Impact",
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _CausalChains(
+        items=[
+            _CausalChain(
+                threat="Threat",
+                threat_source="Source",
+                vulnerability="Vuln",
+                consequence="Consequence",
+                impact="Impact",
+            ),
+        ]
+    )
 
     risk = _make_risk_match()
     chunk_texts = {0: "Text.", 2: "More."}

@@ -139,6 +139,10 @@ class _JudgeVerdict(BaseModel):
     justification: str
 
 
+class _JudgeVerdicts(BaseModel):
+    items: list[_JudgeVerdict]
+
+
 class _GroundingVerdict(BaseModel):
     risk_id: str
     grounded: bool
@@ -152,12 +156,20 @@ class _RiskEvidence(BaseModel):
     quotes: list[str]
 
 
+class _RiskEvidenceList(BaseModel):
+    items: list[_RiskEvidence]
+
+
 class _CausalChain(BaseModel):
     threat: str
     threat_source: str
     vulnerability: str
     consequence: str
     impact: str
+
+
+class _CausalChains(BaseModel):
+    items: list[_CausalChain]
 
 
 @dataclass

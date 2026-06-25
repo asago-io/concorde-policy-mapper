@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- **Instructor compatibility**: wrap bare `list[Model]` response models (`_JudgeVerdict`, `_RiskEvidence`, `_CausalChain`) in Pydantic wrapper classes (`_JudgeVerdicts`, `_RiskEvidenceList`, `_CausalChains`). Instructor 1.15.3+ calls `.model_json_schema()` on the response model, which fails on `list[...]`. Fixes 5 call sites across `retrieve.py` and `attribute.py`.
+
 ### Changed
 - **Project renamed** from `concorde-policy-mapper` to `asago-policy-mapper`. Python module is now `asago_policy_mapper`. CLI command is now `asago-policy-mapper`.
 

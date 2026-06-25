@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from asago_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
+from asago_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict, _JudgeVerdicts
 from asago_policy_mapper.extract.parse import Chunk
 from asago_policy_mapper.extract.retrieve import (
     build_chunk_contexts,
@@ -167,9 +167,9 @@ def test_classify_candidates_bm25_rescue_rank_based():
 
 def test_judge_borderline_accepts_relevant():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        MagicMock(risk_id="R-001", relevant=True, justification="Text discusses bias."),
-    ]
+    mock_client.chat.completions.create.return_value = MagicMock(
+        items=[MagicMock(risk_id="R-001", relevant=True, justification="Text discusses bias.")]
+    )
     candidates = [
         ScoredCandidate(
             risk_id="R-001",
@@ -190,9 +190,9 @@ def test_judge_borderline_accepts_relevant():
 
 def test_judge_borderline_rejects_irrelevant():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        MagicMock(risk_id="R-005", relevant=False, justification="No mention of jobs."),
-    ]
+    mock_client.chat.completions.create.return_value = MagicMock(
+        items=[MagicMock(risk_id="R-005", relevant=False, justification="No mention of jobs.")]
+    )
     candidates = [
         ScoredCandidate(
             risk_id="R-005",
@@ -219,9 +219,9 @@ def test_judge_borderline_empty_candidates():
 
 def test_judge_borderline_captures_call():
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        _JudgeVerdict(risk_id="R-001", relevant=True, justification="Relevant"),
-    ]
+    mock_client.chat.completions.create.return_value = _JudgeVerdicts(
+        items=[_JudgeVerdict(risk_id="R-001", relevant=True, justification="Relevant")]
+    )
     candidates = [
         ScoredCandidate(
             risk_id="R-001",
@@ -261,7 +261,7 @@ def test_judge_borderline_captures_call():
 def test_judge_borderline_no_collector():
     """Existing behavior: no collector arg, no error."""
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = _JudgeVerdicts(items=[])
     candidates = [
         ScoredCandidate(
             risk_id="R-001",

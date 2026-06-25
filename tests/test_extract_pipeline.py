@@ -12,7 +12,9 @@ from asago_policy_mapper.extract.models import (
     RiskMatch,
     ScoredCandidate,
     _CausalChain,
+    _CausalChains,
     _RiskEvidence,
+    _RiskEvidenceList,
 )
 from asago_policy_mapper.extract.pipeline import (
     _run_causal_synthesis,
@@ -52,7 +54,7 @@ def test_run_extraction_returns_extraction_result(mock_config, tmp_path):
     doc.write_text("AI systems must avoid bias and protect personal data. Training data integrity is critical.")
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -116,7 +118,7 @@ def test_run_extraction_multiple_documents(mock_config, tmp_path):
         docs.append(doc)
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=docs,
@@ -137,7 +139,7 @@ def test_run_extraction_metadata(mock_config, tmp_path):
     doc.write_text("AI risk document.")
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -159,7 +161,7 @@ def test_run_extraction_populates_chunks(mock_config, tmp_path):
     doc.write_text("AI systems must avoid bias and protect personal data. Training data integrity is critical.")
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -190,7 +192,7 @@ def test_run_extraction_populates_llm_calls(mock_config, tmp_path):
     )
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -247,7 +249,7 @@ def test_run_extraction_no_grounding_with_judge(mock_config, tmp_path):
     )
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -311,7 +313,7 @@ def test_run_extraction_no_cross_encoder(mock_config, tmp_path):
     )
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -398,7 +400,7 @@ def test_run_extraction_no_judge_with_grounding_accepted_by(mock_config, tmp_pat
     )
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -500,53 +502,26 @@ def test_run_extraction_expand_siblings(mock_config, tmp_path):
         "Training data integrity is critical for model reliability."
     )
 
-    call_count = 0
-
-    def mock_create(**kwargs):
-        nonlocal call_count
-        call_count += 1
-        response_model = kwargs.get("response_model")
-        if response_model and hasattr(response_model, "__args__"):
-            inner = response_model.__args__[0]
-            if inner == _RiskEvidence:
-                return [
-                    _RiskEvidence(
-                        risk_id=rid,
-                        grounded=True,
-                        confidence="medium",
-                        quotes=["bias detection and mitigation"],
-                    )
-                    for rid in kwargs.get("_risk_ids", [])
-                ]
-        return []
-
     mock_client = MagicMock()
     mock_client.chat.completions.create.side_effect = lambda **kwargs: (
-        [
-            _RiskEvidence(
-                risk_id=r["risk_id"],
-                grounded=True,
-                confidence="medium",
-                quotes=["bias detection and mitigation"],
-            )
-            for r in (
-                kwargs.get("messages", [{}])[-1].get("risks", [])
-                if isinstance(kwargs.get("messages", [{}])[-1], dict)
-                else []
-            )
-        ]
+        _RiskEvidenceList(
+            items=[
+                _RiskEvidence(
+                    risk_id=r["risk_id"],
+                    grounded=True,
+                    confidence="medium",
+                    quotes=["bias detection and mitigation"],
+                )
+                for r in (
+                    kwargs.get("messages", [{}])[-1].get("risks", [])
+                    if isinstance(kwargs.get("messages", [{}])[-1], dict)
+                    else []
+                )
+            ]
+        )
         if kwargs.get("response_model")
-        else []
+        else SimpleNamespace(items=[])
     )
-
-    mock_client.chat.completions.create.return_value = [
-        _RiskEvidence(
-            risk_id="R-001",
-            grounded=True,
-            confidence="high",
-            quotes=["bias detection"],
-        ),
-    ]
 
     result = run_extraction(
         documents=[doc],
@@ -603,7 +578,7 @@ def test_run_extraction_judge_with_cross_encoder(mock_config, tmp_path):
     )
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = []
+    mock_client.chat.completions.create.return_value = SimpleNamespace(items=[])
 
     result = run_extraction(
         documents=[doc],
@@ -647,15 +622,17 @@ def test_run_causal_synthesis_populates_fields():
     ]
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        _CausalChain(
-            threat="Credit scoring discriminates",
-            threat_source="Biased training data",
-            vulnerability="No fairness audit",
-            consequence="Applicants denied credit",
-            impact="Financial exclusion",
-        ),
-    ]
+    mock_client.chat.completions.create.return_value = _CausalChains(
+        items=[
+            _CausalChain(
+                threat="Credit scoring discriminates",
+                threat_source="Biased training data",
+                vulnerability="No fairness audit",
+                consequence="Applicants denied credit",
+                impact="Financial exclusion",
+            ),
+        ]
+    )
 
     from asago_policy_mapper.llm import LLMConfig
 
@@ -692,9 +669,9 @@ def test_run_causal_synthesis_skips_empty_results():
     chunks = [SimpleNamespace(text="Unrelated text about data retention.")]
 
     mock_client = MagicMock()
-    mock_client.chat.completions.create.return_value = [
-        _CausalChain(threat="", threat_source="", vulnerability="", consequence="", impact=""),
-    ]
+    mock_client.chat.completions.create.return_value = _CausalChains(
+        items=[_CausalChain(threat="", threat_source="", vulnerability="", consequence="", impact="")]
+    )
 
     from asago_policy_mapper.llm import LLMConfig
 

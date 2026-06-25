@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 import spacy
 
-from asago_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdict
+from asago_policy_mapper.extract.models import LLMCallRecord, ScoredCandidate, _JudgeVerdicts
 from asago_policy_mapper.extract.parse import Chunk
 from asago_policy_mapper.prompts import render_prompt
 
@@ -234,11 +234,12 @@ def judge_borderline(
         )
 
         t0 = time.time()
-        verdicts: list[_JudgeVerdict] = client.chat.completions.create(
+        verdicts_resp = client.chat.completions.create(
             model=model,
-            response_model=list[_JudgeVerdict],
+            response_model=_JudgeVerdicts,
             messages=messages,
         )
+        verdicts = verdicts_resp.items
         duration_ms = (time.time() - t0) * 1000
 
         batch_ids = {c.risk_id for c in batch}
