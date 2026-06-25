@@ -43,7 +43,7 @@ The service parses and chunks input documents, then uses hybrid retrieval (keywo
 
 ```mermaid
 flowchart LR
-    docs[Documents] --> parse[Parse]
+    docs@{ shape: doc, label: "Documents" } --> parse[Parse]
     parse --> chunk[Chunk]
     chunk --> filter[Filter\nagentic]
     filter --> index[Index]
