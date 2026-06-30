@@ -131,7 +131,7 @@ def main():
     )
     args = parser.parse_args()
 
-    data_dir = Path(__file__).resolve().parents[1] / "data"
+    data_dir = Path(__file__).resolve().parents[1] / "src" / "asago_policy_mapper" / "data"
     output_path = Path(args.output) if args.output else data_dir / "atlas_risk_to_actions.yaml"
 
     index: dict[str, list[dict]] = defaultdict(list)

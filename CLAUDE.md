@@ -55,7 +55,7 @@ The pipeline in `src/asago_policy_mapper/extract/pipeline.py` has several altern
 - `--no-judge`: borderline candidates auto-promoted (skips LLM judge)
 - `--no-grounding`: accepted candidates become matches without evidence extraction
 - `--no-judge --no-grounding`: pure IR evaluation — no LLM calls at all
-- `--no-causal-synthesis`: skips causal chain synthesis; static YAML chains from `data/` used as fallback
+- `--no-causal-synthesis`: skips causal chain synthesis; static YAML chains from `src/asago_policy_mapper/data/` used as fallback
 
 **Variant collapsing:** Risk IDs containing `---` (e.g. `unauthorized-processing---biometric-data`) are collapsed into synthetic parent entries for indexing. After grounding, a variant grounding step determines which specific sub-types have evidence. This affects how risk IDs flow through the entire pipeline — don't treat `---` IDs as regular risks.
 

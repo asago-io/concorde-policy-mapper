@@ -11,7 +11,7 @@ This semantic gap — from *"the model must not provide medical advice"* to `atl
 This software takes raw, unstructured policy documents and produces a **risk landscape**: a set of AI Risk Atlas Nexus risk identifiers with enrichments.
 
 - **Risk identification** — Identifies Nexus risk IDs (e.g., `atlas-hallucination`, `air-2024-0042`, `nist-ms-2.5`) directly from policy text
-- **Cross-taxonomy mapping** — A static SSSOM mapping (`data/risk_to_category.sssom.tsv`) maps extracted risks to category-level taxonomies (NIST AI RMF, OWASP Top 10 LLM, OWASP ASI, AILuminate)
+- **Cross-taxonomy mapping** — A static SSSOM mapping (`src/asago_policy_mapper/data/risk_to_category.sssom.tsv`) maps extracted risks to category-level taxonomies (NIST AI RMF, OWASP Top 10 LLM, OWASP ASI, AILuminate)
 - **Evidence grounding** — Each identified risk is grounded to specific passages in the source document, providing traceability from risk to policy text
 - **Confidence scoring** — Each risk mapping includes a confidence score, enabling human review of uncertain mappings
 
@@ -82,23 +82,23 @@ flowchart LR
 The pipeline extracts **risk-level** risks (IBM Risk Atlas, Credo UCF, AIR 2024, MIT AI Risk Repository — ~486 specific risks). Evaluation runs at two tiers:
 
 - **Tier 1 (risk-level)**: precision/recall/F1 on exact risk ID matches against ground truth
-- **Tier 2 (category-level)**: risk IDs are mapped to category-level taxonomies (NIST AI RMF, OWASP Top 10 LLM, OWASP ASI) via a static SSSOM cross-taxonomy mapping (`data/risk_to_category.sssom.tsv`), then precision/recall/F1 is computed per category taxonomy
+- **Tier 2 (category-level)**: risk IDs are mapped to category-level taxonomies (NIST AI RMF, OWASP Top 10 LLM, OWASP ASI) via a static SSSOM cross-taxonomy mapping (`src/asago_policy_mapper/data/risk_to_category.sssom.tsv`), then precision/recall/F1 is computed per category taxonomy
 
 Category-level eval answers "did we find the right risk themes?" — more forgiving than risk-level since finding *any* bias-related risk satisfies the NIST `harmful-bias-or-homogenization` category.
 
 ### Cross-Taxonomy Mapping
 
-`data/risk_to_category.sssom.tsv` is a static SSSOM file mapping 486 risk-level risks to 4 category-level taxonomies (NIST AI RMF 12 risks, OWASP LLM 10 risks, AILuminate 12 risks, OWASP ASI 10 risks). Built from Nexus mapping files + manually reviewed gap-fill for IBM agentic risks, Credo, MIT, and AIR 2024 (314 risks via group-level inheritance). Contains 802 entries; only strong predicates (exact/close/broadMatch) are used at eval time — relatedMatch is excluded.
+`src/asago_policy_mapper/data/risk_to_category.sssom.tsv` is a static SSSOM file mapping 486 risk-level risks to 4 category-level taxonomies (NIST AI RMF 12 risks, OWASP LLM 10 risks, AILuminate 12 risks, OWASP ASI 10 risks). Built from Nexus mapping files + manually reviewed gap-fill for IBM agentic risks, Credo, MIT, and AIR 2024 (314 risks via group-level inheritance). Contains 802 entries; only strong predicates (exact/close/broadMatch) are used at eval time — relatedMatch is excluded.
 
 ### Mitigation Index
 
-`data/atlas_risk_to_actions.yaml` maps 80 Atlas risk IDs to ~552 recommended mitigation actions across 3 frameworks:
+`src/asago_policy_mapper/data/atlas_risk_to_actions.yaml` maps 80 Atlas risk IDs to ~552 recommended mitigation actions across 3 frameworks:
 
-- **OWASP LLM Top 10 v2.0** (114 action-risk links) — `data/owasp_llm_2.0_actions_data.yaml`
-- **NIST AI RMF 600-1** (338 action-risk links) — `data/nist_ai_rmf_actions_to_atlas_data.yaml`
-- **AIUC-1** (100 action-risk links) — `data/aiuc1_actions_to_atlas_data.yaml`
+- **OWASP LLM Top 10 v2.0** (114 action-risk links) — `src/asago_policy_mapper/data/owasp_llm_2.0_actions_data.yaml`
+- **NIST AI RMF 600-1** (338 action-risk links) — `src/asago_policy_mapper/data/nist_ai_rmf_actions_to_atlas_data.yaml`
+- **AIUC-1** (100 action-risk links) — `src/asago_policy_mapper/data/aiuc1_actions_to_atlas_data.yaml`
 
-All mappings are direct `hasRelatedRisk: atlas-*` — no transitive cross-framework hops. Each action is categorized as `technical`, `operational`, or `governance` via rules in `data/mitigation_categories.yaml`. Regenerate after data file changes: `python scripts/build_mitigation_index.py`
+All mappings are direct `hasRelatedRisk: atlas-*` — no transitive cross-framework hops. Each action is categorized as `technical`, `operational`, or `governance` via rules in `src/asago_policy_mapper/data/mitigation_categories.yaml`. Regenerate after data file changes: `python scripts/build_mitigation_index.py`
 
 ### Prompt Templates
 

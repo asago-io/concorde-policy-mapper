@@ -175,7 +175,9 @@ def test_enrich_threats_via_crossmap(sample_index_path):
 
 def test_real_index_parses():
     """Smoke test: if the generated index file exists, verify it loads."""
-    real_path = Path(__file__).resolve().parents[1] / "data" / "atlas_risk_to_actions.yaml"
+    real_path = (
+        Path(__file__).resolve().parents[1] / "src" / "asago_policy_mapper" / "data" / "atlas_risk_to_actions.yaml"
+    )
     if not real_path.exists():
         pytest.skip("atlas_risk_to_actions.yaml not yet generated")
     index = load_mitigation_index(real_path)

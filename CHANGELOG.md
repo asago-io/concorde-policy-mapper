@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- **Data files now bundled in package**: moved `data/` directory from repo root into `src/asago_policy_mapper/data/` so data files (mitigation index, risk threats/consequences, cross-mappings, SSSOM category mappings) are included in the wheel. Previously, pip-installed users got empty mitigations and missing category-level eval because `Path(__file__).parents[3]` resolved to `site-packages/` instead of the repo root.
+
 ### Docs
 - **Pipeline diagram & description accuracy**: fixed mermaid diagram to show correct data flow (query gen depends on chunks, not index), added missing `--no-judge` and `--no-grounding` bypass edges, added missing agentic risk filtering step, corrected Judge description (not fully skipped in query-gen mode — fallback chunks still go through judging), and completed causal synthesis chain description (added `threat_source` and `impact` fields)
 
@@ -75,10 +78,10 @@
 ### Added
 - **`tests/test_llm.py`**: unit tests for low-coverage LLM utility functions — `_strip_titles`, `TokenTracker` methods (`add`, `_usage_values`, `to_dict`, `record_incident`, `set_stage`), `_track_completion`, `_extract_response_content`, `_truncate_messages`, and `_call_with_retry` outer loop (43 tests).
 - **Mitigation recommendations**: each extracted risk now includes recommended mitigation actions from 3 frameworks (OWASP LLM Top 10, NIST AI RMF 600-1, AIUC-1). Pre-built index maps 80 Atlas risks to ~552 action entries via direct `action → atlas-*` mappings (no transitive cross-framework hops). Non-Atlas risks resolve to Atlas equivalents via Nexus cross-framework mappings at enrichment time. Mitigations appear in JSON output (`mitigations` field on `RiskMatch` with `action_id`, `action_name`, `description`, `source`, `category`) and in the HTML report as an expandable section per risk, grouped by category (technical/operational/governance) then source.
-- **`scripts/build_mitigation_index.py`**: generates `data/atlas_risk_to_actions.yaml` from 3 direct mapping files. Each action is categorized as `technical`, `operational`, or `governance` via rules in `data/mitigation_categories.yaml`.
-- **Direct action→risk mapping files**: `data/nist_ai_rmf_actions_to_atlas_data.yaml` (212 NIST actions → 338 risk links), `data/aiuc1_actions_to_atlas_data.yaml` (49 AIUC-1 requirements → 100 risk links). All hand-reviewed.
-- **`data/mitigation_categories.yaml`**: category assignment rules (NIST RMF prefix → category, AIUC-1 principle → category) plus explicit assignments for OWASP actions.
-- **`data/owasp_llm_2.0_actions_data.yaml`**: 80 structured mitigation actions extracted from OWASP LLM Top 10 v2.0, each mapped to Atlas risk IDs.
+- **`scripts/build_mitigation_index.py`**: generates `src/asago_policy_mapper/data/atlas_risk_to_actions.yaml` from 3 direct mapping files. Each action is categorized as `technical`, `operational`, or `governance` via rules in `src/asago_policy_mapper/data/mitigation_categories.yaml`.
+- **Direct action→risk mapping files**: `src/asago_policy_mapper/data/nist_ai_rmf_actions_to_atlas_data.yaml` (212 NIST actions → 338 risk links), `src/asago_policy_mapper/data/aiuc1_actions_to_atlas_data.yaml` (49 AIUC-1 requirements → 100 risk links). All hand-reviewed.
+- **`src/asago_policy_mapper/data/mitigation_categories.yaml`**: category assignment rules (NIST RMF prefix → category, AIUC-1 principle → category) plus explicit assignments for OWASP actions.
+- **`src/asago_policy_mapper/data/owasp_llm_2.0_actions_data.yaml`**: 80 structured mitigation actions extracted from OWASP LLM Top 10 v2.0, each mapped to Atlas risk IDs.
 - **`--no-judge` flag**: skips LLM judge stage; auto-promotes borderline candidates to accepted.
 - **`--no-grounding` flag**: skips LLM grounding stage; accepted candidates become matches with empty evidence. Both flags can be used independently or together. `--base-url`/`--model` are optional when both are set.
 - **`--chunk-max-tokens` flag**: configurable chunk size (default: 512). Exposed in CLI and battery runner.
@@ -88,7 +91,7 @@
 ### Changed
 - **Retrieval defaults tuned for recall**: `top_n_accept` 5→10, `top_n_judge` 5→10, `min_score_floor` 0.0→0.70, `bm25_rescue_rank` 10→0, `rrf_min_score` 0.01→0.015. BM25 rescue disabled (10.8% precision, −0.034 F1). RRF floor raised to 0.015 for no-cross-encoder mode (R=0.852, cuts ~16% of noise with minimal recall loss).
 - **Two-tier evaluation**: category-level precision/recall/F1 alongside risk-level metrics. Evaluates whether the pipeline captures the right risk *themes* (NIST AI RMF, OWASP LLM, OWASP ASI categories) even when individual risk-level matches are missed. Category-level NIST F1=0.938 vs risk-level F1=0.771.
-- **Cross-taxonomy SSSOM mapping** (`data/risk_to_category.sssom.tsv`): 802 mappings linking 486 specific risks (IBM Risk Atlas, Credo UCF, AIR 2024, MIT AI Risk Repository) to 4 category-level taxonomies (NIST AI RMF, OWASP Top 10 LLM, AILuminate, OWASP ASI). Built from existing Nexus mapping files + manually reviewed gap-fill.
+- **Cross-taxonomy SSSOM mapping** (`src/asago_policy_mapper/data/risk_to_category.sssom.tsv`): 802 mappings linking 486 specific risks (IBM Risk Atlas, Credo UCF, AIR 2024, MIT AI Risk Repository) to 4 category-level taxonomies (NIST AI RMF, OWASP Top 10 LLM, AILuminate, OWASP ASI). Built from existing Nexus mapping files + manually reviewed gap-fill.
 - Risk ID sanitisation in eval to handle malformed upstream Nexus IDs (name appended after space).
 - OWASP ASI (Agentic Security Initiative) taxonomy support as a category-level target.
 

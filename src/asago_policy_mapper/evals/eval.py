@@ -45,7 +45,7 @@ def _load_risk_to_category_map(
     Only includes mappings with strong predicates (exact/close/broad).
     """
     if sssom_path is None:
-        sssom_path = Path(__file__).resolve().parents[3] / "data" / "risk_to_category.sssom.tsv"
+        sssom_path = Path(__file__).resolve().parents[1] / "data" / "risk_to_category.sssom.tsv"
     if not sssom_path.exists():
         return {}
 

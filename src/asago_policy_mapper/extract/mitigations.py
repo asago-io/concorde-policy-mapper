@@ -9,10 +9,11 @@ from asago_policy_mapper.extract.models import MitigationRef, RiskMatch
 
 logger = logging.getLogger(__name__)
 
-_DEFAULT_INDEX_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_to_actions.yaml"
-_DEFAULT_THREATS_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_threats.yaml"
-_DEFAULT_CONSEQUENCES_PATH = Path(__file__).resolve().parents[3] / "data" / "atlas_risk_consequences.yaml"
-_DEFAULT_AIR_CROSSMAP_PATH = Path(__file__).resolve().parents[3] / "data" / "air_2024_to_atlas_mappings.yaml"
+_DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+_DEFAULT_INDEX_PATH = _DATA_DIR / "atlas_risk_to_actions.yaml"
+_DEFAULT_THREATS_PATH = _DATA_DIR / "atlas_risk_threats.yaml"
+_DEFAULT_CONSEQUENCES_PATH = _DATA_DIR / "atlas_risk_consequences.yaml"
+_DEFAULT_AIR_CROSSMAP_PATH = _DATA_DIR / "air_2024_to_atlas_mappings.yaml"
 
 
 def load_mitigation_index(
@@ -50,7 +51,7 @@ def build_action_descriptions(
 ) -> dict[str, str]:
     """Build action_id → description lookup from Nexus YAML files and local data."""
     kg = Path(nexus_base_dir) / "src" / "ai_atlas_nexus" / "data" / "knowledge_graph"
-    data_dir = data_dir or Path(__file__).resolve().parents[3] / "data"
+    data_dir = data_dir or _DATA_DIR
     descs: dict[str, str] = {}
 
     sources = [
